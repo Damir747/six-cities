@@ -1,4 +1,4 @@
-const OfferCards = [
+const offerCards = [
   {
     id: `1`,
     mark: `Premium`,
@@ -58,4 +58,4 @@ const OfferCards = [
   },
 ];
 
-export default OfferCards;
+export { offerCards };

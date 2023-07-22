@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 
 const STAR_WIDTH = 20;
 
-const OfferCard = ({ item = {} }) => {
-  const { mark, href, img, price, attribute, hasBookmark, rating, name, type } = item;
+const OfferCard = ({item = {}}) => {
+  const {mark, href, img, price, attribute, hasBookmark, rating, name, type} = item;
   const activeBookmarkClass = hasBookmark ? `place-card__bookmark-button--active` : ``;
 
   return (
@@ -22,7 +22,7 @@ const OfferCard = ({ item = {} }) => {
             src={img}
             width="260"
             height="200"
-            alt="Place image" />
+            alt="Place image"/>
         </a>
       </div>
       <div className="place-card__info">
@@ -40,7 +40,7 @@ const OfferCard = ({ item = {} }) => {
             <svg className="place-card__bookmark-icon"
               width="18"
               height="19">
-              <use xlinkHref="#icon-bookmark" />
+              <use xlinkHref="#icon-bookmark"/>
             </svg>
             <span className="visually-hidden">
               To bookmarks
@@ -51,7 +51,7 @@ const OfferCard = ({ item = {} }) => {
           <div className="place-card__stars rating__stars">
             <span style={{
               width: `${rating * STAR_WIDTH}%`
-            }} />
+            }}/>
             <span className="visually-hidden">
               Rating
             </span>
