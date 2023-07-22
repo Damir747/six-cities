@@ -1,10 +1,10 @@
-import React from "react";
-import ReactDom from "react-dom";
+import React from 'react';
+import ReactDom from 'react-dom';
 
-import App from "./components/app/App";
-import { offerCards } from "./mock-data";
+import App from './components/app/app';
+import { offerCards } from './mock-data';
 
 ReactDom.render(
-  <App offersCards={offerCards} />,
+  <App offerCards={offerCards} />,
   document.getElementById(`root`),
 );
