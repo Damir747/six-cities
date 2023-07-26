@@ -1,7 +1,11 @@
 import React from "react";
+import PropTypes from "prop-types";
 import CityPlaces from "../city-places/city-places";
+import { cities } from "../mock-data";
+import { menu } from "../../types/menu";
+import { room } from "../../types/room";
 
-const MainPage = () => {
+const MainPage = ({ menuUpArray, rooms }) => {
   return (
     <React.Fragment>
       <div style={{ display: 'none' }}>
@@ -53,48 +57,37 @@ const MainPage = () => {
           <div className="tabs">
             <section className="locations container">
               <ul className="locations__list tabs__list">
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
-                    <span>Paris</span>
-                  </a>
-                </li>
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
-                    <span>Cologne</span>
-                  </a>
-                </li>
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
-                    <span>Brussels</span>
-                  </a>
-                </li>
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item tabs__item--active">
-                    <span>Amsterdam</span>
-                  </a>
-                </li>
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
-                    <span>Hamburg</span>
-                  </a>
-                </li>
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
-                    <span>Dusseldorf</span>
-                  </a>
-                </li>
+                {cities.map((city) => {
+                  return (
+                    <li key={city.id} className="locations__item">
+                      <a className={['locations__item-link', 'tabs__item',
+                        city.cityName === 'Amsterdam' ? 'tabs__item--active' : ''].join(' ')} href="#">
+                        <span>{city.cityName}</span>
+                      </a>
+                    </li>
+                  );
+                })}
               </ul>
             </section>
           </div>
           <div className="cities">
             <div className="cities__places-container container">
-              <CityPlaces city={"Amsterdam"}></CityPlaces>
+              <CityPlaces cityName={"Amsterdam"} menuUpArray={menuUpArray} rooms={rooms}></CityPlaces>
             </div>
           </div>
         </main>
       </div>
     </React.Fragment>
   );
-}
+};
+
+MainPage.propType = {
+  menuUpArray: PropTypes.arrayOf(
+    menu.isRequired
+  ),
+  rooms: PropTypes.arrayOf(
+    room.isRequired
+  ),
+};
 
 export default MainPage;

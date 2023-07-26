@@ -1,28 +1,28 @@
-export const menuUpArray = [
+const menuUpArray = [
   {
-    key: 0,
+    id: 0,
     class: 'places__option--active',
     title: 'Popular',
   },
   {
-    key: 1,
+    id: 1,
     class: '',
     title: 'Price: low to high',
   },
   {
-    key: 2,
+    id: 2,
     class: '',
     title: 'Price: high to low',
   },
   {
-    key: 3,
+    id: 3,
     class: '',
     title: 'Top rated first',
   }];
 
-export const cities = [
+const rooms = [
   {
-    key: 0,
+    id: 0,
     level: 'Premium',
     img: '../img/apartment-01.jpg',
     priceValue: '120',
@@ -33,7 +33,7 @@ export const cities = [
     type: 'Apartment',
   },
   {
-    key: 1,
+    id: 1,
     level: '',
     img: 'img/room.jpg',
     priceValue: '80',
@@ -44,7 +44,7 @@ export const cities = [
     type: 'Private room',
   },
   {
-    key: 2,
+    id: 2,
     level: '',
     img: 'img/apartment-02.jpg',
     priceValue: '132',
@@ -55,7 +55,7 @@ export const cities = [
     type: 'Apartment',
   },
   {
-    key: 3,
+    id: 3,
     level: 'Premium',
     img: 'img/apartment-03.jpg',
     priceValue: '180',
@@ -66,7 +66,7 @@ export const cities = [
     type: 'Apartment',
   },
   {
-    key: 4,
+    id: 4,
     level: '',
     img: 'img/room.jpg',
     priceValue: '80',
@@ -78,29 +78,37 @@ export const cities = [
   }
 ];
 
-export const cityPlaces = [
+const cities = [
   {
-    city: 'Paris',
+    id: 0,
+    cityName: 'Paris',
+    places: 310,
+  },
+  {
+    id: 2,
+    cityName: 'Cologne',
+    places: 311,
+  },
+  {
+    id: 3,
+    cityName: 'Brussels',
+    places: 212,
+  },
+  {
+    id: 4,
+    cityName: 'Amsterdam',
     places: 312,
   },
   {
-    city: 'Cologne',
-    places: 312,
+    id: 5,
+    cityName: 'Hamburg',
+    places: 313,
   },
   {
-    city: 'Brussels',
-    places: 312,
-  },
-  {
-    city: 'Amsterdam',
-    places: 312,
-  },
-  {
-    city: 'Hamburg',
-    places: 312,
-  },
-  {
-    city: 'Dusseldorf',
-    places: 312,
+    id: 6,
+    cityName: 'Dusseldorf',
+    places: 314,
   }
 ];
+
+export { menuUpArray, rooms, cities };

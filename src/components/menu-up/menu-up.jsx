@@ -1,8 +1,9 @@
 import React from "react";
-import { menuUpArray } from "../mock-data";
+import PropTypes from "prop-types";
+import { menu } from "../../types/menu";
 // 'places__options--opened' - для раскрытия меню
 
-const MenuUp = () => {
+const MenuUp = ({ menuUpArray }) => {
 
   return (
     <>
@@ -15,11 +16,17 @@ const MenuUp = () => {
           </svg>
         </span>
         <ul className="places__options places__options--custom">
-          {menuUpArray.map(el => <li className="places__option {el.class}" key={el.key} tabIndex="{el.key}">{el.title}</li>)}
+          {menuUpArray.map(el => <li className={['places__option', el.class].join(' ')} key={el.id} tabIndex={el.id} > {el.title}</li>)}
         </ul>
-      </form>
+      </form >
     </>
   );
+};
+
+MenuUp.propTypes = {
+  menuUpArray: PropTypes.arrayOf(
+    menu.isRequired
+  ),
 };
 
 export default MenuUp;
