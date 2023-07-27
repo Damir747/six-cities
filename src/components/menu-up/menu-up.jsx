@@ -16,7 +16,7 @@ const MenuUp = ({ menuUpArray }) => {
           </svg>
         </span>
         <ul className="places__options places__options--custom">
-          {menuUpArray.map(el => <li className={['places__option', el.class].join(' ')} key={el.id} tabIndex={el.id} > {el.title}</li>)}
+          {menuUpArray.map((el) => <li className={['places__option', el.class].join(' ')} key={el.id} tabIndex={el.id} > {el.title}</li>)}
         </ul>
       </form >
     </>

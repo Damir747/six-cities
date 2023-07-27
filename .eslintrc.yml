@@ -18,5 +18,7 @@ settings:
     version: '16'
 
 
-indent: ['error', 2]
-
+rules:
+  indent: ['error', 2]
+  object-curly-spacing: 'off'
+  quotes: 'off'
