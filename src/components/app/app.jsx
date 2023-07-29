@@ -1,15 +1,17 @@
 import React from 'react';
+import PropTypes from "prop-types";
+
 import MainPage from '../main-page/main-page';
-import { rooms } from "../mock-data";
 import { menuUpArray } from "../mock-data";
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import LoginPage from '../login-page/login-page';
 import FavoritesPage from '../favorites-page/favorite-page';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import AppRoute from '../../const';
+import { AppRoute } from '../../const';
+import { room } from "../../types/room";
 import Property from '../property/property';
 
-const App = () => {
+const App = ({ rooms }) => {
   return (
     <>
       <BrowserRouter>
@@ -33,6 +35,12 @@ const App = () => {
       </BrowserRouter>
     </>
   );
+};
+
+App.propTypes = {
+  rooms: PropTypes.arrayOf(
+    room.isRequired
+  ),
 };
 
 export default App;

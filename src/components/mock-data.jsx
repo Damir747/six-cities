@@ -30,7 +30,7 @@ const rooms = [
     bookmark: 'To bookmarks',
     rating: 80,
     card: 'Beautiful &amp; luxurious apartment at great location',
-    type: 'Apartment',
+    type: 'apartment',
   },
   {
     id: 1,
@@ -41,7 +41,7 @@ const rooms = [
     bookmark: 'In bookmarks',
     rating: 30,
     card: 'Wood and stone placen',
-    type: 'Private room',
+    type: 'room',
   },
   {
     id: 2,
@@ -52,7 +52,7 @@ const rooms = [
     bookmark: 'To bookmarks',
     rating: 50,
     card: 'Canal View Prinsengracht',
-    type: 'Apartment',
+    type: 'apartment',
   },
   {
     id: 3,
@@ -63,7 +63,7 @@ const rooms = [
     bookmark: 'To bookmarks',
     rating: 100,
     card: 'Nice, cozy, warm big bed apartment',
-    type: 'Apartment',
+    type: 'apartment',
   },
   {
     id: 4,
@@ -74,7 +74,7 @@ const rooms = [
     bookmark: 'In bookmarks',
     rating: 80,
     card: 'Wood and stone place',
-    type: 'Private room',
+    type: 'room',
   }
 ];
 
@@ -111,4 +111,10 @@ const cities = [
   }
 ];
 
-export { menuUpArray, rooms, cities };
+const roomType = [
+  'apartment',
+  'room',
+  'house',
+  'hotel'
+];
+export { menuUpArray, rooms, cities, roomType };

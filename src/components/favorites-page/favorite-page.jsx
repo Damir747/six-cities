@@ -2,7 +2,7 @@ import React from "react";
 import Top from "../top/top";
 import Header from "../header/header";
 import FavoriteElements from "../favorite-elements/favorite-elements";
-import AppRoute from "../../const";
+import { AppRoute } from "../../const";
 import { rooms } from "../mock-data";
 
 const FavoritesPage = () => {

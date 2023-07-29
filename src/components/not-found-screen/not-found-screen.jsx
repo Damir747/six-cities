@@ -1,7 +1,7 @@
 import React from "react";
 import Top from "../top/top";
 import Header from "../header/header";
-import AppRoute from "../../const";
+import { AppRoute } from "../../const";
 import { Link } from 'react-router-dom';
 
 const NotFoundScreen = () => {

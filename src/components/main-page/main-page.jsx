@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+
 import CityPlaces from "../city-places/city-places";
 import { cities } from "../mock-data";
 import { menu } from "../../types/menu";
@@ -44,7 +45,7 @@ const MainPage = ({ menuUpArray, rooms }) => {
   );
 };
 
-MainPage.propType = {
+MainPage.propTypes = {
   menuUpArray: PropTypes.arrayOf(
     menu.isRequired
   ),

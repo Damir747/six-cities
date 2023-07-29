@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import { room } from "../../types/room";
+import { capitalizeFirstLetter, roundRating } from "../../utils/utils";
+import { IN_BOOKMARKS } from "../../const";
 
 const OfferCard = ({ rooms }) => {
 
@@ -26,8 +28,7 @@ const OfferCard = ({ rooms }) => {
                     <span className="place-card__price-text">&#47;&nbsp;{roomElement.priceText}</span>
                   </div>
                   <button className={['place-card__bookmark-button', 'button',
-                    roomElement.bookmark === 'In bookmarks' ? 'place-card__bookmark-button--active' : ''].join(' ')}
-                    type="button">
+                    roomElement.bookmark === IN_BOOKMARKS ? 'place-card__bookmark-button--active' : ''].join(' ')} type="button">
 
                     <svg className="place-card__bookmark-icon" width="18" height="19">
                       <use xlinkHref="#icon-bookmark"></use>
@@ -37,14 +38,14 @@ const OfferCard = ({ rooms }) => {
                 </div>
                 <div className="place-card__rating rating">
                   <div className="place-card__stars rating__stars">
-                    <span style={{ width: `${roomElement.rating}%` }} ></span>
+                    <span style={{ width: `${roundRating(roomElement.rating)}%` }} ></span>
                     <span className="visually-hidden">Rating</span>
                   </div>
                 </div>
                 <h2 className="place-card__name">
                   <a href="#">{roomElement.card}</a>
                 </h2>
-                <p className="place-card__type">{roomElement.type}</p>
+                <p className="place-card__type">{capitalizeFirstLetter(roomElement.type)}</p>
               </div>
             </article >
           );

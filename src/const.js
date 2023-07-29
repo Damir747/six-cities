@@ -5,4 +5,6 @@ const AppRoute = {
   OFFER: `/offer/:id`,
 };
 
-export default AppRoute;
+const IN_BOOKMARKS = 'In bookmarks';
+
+export { AppRoute, IN_BOOKMARKS };
