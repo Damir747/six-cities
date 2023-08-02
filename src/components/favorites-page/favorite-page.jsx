@@ -1,11 +1,12 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Top from "../top/top";
 import Header from "../header/header";
 import FavoriteElements from "../favorite-elements/favorite-elements";
 import { AppRoute } from "../../const";
-import { rooms } from "../mock-data";
+import roomType from "../../types/room";
 
-const FavoritesPage = () => {
+const FavoritesPage = ({ rooms }) => {
   return (
     <React.Fragment>
       <Top />
@@ -25,4 +26,9 @@ const FavoritesPage = () => {
   );
 };
 
+FavoritesPage.propTypes = {
+  rooms: PropTypes.arrayOf(
+    roomType.isRequired
+  ),
+};
 export default FavoritesPage;

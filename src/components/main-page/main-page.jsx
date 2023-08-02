@@ -2,9 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import CityPlaces from "../city-places/city-places";
-import { cities } from "../mock-data";
-import { menu } from "../../types/menu";
-import { room } from "../../types/room";
+import cities from '../../mock/mock-cities';
+import menuType from "../../types/menu";
+import roomType from "../../types/room";
 import Top from "../top/top";
 import Header from "../header/header";
 
@@ -47,10 +47,10 @@ const MainPage = ({ menuUpArray, rooms }) => {
 
 MainPage.propTypes = {
   menuUpArray: PropTypes.arrayOf(
-    menu.isRequired
+    menuType.isRequired
   ),
   rooms: PropTypes.arrayOf(
-    room.isRequired
+    roomType.isRequired
   ),
 };
 

@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { menu } from "../../types/menu";
+import menuType from "../../types/menu";
 // 'places__options--opened' - для раскрытия меню
 
 const MenuUp = ({ menuUpArray }) => {
 
   return (
-    <>
+    <React.Fragment>
       <form className="places__sorting" action="#" method="get">
         <span className="places__sorting-caption">Sort by</span>
         <span className="places__sorting-type" tabIndex="0">
@@ -19,13 +19,13 @@ const MenuUp = ({ menuUpArray }) => {
           {menuUpArray.map((el) => <li className={['places__option', el.class].join(' ')} key={el.id} tabIndex={el.id} > {el.title}</li>)}
         </ul>
       </form >
-    </>
+    </React.Fragment>
   );
 };
 
 MenuUp.propTypes = {
   menuUpArray: PropTypes.arrayOf(
-    menu.isRequired
+    menuType.isRequired
   ),
 };
 

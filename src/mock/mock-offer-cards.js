@@ -58,4 +58,4 @@ const offerCards = [
   },
 ];
 
-export { offerCards };
+export default offerCards;

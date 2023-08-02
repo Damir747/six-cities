@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { shape } from 'prop-types';
 
-const room = shape({
+const roomType = shape({
   id: PropTypes.number.isRequired,
   level: PropTypes.string,
   img: PropTypes.string,
@@ -13,4 +13,4 @@ const room = shape({
   type: PropTypes.string,
 });
 
-export { room };
+export default roomType;

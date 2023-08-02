@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from "prop-types";
 
 import MainPage from '../main-page/main-page';
-import { menuUpArray } from "../mock-data";
+import menuUpArray from '../../mock/mock-menu';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import LoginPage from '../login-page/login-page';
 import FavoritesPage from '../favorites-page/favorite-page';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { AppRoute } from '../../const';
-import { room } from "../../types/room";
+import roomType from "../../types/room";
 import Property from '../property/property';
 
 const App = ({ rooms }) => {
@@ -23,7 +23,7 @@ const App = ({ rooms }) => {
             <LoginPage />
           </Route>
           <Route exact path={AppRoute.FAVORITES}>
-            <FavoritesPage />
+            <FavoritesPage rooms={rooms} />
           </Route>
           <Route exact path={AppRoute.OFFER}>
             <Property />
@@ -39,7 +39,7 @@ const App = ({ rooms }) => {
 
 App.propTypes = {
   rooms: PropTypes.arrayOf(
-    room.isRequired
+    roomType.isRequired
   ),
 };
 

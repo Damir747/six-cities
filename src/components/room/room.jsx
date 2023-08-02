@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { room } from "../../types/room";
+import roomType from "../../types/room";
 import { IN_BOOKMARKS } from "../../const";
 import { capitalizeFirstLetter, roundRating } from "../../utils/utils";
 
@@ -59,7 +59,7 @@ const Room = ({ roomElement, onMouseEnter, onMouseLeave }) => {
 };
 
 Room.propTypes = {
-  roomElement: room,
+  roomElement: roomType,
   onMouseEnter: PropTypes.func,
   onMouseLeave: PropTypes.func,
 };
