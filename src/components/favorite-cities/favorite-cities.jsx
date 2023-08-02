@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import cityType from '../../types/city';
 import FavoriteCityRooms from "../favorite-city-rooms/favorite-city-rooms";
 import roomType from '../../types/room';
+import { AppRoute } from "../../const";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 const FavoriteCities = ({ cities, rooms }) => {
 
@@ -17,9 +19,9 @@ const FavoriteCities = ({ cities, rooms }) => {
           <li key={city.id} className="favorites__locations-items">
             <div className="favorites__locations locations locations--current">
               <div className="locations__item">
-                <a className="locations__item-link" href="#">
+                <Link className="locations__item-link" to={AppRoute.ROOT}>
                   <span>{city.cityName}</span>
-                </a>
+                </Link>
               </div>
             </div>
             <div className="favorites__places">

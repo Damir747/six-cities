@@ -16,7 +16,7 @@ const rooms = [
     level: '',
     img: 'img/room.jpg',
     priceValue: '80',
-    priceText: 'night',
+    priceText: '',
     bookmark: 'In bookmarks',
     rating: 30,
     card: 'Wood and stone placen',
@@ -56,7 +56,7 @@ const rooms = [
     bookmark: 'In bookmarks',
     rating: 80,
     card: 'Wood and stone place',
-    type: 'room',
+    type: 'private room',
     cityName: 'Amsterdam',
   }
 ];

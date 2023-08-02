@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { roundRating } from '../../utils/utils';
 import roomType from '../../types/room';
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { AppRoute } from "../../const";
 
 const FavoriteRooms = ({ rooms }) => {
   return (
@@ -11,9 +13,9 @@ const FavoriteRooms = ({ rooms }) => {
           return (
             <article key={roomElement.id} className="favorites__card place-card">
               <div className="favorites__image-wrapper place-card__image-wrapper">
-                <a href="#">
+                <Link to={AppRoute.ROOT}>
                   <img className="place-card__image" src={roomElement.img} width="150" height="110" alt="Place image" />
-                </a>
+                </Link>
               </div>
               <div className="favorites__card-info place-card__info">
                 <div className="place-card__price-wrapper">
@@ -35,7 +37,7 @@ const FavoriteRooms = ({ rooms }) => {
                   </div>
                 </div>
                 <h2 className="place-card__name">
-                  <a href="#">{roomElement.card}</a>
+                  <Link to={AppRoute.ROOT}>{roomElement.card}</Link>
                 </h2>
                 <p className="place-card__type">{roomElement.type}</p>
               </div>

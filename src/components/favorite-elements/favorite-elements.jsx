@@ -7,10 +7,8 @@ import FavoriteCities from "../favorite-cities/favorite-cities";
 
 const FavoriteElements = ({ rooms }) => {
   const filteredRooms = rooms.slice().filter((item) => item.bookmark === 'In bookmarks');
-  console.log(filteredRooms);
-
   const uniqueCities = cities.slice().sort();  //? доделать
-  console.log(uniqueCities);
+
   return (
     <React.Fragment>
       <main className="page__main page__main--favorites">

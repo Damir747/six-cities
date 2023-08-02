@@ -5,6 +5,7 @@ import Header from "../header/header";
 import FavoriteElements from "../favorite-elements/favorite-elements";
 import { AppRoute } from "../../const";
 import roomType from "../../types/room";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 const FavoritesPage = ({ rooms }) => {
   return (
@@ -17,9 +18,9 @@ const FavoritesPage = ({ rooms }) => {
         <FavoriteElements rooms={rooms} />
 
         <footer className="footer container">
-          <a className="footer__logo-link" href={AppRoute.ROOT}>
+          <Link className="footer__logo-link" href={AppRoute.ROOT}>
             <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33" />
-          </a>
+          </Link>
         </footer>
       </div>
     </React.Fragment>

@@ -7,6 +7,8 @@ import menuType from "../../types/menu";
 import roomType from "../../types/room";
 import Top from "../top/top";
 import Header from "../header/header";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { AppRoute } from "../../const";
 
 const MainPage = ({ menuUpArray, rooms }) => {
   return (
@@ -24,10 +26,10 @@ const MainPage = ({ menuUpArray, rooms }) => {
                 {cities.map((city) => {
                   return (
                     <li key={city.id} className="locations__item">
-                      <a className={['locations__item-link', 'tabs__item',
-                        city.cityName === 'Amsterdam' ? 'tabs__item--active' : ''].join(' ')} href="#">
+                      <Link className={['locations__item-link', 'tabs__item',
+                        city.cityName === 'Amsterdam' ? 'tabs__item--active' : ''].join(' ')} to={AppRoute.ROOT}>
                         <span>{city.cityName}</span>
-                      </a>
+                      </Link>
                     </li>
                   );
                 })}

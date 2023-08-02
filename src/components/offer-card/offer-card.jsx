@@ -15,7 +15,7 @@ const OfferCard = ({ rooms }) => {
   const handleMouseLeave = useCallback(() => {
     setActiveRoom(null);
   }, []);
-  console.log(activeRoom);
+  // console.log(activeRoom);
   return (
     <>
       <div className="cities__places-list places__list tabs__content">
