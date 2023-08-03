@@ -8,6 +8,7 @@ import Top from "../top/top";
 import Header from "../header/header";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { AppRoute } from "../../const";
+import { classname } from "../../utils/utils";
 
 const MainPage = ({ menuUpArray, rooms }) => {
   return (
@@ -25,8 +26,8 @@ const MainPage = ({ menuUpArray, rooms }) => {
                 {cities.map((city) => {
                   return (
                     <li key={city.id} className="locations__item">
-                      <Link className={['locations__item-link', 'tabs__item',
-                        city.cityName === 'Amsterdam' ? 'tabs__item--active' : ''].join(' ')} to={AppRoute.ROOT}>
+                      <Link className={classname('locations__item-link', 'tabs__item',
+                        city.cityName === 'Amsterdam' ? 'tabs__item--active' : '')} to={AppRoute.ROOT}>
                         <span>{city.cityName}</span>
                       </Link>
                     </li>

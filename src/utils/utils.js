@@ -12,4 +12,6 @@ const roundRating = (rating) => {
   return Math.round(rating / 20) * 20;
 };
 
-export { capitalizeFirstLetter, roundRating };
+const classname = (...arr) => arr.join(' ');
+
+export { capitalizeFirstLetter, roundRating, classname };
