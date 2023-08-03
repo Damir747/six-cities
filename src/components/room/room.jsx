@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import roomType from "../../types/room";
+import roomType from '../../types/room';
 import { AppRoute, IN_BOOKMARKS } from "../../const";
 import { capitalizeFirstLetter, roundRating } from "../../utils/utils";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";

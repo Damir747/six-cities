@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from "prop-types";
 
 import MainPage from '../main-page/main-page';
 import menuUpArray from '../../mock/mock-menu';
@@ -8,8 +7,8 @@ import LoginPage from '../login-page/login-page';
 import FavoritesPage from '../favorites-page/favorite-page';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { AppRoute } from '../../const';
-import roomType from "../../types/room";
 import Property from '../property/property';
+import roomsType from '../../types/rooms';
 
 const App = ({ rooms }) => {
   return (
@@ -38,9 +37,7 @@ const App = ({ rooms }) => {
 };
 
 App.propTypes = {
-  rooms: PropTypes.arrayOf(
-    roomType.isRequired
-  ),
+  rooms: roomsType,
 };
 
 export default App;

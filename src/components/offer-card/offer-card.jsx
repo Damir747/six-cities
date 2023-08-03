@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from "react";
-import PropTypes from "prop-types";
 
-import roomType from "../../types/room";
+import roomsType from "../../types/rooms";
 import Room from "../room/room";
 
 const OfferCard = ({ rooms }) => {
@@ -29,9 +28,7 @@ const OfferCard = ({ rooms }) => {
 };
 
 OfferCard.propTypes = {
-  rooms: PropTypes.arrayOf(
-    roomType.isRequired
-  ),
+  rooms: roomsType,
 };
 
 export default OfferCard;

@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import menuType from "../../types/menu";
 // 'places__options--opened' - для раскрытия меню
 
@@ -24,9 +23,7 @@ const MenuUp = ({ menuUpArray }) => {
 };
 
 MenuUp.propTypes = {
-  menuUpArray: PropTypes.arrayOf(
-    menuType.isRequired
-  ),
+  menuUpArray: menuType,
 };
 
 export default MenuUp;

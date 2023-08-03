@@ -4,7 +4,7 @@ import Top from "../top/top";
 import Header from "../header/header";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { AppRoute } from "../../const";
-import roomType from "../../types/room";
+import roomsType from '../../types/rooms';
 import propertyInside from '../../mock/mock-property-inside';
 import PropertyInside from "../property-inside/property-inside";
 import reviews from '../../mock/mock-reviews';
@@ -223,9 +223,7 @@ const Property = () => {
 };
 
 Property.propTypes = {
-  room: PropTypes.arrayOf(
-    roomType.isRequired
-  ),
+  rooms: roomsType,
 };
 
 export default Property;

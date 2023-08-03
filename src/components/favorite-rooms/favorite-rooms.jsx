@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { roundRating } from '../../utils/utils';
-import roomType from '../../types/room';
+import roomsType from '../../types/rooms';
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { AppRoute } from "../../const";
 
@@ -50,9 +50,7 @@ const FavoriteRooms = ({ rooms }) => {
 };
 
 FavoriteRooms.propTypes = {
-  rooms: PropTypes.arrayOf(
-    roomType.isRequired
-  ),
+  rooms: roomsType,
 };
 
 export default FavoriteRooms;

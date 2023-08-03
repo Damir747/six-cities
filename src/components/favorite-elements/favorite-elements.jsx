@@ -1,7 +1,6 @@
 import React from "react";
-import PropTypes from "prop-types";
 
-import roomType from '../../types/room';
+import roomsType from '../../types/rooms';
 import cities from "../../mock/mock-cities";
 import FavoriteCities from "../favorite-cities/favorite-cities";
 
@@ -28,9 +27,7 @@ const FavoriteElements = ({ rooms }) => {
 };
 
 FavoriteElements.propTypes = {
-  rooms: PropTypes.arrayOf(
-    roomType.isRequired
-  ),
+  rooms: roomsType,
 };
 
 export default FavoriteElements;

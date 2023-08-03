@@ -1,8 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
-import cityType from '../../types/city';
 import FavoriteCityRooms from "../favorite-city-rooms/favorite-city-rooms";
-import roomType from '../../types/room';
+import roomsType from '../../types/rooms';
+import citiesType from '../../types/cities';
 import { AppRoute } from "../../const";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
@@ -35,11 +34,7 @@ const FavoriteCities = ({ cities, rooms }) => {
 };
 
 FavoriteCities.propTypes = {
-  cities: PropTypes.arrayOf(
-    cityType.isRequired
-  ),
-  rooms: PropTypes.arrayOf(
-    roomType.isRequired
-  ),
+  cities: citiesType,
+  rooms: roomsType,
 };
 export default FavoriteCities;

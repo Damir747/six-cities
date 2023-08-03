@@ -1,10 +1,9 @@
 import React from "react";
-import PropTypes from "prop-types";
 import Top from "../top/top";
 import Header from "../header/header";
 import FavoriteElements from "../favorite-elements/favorite-elements";
 import { AppRoute } from "../../const";
-import roomType from "../../types/room";
+import roomsType from "../../types/rooms";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 const FavoritesPage = ({ rooms }) => {
@@ -28,8 +27,6 @@ const FavoritesPage = ({ rooms }) => {
 };
 
 FavoritesPage.propTypes = {
-  rooms: PropTypes.arrayOf(
-    roomType.isRequired
-  ),
+  rooms: roomsType,
 };
 export default FavoritesPage;

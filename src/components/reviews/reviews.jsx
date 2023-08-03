@@ -1,6 +1,6 @@
 import React from "react";
-import PropTypes from "prop-types";
-import reviewType from "../../types/review";
+
+import reviewsType from "../../types/reviews";
 import OldReviews from "../old-reviews/old-reviews";
 import NewReview from "../new-review/new-review";
 
@@ -19,8 +19,6 @@ const Reviews = ({ reviews }) => {
 };
 
 Reviews.propTypes = {
-  reviews: PropTypes.arrayOf(
-    reviewType.isRequired
-  ),
+  reviews: reviewsType,
 };
 export default Reviews;

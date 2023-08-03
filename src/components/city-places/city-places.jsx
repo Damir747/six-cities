@@ -4,7 +4,7 @@ import OfferCard from "../offer-card/offer-card";
 import MenuUp from "../menu-up/menu-up";
 import cities from '../../mock/mock-cities';
 import menuType from "../../types/menu";
-import roomType from "../../types/room";
+import roomsType from '../../types/rooms';
 
 const CityPlaces = ({ cityName, menuUpArray, rooms }) => {
   const cityFind = cities.filter((item) => item.cityName === cityName);
@@ -23,12 +23,8 @@ const CityPlaces = ({ cityName, menuUpArray, rooms }) => {
 
 CityPlaces.propTypes = {
   cityName: PropTypes.string.isRequired,
-  menuUpArray: PropTypes.arrayOf(
-    menuType.isRequired
-  ),
-  rooms: PropTypes.arrayOf(
-    roomType.isRequired
-  ),
+  menuUpArray: menuType,
+  rooms: roomsType,
 };
 
 export default CityPlaces;

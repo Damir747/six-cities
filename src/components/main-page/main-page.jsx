@@ -1,10 +1,9 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 import CityPlaces from "../city-places/city-places";
 import cities from '../../mock/mock-cities';
 import menuType from "../../types/menu";
-import roomType from "../../types/room";
+import roomsType from '../../types/rooms';
 import Top from "../top/top";
 import Header from "../header/header";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
@@ -48,12 +47,8 @@ const MainPage = ({ menuUpArray, rooms }) => {
 };
 
 MainPage.propTypes = {
-  menuUpArray: PropTypes.arrayOf(
-    menuType.isRequired
-  ),
-  rooms: PropTypes.arrayOf(
-    roomType.isRequired
-  ),
+  menuUpArray: menuType,
+  rooms: roomsType,
 };
 
 export default MainPage;

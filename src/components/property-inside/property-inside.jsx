@@ -1,6 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
-import propertyInsideItemType from "../../types/property-inside-item";
+import propertyInsideItemsType from "../../types/property-inside-items";
 
 const PropertyInside = ({ propertyInsideItems }) => {
   return (
@@ -24,8 +23,7 @@ const PropertyInside = ({ propertyInsideItems }) => {
 };
 
 PropertyInside.propTypes = {
-  propertyInsideItems: PropTypes.arrayOf(
-    propertyInsideItemType.isRequired),
+  propertyInsideItems: propertyInsideItemsType,
 };
 
 export default PropertyInside;
