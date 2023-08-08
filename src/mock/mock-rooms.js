@@ -10,6 +10,10 @@ const rooms = [
     card: 'Beautiful &amp; luxurious apartment at great location',
     type: 'apartment',
     cityName: 'Amsterdam',
+    coordinates: {
+      lat: 52.3909553943508,
+      lng: 4.85309666406198,
+    },
   },
   {
     id: 1,
@@ -22,6 +26,10 @@ const rooms = [
     card: 'Wood and stone placen',
     type: 'room',
     cityName: 'Cologne',
+    coordinates: {
+      lat: 52.390955394350,
+      lng: 4.939309666406198,
+    },
   },
   {
     id: 2,
@@ -34,6 +42,10 @@ const rooms = [
     card: 'Canal View Prinsengracht',
     type: 'apartment',
     cityName: 'Amsterdam',
+    coordinates: {
+      lat: 52.3909553943508,
+      lng: 4.929309666406198,
+    },
   },
   {
     id: 3,
@@ -46,6 +58,10 @@ const rooms = [
     card: 'Nice, cozy, warm big bed apartment',
     type: 'apartment',
     cityName: 'Amsterdam',
+    coordinates: {
+      lat: 52.3809553943508,
+      lng: 4.939309666406198,
+    },
   },
   {
     id: 4,
@@ -58,6 +74,10 @@ const rooms = [
     card: 'Wood and stone place',
     type: 'private room',
     cityName: 'Amsterdam',
+    coordinates: {
+      lat: 52.369553943508,
+      lng: 4.85309666406198,
+    },
   }
 ];
 

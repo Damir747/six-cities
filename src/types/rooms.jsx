@@ -1,15 +1,6 @@
-import PropTypes, { shape } from 'prop-types';
+import PropTypes from 'prop-types';
+import roomType from './room';
 
 export default PropTypes.arrayOf(
-  shape({
-    id: PropTypes.number.isRequired,
-    level: PropTypes.string,
-    img: PropTypes.string,
-    priceValue: PropTypes.string,
-    priceText: PropTypes.string,
-    bookmark: PropTypes.string,
-    rating: PropTypes.number,
-    card: PropTypes.string,
-    type: PropTypes.string,
-  }).isRequired
+  roomType
 );

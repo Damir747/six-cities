@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 
 import CityPlaces from "../city-places/city-places";
 import cities from '../../mock/mock-cities';
@@ -11,6 +11,20 @@ import { AppRoute } from "../../const";
 import { classname } from "../../utils/utils";
 
 const MainPage = ({ menuUpArray, rooms }) => {
+
+  const [idActiveRoom, setActiveRoom] = useState(null);
+  const handleMouseEnter = useCallback((item) => {
+    setActiveRoom(item);
+  }, []);
+  const handleMouseLeave = useCallback(() => {
+    setActiveRoom(null);
+  }, []);
+
+  // Amsterdam
+  const [idActiveCity, setActiveCity] = useState(4);
+  const activeCity = cities.filter((city) => city.id === idActiveCity)[0];
+  const filteredRooms = rooms.filter((room) => room.cityName === activeCity.cityName);
+
   return (
     <React.Fragment>
       <Top />
@@ -27,7 +41,7 @@ const MainPage = ({ menuUpArray, rooms }) => {
                   return (
                     <li key={city.id} className="locations__item">
                       <Link className={classname('locations__item-link', 'tabs__item',
-                        city.cityName === 'Amsterdam' ? 'tabs__item--active' : '')} to={AppRoute.ROOT}>
+                        city.id === idActiveCity ? 'tabs__item--active' : '')} to={AppRoute.ROOT}>
                         <span>{city.cityName}</span>
                       </Link>
                     </li>
@@ -38,7 +52,14 @@ const MainPage = ({ menuUpArray, rooms }) => {
           </div>
           <div className="cities">
             <div className="cities__places-container container">
-              <CityPlaces cityName={"Amsterdam"} menuUpArray={menuUpArray} rooms={rooms}></CityPlaces>
+              <CityPlaces
+                city={activeCity}
+                menuUpArray={menuUpArray}
+                rooms={filteredRooms}
+                idActiveRoom={idActiveRoom}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              />
             </div>
           </div>
         </main>

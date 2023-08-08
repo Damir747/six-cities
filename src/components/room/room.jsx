@@ -5,21 +5,14 @@ import { AppRoute, IN_BOOKMARKS } from "../../const";
 import { capitalizeFirstLetter, classname, roundRating } from "../../utils/utils";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
-const Room = ({ roomElement, onMouseEnter, onMouseLeave }) => {
+const Room = ({ roomElement, activeRoom, onMouseEnter, onMouseLeave }) => {
   const { id, level, img, priceValue, priceText, bookmark, rating, card, type } = roomElement;
-
-  const handleMouseEnter = () => {
-    onMouseEnter(roomElement);
-  };
-
-  const handleMouseLeave = () => {
-    onMouseLeave(null);
-  };
 
   return (
     <React.Fragment>
       <article key={id} className="cities__place-card place-card"
-        onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        onMouseEnter={() => onMouseEnter(id)}
+        onMouseLeave={() => onMouseLeave()}>
         {level && <div className="place-card__mark">
           <span>{level}</span>
         </div>}
