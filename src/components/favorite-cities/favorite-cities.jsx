@@ -23,13 +23,13 @@ const FavoriteCities = ({ cities, rooms }) => {
                 </Link>
               </div>
             </div>
-            <div className="favorites__places">
-              <FavoriteCityRooms rooms={filteredRooms} />
-            </div>
+
+            <FavoriteCityRooms rooms={filteredRooms} />
+
           </li>
         );
       })}
-    </React.Fragment>
+    </React.Fragment >
   );
 };
 

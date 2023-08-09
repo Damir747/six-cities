@@ -2,16 +2,19 @@ import React from "react";
 import PropTypes from "prop-types";
 import Top from "../top/top";
 import Header from "../header/header";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
-import { AppRoute } from "../../const";
-import roomsType from '../../types/rooms';
+import roomType from '../../types/room';
 import propertyInside from '../../mock/mock-property-inside';
 import PropertyInside from "../property-inside/property-inside";
 import reviews from '../../mock/mock-reviews';
 import Reviews from "../reviews/reviews";
+import CityMap from "../map/map";
+import { classname, numberRating, roundRating } from "../../utils/utils";
+import rooms from "../../mock/mock-rooms";
+import Room from "../room/room";
 
-const Property = () => {
-  // const { id, level, img, priceValue, priceText, bookmark, rating, card, type } = room;
+const Property = ({ room, idActiveRoom, onMouseEnter, onMouseLeave }) => {
+  const { id, level, img, priceValue, priceText, bookmark, rating, card, type, description, host, images } = room;
+  const neighbourhood = rooms.slice(1, 4);
 
   return (
     <React.Fragment>
@@ -24,34 +27,21 @@ const Property = () => {
           <section className="property">
             <div className="property__gallery-container container">
               <div className="property__gallery">
-                <div className="property__image-wrapper">
-                  <img className="property__image" src="img/room.jpg" alt="Photo studio" />
-                </div>
-                <div className="property__image-wrapper">
-                  <img className="property__image" src="img/apartment-01.jpg" alt="Photo studio" />
-                </div>
-                <div className="property__image-wrapper">
-                  <img className="property__image" src="img/apartment-02.jpg" alt="Photo studio" />
-                </div>
-                <div className="property__image-wrapper">
-                  <img className="property__image" src="img/apartment-03.jpg" alt="Photo studio" />
-                </div>
-                <div className="property__image-wrapper">
-                  <img className="property__image" src="img/studio-01.jpg" alt="Photo studio" />
-                </div>
-                <div className="property__image-wrapper">
-                  <img className="property__image" src="img/apartment-01.jpg" alt="Photo studio" />
-                </div>
+                {images.map((image) => (
+                  <div key={image.id} className="property__image-wrapper">
+                    <img className="property__image" src={image.src} alt={image.alt} />
+                  </div>
+                ))}
               </div>
             </div>
             <div className="property__container container">
               <div className="property__wrapper">
-                <div className="property__mark">
-                  <span>Premium</span>
-                </div>
+                {level && <div className="property__mark">
+                  <span>{level}</span>
+                </div>}
                 <div className="property__name-wrapper">
                   <h1 className="property__name">
-                    Beautiful &amp; luxurious studio at great location
+                    {card}
                   </h1>
                   <button className="property__bookmark-button button" type="button">
                     <svg className="property__bookmark-icon" width="31" height="33">
@@ -62,49 +52,44 @@ const Property = () => {
                 </div>
                 <div className="property__rating rating">
                   <div className="property__stars rating__stars">
-                    <span style={{ width: `80%` }}></span>
+                    <span style={{ width: `${roundRating(rating)}%` }}></span>
                     <span className="visually-hidden">Rating</span>
                   </div>
-                  <span className="property__rating-value rating__value">4.8</span>
+                  <span className="property__rating-value rating__value">{numberRating(rating)}</span>
                 </div>
                 <ul className="property__features">
-                  <li className="property__feature property__feature--entire">
-                    Apartment
-                  </li>
-                  <li className="property__feature property__feature--bedrooms">
-                    3 Bedrooms
-                  </li>
-                  <li className="property__feature property__feature--adults">
-                    Max 4 adults
-                  </li>
+                  {room.features.map((feature) => (
+                    <li key={feature.id} className={classname('property__feature', feature.className)}>
+                      {feature.featureName}
+                    </li>
+                  ))}
                 </ul>
                 <div className="property__price">
-                  <b className="property__price-value">&euro;120</b>
-                  <span className="property__price-text">&nbsp;night</span>
+                  <b className="property__price-value">&euro;{priceValue}</b>
+                  <span className="property__price-text">&nbsp;{priceText || 'ночь'}</span>
                 </div>
 
                 <PropertyInside propertyInsideItems={propertyInside} />
 
                 <div className="property__host">
-                  <h2 className="property__host-title">Meet the host</h2>
+                  <h2 className="property__host-title">{host.title}</h2>
                   <div className="property__host-user user">
                     <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                      <img className="property__avatar user__avatar" src="img/avatar-angelina.jpg" width="74" height="74" alt="Host avatar" />
+                      <img className="property__avatar user__avatar" src={host.user.img} width="74" height="74" alt="Host avatar" />
                     </div>
                     <span className="property__user-name">
-                      Angelina
+                      {host.user.name}
                     </span>
                     <span className="property__user-status">
-                      Pro
+                      {host.user.status}
                     </span>
                   </div>
                   <div className="property__description">
-                    <p className="property__text">
-                      A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
-                    </p>
-                    <p className="property__text">
-                      An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.
-                    </p>
+                    {description.map((text, index) => (
+                      <p key={index} className="property__text">
+                        {text}
+                      </p>
+                    ))}
                   </div>
                 </div>
 
@@ -112,107 +97,24 @@ const Property = () => {
 
               </div>
             </div>
-            <section className="property__map map"></section>
+            <section className="property__map map">
+              <CityMap rooms={neighbourhood} idActiveRoom={idActiveRoom} />
+            </section>
           </section>
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
-                <article className="near-places__card place-card">
-                  <div className="near-places__image-wrapper place-card__image-wrapper">
-                    <Link to={AppRoute.ROOT}>
-                      <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place image" />
-                    </Link>
-                  </div>
-                  <div className="place-card__info">
-                    <div className="place-card__price-wrapper">
-                      <div className="place-card__price">
-                        <b className="place-card__price-value">&euro;80</b>
-                        <span className="place-card__price-text">&#47;&nbsp;night</span>
-                      </div>
-                      <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
-                        <svg className="place-card__bookmark-icon" width="18" height="19">
-                          <use xlinkHref="#icon-bookmark"></use>
-                        </svg>
-                        <span className="visually-hidden">In bookmarks</span>
-                      </button>
-                    </div>
-                    <div className="place-card__rating rating">
-                      <div className="place-card__stars rating__stars">
-                        <span style={{ width: `80%` }}></span>
-                        <span className="visually-hidden">Rating</span>
-                      </div>
-                    </div>
-                    <h2 className="place-card__name">
-                      <Link to={AppRoute.ROOT}>Wood and stone place</Link>
-                    </h2>
-                    <p className="place-card__type">Private room</p>
-                  </div>
-                </article>
-
-                <article className="near-places__card place-card">
-                  <div className="near-places__image-wrapper place-card__image-wrapper">
-                    <Link to={AppRoute.ROOT}>
-                      <img className="place-card__image" src="img/apartment-02.jpg" width="260" height="200" alt="Place image" />
-                    </Link>
-                  </div>
-                  <div className="place-card__info">
-                    <div className="place-card__price-wrapper">
-                      <div className="place-card__price">
-                        <b className="place-card__price-value">&euro;132</b>
-                        <span className="place-card__price-text">&#47;&nbsp;night</span>
-                      </div>
-                      <button className="place-card__bookmark-button button" type="button">
-                        <svg className="place-card__bookmark-icon" width="18" height="19">
-                          <use xlinkHref="#icon-bookmark"></use>
-                        </svg>
-                        <span className="visually-hidden">To bookmarks</span>
-                      </button>
-                    </div>
-                    <div className="place-card__rating rating">
-                      <div className="place-card__stars rating__stars">
-                        <span style={{ width: `80%` }}></span>
-                        <span className="visually-hidden">Rating</span>
-                      </div>
-                    </div>
-                    <h2 className="place-card__name">
-                      <Link to={AppRoute.ROOT}>Canal View Prinsengracht</Link>
-                    </h2>
-                    <p className="place-card__type">Apartment</p>
-                  </div>
-                </article>
-
-                <article className="near-places__card place-card">
-                  <div className="near-places__image-wrapper place-card__image-wrapper">
-                    <Link to={AppRoute.ROOT}>
-                      <img className="place-card__image" src="img/apartment-03.jpg" width="260" height="200" alt="Place image" />
-                    </Link>
-                  </div>
-                  <div className="place-card__info">
-                    <div className="place-card__price-wrapper">
-                      <div className="place-card__price">
-                        <b className="place-card__price-value">&euro;180</b>
-                        <span className="place-card__price-text">&#47;&nbsp;night</span>
-                      </div>
-                      <button className="place-card__bookmark-button button" type="button">
-                        <svg className="place-card__bookmark-icon" width="18" height="19">
-                          <use xlinkHref="#icon-bookmark"></use>
-                        </svg>
-                        <span className="visually-hidden">To bookmarks</span>
-                      </button>
-                    </div>
-                    <div className="place-card__rating rating">
-                      <div className="place-card__stars rating__stars">
-                        <span style={{ width: `100%` }}></span>
-                        <span className="visually-hidden">Rating</span>
-                      </div>
-                    </div>
-                    <h2 className="place-card__name">
-                      <Link to={AppRoute.ROOT}>Nice, cozy, warm big bed apartment</Link>
-                    </h2>
-                    <p className="place-card__type">Apartment</p>
-                  </div>
-                </article>
+                {neighbourhood.map((neighbour) => (
+                  < Room
+                    key={neighbour.id}
+                    roomElement={neighbour}
+                    onMouseEnter={onMouseEnter}
+                    onMouseLeave={onMouseLeave}
+                    frame='near-places'
+                  />
+                ))
+                }
               </div>
             </section>
           </div>
@@ -223,7 +125,10 @@ const Property = () => {
 };
 
 Property.propTypes = {
-  rooms: roomsType,
+  room: roomType,
+  idActiveRoom: PropTypes.number,
+  onMouseEnter: PropTypes.func.isRequired,
+  onMouseLeave: PropTypes.func.isRequired,
 };
 
 export default Property;

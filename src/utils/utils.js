@@ -1,3 +1,5 @@
+import { IN_BOOKMARKS } from '../const';
+
 const capitalizeFirstLetter = (str) => {
   if (!str) {
     return '';
@@ -12,6 +14,13 @@ const roundRating = (rating) => {
   return Math.round(rating / 20) * 20;
 };
 
+const numberRating = (rating) => Math.round(rating / 20).toFixed(1);
+
 const classname = (...arr) => arr.join(' ');
 
-export { capitalizeFirstLetter, roundRating, classname };
+const bookmarkClassname = (bookmark) => {
+  return classname('place-card__bookmark-button', 'button',
+    bookmark === IN_BOOKMARKS ? 'place-card__bookmark-button--active' : '');
+};
+
+export { capitalizeFirstLetter, roundRating, numberRating, classname, bookmarkClassname };

@@ -1,22 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
 import roomType from '../../types/room';
-import { AppRoute, IN_BOOKMARKS } from "../../const";
-import { capitalizeFirstLetter, classname, roundRating } from "../../utils/utils";
+import { AppRoute } from "../../const";
+import { bookmarkClassname, capitalizeFirstLetter, classname, roundRating } from "../../utils/utils";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
-const Room = ({ roomElement, activeRoom, onMouseEnter, onMouseLeave }) => {
+const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame }) => {
   const { id, level, img, priceValue, priceText, bookmark, rating, card, type } = roomElement;
 
   return (
     <React.Fragment>
-      <article key={id} className="cities__place-card place-card"
+      <article key={id} className={classname(frame + '__place-card', 'place-card')}
         onMouseEnter={() => onMouseEnter(id)}
         onMouseLeave={() => onMouseLeave()}>
-        {level && <div className="place-card__mark">
+        {(frame === 'cities') && level && <div className="place-card__mark">
           <span>{level}</span>
         </div>}
-        <div className="cities__image-wrapper place-card__image-wrapper">
+        <div className={classname(frame + '__place-card', 'place-card__image-wrapper')}>
           <Link to={AppRoute.ROOT}>
             <img className="place-card__image" src={img} width="260" height="200" alt="Place image" />
           </Link>
@@ -27,8 +27,7 @@ const Room = ({ roomElement, activeRoom, onMouseEnter, onMouseLeave }) => {
               <b className="place-card__price-value">&euro;{priceValue}</b>
               <span className="place-card__price-text">&#47;&nbsp;{priceText || 'ночь'}</span>
             </div>
-            <button className={classname('place-card__bookmark-button', 'button',
-              bookmark === IN_BOOKMARKS ? 'place-card__bookmark-button--active' : '')} type="button">
+            <button className={bookmarkClassname(bookmark)} type="button">
 
               <svg className="place-card__bookmark-icon" width="18" height="19">
                 <use xlinkHref="#icon-bookmark"></use>
@@ -56,6 +55,7 @@ Room.propTypes = {
   roomElement: roomType,
   onMouseEnter: PropTypes.func,
   onMouseLeave: PropTypes.func,
+  frame: PropTypes.string,
 };
 
 export default Room;

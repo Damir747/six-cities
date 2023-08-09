@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from "react";
+import PropTypes from "prop-types";
 
 import CityPlaces from "../city-places/city-places";
 import cities from '../../mock/mock-cities';
@@ -10,15 +11,7 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { AppRoute } from "../../const";
 import { classname } from "../../utils/utils";
 
-const MainPage = ({ menuUpArray, rooms }) => {
-
-  const [idActiveRoom, setActiveRoom] = useState(null);
-  const handleMouseEnter = useCallback((item) => {
-    setActiveRoom(item);
-  }, []);
-  const handleMouseLeave = useCallback(() => {
-    setActiveRoom(null);
-  }, []);
+const MainPage = ({ menuUpArray, rooms, idActiveRoom, onMouseEnter, onMouseLeave }) => {
 
   // Amsterdam
   const [idActiveCity, setActiveCity] = useState(4);
@@ -50,27 +43,27 @@ const MainPage = ({ menuUpArray, rooms }) => {
               </ul>
             </section>
           </div>
-          <div className="cities">
-            <div className="cities__places-container container">
-              <CityPlaces
-                city={activeCity}
-                menuUpArray={menuUpArray}
-                rooms={filteredRooms}
-                idActiveRoom={idActiveRoom}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-              />
-            </div>
-          </div>
-        </main>
-      </div>
-    </React.Fragment>
+
+          <CityPlaces
+            city={activeCity}
+            menuUpArray={menuUpArray}
+            rooms={filteredRooms}
+            idActiveRoom={idActiveRoom}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
+          />
+        </main >
+      </div >
+    </React.Fragment >
   );
 };
 
 MainPage.propTypes = {
   menuUpArray: menuType,
   rooms: roomsType,
+  idActiveRoom: PropTypes.number,
+  onMouseEnter: PropTypes.func.isRequired,
+  onMouseLeave: PropTypes.func.isRequired,
 };
 
 export default MainPage;

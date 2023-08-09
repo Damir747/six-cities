@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import reviewType from './review';
+import imageType from './image';
 
 export default PropTypes.arrayOf(
-  reviewType
+  imageType
 );

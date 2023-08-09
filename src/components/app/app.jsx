@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
+import PropTypes from "prop-types";
 
 import MainPage from '../main-page/main-page';
 import menuUpArray from '../../mock/mock-menu';
@@ -11,12 +12,26 @@ import Property from '../property/property';
 import roomsType from '../../types/rooms';
 
 const App = ({ rooms }) => {
+  const [idActiveRoom, setActiveRoom] = useState(null);
+  const handleMouseEnter = useCallback((item) => {
+    setActiveRoom(item);
+  }, []);
+  const handleMouseLeave = useCallback(() => {
+    setActiveRoom(null);
+  }, []);
+
   return (
     <>
       <BrowserRouter>
         <Switch>
           <Route exact path={AppRoute.ROOT}>
-            <MainPage menuUpArray={menuUpArray} rooms={rooms} />
+            <MainPage
+              menuUpArray={menuUpArray}
+              rooms={rooms}
+              idActiveRoom={idActiveRoom}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            />
           </Route>
           <Route exact path={AppRoute.LOGIN}>
             <LoginPage />
@@ -25,7 +40,12 @@ const App = ({ rooms }) => {
             <FavoritesPage rooms={rooms} />
           </Route>
           <Route exact path={AppRoute.OFFER}>
-            <Property />
+            <Property
+              room={rooms[0]}
+              idActiveRoom={idActiveRoom}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            />
           </Route>
           <Route>
             <NotFoundScreen />

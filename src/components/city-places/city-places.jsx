@@ -1,35 +1,45 @@
 import React from "react";
 import PropTypes from "prop-types";
-import OfferCard from "../offer-card/offer-card";
 import MenuUp from "../menu-up/menu-up";
 import menuType from "../../types/menu";
 import roomsType from '../../types/rooms';
 import cityType from "../../types/city";
 import CityMap from "../map/map";
+import Room from '../../components/room/room';
 
 const CityPlaces = ({ city, menuUpArray, rooms, idActiveRoom, onMouseEnter, onMouseLeave }) => {
 
   return (
     <React.Fragment>
-      <section className="cities__places places">
-        <h2 className="visually-hidden">Places</h2>
-        <b className="places__found">{city.places} places to stay in {city.cityName}</b>
-        <MenuUp menuUpArray={menuUpArray}></MenuUp>
+      <div className="cities">
+        <div className="cities__places-container container">
+          <section className="cities__places places">
+            <h2 className="visually-hidden">Places</h2>
+            <b className="places__found">{city.places} places to stay in {city.cityName}</b>
+            <MenuUp menuUpArray={menuUpArray}></MenuUp>
 
-        <OfferCard
-          rooms={rooms}
-          onMouseEnter={onMouseEnter}
-          onMouseLeave={onMouseLeave}
-        />
-
-      </section>
-      <div className="cities__right-section">
-        <section className="cities__map map">
-          <CityMap
-            rooms={rooms}
-            idActiveRoom={idActiveRoom}
-          />
-        </section>
+            <div className="cities__places-list places__list tabs__content">
+              {rooms.map((roomElement) => (
+                < Room
+                  key={roomElement.id}
+                  roomElement={roomElement}
+                  onMouseEnter={onMouseEnter}
+                  onMouseLeave={onMouseLeave}
+                  frame='cities'
+                />
+              )
+              )}
+            </div >
+          </section>
+          <div className="cities__right-section">
+            <section className="cities__map map">
+              <CityMap
+                rooms={rooms}
+                idActiveRoom={idActiveRoom}
+              />
+            </section>
+          </div>
+        </div>
       </div>
     </React.Fragment>
   );
