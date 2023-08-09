@@ -3,14 +3,15 @@ import Top from "../top/top";
 import Header from "../header/header";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { AppRoute } from "../../const";
+import loginType from '../../types/login';
 
-const FavoritesEmpty = () => {
+const FavoritesEmpty = ({ loginName }) => {
   return (
     <React.Fragment>
       <Top />
 
       <div className="page">
-        <Header />
+        <Header loginName={loginName} />
 
         <main className="page__main page__main--favorites page__main--favorites-empty">
           <div className="page__favorites-container container">
@@ -32,6 +33,10 @@ const FavoritesEmpty = () => {
       </div>
     </React.Fragment>
   );
+};
+
+FavoritesEmpty.propTypes = {
+  loginName: loginType,
 };
 
 export default FavoritesEmpty;

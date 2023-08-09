@@ -1,8 +1,8 @@
-const roomType = [
-  'apartment',
-  'room',
-  'house',
-  'hotel'
-];
+const roomTypeToReadable = {
+  apartment: 'Apartment',
+  room: 'Private room',
+  house: 'House',
+  hotel: 'Hotel'
+};
 
-export default roomType;
+export default roomTypeToReadable;

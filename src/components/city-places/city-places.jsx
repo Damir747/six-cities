@@ -7,7 +7,7 @@ import cityType from "../../types/city";
 import CityMap from "../map/map";
 import Room from '../../components/room/room';
 
-const CityPlaces = ({ city, menuUpArray, rooms, idActiveRoom, onMouseEnter, onMouseLeave }) => {
+const CityPlaces = ({ activeCity, menuUpArray, rooms, idActiveRoom, onMouseEnter, onMouseLeave }) => {
 
   return (
     <React.Fragment>
@@ -15,7 +15,7 @@ const CityPlaces = ({ city, menuUpArray, rooms, idActiveRoom, onMouseEnter, onMo
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{city.places} places to stay in {city.cityName}</b>
+            <b className="places__found">{activeCity.places} places to stay in {activeCity.cityName}</b>
             <MenuUp menuUpArray={menuUpArray}></MenuUp>
 
             <div className="cities__places-list places__list tabs__content">
@@ -36,6 +36,7 @@ const CityPlaces = ({ city, menuUpArray, rooms, idActiveRoom, onMouseEnter, onMo
               <CityMap
                 rooms={rooms}
                 idActiveRoom={idActiveRoom}
+                activeCity={activeCity}
               />
             </section>
           </div>
@@ -46,7 +47,7 @@ const CityPlaces = ({ city, menuUpArray, rooms, idActiveRoom, onMouseEnter, onMo
 };
 
 CityPlaces.propTypes = {
-  city: cityType,
+  activeCity: cityType,
   menuUpArray: menuType,
   rooms: roomsType,
   idActiveRoom: PropTypes.number,

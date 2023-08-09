@@ -3,14 +3,15 @@ import Header from "../header/header";
 import Top from "../top/top";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { AppRoute } from "../../const";
+import loginType from '../../types/login';
 
-const LoginPage = () => {
+const LoginPage = ({ loginName }) => {
   return (
     <React.Fragment>
       <Top />
 
       <div className="page page--gray page--login">
-        <Header />
+        <Header loginName={loginName} />
 
         <main className="page__main page__main--login">
           <div className="page__login-container container">
@@ -40,6 +41,10 @@ const LoginPage = () => {
       </div>
     </React.Fragment>
   );
+};
+
+LoginPage.propTypes = {
+  loginName: loginType,
 };
 
 export default LoginPage;

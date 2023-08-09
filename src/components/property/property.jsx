@@ -1,27 +1,35 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+
 import Top from "../top/top";
 import Header from "../header/header";
-import roomType from '../../types/room';
-import propertyInside from '../../mock/mock-property-inside';
 import PropertyInside from "../property-inside/property-inside";
-import reviews from '../../mock/mock-reviews';
 import Reviews from "../reviews/reviews";
 import CityMap from "../map/map";
-import { classname, numberRating, roundRating } from "../../utils/utils";
-import rooms from "../../mock/mock-rooms";
 import Room from "../room/room";
+import { bookmarkClassname, classname, numberRating, roundRating } from "../../utils/utils";
 
-const Property = ({ room, idActiveRoom, onMouseEnter, onMouseLeave }) => {
-  const { id, level, img, priceValue, priceText, bookmark, rating, card, type, description, host, images } = room;
-  const neighbourhood = rooms.slice(1, 4);
+import roomType from '../../types/room';
+import reviewsType from "../../types/reviews";
+import propertyInsideType from "../../types/property-inside-items";
+import roomsType from "../../types/rooms";
+import loginType from '../../types/login';
+
+import cities from "../../mock/mock-cities";
+
+const Property = ({ room, reviews, propertyInside, neighbourhood, idActiveRoom, onMouseEnter, onMouseLeave, loginName }) => {
+  const { id, level, img, priceValue, priceText, bookmark, rating, card, type, description, host, images, cityName } = room;
+  const activeCity = cities.filter((city) => city.cityName === cityName)[0];
+  const idOffer = useParams();
+  // console.log(idOffer);
 
   return (
     <React.Fragment>
       <Top />
 
       <div className="page">
-        <Header />
+        <Header loginName={loginName} />
 
         <main className="page__main page__main--property">
           <section className="property">
@@ -43,11 +51,11 @@ const Property = ({ room, idActiveRoom, onMouseEnter, onMouseLeave }) => {
                   <h1 className="property__name">
                     {card}
                   </h1>
-                  <button className="property__bookmark-button button" type="button">
+                  <button className={bookmarkClassname('property', bookmark)} type="button">
                     <svg className="property__bookmark-icon" width="31" height="33">
                       <use xlinkHref="#icon-bookmark"></use>
                     </svg>
-                    <span className="visually-hidden">To bookmarks</span>
+                    <span className="visually-hidden">{bookmark}</span>
                   </button>
                 </div>
                 <div className="property__rating rating">
@@ -85,9 +93,9 @@ const Property = ({ room, idActiveRoom, onMouseEnter, onMouseLeave }) => {
                     </span>
                   </div>
                   <div className="property__description">
-                    {description.map((text, index) => (
-                      <p key={index} className="property__text">
-                        {text}
+                    {description.map((item) => (
+                      <p key={item.id} className="property__text">
+                        {item.text}
                       </p>
                     ))}
                   </div>
@@ -98,7 +106,11 @@ const Property = ({ room, idActiveRoom, onMouseEnter, onMouseLeave }) => {
               </div>
             </div>
             <section className="property__map map">
-              <CityMap rooms={neighbourhood} idActiveRoom={idActiveRoom} />
+              <CityMap
+                rooms={neighbourhood}
+                idActiveRoom={idActiveRoom}
+                activeCity={activeCity}
+              />
             </section>
           </section>
           <div className="container">
@@ -126,9 +138,13 @@ const Property = ({ room, idActiveRoom, onMouseEnter, onMouseLeave }) => {
 
 Property.propTypes = {
   room: roomType,
+  reviews: reviewsType,
+  propertyInside: propertyInsideType,
+  neighbourhood: roomsType,
   idActiveRoom: PropTypes.number,
   onMouseEnter: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func.isRequired,
+  loginName: loginType,
 };
 
 export default Property;

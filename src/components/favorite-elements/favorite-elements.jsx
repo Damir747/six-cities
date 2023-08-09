@@ -1,10 +1,10 @@
 import React from "react";
 
-import roomsType from '../../types/rooms';
-import cities from "../../mock/mock-cities";
 import FavoriteCities from "../favorite-cities/favorite-cities";
+import roomsType from '../../types/rooms';
+import citiesType from '../../types/cities';
 
-const FavoriteElements = ({ rooms }) => {
+const FavoriteElements = ({ rooms, cities }) => {
   const filteredRooms = rooms.slice().filter((item) => item.bookmark === 'In bookmarks');
   const uniqueCities = cities.slice().sort();  //? доделать
 
@@ -28,6 +28,7 @@ const FavoriteElements = ({ rooms }) => {
 
 FavoriteElements.propTypes = {
   rooms: roomsType,
+  cities: citiesType,
 };
 
 export default FavoriteElements;

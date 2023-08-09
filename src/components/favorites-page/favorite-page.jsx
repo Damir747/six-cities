@@ -1,20 +1,38 @@
 import React from "react";
-import Top from "../top/top";
-import Header from "../header/header";
-import FavoriteElements from "../favorite-elements/favorite-elements";
+
 import { AppRoute } from "../../const";
-import roomsType from "../../types/rooms";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
-const FavoritesPage = ({ rooms }) => {
+import Top from "../top/top";
+import Header from "../header/header";
+
+import FavoriteCities from "../favorite-cities/favorite-cities";
+import roomsType from '../../types/rooms';
+import citiesType from '../../types/cities';
+import loginType from '../../types/login';
+
+const FavoritesPage = ({ rooms, cities, loginName }) => {
   return (
     <React.Fragment>
       <Top />
 
       <div className="page">
-        <Header />
+        <Header loginName={loginName} />
 
-        <FavoriteElements rooms={rooms} />
+        <main className="page__main page__main--favorites">
+          <div className="page__favorites-container container">
+            <section className="favorites">
+              <h1 className="favorites__title">Saved listing</h1>
+              <ul className="favorites__list">
+
+                <FavoriteCities
+                  cities={cities.sort((a, b) => b.cityName < a.cityName)}
+                  rooms={rooms.filter((item) => item.bookmark === 'In bookmarks')} />
+
+              </ul>
+            </section>
+          </div>
+        </main>
 
         <footer className="footer container">
           <Link className="footer__logo-link" href={AppRoute.ROOT}>
@@ -28,5 +46,8 @@ const FavoritesPage = ({ rooms }) => {
 
 FavoritesPage.propTypes = {
   rooms: roomsType,
+  cities: citiesType,
+  loginName: loginType,
 };
+
 export default FavoritesPage;

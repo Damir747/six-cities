@@ -5,14 +5,20 @@ const rooms = [
     img: '../img/apartment-01.jpg',
     priceValue: '120',
     priceText: 'night',
-    bookmark: 'To bookmarks',
+    bookmark: 'In bookmarks',
     rating: 80,
     card: 'Beautiful & luxurious apartment at great location',
     type: 'apartment',
     cityName: 'Amsterdam',
     description: [
-      'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.',
-      'An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.'
+      {
+        id: 0,
+        text: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.'
+      },
+      {
+        id: 1,
+        text: 'An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.'
+      }
     ],
     host: {
       title: 'Meet the host',
@@ -130,7 +136,7 @@ const rooms = [
     img: 'img/room.jpg',
     priceValue: '80',
     priceText: 'night',
-    bookmark: 'In bookmarks',
+    bookmark: 'To bookmarks',
     rating: 80,
     card: 'Wood and stone place',
     type: 'private room',

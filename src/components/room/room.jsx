@@ -27,7 +27,7 @@ const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame }) => {
               <b className="place-card__price-value">&euro;{priceValue}</b>
               <span className="place-card__price-text">&#47;&nbsp;{priceText || 'ночь'}</span>
             </div>
-            <button className={bookmarkClassname(bookmark)} type="button">
+            <button className={bookmarkClassname('place-card', bookmark)} type="button">
 
               <svg className="place-card__bookmark-icon" width="18" height="19">
                 <use xlinkHref="#icon-bookmark"></use>

@@ -3,14 +3,15 @@ import Top from "../top/top";
 import Header from "../header/header";
 import { AppRoute } from "../../const";
 import { Link } from 'react-router-dom';
+import loginType from '../../types/login';
 
-const NotFoundScreen = () => {
+const NotFoundScreen = ({ loginName }) => {
   return (
     <React.Fragment>
       <Top />
 
       <div className="page">
-        <Header />
+        <Header loginName={loginName} />
 
         <h1>404 Not Found</h1>
         <Link to={AppRoute.ROOT} >
@@ -25,6 +26,10 @@ const NotFoundScreen = () => {
       </div>
     </React.Fragment>
   );
+};
+
+NotFoundScreen.propTypes = {
+  loginName: loginType,
 };
 
 export default NotFoundScreen;

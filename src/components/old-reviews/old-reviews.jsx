@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+
 import reviewsType from "../../types/reviews";
 import { roundRating } from '../../utils/utils';
 
@@ -31,7 +31,9 @@ const OldReviews = ({ reviews }) => {
                 <p className="reviews__text">
                   {reviewText}
                 </p>
-                <time className="reviews__time" dateTime="2019-04-24">{date} = April 2019</time>
+                <time className="reviews__time" dateTime={new Date(date).toLocaleString(`en-CA`, { dateStyle: `short` })}>
+                  {new Date(date).toLocaleString(`en-US`, { year: `numeric`, month: `long` })}
+                </time>
               </div>
             </li>
           );

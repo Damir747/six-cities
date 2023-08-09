@@ -18,9 +18,9 @@ const numberRating = (rating) => Math.round(rating / 20).toFixed(1);
 
 const classname = (...arr) => arr.join(' ');
 
-const bookmarkClassname = (bookmark) => {
-  return classname('place-card__bookmark-button', 'button',
-    bookmark === IN_BOOKMARKS ? 'place-card__bookmark-button--active' : '');
+const bookmarkClassname = (frame, bookmark) => {
+  return classname(`${frame}__bookmark-button`, `button`,
+    bookmark === IN_BOOKMARKS ? `${frame}__bookmark-button--active` : '');
 };
 
 export { capitalizeFirstLetter, roundRating, numberRating, classname, bookmarkClassname };

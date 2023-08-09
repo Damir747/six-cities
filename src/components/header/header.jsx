@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import loginType from '../../types/login';
 import { AppRoute } from "../../const";
 
-const Header = () => {
+const Header = ({ loginName }) => {
   return (
     <React.Fragment>
       <header className="header">
@@ -20,7 +21,7 @@ const Header = () => {
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">
-                      Oliver.conner@gmail.com
+                      {loginName ? loginName : 'Sign in'}
                     </span>
                   </Link>
                 </li>
@@ -31,6 +32,10 @@ const Header = () => {
       </header>
     </React.Fragment>
   );
+};
+
+Header.propTypes = {
+  loginName: loginType,
 };
 
 export default Header;

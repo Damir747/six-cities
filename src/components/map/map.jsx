@@ -2,14 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from "prop-types";
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import cities from '../../mock/mock-cities';
 import roomsType from '../../types/rooms';
+import cityType from '../../types/city';
 
-const CityMap = ({ rooms, idActiveRoom }) => {
+const CityMap = ({ rooms, idActiveRoom, activeCity }) => {
   const mapRef = useRef(null);
   const [mapSettings, setMapSettings] = useState(null);
 
-  const activeCity = cities[3]; // Amsterdam
   useEffect(() => {
     const zoom = 12;
     const mapLeaflet = leaflet.map(mapRef.current, {
@@ -65,5 +64,6 @@ const CityMap = ({ rooms, idActiveRoom }) => {
 CityMap.propTypes = {
   rooms: roomsType,
   idActiveRoom: PropTypes.number,
+  activeCity: cityType,
 };
 export default CityMap;
