@@ -21,7 +21,7 @@ const cities = [
     id: 4,
     cityName: 'Amsterdam',
     places: 312,
-    coordinates: { lat: 52.3547607, lng: 4.7391517 },
+    coordinates: { lat: 52.38333, lng: 4.9 },
   },
   {
     id: 5,

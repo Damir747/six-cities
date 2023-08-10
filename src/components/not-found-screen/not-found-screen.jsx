@@ -6,30 +6,30 @@ import { Link } from 'react-router-dom';
 import loginType from '../../types/login';
 
 const NotFoundScreen = ({ loginName }) => {
-  return (
-    <React.Fragment>
-      <Top />
+	return (
+		<React.Fragment>
+			<Top />
 
-      <div className="page">
-        <Header loginName={loginName} />
+			<div className="page">
+				<Header />
 
-        <h1>404 Not Found</h1>
-        <Link to={AppRoute.ROOT} >
-          Нажмите, что перейти на главную страницу.
-        </Link>
+				<h1>404 Not Found</h1>
+				<Link to={AppRoute.ROOT} >
+					Нажмите, что перейти на главную страницу.
+				</Link>
 
-        <footer className="footer container">
-          <Link className="footer__logo-link" href={AppRoute.ROOT}>
-            <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33" />
-          </Link>
-        </footer>
-      </div>
-    </React.Fragment>
-  );
+				<footer className="footer container">
+					<Link className="footer__logo-link" href={AppRoute.ROOT}>
+						<img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33" />
+					</Link>
+				</footer>
+			</div>
+		</React.Fragment>
+	);
 };
 
 NotFoundScreen.propTypes = {
-  loginName: loginType,
+	loginName: loginType,
 };
 
 export default NotFoundScreen;

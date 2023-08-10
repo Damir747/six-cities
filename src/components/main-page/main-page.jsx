@@ -12,6 +12,8 @@ import CityPlaces from "../city-places/city-places";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { AppRoute } from "../../const";
 import { classname } from "../../utils/utils";
+import { connect } from "react-redux";
+import ActionCreator from "../../store/actions";
 
 const MainPage = ({ menuUpArray, cities, rooms, idActiveRoom, onMouseEnter, onMouseLeave, loginName }) => {
 
@@ -70,4 +72,9 @@ MainPage.propTypes = {
   loginName: loginType,
 };
 
-export default MainPage;
+const mapStateToProps = (state) => ({
+  loginName: state.loginName,
+});
+
+export { MainPage };
+export default connect(mapStateToProps)(MainPage);

@@ -29,7 +29,7 @@ const Property = ({ room, reviews, propertyInside, neighbourhood, idActiveRoom, 
       <Top />
 
       <div className="page">
-        <Header loginName={loginName} />
+        <Header />
 
         <main className="page__main page__main--property">
           <section className="property">
