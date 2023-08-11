@@ -13,7 +13,7 @@ import reviewsType from "../../types/reviews";
 import citiesType from '../../types/cities';
 import loginType from '../../types/login';
 
-const App = ({ rooms, reviews, loginName }) => {
+const App = ({ rooms, loginName }) => {
   const [idActiveRoom, setActiveRoom] = useState(null);
   const handleMouseEnter = useCallback((item) => {
     setActiveRoom(item);

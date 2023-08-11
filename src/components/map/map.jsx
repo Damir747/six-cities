@@ -10,8 +10,11 @@ const CityMap = ({ rooms, idActiveRoom, activeCity }) => {
   const [mapSettings, setMapSettings] = useState(null);
 
   useEffect(() => {
+    console.log('первый UseEffect');
     const zoom = 12;
-    const mapLeaflet = leaflet.map(mapRef.current, {
+    console.log(mapRef);
+    console.log(mapRef.current);
+    mapRef.current = leaflet.map(mapRef.current, {
       center: {
         lat: activeCity.coordinates.lat,
         lng: activeCity.coordinates.lng,
@@ -20,21 +23,24 @@ const CityMap = ({ rooms, idActiveRoom, activeCity }) => {
       zoomControl: false,
       marker: true
     });
-    mapLeaflet.setView(activeCity.coordinates, zoom);
-
+    // mapLeaflet.setView(activeCity.coordinates, zoom);
+    console.log('middle');
     leaflet.tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`,
       { attribution: '© OpenStreetMap contributors © CARTO' })
-      .addTo(mapLeaflet);
+      .addTo(mapRef.current);
 
-    setMapSettings(mapLeaflet);
+    // setMapSettings(mapRef.current);
 
     return () => {
       mapRef.current.remove();
     };
-  }, [mapRef, activeCity, setMapSettings]);
+  }, [mapRef, activeCity, rooms]);
 
+  console.log(mapRef);
+  console.log(mapRef.current);
   useEffect(() => {
-    if (mapSettings) {
+    console.log('второй UseEffect');
+    if (mapRef.current) {
       rooms.forEach((room) => {
         const isActive = (idActiveRoom !== null) ? room.id === idActiveRoom : false;
 
@@ -49,12 +55,12 @@ const CityMap = ({ rooms, idActiveRoom, activeCity }) => {
             lng: room.coordinates.lng
           },
           { icon })
-          .addTo(mapSettings)
+          .addTo(mapRef.current)
           .bindPopup(room.cityName);
       });
     }
 
-  }, [rooms, idActiveRoom, mapSettings]);
+  }, [rooms, idActiveRoom, mapRef]);
 
   return (
     <div style={{ height: `100%` }} ref={mapRef} ></div >
