@@ -9,7 +9,7 @@ const SortTypes = Object.values(SortType);
 const menuUpArray = [
   {
     id: 0,
-    class: 'places__option--active',
+    class: '',
     title: 'Popular',
   },
   {

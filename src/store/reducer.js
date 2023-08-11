@@ -11,7 +11,7 @@ import rooms from '../mock/mock-rooms';
 import ActionType from "./actions-types";
 
 const initialState = {
-  sort: 1,
+  sort: 0,
   idActiveCity: 4,
   cities,
   loginName,

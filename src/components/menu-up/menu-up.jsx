@@ -1,13 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import menuType from "../../types/menu";
-import { getMenuUpArray } from "../../store/selectors";
+import { getMenuUpArray, getSort } from "../../store/selectors";
 import { connect } from "react-redux";
 import ActionCreator from "../../store/actions";
 
 // 'places__options--opened' - для раскрытия меню
 
-const MenuUp = ({ menuUpArray, onChange = () => { } }) => {
+const MenuUp = ({ menuUpArray, sort, onChange = () => { } }) => {
 
   return (
     <React.Fragment>
@@ -22,7 +22,7 @@ const MenuUp = ({ menuUpArray, onChange = () => { } }) => {
         <ul className="places__options places__options--custom places__options--opened">
           {menuUpArray.map((el) => <li
             key={el.id}
-            className={['places__option', el.class].join(' ')}
+            className={['places__option', el.id === sort ? `places__option--active` : ``].join(' ')}
             tabIndex={el.id}
             onChange={onChange}>
             {el.title}
@@ -40,6 +40,7 @@ MenuUp.propTypes = {
 
 const mapStateToProps = (state) => ({
   menuUpArray: getMenuUpArray(state),
+  sort: getSort(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
