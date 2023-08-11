@@ -4,17 +4,16 @@ import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import roomsType from '../../types/rooms';
 import cityType from '../../types/city';
+import { connect } from 'react-redux';
 
 const CityMap = ({ rooms, idActiveRoom, activeCity }) => {
   const mapRef = useRef(null);
   const [mapSettings, setMapSettings] = useState(null);
 
+  const zoom = 12;
+
   useEffect(() => {
-    console.log('первый UseEffect');
-    const zoom = 12;
-    console.log(mapRef);
-    console.log(mapRef.current);
-    mapRef.current = leaflet.map(mapRef.current, {
+    const mapLeaflet = leaflet.map(mapRef.current, {
       center: {
         lat: activeCity.coordinates.lat,
         lng: activeCity.coordinates.lng,
@@ -23,25 +22,26 @@ const CityMap = ({ rooms, idActiveRoom, activeCity }) => {
       zoomControl: false,
       marker: true
     });
-    // mapLeaflet.setView(activeCity.coordinates, zoom);
-    console.log('middle');
+
+    mapLeaflet.setView(activeCity.coordinates, zoom);
+
     leaflet.tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`,
       { attribution: '© OpenStreetMap contributors © CARTO' })
-      .addTo(mapRef.current);
+      .addTo(mapLeaflet);
 
-    // setMapSettings(mapRef.current);
+    setMapSettings(mapLeaflet);
 
     return () => {
       mapRef.current.remove();
     };
-  }, [mapRef, activeCity, rooms]);
+  }, [mapRef, setMapSettings]);
 
-  console.log(mapRef);
-  console.log(mapRef.current);
   useEffect(() => {
-    console.log('второй UseEffect');
-    if (mapRef.current) {
-      rooms.forEach((room) => {
+    const filteredRooms = rooms.filter((room) => room.cityName === activeCity.cityName);
+    const markers = [];
+    if (mapSettings) {
+      mapSettings.setView(activeCity.coordinates, zoom);
+      filteredRooms.forEach((room) => {
         const isActive = (idActiveRoom !== null) ? room.id === idActiveRoom : false;
 
         const icon = leaflet.icon({
@@ -49,18 +49,21 @@ const CityMap = ({ rooms, idActiveRoom, activeCity }) => {
           iconSize: [30, 30],
         });
 
-        leaflet.marker(
+        const marker = leaflet.marker(
           {
             lat: room.coordinates.lat,
             lng: room.coordinates.lng
           },
           { icon })
-          .addTo(mapRef.current)
+          .addTo(mapSettings)
           .bindPopup(room.cityName);
+        markers.push(marker);
       });
     }
-
-  }, [rooms, idActiveRoom, mapRef]);
+    return () => {
+      markers.forEach((marker) => marker.remove());
+    };
+  }, [rooms, idActiveRoom, activeCity, mapSettings]);
 
   return (
     <div style={{ height: `100%` }} ref={mapRef} ></div >
@@ -72,4 +75,10 @@ CityMap.propTypes = {
   idActiveRoom: PropTypes.number,
   activeCity: cityType,
 };
-export default CityMap;
+
+const mapStateToProps = (state) => ({
+
+});
+
+export { CityMap };
+export default connect(mapStateToProps)(CityMap);

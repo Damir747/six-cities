@@ -3,8 +3,6 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import { classname } from "../../utils/utils";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
-import { AppRoute } from "../../const";
 import citiesType from "../../types/cities";
 import { getCities, getIdActiveCity } from "../../store/selectors";
 import ActionCreator from "../../store/actions";

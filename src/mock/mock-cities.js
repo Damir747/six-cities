@@ -3,7 +3,7 @@ const cities = [
     id: 0,
     cityName: 'Paris',
     places: 310,
-    coordinates: { lat: 5248.8587036, lng: 2.051695 },
+    coordinates: { lat: 48.8587036, lng: 2.051695 },
   },
   {
     id: 2,

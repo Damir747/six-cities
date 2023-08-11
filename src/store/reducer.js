@@ -33,10 +33,6 @@ const reducer = (state = initialState, action) => {
       };
     }
     case ActionType.CHANGE_CITY: {
-      console.log({
-        ...state,
-        idActiveCity: action.payload,
-      });
       return {
         ...state,
         idActiveCity: action.payload,

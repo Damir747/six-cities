@@ -12,4 +12,6 @@ const getRooms = (state) => state.rooms;
 
 const getReviews = (state) => state.reviews;
 
-export { getLoginName, getIdActiveCity, getCities, getMenuUpArray, getPropertyInside, getRooms, getReviews };
+const getSort = (state) => state.sort;
+
+export { getLoginName, getIdActiveCity, getCities, getMenuUpArray, getPropertyInside, getRooms, getReviews, getSort };
