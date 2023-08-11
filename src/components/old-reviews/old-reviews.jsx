@@ -1,7 +1,9 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import reviewsType from "../../types/reviews";
 import { roundRating } from '../../utils/utils';
+import { getReviews } from "../../store/selectors";
 
 const OldReviews = ({ reviews }) => {
   const countReviews = reviews.length;
@@ -47,4 +49,9 @@ OldReviews.propTypes = {
   reviews: reviewsType.isRequired
 };
 
-export default OldReviews;
+const mapStateToProps = (state) => ({
+  reviews: getReviews(state),
+});
+
+export { OldReviews };
+export default connect(mapStateToProps)(OldReviews);

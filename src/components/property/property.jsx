@@ -99,7 +99,7 @@ const Property = ({ room, reviews, neighbourhood, idActiveRoom, onMouseEnter, on
                   </div>
                 </div>
 
-                <Reviews reviews={reviews} />
+                <Reviews />
 
               </div>
             </div>

@@ -44,7 +44,6 @@ const App = ({ rooms, reviews, loginName }) => {
           <Route exact path={AppRoute.OFFER}>
             <Property
               room={rooms[0]}
-              reviews={reviews}
               neighbourhood={rooms.slice(1, 4)}
               idActiveRoom={idActiveRoom}
               onMouseEnter={handleMouseEnter}

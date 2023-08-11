@@ -20,7 +20,6 @@ ReactDom.render(
   <Provider store={store}>
     <App
       rooms={rooms}
-      reviews={reviews}
       loginName={loginName}
     />
   </Provider>,

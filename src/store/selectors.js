@@ -10,4 +10,6 @@ const getPropertyInside = (state) => state.propertyInside;
 
 const getRooms = (state) => state.rooms;
 
-export { getLoginName, getIdActiveCity, getCities, getMenuUpArray, getPropertyInside, getRooms };
+const getReviews = (state) => state.reviews;
+
+export { getLoginName, getIdActiveCity, getCities, getMenuUpArray, getPropertyInside, getRooms, getReviews };
