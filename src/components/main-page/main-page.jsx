@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-import menuType from "../../types/menu";
 import citiesType from '../../types/cities';
-import roomsType from '../../types/rooms';
-import loginType from '../../types/login';
 
 import Top from "../top/top";
 import Header from "../header/header";
@@ -12,22 +10,16 @@ import CityPlaces from "../city-places/city-places";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { AppRoute } from "../../const";
 import { classname } from "../../utils/utils";
-import { connect } from "react-redux";
-import { getLogin } from "../../store/selectors";
+import { getCities, getIdActiveCity } from "../../store/selectors";
 
-const MainPage = ({ menuUpArray, cities, rooms, idActiveRoom, onMouseEnter, onMouseLeave, loginName }) => {
-
-  // Amsterdam
-  const [idActiveCity, setActiveCity] = useState(4);
-  const activeCity = cities.filter((city) => city.id === idActiveCity)[0];
-  const filteredRooms = rooms.filter((room) => room.cityName === activeCity.cityName);
+const MainPage = ({ cities, idActiveCity, idActiveRoom, onMouseEnter, onMouseLeave }) => {
 
   return (
     <React.Fragment>
       <Top />
 
       <div className="page page--gray page--main">
-        <Header loginName={loginName} />
+        <Header />
 
         <main className="page__main page__main--index">
           <h1 className="visually-hidden">Cities</h1>
@@ -49,9 +41,6 @@ const MainPage = ({ menuUpArray, cities, rooms, idActiveRoom, onMouseEnter, onMo
           </div>
 
           <CityPlaces
-            activeCity={activeCity}
-            menuUpArray={menuUpArray}
-            rooms={filteredRooms}
             idActiveRoom={idActiveRoom}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
@@ -63,17 +52,16 @@ const MainPage = ({ menuUpArray, cities, rooms, idActiveRoom, onMouseEnter, onMo
 };
 
 MainPage.propTypes = {
-  menuUpArray: menuType,
   cities: citiesType,
-  rooms: roomsType,
+  idActiveCity: PropTypes.number,
   idActiveRoom: PropTypes.number,
   onMouseEnter: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func.isRequired,
-  loginName: loginType,
 };
 
 const mapStateToProps = (state) => ({
-  loginName: getLogin(state),
+  cities: getCities(state),
+  idActiveCity: getIdActiveCity(state),
 });
 
 export { MainPage };

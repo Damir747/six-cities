@@ -1,4 +1,3 @@
-import loginName from "../mock/mock-login";
 import ActionType from "./actions-types";
 
 const ActionCreator = {
@@ -30,19 +29,13 @@ const ActionCreator = {
     };
   },
 
-  loginChange: (loginName1) => {
+  loginChange: (loginName) => {
     return {
       type: ActionType.LOGIN_NAME,
-      payload: loginName1,
+      payload: loginName,
     };
   },
 
-  readLogin: () => {
-    return {
-      type: 'login',
-      payload: loginName
-    };
-  }
 };
 
 export default ActionCreator;

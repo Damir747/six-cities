@@ -1,13 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+
 import MenuUp from "../menu-up/menu-up";
-import menuType from "../../types/menu";
-import roomsType from '../../types/rooms';
-import cityType from "../../types/city";
 import CityMap from "../map/map";
 import Room from '../../components/room/room';
 
-const CityPlaces = ({ activeCity, menuUpArray, rooms, idActiveRoom, onMouseEnter, onMouseLeave }) => {
+import roomsType from '../../types/rooms';
+import citiesType from '../../types/cities';
+
+import { getCities, getIdActiveCity, getRooms } from "../../store/selectors";
+
+const CityPlaces = ({ cities, idActiveCity, rooms, idActiveRoom, onMouseEnter, onMouseLeave }) => {
+  const activeCity = cities.filter((city) => city.id === idActiveCity)[0];
+  const filteredRooms = rooms.filter((room) => room.cityName === activeCity.cityName);
 
   return (
     <React.Fragment>
@@ -15,11 +21,11 @@ const CityPlaces = ({ activeCity, menuUpArray, rooms, idActiveRoom, onMouseEnter
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{activeCity.places} places to stay in {activeCity.cityName}</b>
-            <MenuUp menuUpArray={menuUpArray}></MenuUp>
+            <b className="places__found">{filteredRooms.length} places to stay in {activeCity.cityName}</b>
+            <MenuUp />
 
             <div className="cities__places-list places__list tabs__content">
-              {rooms.map((roomElement) => (
+              {filteredRooms.map((roomElement) => (
                 < Room
                   key={roomElement.id}
                   roomElement={roomElement}
@@ -34,7 +40,7 @@ const CityPlaces = ({ activeCity, menuUpArray, rooms, idActiveRoom, onMouseEnter
           <div className="cities__right-section">
             <section className="cities__map map">
               <CityMap
-                rooms={rooms}
+                rooms={filteredRooms}
                 idActiveRoom={idActiveRoom}
                 activeCity={activeCity}
               />
@@ -47,12 +53,19 @@ const CityPlaces = ({ activeCity, menuUpArray, rooms, idActiveRoom, onMouseEnter
 };
 
 CityPlaces.propTypes = {
-  activeCity: cityType,
-  menuUpArray: menuType,
+  cities: citiesType,
+  idActiveCity: PropTypes.number,
   rooms: roomsType,
   idActiveRoom: PropTypes.number,
   onMouseEnter: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func.isRequired,
 };
 
-export default CityPlaces;
+const mapStateToProps = (state) => ({
+  cities: getCities(state),
+  idActiveCity: getIdActiveCity(state),
+  rooms: getRooms(state),
+});
+
+export { CityPlaces };
+export default connect(mapStateToProps)(CityPlaces);

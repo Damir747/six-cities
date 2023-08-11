@@ -3,6 +3,8 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import loginType from '../../types/login';
 import { AppRoute } from "../../const";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
+import { connect } from "react-redux";
+import { getLoginName } from "../../store/selectors";
 
 const Header = ({ loginName }) => {
 
@@ -46,4 +48,9 @@ Header.propTypes = {
   loginName: loginType,
 };
 
-export default Header;
+const mapStateToProps = (state) => ({
+  loginName: getLoginName(state),
+});
+
+export { Header };
+export default connect(mapStateToProps)(Header);

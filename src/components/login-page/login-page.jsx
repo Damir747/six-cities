@@ -11,7 +11,7 @@ const LoginPage = ({ loginName }) => {
 			<Top />
 
 			<div className="page page--gray page--login">
-				<Header loginName={loginName} />
+				<Header />
 
 				<main className="page__main page__main--login">
 					<div className="page__login-container container">

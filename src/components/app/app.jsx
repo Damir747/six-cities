@@ -11,11 +11,9 @@ import Property from '../property/property';
 import roomsType from '../../types/rooms';
 import reviewsType from "../../types/reviews";
 import citiesType from '../../types/cities';
-import propertyInsideType from "../../types/property-inside-items";
-import menuUpType from '../../types/menu';
 import loginType from '../../types/login';
 
-const App = ({ rooms, reviews, cities, propertyInside, menuUpArray, loginName }) => {
+const App = ({ rooms, reviews, loginName }) => {
   const [idActiveRoom, setActiveRoom] = useState(null);
   const handleMouseEnter = useCallback((item) => {
     setActiveRoom(item);
@@ -30,13 +28,9 @@ const App = ({ rooms, reviews, cities, propertyInside, menuUpArray, loginName })
         <Switch>
           <Route exact path={AppRoute.ROOT}>
             <MainPage
-              menuUpArray={menuUpArray}
-              cities={cities}
-              rooms={rooms}
               idActiveRoom={idActiveRoom}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
-              loginName={loginName}
             />
           </Route>
           <Route exact path={AppRoute.LOGIN}>
@@ -45,22 +39,16 @@ const App = ({ rooms, reviews, cities, propertyInside, menuUpArray, loginName })
             />
           </Route>
           <Route exact path={AppRoute.FAVORITES}>
-            <FavoritesPage
-              rooms={rooms}
-              cities={cities}
-              loginName={loginName}
-            />
+            <FavoritesPage />
           </Route>
           <Route exact path={AppRoute.OFFER}>
             <Property
               room={rooms[0]}
               reviews={reviews}
-              propertyInside={propertyInside}
               neighbourhood={rooms.slice(1, 4)}
               idActiveRoom={idActiveRoom}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
-              loginName={loginName}
             />
           </Route>
           <Route>
@@ -76,8 +64,6 @@ App.propTypes = {
   rooms: roomsType,
   reviews: reviewsType,
   cities: citiesType,
-  propertyInside: propertyInsideType,
-  menuUpArray: menuUpType,
   loginName: loginType,
 };
 

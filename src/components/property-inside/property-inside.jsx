@@ -1,7 +1,11 @@
 import React from "react";
+import { connect } from "react-redux";
+
 import propertyInsideItemsType from "../../types/property-inside-items";
+import { getPropertyInside } from "../../store/selectors";
 
 const PropertyInside = ({ propertyInsideItems }) => {
+
   return (
     <React.Fragment>
       <div className="property__inside">
@@ -26,4 +30,9 @@ PropertyInside.propTypes = {
   propertyInsideItems: propertyInsideItemsType,
 };
 
-export default PropertyInside;
+const mapStateToProps = (state) => ({
+  propertyInsideItems: getPropertyInside(state),
+});
+
+export { PropertyInside };
+export default connect(mapStateToProps)(PropertyInside);

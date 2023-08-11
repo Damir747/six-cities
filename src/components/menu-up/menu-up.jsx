@@ -1,5 +1,8 @@
 import React from "react";
 import menuType from "../../types/menu";
+import { getMenuUpArray } from "../../store/selectors";
+import { connect } from "react-redux";
+
 // 'places__options--opened' - для раскрытия меню
 
 const MenuUp = ({ menuUpArray }) => {
@@ -26,4 +29,9 @@ MenuUp.propTypes = {
   menuUpArray: menuType,
 };
 
-export default MenuUp;
+const mapStateToProps = (state) => ({
+  menuUpArray: getMenuUpArray(state),
+});
+
+export { MenuUp };
+export default connect(mapStateToProps)(MenuUp);
