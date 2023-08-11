@@ -13,7 +13,7 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { AppRoute } from "../../const";
 import { classname } from "../../utils/utils";
 import { connect } from "react-redux";
-import ActionCreator from "../../store/actions";
+import { getLogin } from "../../store/selectors";
 
 const MainPage = ({ menuUpArray, cities, rooms, idActiveRoom, onMouseEnter, onMouseLeave, loginName }) => {
 
@@ -73,7 +73,7 @@ MainPage.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  loginName: state.loginName,
+  loginName: getLogin(state),
 });
 
 export { MainPage };

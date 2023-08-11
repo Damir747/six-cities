@@ -17,7 +17,7 @@ const FavoritesPage = ({ rooms, cities, loginName }) => {
 			<Top />
 
 			<div className="page">
-				<Header />
+				<Header loginName={loginName} />
 
 				<main className="page__main page__main--favorites">
 					<div className="page__favorites-container container">

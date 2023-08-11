@@ -11,7 +11,7 @@ const NotFoundScreen = ({ loginName }) => {
 			<Top />
 
 			<div className="page">
-				<Header />
+				<Header loginName={loginName} />
 
 				<h1>404 Not Found</h1>
 				<Link to={AppRoute.ROOT} >

@@ -1,14 +1,18 @@
 import cities from "../mock/mock-cities";
+import loginName from "../mock/mock-login";
 import ActionType from "./actions-types";
 
 const initialState = {
   sort: 1,
   idActiveCity: 4,
   cities,
-  loginName: '1Oliver.conner@gmail.com1',
+  loginName,
+  step: 10,
 };
 
-export default (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
+  console.log(state);
+  console.log(action);
   switch (action.type) {
     case ActionType.CHANGE_CITY: {
       return {
@@ -39,8 +43,9 @@ export default (state = initialState, action) => {
       };
     }
     default: {
-      return 0;
+      return state;
     }
   }
 };
 
+export default reducer;
