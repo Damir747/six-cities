@@ -1,15 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
+
 import { roundRating } from '../../utils/utils';
 import roomsType from '../../types/rooms';
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { AppRoute } from "../../const";
+import { getFavoriteRooms } from "../../store/selectors";
+import { connect } from "react-redux";
 
-const FavoriteRooms = ({ rooms }) => {
+const FavoriteRooms = ({ favoriteRooms, city }) => {
+  console.log(favoriteRooms);
+  console.log(city);
   return (
     <React.Fragment>
       <div className="favorites__places">
-        {rooms.map((roomElement) => {
+        {favoriteRooms.map((roomElement) => {
           return (
             <article key={roomElement.id} className="favorites__card place-card">
               <div className="favorites__image-wrapper place-card__image-wrapper">
@@ -50,7 +55,13 @@ const FavoriteRooms = ({ rooms }) => {
 };
 
 FavoriteRooms.propTypes = {
-  rooms: roomsType,
+  favoriteRooms: roomsType,
+  city: PropTypes.string,
 };
 
-export default FavoriteRooms;
+const mapStateToProps = (state) => ({
+  favoriteRooms: getFavoriteRooms(state),
+});
+
+export { FavoriteRooms };
+export default connect(mapStateToProps)(FavoriteRooms);

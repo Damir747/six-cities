@@ -12,7 +12,7 @@ import ActionType from "./actions-types";
 
 const initialState = {
   sort: 0,
-  idActiveCity: 4,
+  activeCity: 'Amsterdam',
   cities,
   loginName,
   menuUpArray,
@@ -35,7 +35,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.CHANGE_CITY: {
       return {
         ...state,
-        idActiveCity: action.payload,
+        activeCity: action.payload,
       };
     }
     case ActionType.CITY_LIST: {

@@ -2,15 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import citiesType from '../../types/cities';
-
 import Top from "../top/top";
 import Header from "../header/header";
 import CityPlaces from "../city-places/city-places";
-import { getCities, getIdActiveCity } from "../../store/selectors";
+import { getActiveCity, getCities } from "../../store/selectors";
 import CityList from "../city-list/city-list";
 
-const MainPage = ({ cities, idActiveCity, idActiveRoom,
+const MainPage = ({ cities, activeCity, idActiveRoom,
   onMouseEnter = () => { }, onMouseLeave = () => { } }) => {
 
   return (
@@ -24,7 +22,7 @@ const MainPage = ({ cities, idActiveCity, idActiveRoom,
           <h1 className="visually-hidden">Cities</h1>
           <CityList
             cities={cities}
-            idActiveCity={idActiveCity}
+            activeCity={activeCity}
           />
 
           <CityPlaces
@@ -39,8 +37,8 @@ const MainPage = ({ cities, idActiveCity, idActiveRoom,
 };
 
 MainPage.propTypes = {
-  cities: citiesType,
-  idActiveCity: PropTypes.number,
+  cities: PropTypes.object,
+  activeCity: PropTypes.string,
   idActiveRoom: PropTypes.number,
   onMouseEnter: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func.isRequired,
@@ -48,7 +46,7 @@ MainPage.propTypes = {
 
 const mapStateToProps = (state) => ({
   cities: getCities(state),
-  idActiveCity: getIdActiveCity(state),
+  activeCity: getActiveCity(state),
 });
 
 export { MainPage };

@@ -3,27 +3,27 @@ import PropTypes from "prop-types";
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import roomsType from '../../types/rooms';
-import cityType from '../../types/city';
-import { connect } from 'react-redux';
 
-const CityMap = ({ rooms, idActiveRoom, activeCity }) => {
+import { connect } from 'react-redux';
+import { getActiveCity, getActiveCityCoordinates } from '../../store/selectors';
+
+const CityMap = ({ rooms, idActiveRoom, activeCity, coordinates }) => {
   const mapRef = useRef(null);
   const [mapSettings, setMapSettings] = useState(null);
 
   const zoom = 12;
-
   useEffect(() => {
     const mapLeaflet = leaflet.map(mapRef.current, {
       center: {
-        lat: activeCity.coordinates.lat,
-        lng: activeCity.coordinates.lng,
+        lat: coordinates.lat,
+        lng: coordinates.lng,
       },
       zoom,
       zoomControl: false,
       marker: true
     });
 
-    mapLeaflet.setView(activeCity.coordinates, zoom);
+    mapLeaflet.setView(coordinates, zoom);
 
     leaflet.tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`,
       { attribution: '© OpenStreetMap contributors © CARTO' })
@@ -37,10 +37,10 @@ const CityMap = ({ rooms, idActiveRoom, activeCity }) => {
   }, [mapRef, setMapSettings]);
 
   useEffect(() => {
-    const filteredRooms = rooms.filter((room) => room.cityName === activeCity.cityName);
+    const filteredRooms = rooms.filter((room) => room.cityName === activeCity);
     const markers = [];
     if (mapSettings) {
-      mapSettings.setView(activeCity.coordinates, zoom);
+      mapSettings.setView(coordinates, zoom);
       filteredRooms.forEach((room) => {
         const isActive = (idActiveRoom !== null) ? room.id === idActiveRoom : false;
 
@@ -73,11 +73,13 @@ const CityMap = ({ rooms, idActiveRoom, activeCity }) => {
 CityMap.propTypes = {
   rooms: roomsType,
   idActiveRoom: PropTypes.number,
-  activeCity: cityType,
+  activeCity: PropTypes.string,
+  coordinates: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
-
+  activeCity: getActiveCity(state),
+  coordinates: getActiveCityCoordinates(state),
 });
 
 export { CityMap };

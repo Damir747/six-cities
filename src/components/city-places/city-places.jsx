@@ -7,8 +7,7 @@ import CityMap from "../city-map/city-map";
 import Room from '../../components/room/room';
 
 import roomsType from '../../types/rooms';
-import cityType from '../../types/city';
-import citiesType from '../../types/cities';
+
 
 import { getActiveCity, getCities, getFilteredRooms, getIdActiveCity, getRooms } from "../../store/selectors";
 
@@ -58,7 +57,7 @@ CityPlaces.propTypes = {
   onMouseEnter: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func.isRequired,
   filteredRooms: roomsType,
-  activeCity: cityType,
+  activeCity: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({

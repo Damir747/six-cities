@@ -1,10 +1,10 @@
 import ActionType from "./actions-types";
 
 const ActionCreator = {
-  selectCity: (idActiveCity) => {
+  selectCity: (activeCity) => {
     return {
       type: ActionType.CHANGE_CITY,
-      payload: idActiveCity,
+      payload: activeCity,
     };
   },
 

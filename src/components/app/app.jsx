@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import PropTypes from "prop-types";
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 
 import MainPage from '../main-page/main-page';
@@ -10,7 +11,6 @@ import Property from '../property/property';
 
 import roomsType from '../../types/rooms';
 import reviewsType from "../../types/reviews";
-import citiesType from '../../types/cities';
 import loginType from '../../types/login';
 
 const App = ({ rooms, loginName }) => {
@@ -44,7 +44,7 @@ const App = ({ rooms, loginName }) => {
           <Route exact path={AppRoute.OFFER}>
             <Property
               room={rooms[0]}
-              neighbourhood={rooms.slice(1, 4)}
+              neighbourhood={rooms.slice(2, 5)}
               idActiveRoom={idActiveRoom}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
@@ -62,7 +62,7 @@ const App = ({ rooms, loginName }) => {
 App.propTypes = {
   rooms: roomsType,
   reviews: reviewsType,
-  cities: citiesType,
+  cities: PropTypes.object,
   loginName: loginType,
 };
 

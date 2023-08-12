@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import { AppRoute } from "../../const";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
@@ -8,13 +9,12 @@ import Header from "../header/header";
 
 import FavoriteCities from "../favorite-cities/favorite-cities";
 import roomsType from '../../types/rooms';
-import citiesType from '../../types/cities';
 import loginType from '../../types/login';
 import { connect } from "react-redux";
-import { getCities, getRooms } from "../../store/selectors";
+import { getCities, getFavoriteRooms, getRooms } from "../../store/selectors";
 
-const FavoritesPage = ({ rooms, cities, loginName }) => {
-  const filteredRooms = rooms.filter((item) => item.bookmark === 'In bookmarks');
+const FavoritesPage = ({ cities, loginName, favoriteRooms }) => {
+
   return (
     <React.Fragment>
       <Top />
@@ -28,9 +28,7 @@ const FavoritesPage = ({ rooms, cities, loginName }) => {
               <h1 className="favorites__title">Saved listing</h1>
               <ul className="favorites__list">
 
-                <FavoriteCities
-                  cities={cities.slice().sort((a, b) => b.cityName < a.cityName)}
-                  rooms={filteredRooms} />
+                <FavoriteCities />
 
               </ul>
             </section>
@@ -48,14 +46,14 @@ const FavoritesPage = ({ rooms, cities, loginName }) => {
 };
 
 FavoritesPage.propTypes = {
-  rooms: roomsType,
-  cities: citiesType,
+  cities: PropTypes.object,
   loginName: loginType,
+  favoriteRooms: roomsType,
 };
 
 const mapStateToProps = (state) => ({
   cities: getCities(state),
-  rooms: getRooms(state),
+  favoriteRooms: getFavoriteRooms(state),
 });
 
 export { FavoritesPage };

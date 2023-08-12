@@ -14,133 +14,139 @@ import roomsType from "../../types/rooms";
 import roomType from '../../types/room';
 import reviewsType from "../../types/reviews";
 
-import cities from "../../mock/mock-cities";
+import { getActiveCity } from "../../store/selectors";
+import { connect } from "react-redux";
 
-const Property = ({ room, reviews, neighbourhood, idActiveRoom, onMouseEnter, onMouseLeave }) => {
-	const { id, level, img, priceValue, priceText, bookmark, rating, card, type, description, host, images, cityName } = room;
-	const activeCity = cities.filter((city) => city.cityName === cityName)[0];
-	const idOffer = useParams();
-	// console.log(idOffer);
+const Property = ({ room, reviews, neighbourhood, idActiveRoom, onMouseEnter, onMouseLeave, activeCity }) => {
+  const { id, level, img, priceValue, priceText, bookmark, rating, card, type, description, host, images, cityName } = room;
+  const idOffer = useParams();
+  // console.log(idOffer);
 
-	return (
-		<React.Fragment>
-			<Top />
+  return (
+    <React.Fragment>
+      <Top />
 
-			<div className="page">
-				<Header />
+      <div className="page">
+        <Header />
 
-				<main className="page__main page__main--property">
-					<section className="property">
-						<div className="property__gallery-container container">
-							<div className="property__gallery">
-								{images.map((image) => (
-									<div key={image.id} className="property__image-wrapper">
-										<img className="property__image" src={image.src} alt={image.alt} />
-									</div>
-								))}
-							</div>
-						</div>
-						<div className="property__container container">
-							<div className="property__wrapper">
-								{level && <div className="property__mark">
-									<span>{level}</span>
-								</div>}
-								<div className="property__name-wrapper">
-									<h1 className="property__name">
-										{card}
-									</h1>
-									<button className={bookmarkClassname('property', bookmark)} type="button">
-										<svg className="property__bookmark-icon" width="31" height="33">
-											<use xlinkHref="#icon-bookmark"></use>
-										</svg>
-										<span className="visually-hidden">{bookmark}</span>
-									</button>
-								</div>
-								<div className="property__rating rating">
-									<div className="property__stars rating__stars">
-										<span style={{ width: `${roundRating(rating)}%` }}></span>
-										<span className="visually-hidden">Rating</span>
-									</div>
-									<span className="property__rating-value rating__value">{numberRating(rating)}</span>
-								</div>
-								<ul className="property__features">
-									{room.features.map((feature) => (
-										<li key={feature.id} className={classname('property__feature', feature.className)}>
-											{feature.featureName}
-										</li>
-									))}
-								</ul>
-								<div className="property__price">
-									<b className="property__price-value">&euro;{priceValue}</b>
-									<span className="property__price-text">&nbsp;{priceText || 'ночь'}</span>
-								</div>
+        <main className="page__main page__main--property">
+          <section className="property">
+            <div className="property__gallery-container container">
+              <div className="property__gallery">
+                {images.map((image) => (
+                  <div key={image.id} className="property__image-wrapper">
+                    <img className="property__image" src={image.src} alt={image.alt} />
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="property__container container">
+              <div className="property__wrapper">
+                {level && <div className="property__mark">
+                  <span>{level}</span>
+                </div>}
+                <div className="property__name-wrapper">
+                  <h1 className="property__name">
+                    {card}
+                  </h1>
+                  <button className={bookmarkClassname('property', bookmark)} type="button">
+                    <svg className="property__bookmark-icon" width="31" height="33">
+                      <use xlinkHref="#icon-bookmark"></use>
+                    </svg>
+                    <span className="visually-hidden">{bookmark}</span>
+                  </button>
+                </div>
+                <div className="property__rating rating">
+                  <div className="property__stars rating__stars">
+                    <span style={{ width: `${roundRating(rating)}%` }}></span>
+                    <span className="visually-hidden">Rating</span>
+                  </div>
+                  <span className="property__rating-value rating__value">{numberRating(rating)}</span>
+                </div>
+                <ul className="property__features">
+                  {room.features.map((feature) => (
+                    <li key={feature.id} className={classname('property__feature', feature.className)}>
+                      {feature.featureName}
+                    </li>
+                  ))}
+                </ul>
+                <div className="property__price">
+                  <b className="property__price-value">&euro;{priceValue}</b>
+                  <span className="property__price-text">&nbsp;{priceText || 'ночь'}</span>
+                </div>
 
-								<PropertyInside />
+                <PropertyInside />
 
-								<div className="property__host">
-									<h2 className="property__host-title">{host.title}</h2>
-									<div className="property__host-user user">
-										<div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-											<img className="property__avatar user__avatar" src={host.user.img} width="74" height="74" alt="Host avatar" />
-										</div>
-										<span className="property__user-name">
-											{host.user.name}
-										</span>
-										<span className="property__user-status">
-											{host.user.status}
-										</span>
-									</div>
-									<div className="property__description">
-										{description.map((item) => (
-											<p key={item.id} className="property__text">
-												{item.text}
-											</p>
-										))}
-									</div>
-								</div>
+                <div className="property__host">
+                  <h2 className="property__host-title">{host.title}</h2>
+                  <div className="property__host-user user">
+                    <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
+                      <img className="property__avatar user__avatar" src={host.user.img} width="74" height="74" alt="Host avatar" />
+                    </div>
+                    <span className="property__user-name">
+                      {host.user.name}
+                    </span>
+                    <span className="property__user-status">
+                      {host.user.status}
+                    </span>
+                  </div>
+                  <div className="property__description">
+                    {description.map((item) => (
+                      <p key={item.id} className="property__text">
+                        {item.text}
+                      </p>
+                    ))}
+                  </div>
+                </div>
 
-								<Reviews />
+                <Reviews />
 
-							</div>
-						</div>
-						<section className="property__map map">
-							<CityMap
-								rooms={neighbourhood}
-								idActiveRoom={idActiveRoom}
-								activeCity={activeCity}
-							/>
-						</section>
-					</section>
-					<div className="container">
-						<section className="near-places places">
-							<h2 className="near-places__title">Other places in the neighbourhood</h2>
-							<div className="near-places__list places__list">
-								{neighbourhood.map((neighbour) => (
-									< Room
-										key={neighbour.id}
-										roomElement={neighbour}
-										onMouseEnter={onMouseEnter}
-										onMouseLeave={onMouseLeave}
-										frame='near-places'
-									/>
-								))
-								}
-							</div>
-						</section>
-					</div>
-				</main>
-			</div>
-		</React.Fragment >
-	);
+              </div>
+            </div>
+            <section className="property__map map">
+              <CityMap
+                rooms={neighbourhood}
+                idActiveRoom={idActiveRoom}
+                activeCity={activeCity}
+              />
+            </section>
+          </section>
+          <div className="container">
+            <section className="near-places places">
+              <h2 className="near-places__title">Other places in the neighbourhood</h2>
+              <div className="near-places__list places__list">
+                {neighbourhood.map((neighbour) => (
+                  < Room
+                    key={neighbour.id}
+                    roomElement={neighbour}
+                    onMouseEnter={onMouseEnter}
+                    onMouseLeave={onMouseLeave}
+                    frame='near-places'
+                  />
+                ))
+                }
+              </div>
+            </section>
+          </div>
+        </main>
+      </div>
+    </React.Fragment >
+  );
 };
 
 Property.propTypes = {
-	room: roomType,
-	reviews: reviewsType,
-	neighbourhood: roomsType,
-	idActiveRoom: PropTypes.number,
-	onMouseEnter: PropTypes.func.isRequired,
-	onMouseLeave: PropTypes.func.isRequired,
+  room: roomType,
+  reviews: reviewsType,
+  neighbourhood: roomsType,
+  idActiveRoom: PropTypes.number,
+  onMouseEnter: PropTypes.func.isRequired,
+  onMouseLeave: PropTypes.func.isRequired,
+  activeCity: PropTypes.string,
 };
 
-export default Property;
+const mapStateToProps = (state) => ({
+  activeCity: getActiveCity(state),
+});
+
+export { Property };
+export default connect(mapStateToProps)(Property);

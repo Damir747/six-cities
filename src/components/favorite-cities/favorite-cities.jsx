@@ -1,40 +1,48 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import FavoriteCityRooms from "../favorite-city-rooms/favorite-city-rooms";
 import roomsType from '../../types/rooms';
-import citiesType from '../../types/cities';
 import { AppRoute } from "../../const";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { connect } from "react-redux";
+import { getCities, getFavoriteRooms } from "../../store/selectors";
 
-const FavoriteCities = ({ cities, rooms }) => {
-
+const FavoriteCities = ({ cities, favoriteRooms }) => {
   return (
     <React.Fragment>
-      {cities.map((city) => {
-        const filteredRooms = rooms.filter((room) => room.cityName === city.cityName);
-        if (filteredRooms.length < 1) {
-          return null;
-        }
-        return (
-          <li key={city.id} className="favorites__locations-items">
-            <div className="favorites__locations locations locations--current">
-              <div className="locations__item">
-                <Link className="locations__item-link" to={AppRoute.ROOT}>
-                  <span>{city.cityName}</span>
-                </Link>
+      {Object.keys(cities).sort((a, b) => a > b).map((city) => {
+        const filteredRooms = favoriteRooms.filter((room) => room.cityName === city);
+        if (filteredRooms.length > 0) {
+          return (
+            <li key={city} className="favorites__locations-items">
+              <div className="favorites__locations locations locations--current">
+                <div className="locations__item">
+                  <Link className="locations__item-link" to={AppRoute.ROOT}>
+                    <span>{city}</span>
+                  </Link>
+                </div>
               </div>
-            </div>
 
-            <FavoriteCityRooms rooms={filteredRooms} />
+              <FavoriteCityRooms city={city} />
 
-          </li>
-        );
+            </li>
+          );
+        }
       })}
     </React.Fragment >
   );
 };
 
 FavoriteCities.propTypes = {
-  cities: citiesType,
-  rooms: roomsType,
+  cities: PropTypes.object,
+  favoriteRooms: roomsType,
 };
-export default FavoriteCities;
+
+const mapStateToProps = (state) => ({
+  cities: getCities(state),
+  favoriteRooms: getFavoriteRooms(state),
+});
+
+export { FavoriteCities };
+export default connect(mapStateToProps)(FavoriteCities);

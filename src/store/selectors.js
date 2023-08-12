@@ -1,16 +1,8 @@
 const getLoginName = (state) => state.loginName;
 
-const getIdActiveCity = (state) => state.idActiveCity;
+const getActiveCity = (state) => state.activeCity;
 
-const getNameActiveCity = (state) => {
-  const cities = getCities(state);
-  const idActiveCity = cities.findIndex((city) => city.id === getIdActiveCity(state));
-  return cities[idActiveCity].cityName;
-};
-
-const getActiveCity = (state) => {
-  return getCities(state).filter((city) => city.id === getIdActiveCity(state))[0];
-};
+const getActiveCityCoordinates = (state) => getCities(state)[getActiveCity(state)];
 
 const getCities = (state) => state.cities;
 
@@ -19,6 +11,10 @@ const getMenuUpArray = (state) => state.menuUpArray;
 const getPropertyInside = (state) => state.propertyInside;
 
 const getRooms = (state) => state.rooms;
+
+const getFavoriteRooms = (state) => {
+  return getRooms(state).filter((item) => item.bookmark === 'In bookmarks');
+};
 
 const getReviews = (state) => state.reviews;
 
@@ -42,8 +38,8 @@ const sortedRooms = (rooms, sortType) => {
 };
 
 const getFilteredRooms = (state) => {
-  const filteredRooms = getRooms(state).filter((room) => room.cityName === getNameActiveCity(state)).slice();
+  const filteredRooms = getRooms(state).filter((room) => room.cityName === getActiveCity(state)).slice();
   return sortedRooms(filteredRooms, getSort(state));
 };
 
-export { getLoginName, getIdActiveCity, getCities, getMenuUpArray, getPropertyInside, getRooms, getReviews, getSort, sortedRooms, getFilteredRooms, getActiveCity };
+export { getLoginName, getCities, getMenuUpArray, getPropertyInside, getRooms, getReviews, getSort, sortedRooms, getFilteredRooms, getActiveCity, getActiveCityCoordinates, getFavoriteRooms };
