@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import FavoriteCityRooms from "../favorite-city-rooms/favorite-city-rooms";
 import roomsType from '../../types/rooms';
 import { AppRoute } from "../../const";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
-import { connect } from "react-redux";
 import { getCities, getFavoriteRooms } from "../../store/selectors";
 
 const FavoriteCities = ({ cities, favoriteRooms }) => {

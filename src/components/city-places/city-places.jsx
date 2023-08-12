@@ -9,7 +9,7 @@ import Room from '../../components/room/room';
 import roomsType from '../../types/rooms';
 
 
-import { getActiveCity, getCities, getFilteredRooms, getIdActiveCity, getRooms } from "../../store/selectors";
+import { getActiveCity, getFilteredRooms, getRooms } from "../../store/selectors";
 
 const CityPlaces = ({ idActiveRoom, onMouseEnter, onMouseLeave,
   activeCity, filteredRooms }) => {

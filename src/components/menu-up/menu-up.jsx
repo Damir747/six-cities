@@ -28,14 +28,15 @@ const MenuUp = ({ menuUpArray, sort, onClick = () => { } }) => {
           </svg>
         </span>
         <ul className="places__options places__options--custom places__options--opened">
-          {menuUpArray.map((el) => <MenuUpElement
-            key={el.id}
-            element={el}
-            onClick={() => onClick(el.id)}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-            idActiveMenuItem={idActiveMenuItem}
-          />
+          {menuUpArray.map((el) =>
+            <MenuUpElement
+              key={el.id}
+              element={el}
+              onClick={() => onClick(el.id)}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              idActiveMenuItem={idActiveMenuItem}
+            />
           )}
         </ul>
       </form >

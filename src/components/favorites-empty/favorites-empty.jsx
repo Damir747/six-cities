@@ -1,8 +1,8 @@
 import React from "react";
 import Top from "../top/top";
 import Header from "../header/header";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
-import { AppRoute } from "../../const";
+import Footer from "../footer/footer";
+
 import loginType from '../../types/login';
 
 const FavoritesEmpty = ({ loginName }) => {
@@ -25,11 +25,7 @@ const FavoritesEmpty = ({ loginName }) => {
           </div>
         </main>
 
-        <footer className="footer container">
-          <Link className="footer__logo-link" to={AppRoute.ROOT}>
-            <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33" />
-          </Link>
-        </footer>
+        <Footer />
       </div>
     </React.Fragment>
   );
