@@ -3,17 +3,17 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import MenuUp from "../menu-up/menu-up";
-import CityMap from "../map/map";
+import CityMap from "../city-map/city-map";
 import Room from '../../components/room/room';
 
 import roomsType from '../../types/rooms';
+import cityType from '../../types/city';
 import citiesType from '../../types/cities';
 
-import { getCities, getIdActiveCity, getRooms } from "../../store/selectors";
+import { getActiveCity, getCities, getFilteredRooms, getIdActiveCity, getRooms } from "../../store/selectors";
 
-const CityPlaces = ({ cities, idActiveCity, rooms, idActiveRoom, onMouseEnter, onMouseLeave }) => {
-  const activeCity = cities.filter((city) => city.id === idActiveCity)[0];
-  const filteredRooms = rooms.filter((room) => room.cityName === activeCity.cityName);
+const CityPlaces = ({ idActiveRoom, onMouseEnter, onMouseLeave,
+  activeCity, filteredRooms }) => {
 
   return (
     <React.Fragment>
@@ -53,18 +53,18 @@ const CityPlaces = ({ cities, idActiveCity, rooms, idActiveRoom, onMouseEnter, o
 };
 
 CityPlaces.propTypes = {
-  cities: citiesType,
-  idActiveCity: PropTypes.number,
   rooms: roomsType,
   idActiveRoom: PropTypes.number,
   onMouseEnter: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func.isRequired,
+  filteredRooms: roomsType,
+  activeCity: cityType,
 };
 
 const mapStateToProps = (state) => ({
-  cities: getCities(state),
-  idActiveCity: getIdActiveCity(state),
   rooms: getRooms(state),
+  filteredRooms: getFilteredRooms(state),
+  activeCity: getActiveCity(state),
 });
 
 export { CityPlaces };

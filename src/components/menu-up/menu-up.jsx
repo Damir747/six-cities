@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 import PropTypes from "prop-types";
 import menuType from "../../types/menu";
 import { getMenuUpArray, getSort } from "../../store/selectors";
 import { connect } from "react-redux";
 import ActionCreator from "../../store/actions";
+import MenuUpElement from "./menu-up-element";
 
 // 'places__options--opened' - для раскрытия меню
 
-const MenuUp = ({ menuUpArray, sort, onChange = () => { } }) => {
+const MenuUp = ({ menuUpArray, sort, onClick = () => { } }) => {
+  const [idActiveMenuItem, setMenuItem] = useState(null);
+  const handleMouseEnter = useCallback((item) => {
+    setMenuItem(item);
+  }, []);
+  const handleMouseLeave = useCallback(() => {
+    setMenuItem(null);
+  }, []);
 
   return (
     <React.Fragment>
@@ -20,13 +28,15 @@ const MenuUp = ({ menuUpArray, sort, onChange = () => { } }) => {
           </svg>
         </span>
         <ul className="places__options places__options--custom places__options--opened">
-          {menuUpArray.map((el) => <li
+          {menuUpArray.map((el) => <MenuUpElement
             key={el.id}
-            className={['places__option', el.id === sort ? `places__option--active` : ``].join(' ')}
-            tabIndex={el.id}
-            onChange={onChange}>
-            {el.title}
-          </li>)}
+            element={el}
+            onClick={() => onClick(el.id)}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            idActiveMenuItem={idActiveMenuItem}
+          />
+          )}
         </ul>
       </form >
     </React.Fragment>
@@ -35,7 +45,8 @@ const MenuUp = ({ menuUpArray, sort, onChange = () => { } }) => {
 
 MenuUp.propTypes = {
   menuUpArray: menuType,
-  onChange: PropTypes.func,
+  sort: PropTypes.number,
+  onClick: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -50,4 +61,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export { MenuUp };
-export default connect(mapStateToProps, { onChange: ActionCreator.selectSort })(MenuUp);
+export default connect(mapStateToProps, mapDispatchToProps)(MenuUp);
