@@ -15,6 +15,13 @@ const ActionCreator = {
     };
   },
 
+  loadHotelList: (hotels) => {
+    return {
+      type: ActionType.HOTEL_LIST,
+      payload: hotels,
+    };
+  },
+
   loadCityList: (cities) => {
     return {
       type: ActionType.CITY_LIST,
@@ -36,6 +43,10 @@ const ActionCreator = {
     };
   },
 
+  requireAuthorization: (status) => ({
+    type: ActionType.REQUIRED_AUTHORIZATION,
+    payload: status,
+  })
 };
 
 export default ActionCreator;

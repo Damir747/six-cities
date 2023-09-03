@@ -7,4 +7,9 @@ const AppRoute = {
 
 const IN_BOOKMARKS = 'In bookmarks';
 
-export { AppRoute, IN_BOOKMARKS };
+const AuthorizationStatus = {
+  AUTH: `AUTH`,
+  NO_AUTH: `NO_AUTH`,
+};
+
+export { AppRoute, IN_BOOKMARKS, AuthorizationStatus };

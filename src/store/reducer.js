@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import cities from "../mock/mock-cities";
 import loginName from "../mock/mock-login";
 import menuUpArray from "../mock/mock-menu";
@@ -7,6 +8,7 @@ import stars from "../mock/mock-rating-stars";
 import reviews from '../mock/mock-reviews';
 import roomTypeToReadable from '../mock/mock-room-types';
 import rooms from '../mock/mock-rooms';
+import { AuthorizationStatus } from '../const';
 
 import ActionType from "./actions-types";
 
@@ -22,6 +24,7 @@ const initialState = {
   reviews,
   roomTypeToReadable,
   rooms,
+  authorizationStatus: AuthorizationStatus.NO_AUTH,
 };
 
 const reducer = (state = initialState, action) => {
@@ -53,6 +56,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         loginName: state.loginName
+      };
+    }
+    case ActionType.REQUIRED_AUTHORIZATION: {
+      return {
+        ...state,
+        authorizationStatus: action.payload,
       };
     }
     default: {
