@@ -1,5 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
+/* eslint-disable indent */
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 
 import Top from "../top/top";
@@ -8,8 +9,9 @@ import CityPlaces from "../city-places/city-places";
 import { getActiveCity, getCities } from "../../store/selectors";
 import CityList from "../city-list/city-list";
 
-const MainPage = ({ cities, activeCity, idActiveRoom,
-  onMouseEnter = () => { }, onMouseLeave = () => { } }) => {
+const MainPage = ({ idActiveRoom,
+  onMouseEnter = () => { }, onMouseLeave = () => { },
+  cities, activeCity }) => {
 
   return (
     <React.Fragment>
@@ -37,11 +39,11 @@ const MainPage = ({ cities, activeCity, idActiveRoom,
 };
 
 MainPage.propTypes = {
-  cities: PropTypes.object,
-  activeCity: PropTypes.string,
   idActiveRoom: PropTypes.number,
   onMouseEnter: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func.isRequired,
+  cities: PropTypes.object,
+  activeCity: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({

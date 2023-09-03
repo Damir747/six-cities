@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import roomsType from '../../types/rooms';
@@ -7,7 +7,8 @@ import roomsType from '../../types/rooms';
 import { connect } from 'react-redux';
 import { getActiveCity, getActiveCityCoordinates } from '../../store/selectors';
 
-const CityMap = ({ rooms, idActiveRoom, activeCity, coordinates }) => {
+const CityMap = (props) => {
+  const { rooms, idActiveRoom, activeCity, coordinates } = props;
   const mapRef = useRef(null);
   const [mapSettings, setMapSettings] = useState(null);
 

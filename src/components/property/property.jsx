@@ -1,5 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 import Top from "../top/top";
@@ -11,16 +11,15 @@ import Room from "../room/room";
 import { bookmarkClassname, classname, numberRating, roundRating } from "../../utils/utils";
 
 import roomsType from "../../types/rooms";
-import roomType from '../../types/room';
 import reviewsType from "../../types/reviews";
 
-import { getActiveCity } from "../../store/selectors";
+import { getRooms } from "../../store/selectors";
 import { connect } from "react-redux";
 
-const Property = ({ room, reviews, neighbourhood, idActiveRoom, onMouseEnter, onMouseLeave, activeCity }) => {
+const Property = ({ idActiveRoom, onMouseEnter, onMouseLeave, rooms, reviews, neighbourhood }) => {
+  const room = rooms.slice().filter((el) => el.id === (idActiveRoom ? idActiveRoom : 0))[0];
   const { id, level, img, priceValue, priceText, bookmark, rating, card, type, description, host, images, cityName } = room;
   const idOffer = useParams();
-  // console.log(idOffer);
 
   return (
     <React.Fragment>
@@ -107,7 +106,7 @@ const Property = ({ room, reviews, neighbourhood, idActiveRoom, onMouseEnter, on
               <CityMap
                 rooms={neighbourhood}
                 idActiveRoom={idActiveRoom}
-                activeCity={activeCity}
+
               />
             </section>
           </section>
@@ -116,7 +115,7 @@ const Property = ({ room, reviews, neighbourhood, idActiveRoom, onMouseEnter, on
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
                 {neighbourhood.map((neighbour) => (
-                  < Room
+                  <Room
                     key={neighbour.id}
                     roomElement={neighbour}
                     onMouseEnter={onMouseEnter}
@@ -135,17 +134,17 @@ const Property = ({ room, reviews, neighbourhood, idActiveRoom, onMouseEnter, on
 };
 
 Property.propTypes = {
-  room: roomType,
-  reviews: reviewsType,
-  neighbourhood: roomsType,
   idActiveRoom: PropTypes.number,
   onMouseEnter: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func.isRequired,
-  activeCity: PropTypes.string,
+  rooms: roomsType,
+  reviews: reviewsType,
+  neighbourhood: roomsType,
 };
 
 const mapStateToProps = (state) => ({
-  activeCity: getActiveCity(state),
+  rooms: getRooms(state),
+  neighbourhood: getRooms(state).slice(2, 5),
 });
 
 export { Property };

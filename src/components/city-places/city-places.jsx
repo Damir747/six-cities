@@ -1,5 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 
 import MenuUp from "../menu-up/menu-up";
@@ -25,7 +25,7 @@ const CityPlaces = ({ idActiveRoom, onMouseEnter, onMouseLeave,
 
             <div className="cities__places-list places__list tabs__content">
               {filteredRooms.map((roomElement) => (
-                < Room
+                <Room
                   key={roomElement.id}
                   roomElement={roomElement}
                   onMouseEnter={onMouseEnter}
@@ -41,7 +41,7 @@ const CityPlaces = ({ idActiveRoom, onMouseEnter, onMouseLeave,
               <CityMap
                 rooms={filteredRooms}
                 idActiveRoom={idActiveRoom}
-                activeCity={activeCity}
+
               />
             </section>
           </div>
@@ -56,14 +56,14 @@ CityPlaces.propTypes = {
   idActiveRoom: PropTypes.number,
   onMouseEnter: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func.isRequired,
-  filteredRooms: roomsType,
   activeCity: PropTypes.string,
+  filteredRooms: roomsType,
 };
 
 const mapStateToProps = (state) => ({
   rooms: getRooms(state),
-  filteredRooms: getFilteredRooms(state),
   activeCity: getActiveCity(state),
+  filteredRooms: getFilteredRooms(state),
 });
 
 export { CityPlaces };

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import { connect } from "react-redux";
 
 import reviewsType from "../../types/reviews";
@@ -7,25 +7,25 @@ import NewReview from "../new-review/new-review";
 import { getReviews } from "../../store/selectors";
 
 const Reviews = ({ reviews }) => {
-  return (
-    <React.Fragment>
-      <section className="property__reviews reviews">
+	return (
+		<React.Fragment>
+			<section className="property__reviews reviews">
 
-        <OldReviews />
-        <NewReview />
+				<OldReviews />
+				<NewReview />
 
-      </section>
-    </React.Fragment>
-  );
+			</section>
+		</React.Fragment>
+	);
 };
 
 Reviews.propTypes = {
-  reviews: reviewsType,
+	reviews: reviewsType,
 };
 
 
 const mapStateToProps = (state) => ({
-  reviews: getReviews(state),
+	reviews: getReviews(state),
 });
 
 export { Reviews };

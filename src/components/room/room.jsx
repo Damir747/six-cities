@@ -1,5 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
+/* eslint-disable indent */
+import React from 'react';
+import PropTypes from 'prop-types';
 import roomType from '../../types/room';
 import { AppRoute } from "../../const";
 import { bookmarkClassname, capitalizeFirstLetter, classname, roundRating } from "../../utils/utils";

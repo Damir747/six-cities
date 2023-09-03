@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import menuType from "../../types/menu";
 import { getMenuUpArray, getSort } from "../../store/selectors";
 import { connect } from "react-redux";
@@ -10,10 +10,10 @@ import MenuUpElement from "./menu-up-element";
 
 const MenuUp = ({ menuUpArray, sort, onClick = () => { } }) => {
   const [idActiveMenuItem, setMenuItem] = useState(null);
-  const handleMouseEnter = useCallback((item) => {
+  const onMouseEnter = useCallback((item) => {
     setMenuItem(item);
   }, []);
-  const handleMouseLeave = useCallback(() => {
+  const onMouseLeave = useCallback(() => {
     setMenuItem(null);
   }, []);
 
@@ -33,8 +33,8 @@ const MenuUp = ({ menuUpArray, sort, onClick = () => { } }) => {
               key={el.id}
               element={el}
               onClick={() => onClick(el.id)}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
+              onMouseEnter={onMouseEnter}
+              onMouseLeave={onMouseLeave}
               idActiveMenuItem={idActiveMenuItem}
             />
           )}
