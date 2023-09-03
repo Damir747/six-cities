@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import menuElementType from '../../types/menu-element';
 import { classname } from "../../utils/utils";
 
-const MenuUpElement = ({ element, onClick, onMouseEnter, onMouseLeave, idActiveMenuItem }) => {
+const MenuUpElement = ({ element, onClick, handleMouseEnter, handleMouseLeave, idActiveMenuItem }) => {
   return (
     <li
       key={element.id}
       className={classname('places__option', element.id === idActiveMenuItem ? `places__option--active` : ``)}
       tabIndex={element.id}
       onClick={onClick}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       {element.title}
     </li>
@@ -21,8 +21,8 @@ const MenuUpElement = ({ element, onClick, onMouseEnter, onMouseLeave, idActiveM
 MenuUpElement.propTypes = {
   element: menuElementType,
   onClick: PropTypes.func,
-  onMouseEnter: PropTypes.func,
-  onMouseLeave: PropTypes.func,
+  handleMouseEnter: PropTypes.func,
+  handleMouseLeave: PropTypes.func,
   idActiveMenuItem: PropTypes.number,
 };
 
