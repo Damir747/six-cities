@@ -23,10 +23,10 @@ const getSort = (state) => state.sort;
 const sortedRooms = (rooms, sortType) => {
   switch (sortType) {
     case (1): {
-      return rooms.sort((a, b) => a.priceValue - b.priceValue);
+      return rooms.sort((a, b) => +a.priceValue - +b.priceValue);
     }
     case (2): {
-      return rooms.sort((a, b) => b.priceValue - a.priceValue);
+      return rooms.sort((a, b) => +b.priceValue - +a.priceValue);
     }
     case (3): {
       return rooms.sort((a, b) => b.rating - a.rating);

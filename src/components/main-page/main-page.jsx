@@ -26,7 +26,6 @@ const MainPage = ({ idActiveRoom,
             cities={cities}
             activeCity={activeCity}
           />
-
           <CityPlaces
             idActiveRoom={idActiveRoom}
             onMouseEnter={onMouseEnter}

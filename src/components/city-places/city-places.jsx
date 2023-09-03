@@ -20,7 +20,7 @@ const CityPlaces = ({ idActiveRoom, onMouseEnter, onMouseLeave,
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{filteredRooms.length} places to stay in {activeCity.cityName}</b>
+            <b className="places__found">{filteredRooms.length} places to stay in {activeCity}</b>
             <MenuUp />
 
             <div className="cities__places-list places__list tabs__content">

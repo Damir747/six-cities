@@ -22,13 +22,6 @@ const ActionCreator = {
     };
   },
 
-  loadCityList: (cities) => {
-    return {
-      type: ActionType.CITY_LIST,
-      payload: cities,
-    };
-  },
-
   favoritesChange: (city) => {
     return {
       type: ActionType.FAVORITES_LIST,

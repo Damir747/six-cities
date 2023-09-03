@@ -23,7 +23,7 @@ const initialState = {
   stars,
   reviews,
   roomTypeToReadable,
-  rooms,
+  rooms: [],
   authorizationStatus: AuthorizationStatus.NO_AUTH,
 };
 
@@ -39,6 +39,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         activeCity: action.payload,
+      };
+    }
+    case ActionType.HOTEL_LIST: {
+      return {
+        ...state,
+        rooms: action.payload,
       };
     }
     case ActionType.CITY_LIST: {
