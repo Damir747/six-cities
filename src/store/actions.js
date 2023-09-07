@@ -36,9 +36,19 @@ const ActionCreator = {
     };
   },
 
-  requireAuthorization: (status) => ({
-    type: ActionType.REQUIRED_AUTHORIZATION,
+  checkAuthorizationStatus: (status) => ({
+    type: ActionType.CHECK_AUTHORIZATION_STATUS,
     payload: status,
+  }),
+
+  appendNotification: (notifiation) => ({
+    type: ActionType.APPEND_NOTIFICATION,
+    payload: notifiation,
+  }),
+
+  removeNotification: (id) => ({
+    type: ActionType.REMOVE_NOTIFICATION,
+    meta: id,
   })
 };
 

@@ -12,7 +12,7 @@ import loginName from './mock/mock-login';
 import { Provider } from 'react-redux';
 import reducer from './store/reducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { fetchHotelList } from './store/api-actions';
+import { checkAuthorizationStatus, fetchHotelList } from './store/api-actions';
 import ActionCreator from './store/actions';
 
 const api = createAPI(
@@ -26,13 +26,17 @@ const store = createStore(
   )
 );
 
-store.dispatch(fetchHotelList());
+const onLoadData = () => {
+  store.dispatch(checkAuthorizationStatus());
+  store.dispatch(fetchHotelList());
+};
 
 ReactDom.render(
   <Provider store={store}>
     <App
       rooms={rooms}
       loginName={loginName}
+      onLoadData={() => onLoadData()}
     />
   </Provider>,
   document.getElementById(`root`),

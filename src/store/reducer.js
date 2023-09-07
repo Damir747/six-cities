@@ -7,7 +7,6 @@ import propertyInside from '../mock/mock-property-inside';
 import stars from "../mock/mock-rating-stars";
 import reviews from '../mock/mock-reviews';
 import roomTypeToReadable from '../mock/mock-room-types';
-import rooms from '../mock/mock-rooms';
 import { AuthorizationStatus } from '../const';
 
 import ActionType from "./actions-types";
@@ -25,6 +24,8 @@ const initialState = {
   roomTypeToReadable,
   rooms: [],
   authorizationStatus: AuthorizationStatus.NO_AUTH,
+  notifications: [],
+  isDataLoaded: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -45,6 +46,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         rooms: action.payload,
+        isDataLoaded: true,
       };
     }
     case ActionType.CITY_LIST: {
@@ -64,10 +66,25 @@ const reducer = (state = initialState, action) => {
         loginName: state.loginName
       };
     }
-    case ActionType.REQUIRED_AUTHORIZATION: {
+    case ActionType.CHECK_AUTHORIZATION_STATUS: {
       return {
         ...state,
         authorizationStatus: action.payload,
+      };
+    }
+    case ActionType.APPEND_NOTIFICATION: {
+      return {
+        ...state,
+        notifications: [
+          ...state.notifications,
+          action.payload
+        ]
+      };
+    }
+    case ActionType.REMOVE_NOTIFICATION: {
+      return {
+        ...state,
+        notifications: state.notifications.filter((el) => el.id !== action.meta)
       };
     }
     default: {

@@ -23,4 +23,11 @@ const bookmarkClassname = (frame, bookmark) => {
     bookmark === IN_BOOKMARKS ? `${frame}__bookmark-button--active` : '');
 };
 
-export { capitalizeFirstLetter, roundRating, numberRating, classname, bookmarkClassname };
+const frameClassname = (frame) => {
+  if (frame === 'near-places') {
+    return classname('near-places__card', 'place-card');
+  }
+  return classname('cities__place-card', 'place-card');
+};
+
+export { capitalizeFirstLetter, roundRating, numberRating, classname, bookmarkClassname, frameClassname };

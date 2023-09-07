@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import roomType from '../../types/room';
 import { AppRoute } from "../../const";
-import { bookmarkClassname, capitalizeFirstLetter, classname, roundRating } from "../../utils/utils";
+import { bookmarkClassname, capitalizeFirstLetter, classname, frameClassname, roundRating } from "../../utils/utils";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame }) => {
@@ -11,13 +11,13 @@ const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame }) => {
 
   return (
     <React.Fragment>
-      <article key={id} className={classname(frame + '__place-card', 'place-card')}
+      <article key={id} className={frameClassname(frame)}
         onMouseEnter={() => onMouseEnter(id)}
         onMouseLeave={() => onMouseLeave()}>
         {(frame === 'cities') && level && <div className="place-card__mark">
           <span>{level}</span>
         </div>}
-        <div className={classname(frame + '__place-card', 'place-card__image-wrapper')}>
+        <div className={classname(frame + '__image-wrapper', 'place-card__image-wrapper')}>
           <Link to={AppRoute.ROOT}>
             <img className="place-card__image" src={img} width="260" height="200" alt="Place image" />
           </Link>

@@ -1,3 +1,5 @@
+const getAuthorizationStatus = (state) => state.authorizationStatus;
+
 const getLoginName = (state) => state.loginName;
 
 const getActiveCity = (state) => state.activeCity;
@@ -19,6 +21,10 @@ const getFavoriteRooms = (state) => {
 const getReviews = (state) => state.reviews;
 
 const getSort = (state) => state.sort;
+
+const getIsDataLoaded = (state) => state.isDataLoaded;
+
+const getNotifications = (state) => state.notifications;
 
 const sortedRooms = (rooms, sortType) => {
   switch (sortType) {
@@ -42,4 +48,4 @@ const getFilteredRooms = (state) => {
   return sortedRooms(filteredRooms, getSort(state));
 };
 
-export { getLoginName, getCities, getMenuUpArray, getPropertyInside, getRooms, getReviews, getSort, sortedRooms, getFilteredRooms, getActiveCity, getActiveCityCoordinates, getFavoriteRooms };
+export { getAuthorizationStatus, getLoginName, getCities, getMenuUpArray, getPropertyInside, getRooms, getReviews, getSort, sortedRooms, getFilteredRooms, getActiveCity, getActiveCityCoordinates, getFavoriteRooms, getIsDataLoaded, getNotifications };

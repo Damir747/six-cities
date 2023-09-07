@@ -17,8 +17,10 @@ import { getRooms } from "../../store/selectors";
 import { connect } from "react-redux";
 
 const Property = ({ idActiveRoom, onMouseEnter, onMouseLeave, rooms, reviews, neighbourhood }) => {
-  const room = rooms.slice().filter((el) => el.id === (idActiveRoom ? idActiveRoom : 0))[0];
+  const room = rooms[0];
+  // console.log(room);
   const { id, level, img, priceValue, priceText, bookmark, rating, card, type, description, host, images, cityName } = room;
+  // console.log(description);
   const idOffer = useParams();
 
   return (
@@ -90,11 +92,11 @@ const Property = ({ idActiveRoom, onMouseEnter, onMouseLeave, rooms, reviews, ne
                     </span>
                   </div>
                   <div className="property__description">
-                    {description.map((item) => (
-                      <p key={item.id} className="property__text">
-                        {item.text}
-                      </p>
-                    ))}
+
+                    <p className="property__text">
+                      {description}
+                    </p>
+
                   </div>
                 </div>
 

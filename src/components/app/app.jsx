@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 
@@ -12,15 +12,31 @@ import Property from '../property/property';
 import roomsType from '../../types/rooms';
 import reviewsType from "../../types/reviews";
 import loginType from '../../types/login';
+import { connect } from 'react-redux';
+import { getIsDataLoaded } from '../../store/selectors';
+import Loading from '../loading/loading';
 
-const App = ({ rooms, loginName }) => {
+const App = ({ rooms, loginName, isDataLoaded, onLoadData }) => {
   const [idActiveRoom, setActiveRoom] = useState(null);
+
   const handleMouseEnter = useCallback((item) => {
     setActiveRoom(item);
   }, []);
   const handleMouseLeave = useCallback(() => {
     setActiveRoom(null);
   }, []);
+
+  useEffect(() => {
+    if (!isDataLoaded) {
+      onLoadData();
+    }
+  }, [isDataLoaded]);
+
+  if (!isDataLoaded) {
+    return (
+      <Loading />
+    );
+  }
 
   return (
     <>
@@ -31,6 +47,7 @@ const App = ({ rooms, loginName }) => {
               idActiveRoom={idActiveRoom}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
+              onLoadData={onLoadData}
             />
           </Route>
           <Route exact path={AppRoute.LOGIN}>
@@ -62,9 +79,16 @@ App.propTypes = {
   reviews: reviewsType,
   cities: PropTypes.object,
   loginName: loginType,
+  isDataLoaded: PropTypes.bool.isRequired,
+  onLoadData: PropTypes.func.isRequired,
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  isDataLoaded: getIsDataLoaded(state)
+});
+
+export { App };
+export default connect(mapStateToProps)(App);
 
 // Задайте себе три вопроса:
 

@@ -61,7 +61,6 @@ class Room {
 
     delete adaptedHotel.is_premium;
     delete adaptedHotel.preview_image;
-    delete adaptedHotel.description;
     delete adaptedHotel.is_favorite;
     delete adaptedHotel.price;
     delete adaptedHotel.bedrooms;
