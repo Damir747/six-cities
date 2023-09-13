@@ -71,5 +71,24 @@ class Room {
   }
 }
 
-export default Room;
+class City {
+  static convertDataToCity(data) {
+    const adaptedCity = Object.assign(
+      {},
+      data,
+      {
+        [data.name]: {
+          lat: data.location.latitude,
+          lng: data.location.longitude,
+          zoom: data.location.zoom,
+        }
+      }
+    );
+    delete adaptedCity.name;
+    delete adaptedCity.location;
+    return adaptedCity;
+  }
+}
+
+export { Room, City };
 

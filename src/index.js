@@ -8,15 +8,18 @@ import App from './components/app/app';
 import { legacy_createStore as createStore } from 'redux';
 
 import rooms from './mock/mock-rooms';
-import loginName from './mock/mock-login';
 import { Provider } from 'react-redux';
 import reducer from './store/reducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { checkAuthorizationStatus, fetchHotelList } from './store/api-actions';
 import ActionCreator from './store/actions';
+import { AuthorizationStatus } from './const';
 
 const api = createAPI(
-  () => store.dispatch(ActionCreator.loadHotelList)
+  () => {
+    store.dispatch(ActionCreator.changeAuthorizationStatus(AuthorizationStatus.NO_AUTH));
+    store.dispatch(ActionCreator.loadHotelList);
+  }
 );
 
 const store = createStore(
@@ -27,7 +30,7 @@ const store = createStore(
 );
 
 const onLoadData = () => {
-  store.dispatch(checkAuthorizationStatus());
+  // store.dispatch(checkAuthorizationStatus());
   store.dispatch(fetchHotelList());
 };
 
@@ -35,7 +38,6 @@ ReactDom.render(
   <Provider store={store}>
     <App
       rooms={rooms}
-      loginName={loginName}
       onLoadData={() => onLoadData()}
     />
   </Provider>,

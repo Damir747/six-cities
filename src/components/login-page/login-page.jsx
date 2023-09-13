@@ -4,30 +4,27 @@ import Header from "../header/header";
 import Top from "../top/top";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { AppRoute } from "../../const";
-import loginType from '../../types/login';
 import { useCallback } from 'react';
 import { useState } from 'react';
-import { getLoginName } from '../../store/selectors';
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
+import { login } from '../../store/api-actions';
 import { connect } from 'react-redux';
 
-const foo = (obj) => {
-  console.log('foo:', obj);
-};
-
-const LoginPage = ({ onLogin = foo }) => {
-  const [loginName, setLogin] = useState('');
+const LoginPage = ({ onLogin }) => {
+  const history = useHistory();
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = useCallback((evt) => {
     evt.preventDefault();
-    setLogin(evt.target['email'].value);
+    setEmail(evt.target['email'].value);
     setPassword(evt.target['password'].value);
-    console.log(evt.target['email'].value, evt.target['password'].value);
+
     onLogin({
-      loginName: evt.target['email'].value,
+      email: evt.target['email'].value,
       password: evt.target['password'].value
-    });
-    // .then(() => history.pushState(AppRoute.ROOT));
+    })
+      .then(() => history.push(AppRoute.ROOT));
   });
 
   return (
@@ -70,13 +67,9 @@ const LoginPage = ({ onLogin = foo }) => {
   );
 };
 
-LoginPage.propTypes = {
-  loginName: loginType,
-};
-
-const mapStateToProps = (state) => ({
-  loginName: getLoginName(state),
+const mapDispatchToProps = ({
+  onLogin: login
 });
 
 export { LoginPage };
-export default connect(mapStateToProps)(LoginPage);
+export default connect(null, mapDispatchToProps)(LoginPage);

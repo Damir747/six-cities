@@ -22,6 +22,13 @@ const ActionCreator = {
     };
   },
 
+  loadCityList: (cities) => {
+    return {
+      type: ActionType.CITY_LIST,
+      payload: cities,
+    };
+  },
+
   favoritesChange: (city) => {
     return {
       type: ActionType.FAVORITES_LIST,
@@ -29,18 +36,15 @@ const ActionCreator = {
     };
   },
 
-  loginChange: (loginName) => {
-    return {
-      type: ActionType.LOGIN_NAME,
-      payload: loginName,
-    };
-  },
-
-  checkAuthorizationStatus: (status) => ({
-    type: ActionType.CHECK_AUTHORIZATION_STATUS,
+  changeAuthorizationStatus: (status) => ({
+    type: ActionType.CHANGE_AUTHORIZATION_STATUS,
     payload: status,
   }),
 
+  userChange: (user) => ({
+    type: ActionType.LOGIN_NAME,
+    payload: user,
+  }),
   appendNotification: (notifiation) => ({
     type: ActionType.APPEND_NOTIFICATION,
     payload: notifiation,

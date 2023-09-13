@@ -11,12 +11,11 @@ import Property from '../property/property';
 
 import roomsType from '../../types/rooms';
 import reviewsType from "../../types/reviews";
-import loginType from '../../types/login';
 import { connect } from 'react-redux';
 import { getIsDataLoaded } from '../../store/selectors';
 import Loading from '../loading/loading';
 
-const App = ({ rooms, loginName, isDataLoaded, onLoadData }) => {
+const App = ({ rooms, isDataLoaded, onLoadData }) => {
   const [idActiveRoom, setActiveRoom] = useState(null);
 
   const handleMouseEnter = useCallback((item) => {
@@ -47,13 +46,10 @@ const App = ({ rooms, loginName, isDataLoaded, onLoadData }) => {
               idActiveRoom={idActiveRoom}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
-              onLoadData={onLoadData}
             />
           </Route>
           <Route exact path={AppRoute.LOGIN}>
-            <LoginPage
-              loginName={loginName}
-            />
+            <LoginPage />
           </Route>
           <Route exact path={AppRoute.FAVORITES}>
             <FavoritesPage />
@@ -78,7 +74,6 @@ App.propTypes = {
   rooms: roomsType,
   reviews: reviewsType,
   cities: PropTypes.object,
-  loginName: loginType,
   isDataLoaded: PropTypes.bool.isRequired,
   onLoadData: PropTypes.func.isRequired,
 };

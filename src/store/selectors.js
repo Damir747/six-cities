@@ -1,6 +1,6 @@
 const getAuthorizationStatus = (state) => state.authorizationStatus;
 
-const getLoginName = (state) => state.loginName;
+const getLoginName = (state) => state.loginName ? state.loginName.email : null;
 
 const getActiveCity = (state) => state.activeCity;
 
