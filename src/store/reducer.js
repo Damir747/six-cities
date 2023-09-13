@@ -1,6 +1,7 @@
 /* eslint-disable indent */
 import cities from "../mock/mock-cities";
 import menuUpArray from "../mock/mock-menu";
+import propertyInside from '../mock/mock-property-inside';
 import stars from "../mock/mock-rating-stars";
 import roomTypeToReadable from '../mock/mock-room-types';
 import { AuthorizationStatus } from '../const';
@@ -12,6 +13,7 @@ const initialState = {
   activeCity: 'Paris',
   cities,
   menuUpArray,
+  propertyInside,
   stars,
   roomTypeToReadable,
   rooms: [],
