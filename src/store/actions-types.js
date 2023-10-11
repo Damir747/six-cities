@@ -3,6 +3,7 @@ const ActionType = {
   CHANGE_CITY: '@city/change_city',
   CITY_LIST: '@city/city_list',
   HOTEL_LIST: '@hotel/hotel_list',
+  HOTEL: '@hotel/hotel',
   FAVORITES_LIST: '@favorites/favorites_list',
   LOGIN_NAME: '@login/login_name',
   CHANGE_AUTHORIZATION_STATUS: '@auth/change_authorization_status',

@@ -29,6 +29,13 @@ const ActionCreator = {
     };
   },
 
+  loadHotel: (hotel) => {
+    return {
+      type: ActionType.HOTEL,
+      payload: hotel,
+    };
+  },
+
   favoritesChange: (city) => {
     return {
       type: ActionType.FAVORITES_LIST,
@@ -45,6 +52,7 @@ const ActionCreator = {
     type: ActionType.LOGIN_NAME,
     payload: user,
   }),
+
   appendNotification: (notifiation) => ({
     type: ActionType.APPEND_NOTIFICATION,
     payload: notifiation,

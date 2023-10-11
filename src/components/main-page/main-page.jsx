@@ -6,13 +6,13 @@ import { connect } from "react-redux";
 import Top from "../top/top";
 import Header from "../header/header";
 import CityPlaces from "../city-places/city-places";
-import { getActiveCity, getCities, getIsDataLoaded } from "../../store/selectors";
+import { getActiveCity, getCities } from "../../store/selectors";
 import CityList from "../city-list/city-list";
 
 const MainPage = ({ idActiveRoom,
   onMouseEnter = () => { }, onMouseLeave = () => { },
   cities, activeCity }) => {
-
+  console.log(idActiveRoom);
   return (
     <React.Fragment>
       <Top />

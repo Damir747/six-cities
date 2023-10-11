@@ -22,6 +22,7 @@ const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
   notifications: [],
   isDataLoaded: false,
+  isHotelLoaded: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -43,6 +44,13 @@ const reducer = (state = initialState, action) => {
         ...state,
         rooms: action.payload,
         isDataLoaded: true,
+      };
+    }
+    case ActionType.HOTEL: {
+      return {
+        ...state,
+        hotel: action.payload,
+        isHotelLoaded: true,
       };
     }
     case ActionType.CITY_LIST: {

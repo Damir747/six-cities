@@ -8,6 +8,8 @@ const getActiveCityCoordinates = (state) => getCities(state)[getActiveCity(state
 
 const getCities = (state) => state.cities;
 
+const getHotel = (state) => state.hotel;
+
 const getMenuUpArray = (state) => state.menuUpArray;
 
 const getPropertyInside = (state) => state.propertyInside;
@@ -23,6 +25,8 @@ const getReviews = (state) => state.reviews;
 const getSort = (state) => state.sort;
 
 const getIsDataLoaded = (state) => state.isDataLoaded;
+
+const getIsHotelLoaded = (state) => state.isHotelLoaded;
 
 const getNotifications = (state) => state.notifications;
 
@@ -48,4 +52,4 @@ const getFilteredRooms = (state) => {
   return sortedRooms(filteredRooms, getSort(state));
 };
 
-export { getAuthorizationStatus, getLoginName, getCities, getMenuUpArray, getPropertyInside, getRooms, getReviews, getSort, sortedRooms, getFilteredRooms, getActiveCity, getActiveCityCoordinates, getFavoriteRooms, getIsDataLoaded, getNotifications };
+export { getAuthorizationStatus, getLoginName, getCities, getHotel, getMenuUpArray, getPropertyInside, getRooms, getReviews, getSort, sortedRooms, getFilteredRooms, getActiveCity, getActiveCityCoordinates, getFavoriteRooms, getIsDataLoaded, getIsHotelLoaded, getNotifications };

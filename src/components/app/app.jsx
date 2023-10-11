@@ -15,7 +15,7 @@ import { connect } from 'react-redux';
 import { getIsDataLoaded } from '../../store/selectors';
 import Loading from '../loading/loading';
 
-const App = ({ rooms, isDataLoaded, onLoadData }) => {
+const App = ({ rooms, isDataLoaded, onLoadData, onLoadHotel }) => {
   const [idActiveRoom, setActiveRoom] = useState(null);
 
   const handleMouseEnter = useCallback((item) => {
@@ -59,6 +59,7 @@ const App = ({ rooms, isDataLoaded, onLoadData }) => {
               idActiveRoom={idActiveRoom}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
+              onLoadHotel={onLoadHotel}
             />
           </Route>
           <Route>
@@ -76,6 +77,7 @@ App.propTypes = {
   cities: PropTypes.object,
   isDataLoaded: PropTypes.bool.isRequired,
   onLoadData: PropTypes.func.isRequired,
+  onLoadHotel: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

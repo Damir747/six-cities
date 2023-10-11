@@ -2,6 +2,7 @@ import { AuthorizationStatus } from "../const";
 import cities from "../mock/mock-cities";
 import ActionCreator from "./actions";
 import { Room, City } from "./adapter";
+import { getPropertyInside } from "./selectors";
 
 const serverLinks = {
   HOTELS: `/hotels`,
@@ -27,6 +28,22 @@ const fetchHotelList = () => (dispatch, _getState, api) => (
       console.log(cityList);
     })
 );
+
+const fetchHotel = (id) => (dispatch, getState, api) => {
+
+  // const state = getState();
+  // const room = getPropertyInside(state);
+
+  // if (room) {
+  //   console.log(room);
+  //   return Promise.resolve(room); //? конвертировать надо?
+  // }
+  return api.get(`${serverLinks.HOTELS}/${id}`)
+    .then(({ data }) => {
+      dispatch(ActionCreator.loadHotel(Room.convertDataHotel(data)));
+      return data;
+    });
+};
 
 function login({ email, password }) {
   return function (dispatch, _getState, api) {
@@ -63,4 +80,5 @@ const checkAuthorizationStatus = () => (dispatch, _getState, api) => (
       }));
     })
 );
-export { fetchHotelList, login, checkAuthorizationStatus };
+
+export { fetchHotelList, fetchHotel, login, checkAuthorizationStatus };

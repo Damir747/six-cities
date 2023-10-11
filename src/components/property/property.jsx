@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
@@ -11,14 +11,29 @@ import Room from "../room/room";
 import { bookmarkClassname, classname, numberRating, roundRating } from "../../utils/utils";
 
 import roomsType from "../../types/rooms";
+import roomType from '../../types/room';
 import reviewsType from "../../types/reviews";
 
-import { getRooms } from "../../store/selectors";
+import { getHotel, getIsHotelLoaded, getPropertyInside, getRooms } from "../../store/selectors";
 import { connect } from "react-redux";
+import Loading from '../loading/loading';
 
-const Property = ({ idActiveRoom, onMouseEnter, onMouseLeave, rooms, reviews, neighbourhood }) => {
-  const room = rooms[0];
-  // console.log(room);
+const Property = ({ idActiveRoom, onMouseEnter, onMouseLeave, rooms, reviews, neighbourhood, isHotelLoaded, onLoadHotel, room }) => {
+  // console.log(idActiveRoom); это комната в списке, у которой потом подсвечивается маркер на карте
+  const idRoom = Number(useParams().id);
+
+  useEffect(() => {
+    if (!isHotelLoaded) {
+      onLoadHotel(idRoom);
+    }
+  }, [isHotelLoaded]);
+
+  if (!isHotelLoaded) {
+    return (
+      <Loading />
+    );
+  }
+
   const { id, level, img, priceValue, priceText, bookmark, rating, card, type, description, host, images, cityName } = room;
   // console.log(description);
   const idOffer = useParams();
@@ -142,11 +157,16 @@ Property.propTypes = {
   rooms: roomsType,
   reviews: reviewsType,
   neighbourhood: roomsType,
+  isHotelLoaded: PropTypes.bool.isRequired,
+  onLoadHotel: PropTypes.func.isRequired,
+  room: roomType,
 };
 
 const mapStateToProps = (state) => ({
   rooms: getRooms(state),
   neighbourhood: getRooms(state).slice(2, 5),
+  isHotelLoaded: getIsHotelLoaded(state),
+  room: getHotel(state),
 });
 
 export { Property };
