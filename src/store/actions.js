@@ -36,6 +36,13 @@ const ActionCreator = {
     };
   },
 
+  loadCommentList: (comments) => {
+    return {
+      type: ActionType.COMMENT_LIST,
+      payload: comments,
+    };
+  },
+
   favoritesChange: (city) => {
     return {
       type: ActionType.FAVORITES_LIST,

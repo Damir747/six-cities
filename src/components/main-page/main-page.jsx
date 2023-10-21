@@ -12,7 +12,7 @@ import CityList from "../city-list/city-list";
 const MainPage = ({ idActiveRoom,
   onMouseEnter = () => { }, onMouseLeave = () => { },
   cities, activeCity }) => {
-  console.log(idActiveRoom);
+
   return (
     <React.Fragment>
       <Top />

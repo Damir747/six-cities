@@ -19,7 +19,7 @@ const FavoriteCityRooms = ({ favoriteRooms, city }) => {
           return (
             <article key={id} className="favorites__card place-card">
               <div className="favorites__image-wrapper place-card__image-wrapper">
-                <Link to={AppRoute.OFFER}>
+                <Link to={AppRoute.OFFER + id}>
                   <img className="place-card__image" src={img} width="150" height="110" alt="Place image" />
                 </Link>
               </div>
@@ -43,7 +43,7 @@ const FavoriteCityRooms = ({ favoriteRooms, city }) => {
                   </div>
                 </div>
                 <h2 className="place-card__name">
-                  <Link to={AppRoute.OFFER}>{card}</Link>
+                  <Link to={AppRoute.OFFER + id}>{card}</Link>
                 </h2>
                 <p className="place-card__type">{capitalizeFirstLetter(type)}</p>
               </div>

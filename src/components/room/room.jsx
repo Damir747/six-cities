@@ -43,7 +43,7 @@ const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame }) => {
             </div>
           </div>
           <h2 className="place-card__name">
-            <Link to={AppRoute.ROOT}>{card}</Link>
+            <Link to={AppRoute.OFFER + id}>{card}</Link>
           </h2>
           <p className="place-card__type">{capitalizeFirstLetter(type)}</p>
         </div>

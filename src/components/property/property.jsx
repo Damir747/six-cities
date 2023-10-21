@@ -17,27 +17,42 @@ import reviewsType from "../../types/reviews";
 import { getHotel, getIsHotelLoaded, getPropertyInside, getRooms } from "../../store/selectors";
 import { connect } from "react-redux";
 import Loading from '../loading/loading';
+import { fetchHotel } from '../../store/api-actions';
 
-const Property = ({ idActiveRoom, onMouseEnter, onMouseLeave, rooms, reviews, neighbourhood, isHotelLoaded, onLoadHotel, room }) => {
+const Property = ({ idActiveRoom, onMouseEnter, onMouseLeave, rooms, reviews, neighbourhood, isHotelLoaded, onLoadHotel, onLoadComments }) => {
   // console.log(idActiveRoom); это комната в списке, у которой потом подсвечивается маркер на карте
+  const [fetching, setFetching] = useState(true);
+
   const idRoom = Number(useParams().id);
 
   useEffect(() => {
-    if (!isHotelLoaded) {
-      onLoadHotel(idRoom);
-    }
-  }, [isHotelLoaded]);
+    onLoadHotel(idRoom)
+      .then((value) => {
+        console.log(value);
+        setFetching(false);
+        return value;
+      });
+    // onLoadComments(idRoom)
+    //   .then(() => {
+    //     console.log('onLoadComments is done');
+    //   });
+  }, [idRoom]);
 
-  if (!isHotelLoaded) {
-    return (
-      <Loading />
-    );
-  }
-
+  // useEffect(() => {
+  //   fetchCommentsList(id);
+  // }, [id, fetchCommentsList]);
+  const room = rooms[idRoom];
   const { id, level, img, priceValue, priceText, bookmark, rating, card, type, description, host, images, cityName } = room;
   // console.log(description);
   const idOffer = useParams();
 
+  if (fetching || !isHotelLoaded) {
+    return (
+      <Loading />
+    );
+  }
+  console.log(room);
+  console.log(room.host.user.name);
   return (
     <React.Fragment>
       <Top />
@@ -49,7 +64,7 @@ const Property = ({ idActiveRoom, onMouseEnter, onMouseLeave, rooms, reviews, ne
           <section className="property">
             <div className="property__gallery-container container">
               <div className="property__gallery">
-                {images.map((image) => (
+                {images && images.map((image) => (
                   <div key={image.id} className="property__image-wrapper">
                     <img className="property__image" src={image.src} alt={image.alt} />
                   </div>
@@ -80,7 +95,7 @@ const Property = ({ idActiveRoom, onMouseEnter, onMouseLeave, rooms, reviews, ne
                   <span className="property__rating-value rating__value">{numberRating(rating)}</span>
                 </div>
                 <ul className="property__features">
-                  {room.features.map((feature) => (
+                  {room.features && room.features.map((feature) => (
                     <li key={feature.id} className={classname('property__feature', feature.className)}>
                       {feature.featureName}
                     </li>
@@ -94,16 +109,16 @@ const Property = ({ idActiveRoom, onMouseEnter, onMouseLeave, rooms, reviews, ne
                 <PropertyInside />
 
                 <div className="property__host">
-                  <h2 className="property__host-title">{host.title}</h2>
+                  <h2 className="property__host-title">{host && host.title}</h2>
                   <div className="property__host-user user">
                     <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                      <img className="property__avatar user__avatar" src={host.user.img} width="74" height="74" alt="Host avatar" />
+                      <img className="property__avatar user__avatar" src={room.host && room.host.user && room.host.user.img} width="74" height="74" alt="Host avatar" />
                     </div>
                     <span className="property__user-name">
-                      {host.user.name}
+                      {room.host && room.host.user && room.host.user.name}
                     </span>
                     <span className="property__user-status">
-                      {host.user.status}
+                      {host && host.user && host.user.status}
                     </span>
                   </div>
                   <div className="property__description">
@@ -158,15 +173,14 @@ Property.propTypes = {
   reviews: reviewsType,
   neighbourhood: roomsType,
   isHotelLoaded: PropTypes.bool.isRequired,
-  onLoadHotel: PropTypes.func.isRequired,
-  room: roomType,
+  onLoadHotel: () => { },
+  onLoadComments: () => { },
 };
 
 const mapStateToProps = (state) => ({
   rooms: getRooms(state),
   neighbourhood: getRooms(state).slice(2, 5),
   isHotelLoaded: getIsHotelLoaded(state),
-  room: getHotel(state),
 });
 
 export { Property };

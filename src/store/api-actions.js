@@ -6,6 +6,7 @@ import { getPropertyInside } from "./selectors";
 
 const serverLinks = {
   HOTELS: `/hotels`,
+  COMMENTS: `/comments`,
   FAVORITE: `/favorite`,
   LOGIN: `/login`,
   LOGOUT: `/logout`,
@@ -25,7 +26,6 @@ const fetchHotelList = () => (dispatch, _getState, api) => (
         cityList = Object.assign(cityList, City.convertDataToCity(el.city));
       });
       dispatch(ActionCreator.loadCityList(cityList));
-      console.log(cityList);
     })
 );
 
@@ -38,9 +38,29 @@ const fetchHotel = (id) => (dispatch, getState, api) => {
   //   console.log(room);
   //   return Promise.resolve(room); //? конвертировать надо?
   // }
+
   return api.get(`${serverLinks.HOTELS}/${id}`)
     .then(({ data }) => {
-      dispatch(ActionCreator.loadHotel(Room.convertDataHotel(data)));
+      data = Room.convertDataHotel(data);
+      dispatch(ActionCreator.loadHotel(data));
+      return data;
+    })
+    .catch((error) => {
+      console.log('error!');
+      dispatch(ActionCreator.appendNotification({
+        message: error.message,
+        type: 'error',
+        id: 0
+      }));
+    });
+};
+
+const fetchCommentsList = (idHotel) => (dispatch, _getState, api) => {
+  api.get(`${serverLinks.COMMENTS}/${idHotel}`)
+    .then(({ data }) => {
+      console.log(`Comments for hotel ${idHotel} are loaded.`);
+      console.log(data);
+      dispatch(ActionCreator.loadCommentList(data));
       return data;
     });
 };
@@ -81,4 +101,4 @@ const checkAuthorizationStatus = () => (dispatch, _getState, api) => (
     })
 );
 
-export { fetchHotelList, fetchHotel, login, checkAuthorizationStatus };
+export { fetchHotelList, fetchHotel, fetchCommentsList, login, checkAuthorizationStatus };

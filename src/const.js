@@ -2,7 +2,7 @@ const AppRoute = {
   ROOT: `/`,
   LOGIN: `/login`,
   FAVORITES: `/favorites`,
-  OFFER: `/offer/:id`,
+  OFFER: `/offer/`,
 };
 
 const IN_BOOKMARKS = 'In bookmarks';

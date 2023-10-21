@@ -11,7 +11,7 @@ import rooms from './mock/mock-rooms';
 import { Provider } from 'react-redux';
 import reducer from './store/reducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { checkAuthorizationStatus, fetchHotel, fetchHotelList } from './store/api-actions';
+import { checkAuthorizationStatus, fetchCommentsList, fetchHotel, fetchHotelList } from './store/api-actions';
 import ActionCreator from './store/actions';
 import { AuthorizationStatus } from './const';
 
@@ -36,7 +36,11 @@ const onLoadData = () => {
 };
 
 const onLoadHotel = (id) => {
-  store.dispatch(fetchHotel(id));
+  return store.dispatch(fetchHotel(id));
+};
+
+const onLoadComments = (idHotel) => {
+  return store.dispatch(fetchCommentsList(idHotel));
 };
 
 ReactDom.render(
@@ -45,6 +49,7 @@ ReactDom.render(
       rooms={rooms}
       onLoadData={() => onLoadData()}
       onLoadHotel={(id) => onLoadHotel(id)}
+      onLoadComments={(idHotel) => onLoadComments(idHotel)}
     />
   </Provider>,
   document.getElementById(`root`),
