@@ -17,7 +17,6 @@ import Loading from '../loading/loading';
 
 const App = ({ rooms, isDataLoaded, onLoadData, onLoadHotel, onLoadComments }) => {
   const [idActiveRoom, setActiveRoom] = useState(null);
-
   const handleMouseEnter = useCallback((item) => {
     setActiveRoom(item);
   }, []);

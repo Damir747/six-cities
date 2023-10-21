@@ -11,48 +11,43 @@ import Room from "../room/room";
 import { bookmarkClassname, classname, numberRating, roundRating } from "../../utils/utils";
 
 import roomsType from "../../types/rooms";
-import roomType from '../../types/room';
-import reviewsType from "../../types/reviews";
 
 import { getHotel, getIsHotelLoaded, getPropertyInside, getRooms } from "../../store/selectors";
 import { connect } from "react-redux";
 import Loading from '../loading/loading';
-import { fetchHotel } from '../../store/api-actions';
 
-const Property = ({ idActiveRoom, onMouseEnter, onMouseLeave, rooms, reviews, neighbourhood, isHotelLoaded, onLoadHotel, onLoadComments }) => {
-  // console.log(idActiveRoom); это комната в списке, у которой потом подсвечивается маркер на карте
-  const [fetching, setFetching] = useState(true);
+const Property = ({ idActiveRoom, onMouseEnter, onMouseLeave, rooms, neighbourhood, isHotelLoaded, onLoadHotel, onLoadComments }) => {
+  const [fetchingHotel, setFetchingHotel] = useState(true);
+  const [fetchingComments, setFetchingComments] = useState(true);
 
   const idRoom = Number(useParams().id);
+  const [room, setRoom] = useState();
+  const [reviews, setReviews] = useState();
 
   useEffect(() => {
     onLoadHotel(idRoom)
       .then((value) => {
-        console.log(value);
-        setFetching(false);
-        return value;
+        setFetchingHotel(false);
+        setRoom(value);
       });
-    // onLoadComments(idRoom)
-    //   .then(() => {
-    //     console.log('onLoadComments is done');
-    //   });
-  }, [idRoom]);
+    onLoadComments(idRoom)
+      .then((value) => {
+        setFetchingComments(false);
+        setReviews(value);
+      });
+  }, [fetchingHotel, fetchingComments]);
 
   // useEffect(() => {
   //   fetchCommentsList(id);
   // }, [id, fetchCommentsList]);
-  const room = rooms[idRoom];
-  const { id, level, img, priceValue, priceText, bookmark, rating, card, type, description, host, images, cityName } = room;
-  // console.log(description);
-  const idOffer = useParams();
 
-  if (fetching || !isHotelLoaded) {
+  if (fetchingHotel || fetchingComments || !isHotelLoaded || !room) {
     return (
       <Loading />
     );
   }
-  console.log(room);
-  console.log(room.host.user.name);
+  const { id, level, img, priceValue, priceText, bookmark, rating, card, type, description, host, images, cityName } = room;
+
   return (
     <React.Fragment>
       <Top />
@@ -170,7 +165,6 @@ Property.propTypes = {
   onMouseEnter: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func.isRequired,
   rooms: roomsType,
-  reviews: reviewsType,
   neighbourhood: roomsType,
   isHotelLoaded: PropTypes.bool.isRequired,
   onLoadHotel: () => { },

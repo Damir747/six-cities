@@ -20,6 +20,7 @@ const api = createAPI(
     store.dispatch(ActionCreator.changeAuthorizationStatus(AuthorizationStatus.NO_AUTH));
     store.dispatch(ActionCreator.loadHotelList);
     store.dispatch(ActionCreator.loadHotel);
+    store.dispatch(ActionCreator.loadReviewList);
   }
 );
 

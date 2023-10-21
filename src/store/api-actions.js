@@ -1,7 +1,7 @@
 import { AuthorizationStatus } from "../const";
 import cities from "../mock/mock-cities";
 import ActionCreator from "./actions";
-import { Room, City } from "./adapter";
+import { Room, City, Comment } from "./adapter";
 import { getPropertyInside } from "./selectors";
 
 const serverLinks = {
@@ -29,7 +29,7 @@ const fetchHotelList = () => (dispatch, _getState, api) => (
     })
 );
 
-const fetchHotel = (id) => (dispatch, getState, api) => {
+const fetchHotel = (id) => (dispatch, _getState, api) => {
 
   // const state = getState();
   // const room = getPropertyInside(state);
@@ -56,12 +56,22 @@ const fetchHotel = (id) => (dispatch, getState, api) => {
 };
 
 const fetchCommentsList = (idHotel) => (dispatch, _getState, api) => {
-  api.get(`${serverLinks.COMMENTS}/${idHotel}`)
+  return api.get(`${serverLinks.COMMENTS}/${idHotel}`)
     .then(({ data }) => {
-      console.log(`Comments for hotel ${idHotel} are loaded.`);
-      console.log(data);
-      dispatch(ActionCreator.loadCommentList(data));
-      return data;
+      const commentList = [];
+      data.map((el) => {
+        commentList.push(Object.assign({}, Comment.convertDataToComment(el)));
+      });
+      dispatch(ActionCreator.loadReviewList(commentList));
+      return commentList;
+    })
+    .catch((error) => {
+      console.log('error!');
+      dispatch(ActionCreator.appendNotification({
+        message: error.message,
+        type: 'error',
+        id: 3
+      }));
     });
 };
 

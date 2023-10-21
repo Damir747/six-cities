@@ -36,10 +36,10 @@ const ActionCreator = {
     };
   },
 
-  loadCommentList: (comments) => {
+  loadReviewList: (reviews) => {
     return {
-      type: ActionType.COMMENT_LIST,
-      payload: comments,
+      type: ActionType.REVIEW_LIST,
+      payload: reviews,
     };
   },
 

@@ -71,6 +71,23 @@ class Room {
   }
 }
 
+class Comment {
+  static convertDataToComment(data) {
+    const adaptedComment = Object.assign(
+      {},
+      data,
+      {
+        author: data.user.name,
+        img: data.user.avatar_url,
+        reviewText: data.comment,
+      }
+    );
+    delete adaptedComment.user;
+    delete adaptedComment.comment;
+    return adaptedComment;
+  }
+}
+
 class City {
   static convertDataToCity(data) {
     const adaptedCity = Object.assign(
@@ -90,5 +107,5 @@ class City {
   }
 }
 
-export { Room, City };
+export { Room, City, Comment };
 

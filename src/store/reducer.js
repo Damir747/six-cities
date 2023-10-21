@@ -16,7 +16,7 @@ const initialState = {
   menuUpArray,
   propertyInside,
   stars,
-  reviews,
+  reviews: [],
   roomTypeToReadable,
   rooms: [],
   authorizationStatus: AuthorizationStatus.NO_AUTH,
@@ -75,6 +75,13 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         loginName: action.payload,
+      };
+    }
+
+    case ActionType.REVIEW_LIST: {
+      return {
+        ...state,
+        reviews: action.payload,
       };
     }
 
