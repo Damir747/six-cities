@@ -39,6 +39,14 @@ const reducer = (state = initialState, action) => {
         activeCity: action.payload,
       };
     }
+
+    case ActionType.COMMENT_POST: {
+      return {
+        ...state,
+        comment: action.payload,
+      };
+    }
+
     case ActionType.HOTEL_LIST: {
       return {
         ...state,

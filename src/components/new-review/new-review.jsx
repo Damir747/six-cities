@@ -1,22 +1,38 @@
 /* eslint-disable indent */
 import React, { useCallback, useState } from "react";
+import PropTypes from 'prop-types';
 import stars from '../../mock/mock-rating-stars';
 
-const NewReview = () => {
-  const [, setCommentText] = useState(null);
-  const [, setStars] = useState(0);
+const NewReview = ({ idHotelParam, onPostComment }) => {
+  const [commentText, setCommentText] = useState('');
+  const [commentStars, setStars] = useState(0);
 
-  const handleCommentText = useCallback((evt) => {
-    setCommentText(evt.target.value);
-  }, []);
+  const handleCommentText = (evt) => {
+    console.log(evt);
+    console.log(evt.target);
+    console.log(evt.target.textLength, evt.target.value);
+    // setCommentText(evt.target.value);
+    setCommentText('777');
+  };
 
   const handleStars = useCallback((evt) => {
+    console.log('Звезды:', evt.target.value);
     setStars(evt.target.value);
   }, []);
 
+  const handleSubmit = useCallback((evt) => {
+    evt.preventDefault();
+    console.log(idHotelParam, commentText, commentStars);
+    onPostComment(idHotelParam, commentText, commentStars)
+      .then(() => {
+        setCommentText('');
+        setStars(0);
+      });
+  });
+
   return (
     <React.Fragment>
-      <form className="reviews__form form" action="#" method="post" >
+      <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
         <label className="reviews__label form__label" htmlFor="review">Your review</label>
         <div className="reviews__rating-form form__rating">
           {stars.map((star) => {
@@ -41,11 +57,15 @@ const NewReview = () => {
           <p className="reviews__help">
             To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
           </p>
-          <button className="reviews__submit form__submit button" type="submit" disabled="" >Submit</button>
+          <button className="reviews__submit form__submit button" type="submit" disabled="">Submit</button>
         </div>
       </form>
     </React.Fragment >
   );
 };
 
+NewReview.propTypes = {
+  idHotelParam: PropTypes.number.isRequired,
+  onPostComment: () => { },
+};
 export default NewReview;

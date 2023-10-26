@@ -75,6 +75,23 @@ const fetchCommentsList = (idHotel) => (dispatch, _getState, api) => {
     });
 };
 
+const postComment = (idHotel, { commentPost }) => (dispatch, _getState, api) => {
+  console.log(idHotel, commentPost);
+  return api.post(`${serverLinks.COMMENTS}/${idHotel}`, { commentPost })
+    .then(({ data }) => {
+
+      console.log(data);  //CommentGet - надо его добавить к другим отзывам
+      dispatch(ActionCreator.commentPost(data));
+    })
+    .catch((error) => {
+      dispatch(ActionCreator.appendNotification({
+        message: error.message,
+        type: 'error',
+        id: 5,
+      }));
+    });
+};
+
 function login({ email, password }) {
   return function (dispatch, _getState, api) {
     return (
@@ -85,7 +102,7 @@ function login({ email, password }) {
           dispatch(ActionCreator.userChange(data));
         })
         .catch((error) => {
-          console.log('error!');
+          console.log('error!', error);
           dispatch(ActionCreator.appendNotification({
             message: error.message,
             type: 'error',
@@ -111,4 +128,4 @@ const checkAuthorizationStatus = () => (dispatch, _getState, api) => (
     })
 );
 
-export { fetchHotelList, fetchHotel, fetchCommentsList, login, checkAuthorizationStatus };
+export { fetchHotelList, fetchHotel, fetchCommentsList, postComment, login, checkAuthorizationStatus };

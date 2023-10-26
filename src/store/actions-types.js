@@ -1,6 +1,7 @@
 const ActionType = {
   CHANGE_SORT: '@sort/change_sort',
   CHANGE_CITY: '@city/change_city',
+  COMMENT_POST: '@comment/post',
   CITY_LIST: '@city/city_list',
   REVIEW_LIST: '@review/review_list',
   HOTEL_LIST: '@hotel/hotel_list',

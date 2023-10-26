@@ -1,17 +1,11 @@
 import ActionType from "./actions-types";
 
 const ActionCreator = {
-  selectCity: (activeCity) => {
-    return {
-      type: ActionType.CHANGE_CITY,
-      payload: activeCity,
-    };
-  },
 
-  selectSort: (sort) => {
+  commentPost: (comment) => {
     return {
-      type: ActionType.CHANGE_SORT,
-      payload: sort,
+      type: ActionType.COMMENT_POST,
+      payload: comment,
     };
   },
 
@@ -55,12 +49,26 @@ const ActionCreator = {
     payload: status,
   }),
 
-  userChange: (user) => ({
-    type: ActionType.LOGIN_NAME,
-    payload: user,
-  }),
+  selectCity: (activeCity) => {
+    return {
+      type: ActionType.CHANGE_CITY,
+      payload: activeCity,
+    };
+  },
+
+  selectSort: (sort) => {
+    return {
+      type: ActionType.CHANGE_SORT,
+      payload: sort,
+    };
+  },
 
   appendNotification: (notifiation) => ({
+    userChange: (user) => ({
+      type: ActionType.LOGIN_NAME,
+      payload: user,
+    }),
+
     type: ActionType.APPEND_NOTIFICATION,
     payload: notifiation,
   }),

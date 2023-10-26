@@ -11,7 +11,7 @@ import rooms from './mock/mock-rooms';
 import { Provider } from 'react-redux';
 import reducer from './store/reducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { checkAuthorizationStatus, fetchCommentsList, fetchHotel, fetchHotelList } from './store/api-actions';
+import { fetchCommentsList, fetchHotel, fetchHotelList, postComment } from './store/api-actions';
 import ActionCreator from './store/actions';
 import { AuthorizationStatus } from './const';
 
@@ -44,6 +44,14 @@ const onLoadComments = (idHotel) => {
   return store.dispatch(fetchCommentsList(idHotel));
 };
 
+const onPostComment = (idHotel, commentText, commentStars) => {
+  console.log(commentText, commentStars);
+  return store.dispatch(postComment(idHotel, {
+    'comment': commentText,
+    'rating': commentStars,
+  }));
+};
+
 ReactDom.render(
   <Provider store={store}>
     <App
@@ -51,6 +59,7 @@ ReactDom.render(
       onLoadData={() => onLoadData()}
       onLoadHotel={(id) => onLoadHotel(id)}
       onLoadComments={(idHotel) => onLoadComments(idHotel)}
+      onPostComment={(idHotel, commentText, commentStars) => onPostComment(idHotel, commentText, commentStars)}
     />
   </Provider>,
   document.getElementById(`root`),

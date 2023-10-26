@@ -15,33 +15,37 @@ import roomsType from "../../types/rooms";
 import { getHotel, getIsHotelLoaded, getPropertyInside, getRooms } from "../../store/selectors";
 import { connect } from "react-redux";
 import Loading from '../loading/loading';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
-const Property = ({ idActiveRoom, onMouseEnter, onMouseLeave, rooms, neighbourhood, isHotelLoaded, onLoadHotel, onLoadComments }) => {
+const Property = ({ idActiveRoom, onMouseEnter, onMouseLeave, rooms, neighbourhood, isHotelLoaded, onLoadHotel, onLoadComments, onPostComment }) => {
   const [fetchingHotel, setFetchingHotel] = useState(true);
   const [fetchingComments, setFetchingComments] = useState(true);
 
-  const idRoom = Number(useParams().id);
+  const idHotelParam = Number(useParams().id);
   const [room, setRoom] = useState();
   const [reviews, setReviews] = useState();
 
   useEffect(() => {
-    onLoadHotel(idRoom)
+    onLoadHotel(idHotelParam)
       .then((value) => {
         setFetchingHotel(false);
         setRoom(value);
-      });
-    onLoadComments(idRoom)
+      })
+      .catch((err) => console.log(err));
+    onLoadComments(idHotelParam)
       .then((value) => {
         setFetchingComments(false);
         setReviews(value);
-      });
+      })
+      .catch((err) => console.log(err));
   }, [fetchingHotel, fetchingComments]);
 
-  // useEffect(() => {
-  //   fetchCommentsList(id);
-  // }, [id, fetchCommentsList]);
-
-  if (fetchingHotel || fetchingComments || !isHotelLoaded || !room) {
+  if (!room) {
+    return (
+      <NotFoundScreen />
+    );
+  }
+  if (fetchingHotel || fetchingComments || !isHotelLoaded) {
     return (
       <Loading />
     );
@@ -125,7 +129,9 @@ const Property = ({ idActiveRoom, onMouseEnter, onMouseLeave, rooms, neighbourho
                   </div>
                 </div>
 
-                <Reviews />
+                <Reviews
+                  idHotelParam={idHotelParam}
+                  onPostComment={(idHotel, commentText, commentStars) => onPostComment(idHotel, commentText, commentStars)} />
 
               </div>
             </div>
@@ -169,6 +175,7 @@ Property.propTypes = {
   isHotelLoaded: PropTypes.bool.isRequired,
   onLoadHotel: () => { },
   onLoadComments: () => { },
+  onPostComment: () => { },
 };
 
 const mapStateToProps = (state) => ({
