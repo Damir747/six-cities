@@ -63,12 +63,12 @@ const ActionCreator = {
     };
   },
 
-  appendNotification: (notifiation) => ({
-    userChange: (user) => ({
-      type: ActionType.LOGIN_NAME,
-      payload: user,
-    }),
+  userChange: (user) => ({
+    type: ActionType.LOGIN_NAME,
+    payload: user,
+  }),
 
+  appendNotification: (notifiation) => ({
     type: ActionType.APPEND_NOTIFICATION,
     payload: notifiation,
   }),
