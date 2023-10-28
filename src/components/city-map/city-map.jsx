@@ -67,7 +67,7 @@ const CityMap = (props) => {
   }, [rooms, idActiveRoom, activeCity, mapSettings]);
 
   return (
-    <div style={{ height: `100%` }} ref={mapRef} ></div >
+    <div style={{ height: `100%` }} ></div >
   );
 };
 
