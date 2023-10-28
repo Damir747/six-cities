@@ -45,7 +45,6 @@ const onLoadComments = (idHotel) => {
 };
 
 const onPostComment = (idHotel, commentText, commentStars) => {
-  console.log(commentText, commentStars);
   return store.dispatch(postComment(idHotel, {
     'comment': commentText,
     'rating': commentStars,
@@ -59,7 +58,7 @@ ReactDom.render(
       onLoadData={() => onLoadData()}
       onLoadHotel={(id) => onLoadHotel(id)}
       onLoadComments={(idHotel) => onLoadComments(idHotel)}
-      onPostComment={(idHotel, commentText, commentStars) => onPostComment(idHotel, commentText, commentStars)}
+      onPostComment={onPostComment}
     />
   </Provider>,
   document.getElementById(`root`),

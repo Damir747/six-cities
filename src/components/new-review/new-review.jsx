@@ -7,28 +7,22 @@ const NewReview = ({ idHotelParam, onPostComment }) => {
   const [commentText, setCommentText] = useState('');
   const [commentStars, setStars] = useState(0);
 
-  const handleCommentText = (evt) => {
-    console.log(evt);
-    console.log(evt.target);
-    console.log(evt.target.textLength, evt.target.value);
-    // setCommentText(evt.target.value);
-    setCommentText('777');
-  };
+  const handleCommentText = useCallback((evt) => {
+    setCommentText(evt.target.value);
+  }, []);
 
   const handleStars = useCallback((evt) => {
-    console.log('Звезды:', evt.target.value);
     setStars(evt.target.value);
   }, []);
 
-  const handleSubmit = useCallback((evt) => {
+  const handleSubmit = (evt) => {
     evt.preventDefault();
-    console.log(idHotelParam, commentText, commentStars);
     onPostComment(idHotelParam, commentText, commentStars)
       .then(() => {
         setCommentText('');
         setStars(0);
       });
-  });
+  };
 
   return (
     <React.Fragment>
@@ -36,12 +30,18 @@ const NewReview = ({ idHotelParam, onPostComment }) => {
         <label className="reviews__label form__label" htmlFor="review">Your review</label>
         <div className="reviews__rating-form form__rating">
           {stars.map((star) => {
-            const { id, value, title } = star;
+            const { value, title } = star;
+            const id = `${value}-stars`;
             return (
               <React.Fragment key={id}>
-                <input className="form__rating-input visually-hidden" name="rating" value={value}
-                  id={`${value}-stars`} type="radio" onClick={handleStars} />
-                <label htmlFor={`${value}-stars`} className="reviews__rating-label form__rating-label" title={title}>
+                <input className="form__rating-input visually-hidden"
+                  name="rating"
+                  value={value}
+                  id={id}
+                  type="radio"
+                  checked={+value === +commentStars}
+                  onChange={handleStars} />
+                <label htmlFor={id} className="reviews__rating-label form__rating-label" title={title}>
                   <svg className="form__star-image" width="37" height="33">
                     <use xlinkHref="#icon-star"></use>
                   </svg>
@@ -50,8 +50,12 @@ const NewReview = ({ idHotelParam, onPostComment }) => {
             );
           })}
         </div>
-        <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved"
-          onClick={handleCommentText}
+        <textarea className="reviews__textarea form__textarea"
+          id="review"
+          name="review"
+          placeholder="Tell how was your stay, what you like and what can be improved"
+          value={commentText}
+          onChange={handleCommentText}
         ></textarea>
         <div className="reviews__button-wrapper">
           <p className="reviews__help">

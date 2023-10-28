@@ -131,7 +131,7 @@ const Property = ({ idActiveRoom, onMouseEnter, onMouseLeave, rooms, neighbourho
 
                 <Reviews
                   idHotelParam={idHotelParam}
-                  onPostComment={(idHotel, commentText, commentStars) => onPostComment(idHotel, commentText, commentStars)} />
+                  onPostComment={onPostComment} />
 
               </div>
             </div>

@@ -17,7 +17,7 @@ const Reviews = ({ idHotelParam, reviews, authorizationStatus, onPostComment }) 
         {authorizationStatus === AuthorizationStatus.AUTH
           ? <NewReview
             idHotelParam={idHotelParam}
-            onPostComment={(idHotel, commentText, commentStars) => onPostComment(idHotel, commentText, commentStars)} />
+            onPostComment={onPostComment} />
           : ''}
 
       </section>

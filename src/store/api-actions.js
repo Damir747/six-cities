@@ -55,6 +55,15 @@ const fetchHotel = (id) => (dispatch, _getState, api) => {
     });
 };
 
+const refreshCommentList = (data) => {
+  const commentList = [];
+  data.map((el) => {
+    commentList.push(Object.assign({}, Comment.convertDataToComment(el)));
+  });
+  dispatch(ActionCreator.loadReviewList(commentList));
+  return commentList.slice();
+};
+
 const fetchCommentsList = (idHotel) => (dispatch, _getState, api) => {
   return api.get(`${serverLinks.COMMENTS}/${idHotel}`)
     .then(({ data }) => {
@@ -75,13 +84,17 @@ const fetchCommentsList = (idHotel) => (dispatch, _getState, api) => {
     });
 };
 
-const postComment = (idHotel, { commentPost }) => (dispatch, _getState, api) => {
-  console.log(idHotel, commentPost);
-  return api.post(`${serverLinks.COMMENTS}/${idHotel}`, { commentPost })
+const postComment = (idHotel, commentPost) => (dispatch, _getState, api) => {
+  return api.post(`${serverLinks.COMMENTS}/${idHotel}`, commentPost)
     .then(({ data }) => {
-
-      console.log(data);  //CommentGet - надо его добавить к другим отзывам
       dispatch(ActionCreator.commentPost(data));
+
+      const commentList = [];
+      data.map((el) => {
+        commentList.push(Object.assign({}, Comment.convertDataToComment(el)));
+      });
+      dispatch(ActionCreator.loadReviewList(commentList));
+      return commentList;
     })
     .catch((error) => {
       dispatch(ActionCreator.appendNotification({

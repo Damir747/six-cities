@@ -17,12 +17,8 @@ const LoginPage = ({ onLogin }) => {
 
   const handleSubmit = useCallback((evt) => {
     evt.preventDefault();
-    console.log(evt.target);
-    console.log(evt.target['email'].value);
-    console.log(evt.target['password'].value);
     setEmail(evt.target['email'].value);
     setPassword(evt.target['password'].value);
-    console.log(email, password);
     onLogin({
       email: evt.target['email'].value,
       password: evt.target['password'].value

@@ -60,7 +60,7 @@ const App = ({ rooms, isDataLoaded, onLoadData, onLoadHotel, onLoadComments, onP
               onMouseLeave={handleMouseLeave}
               onLoadHotel={(id) => onLoadHotel(id)}
               onLoadComments={(idHotel) => onLoadComments(idHotel)}
-              onPostComment={(idHotel, commentText, commentStars) => onPostComment(idHotel, commentText, commentStars)}
+              onPostComment={onPostComment}
             />
           </Route>
           <Route>
