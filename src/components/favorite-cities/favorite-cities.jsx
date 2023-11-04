@@ -30,6 +30,7 @@ const FavoriteCities = ({ cities, favoriteRooms }) => {
             </li>
           );
         }
+        return '';
       })}
     </React.Fragment >
   );
