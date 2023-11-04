@@ -1,6 +1,6 @@
 import { AuthorizationStatus } from "../const";
 import cities from "../mock/mock-cities";
-import ActionCreator from "./actions";
+import { appendNotification, changeAuthorizationStatus, commentPost, loadCityList, loadHotel, loadHotelList, loadReviewList, userChange } from "./actions";
 import { Room, City, Comment } from "./adapter";
 import { getPropertyInside } from "./selectors";
 
@@ -17,7 +17,7 @@ const fetchHotelList = () => (dispatch, _getState, api) => (
     .then(({ data }) => {
       console.log('rooms are ready');
       data = data.map((el) => Room.convertDataHotel(el));
-      dispatch(ActionCreator.loadHotelList(data));
+      dispatch(loadHotelList(data));
       return data;
     })
     .then((data) => {
@@ -25,7 +25,7 @@ const fetchHotelList = () => (dispatch, _getState, api) => (
       data.map((el) => {
         cityList = Object.assign(cityList, City.convertDataToCity(el.city));
       });
-      dispatch(ActionCreator.loadCityList(cityList));
+      dispatch(loadCityList(cityList));
     })
 );
 
@@ -42,12 +42,12 @@ const fetchHotel = (id) => (dispatch, _getState, api) => {
   return api.get(`${serverLinks.HOTELS}/${id}`)
     .then(({ data }) => {
       data = Room.convertDataHotel(data);
-      dispatch(ActionCreator.loadHotel(data));
+      dispatch(loadHotel(data));
       return data;
     })
     .catch((error) => {
       console.log('error!');
-      dispatch(ActionCreator.appendNotification({
+      dispatch(appendNotification({
         message: error.message,
         type: 'error',
         id: 0
@@ -60,7 +60,7 @@ const refreshCommentList = (data) => {
   data.map((el) => {
     commentList.push(Object.assign({}, Comment.convertDataToComment(el)));
   });
-  dispatch(ActionCreator.loadReviewList(commentList));
+  dispatch(loadReviewList(commentList));
   return commentList.slice();
 };
 
@@ -71,12 +71,12 @@ const fetchCommentsList = (idHotel) => (dispatch, _getState, api) => {
       data.map((el) => {
         commentList.push(Object.assign({}, Comment.convertDataToComment(el)));
       });
-      dispatch(ActionCreator.loadReviewList(commentList));
+      dispatch(loadReviewList(commentList));
       return commentList;
     })
     .catch((error) => {
       console.log('error!');
-      dispatch(ActionCreator.appendNotification({
+      dispatch(appendNotification({
         message: error.message,
         type: 'error',
         id: 3
@@ -84,20 +84,20 @@ const fetchCommentsList = (idHotel) => (dispatch, _getState, api) => {
     });
 };
 
-const postComment = (idHotel, commentPost) => (dispatch, _getState, api) => {
-  return api.post(`${serverLinks.COMMENTS}/${idHotel}`, commentPost)
+const postComment = (idHotel, commentObj) => (dispatch, _getState, api) => {
+  return api.post(`${serverLinks.COMMENTS}/${idHotel}`, commentObj)
     .then(({ data }) => {
-      dispatch(ActionCreator.commentPost(data));
+      dispatch(commentPost(data));
 
       const commentList = [];
       data.map((el) => {
         commentList.push(Object.assign({}, Comment.convertDataToComment(el)));
       });
-      dispatch(ActionCreator.loadReviewList(commentList));
+      dispatch(loadReviewList(commentList));
       return commentList;
     })
     .catch((error) => {
-      dispatch(ActionCreator.appendNotification({
+      dispatch(appendNotification({
         message: error.message,
         type: 'error',
         id: 5,
@@ -110,13 +110,13 @@ function login({ email, password }) {
     return (
       api.post(serverLinks.LOGIN, { email, password })
         .then(({ data }) => {
-          dispatch(ActionCreator.changeAuthorizationStatus(AuthorizationStatus.AUTH));
+          dispatch(changeAuthorizationStatus(AuthorizationStatus.AUTH));
           // AuthInfo
-          dispatch(ActionCreator.userChange(data));
+          dispatch(userChange(data));
         })
         .catch((error) => {
           console.log('error!', error);
-          dispatch(ActionCreator.appendNotification({
+          dispatch(appendNotification({
             message: error.message,
             type: 'error',
             id: 1
@@ -130,10 +130,10 @@ const checkAuthorizationStatus = () => (dispatch, _getState, api) => (
   api.get(serverLinks.LOGIN)
     .then(() => {
       console.log('checkAuthorizationStatus / changeAuthorizationStatus', 'меняю? статус авторизации на AUTH');
-      dispatch(ActionCreator.changeAuthorizationStatus(AuthorizationStatus.AUTH));
+      dispatch(changeAuthorizationStatus(AuthorizationStatus.AUTH));
     })
     .catch((error) => {
-      dispatch(ActionCreator.appendNotification({
+      dispatch(appendNotification({
         message: error.message,
         type: 'error',
         id: 2

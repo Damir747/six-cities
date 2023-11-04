@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import menuType from "../../types/menu";
 import { getMenuUpArray, getSort } from "../../store/selectors";
 import { connect } from "react-redux";
-import ActionCreator from "../../store/actions";
+import { selectSort } from "../../store/actions";
 import MenuUpElement from "./menu-up-element";
 
 // 'places__options--opened' - для раскрытия меню
@@ -56,7 +56,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onClick(sort) {
-    dispatch(ActionCreator.selectSort(sort));
+    dispatch(selectSort(sort));
   },
 });
 

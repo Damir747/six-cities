@@ -12,15 +12,15 @@ import { Provider } from 'react-redux';
 import reducer from './store/reducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { fetchCommentsList, fetchHotel, fetchHotelList, postComment } from './store/api-actions';
-import ActionCreator from './store/actions';
+import { changeAuthorizationStatus, loadHotel, loadHotelList, loadReviewList } from './store/actions';
 import { AuthorizationStatus } from './const';
 
 const api = createAPI(
   () => {
-    store.dispatch(ActionCreator.changeAuthorizationStatus(AuthorizationStatus.NO_AUTH));
-    store.dispatch(ActionCreator.loadHotelList);
-    store.dispatch(ActionCreator.loadHotel);
-    store.dispatch(ActionCreator.loadReviewList);
+    store.dispatch(changeAuthorizationStatus(AuthorizationStatus.NO_AUTH));
+    store.dispatch(loadHotelList);
+    store.dispatch(loadHotel);
+    store.dispatch(loadReviewList);
   }
 );
 
