@@ -1,4 +1,4 @@
-import { IN_BOOKMARKS } from '../const';
+import { Frame, IN_BOOKMARKS } from '../const';
 
 const capitalizeFirstLetter = (str) => {
   if (!str) {
@@ -24,7 +24,7 @@ const bookmarkClassname = (frame, bookmark) => {
 };
 
 const frameClassname = (frame) => {
-  if (frame === 'near-places') {
+  if (frame === Frame.NEAR_PLACES) {
     return classname('near-places__card', 'place-card');
   }
   return classname('cities__place-card', 'place-card');

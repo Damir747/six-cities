@@ -16,6 +16,7 @@ import { getHotel, getIsHotelLoaded, getPropertyInside, getRooms } from "../../s
 import { connect } from "react-redux";
 import Loading from '../loading/loading';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import { Frame } from '../../const';
 
 const Property = ({ idActiveRoom, onMouseEnter, onMouseLeave, rooms, neighbourhood, isHotelLoaded, onLoadHotel, onLoadComments, onPostComment }) => {
   const [fetchingHotel, setFetchingHotel] = useState(true);
@@ -153,7 +154,7 @@ const Property = ({ idActiveRoom, onMouseEnter, onMouseLeave, rooms, neighbourho
                     roomElement={neighbour}
                     onMouseEnter={onMouseEnter}
                     onMouseLeave={onMouseLeave}
-                    frame='near-places'
+                    frame={Frame.NEAR_PLACES}
                   />
                 ))
                 }

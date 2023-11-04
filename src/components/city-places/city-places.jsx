@@ -10,10 +10,11 @@ import roomsType from '../../types/rooms';
 
 
 import { getActiveCity, getFilteredRooms, getRooms } from "../../store/selectors";
+import { Frame } from '../../const';
+import { useWhyDidYouUpdate } from 'ahooks';
 
 const CityPlaces = ({ idActiveRoom, onMouseEnter, onMouseLeave,
   activeCity, filteredRooms }) => {
-
   return (
     <React.Fragment>
       <div className="cities">
@@ -30,7 +31,7 @@ const CityPlaces = ({ idActiveRoom, onMouseEnter, onMouseLeave,
                   roomElement={roomElement}
                   onMouseEnter={onMouseEnter}
                   onMouseLeave={onMouseLeave}
-                  frame='cities'
+                  frame={Frame.CITIES}
                 />
               )
               )}

@@ -12,4 +12,8 @@ const AuthorizationStatus = {
   NO_AUTH: `NO_AUTH`,
 };
 
-export { AppRoute, IN_BOOKMARKS, AuthorizationStatus };
+const Frame = {
+  CITIES: 'cities',
+  NEAR_PLACES: 'near-places',
+};
+export { AppRoute, IN_BOOKMARKS, AuthorizationStatus, Frame };

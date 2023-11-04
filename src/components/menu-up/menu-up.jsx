@@ -16,7 +16,6 @@ const MenuUp = ({ menuUpArray, sort, onClick = () => { } }) => {
   const onMouseLeave = useCallback(() => {
     setMenuItem(null);
   }, []);
-
   return (
     <React.Fragment>
       <form className="places__sorting" action="#" method="get">

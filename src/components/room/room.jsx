@@ -2,19 +2,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import roomType from '../../types/room';
-import { AppRoute } from "../../const";
+import { AppRoute, Frame } from "../../const";
 import { bookmarkClassname, capitalizeFirstLetter, classname, frameClassname, roundRating } from "../../utils/utils";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { memo } from 'react';
 
 const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame }) => {
   const { id, level, img, priceValue, priceText, bookmark, rating, card, type } = roomElement;
-
   return (
     <React.Fragment>
       <article key={id} className={frameClassname(frame)}
         onMouseEnter={() => onMouseEnter(id)}
         onMouseLeave={() => onMouseLeave()}>
-        {(frame === 'cities') && level && <div className="place-card__mark">
+        {(frame === Frame.CITIES) && level && <div className="place-card__mark">
           <span>{level}</span>
         </div>}
         <div className={classname(frame + '__image-wrapper', 'place-card__image-wrapper')}>
@@ -59,4 +59,4 @@ Room.propTypes = {
   frame: PropTypes.string,
 };
 
-export default Room;
+export default memo(Room);
