@@ -5,8 +5,9 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import loginType from '../../types/login';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { connect } from 'react-redux';
-import { getAuthorizationStatus, getLoginName } from '../../store/selectors';
+
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
+import { getAuthorizationStatus, getLoginName } from '../../store/login-data/selectors';
 
 const Header = ({ authorizationStatus, loginName }) => {
   const history = useHistory();

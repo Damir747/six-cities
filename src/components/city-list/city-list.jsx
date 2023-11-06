@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { classname } from '../../utils/utils';
-import { getActiveCity, getCities } from '../../store/selectors';
+import { getActiveCity, getCities } from '../../store/city-data/selectors';
 import { selectCity } from '../../store/actions';
 
 const CityList = ({ cities, activeCity, onClick = () => { } }) => {

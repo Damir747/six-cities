@@ -7,7 +7,8 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import FavoriteCityRooms from '../favorite-city-rooms/favorite-city-rooms';
 import roomsType from '../../types/rooms';
 import { AppRoute } from '../../const';
-import { getCities, getFavoriteRooms } from '../../store/selectors';
+import { getCities } from '../../store/city-data/selectors';
+import { getFavoriteRooms } from '../../store/selectors';
 
 const FavoriteCities = ({ cities, favoriteRooms }) => {
   return (

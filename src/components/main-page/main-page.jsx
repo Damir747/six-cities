@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import Top from '../top/top';
 import Header from '../header/header';
 import CityPlaces from '../city-places/city-places';
-import { getActiveCity, getCities } from '../../store/selectors';
+import { getActiveCity, getCities } from '../../store/city-data/selectors';
 import CityList from '../city-list/city-list';
 
 const MainPage = ({ idActiveRoom,

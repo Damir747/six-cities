@@ -1,20 +1,16 @@
-const getAuthorizationStatus = (state) => state.LOGIN.authorizationStatus;
-
-const getLoginName = (state) => state.LOGIN.loginName ? state.LOGIN.loginName.email : null;
-
-const getActiveCity = (state) => state.CITY.activeCity;
-
-const getActiveCityCoordinates = (state) => getCities(state)[getActiveCity(state)];
-
-const getCities = (state) => state.CITY.cities;
-
-const getHotel = (state) => state.HOTEL.hotel;
+import { getActiveCity } from "./city-data/selectors";
 
 const getMenuUpArray = (state) => state.INIT.menuUpArray;
 
 const getPropertyInside = (state) => state.INIT.propertyInside;
 
+const getHotel = (state) => state.HOTEL.hotel;
+
 const getRooms = (state) => state.HOTEL.rooms;
+
+const getIsDataLoaded = (state) => state.HOTEL.isDataLoaded;
+
+const getIsHotelLoaded = (state) => state.HOTEL.isHotelLoaded;
 
 const getFavoriteRooms = (state) => {
   return getRooms(state).filter((item) => item.bookmark === 'In bookmarks');
@@ -23,10 +19,6 @@ const getFavoriteRooms = (state) => {
 const getReviews = (state) => state.COMMENT.reviews;
 
 const getSort = (state) => state.SORT.sort;
-
-const getIsDataLoaded = (state) => state.HOTEL.isDataLoaded;
-
-const getIsHotelLoaded = (state) => state.HOTEL.isHotelLoaded;
 
 const getNotifications = (state) => state.NOTIFICATION.notifications;
 
@@ -52,4 +44,4 @@ const getFilteredRooms = (state) => {
   return sortedRooms(filteredRooms, getSort(state));
 };
 
-export { getAuthorizationStatus, getLoginName, getCities, getHotel, getMenuUpArray, getPropertyInside, getRooms, getReviews, getSort, sortedRooms, getFilteredRooms, getActiveCity, getActiveCityCoordinates, getFavoriteRooms, getIsDataLoaded, getIsHotelLoaded, getNotifications };
+export { getHotel, getMenuUpArray, getPropertyInside, getRooms, getReviews, getSort, sortedRooms, getFilteredRooms, getFavoriteRooms, getIsDataLoaded, getIsHotelLoaded, getNotifications };

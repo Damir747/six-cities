@@ -5,7 +5,7 @@ import 'leaflet/dist/leaflet.css';
 import roomsType from '../../types/rooms';
 
 import { connect } from 'react-redux';
-import { getActiveCity, getActiveCityCoordinates } from '../../store/selectors';
+import { getActiveCity, getActiveCityCoordinates } from '../../store/city-data/selectors';
 
 const CityMap = (props) => {
   const { rooms, idActiveRoom, activeCity, coordinates } = props;

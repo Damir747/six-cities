@@ -9,7 +9,8 @@ import Room from '../../components/room/room';
 import roomsType from '../../types/rooms';
 
 
-import { getActiveCity, getFilteredRooms, getRooms } from '../../store/selectors';
+import { getActiveCity } from '../../store/city-data/selectors';
+import { getFilteredRooms, getRooms } from '../../store/selectors';
 import { Frame } from '../../const';
 import { useWhyDidYouUpdate } from 'ahooks';
 

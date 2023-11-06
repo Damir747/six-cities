@@ -5,8 +5,9 @@ import { connect } from 'react-redux';
 import reviewsType from '../../types/reviews';
 import OldReviews from '../old-reviews/old-reviews';
 import NewReview from '../new-review/new-review';
-import { getAuthorizationStatus, getReviews } from '../../store/selectors';
+import { getReviews } from '../../store/selectors';
 import { AuthorizationStatus } from '../../const';
+import { getAuthorizationStatus } from '../../store/login-data/selectors';
 
 const Reviews = ({ idHotelParam, reviews, authorizationStatus, onPostComment }) => {
   return (
