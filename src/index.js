@@ -24,8 +24,6 @@ const api = createAPI(
   }
 );
 
-console.log(combineReducers);
-
 const store = createStore(
   combineReducers,
   composeWithDevTools(

@@ -117,6 +117,13 @@ const reducer = (state = initialState, action) => {
 
 const SPACE_NAME = {
   INIT: 'INIT',
+  SORT: 'SORT',
+  CITY: 'CITY',
+  COMMENT: 'COMMENT',
+  HOLEL: 'HOTEL',
+  FAVORITE: 'FAVORITE',
+  LOGIN: 'LOGIN',
+  NOTIFICATION: 'NOTIFICATION',
 };
 
 export default combineReducers({
