@@ -10,9 +10,9 @@ import roomsType from '../../types/rooms';
 
 
 import { getActiveCity } from '../../store/city-data/selectors';
-import { getFilteredRooms, getRooms } from '../../store/selectors';
 import { Frame } from '../../const';
 import { useWhyDidYouUpdate } from 'ahooks';
+import { getFilteredRooms, getRooms } from '../../store/hotel-data/selectors';
 
 const CityPlaces = ({ idActiveRoom, onMouseEnter, onMouseLeave,
   activeCity, filteredRooms }) => {

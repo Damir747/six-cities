@@ -12,7 +12,7 @@ import { bookmarkClassname, classname, numberRating, roundRating } from '../../u
 
 import roomsType from '../../types/rooms';
 
-import { getHotel, getIsHotelLoaded, getPropertyInside, getRooms } from '../../store/selectors';
+import { getIsHotelLoaded, getRooms } from '../../store/hotel-data/selectors';
 import { connect } from 'react-redux';
 import Loading from '../loading/loading';
 import NotFoundScreen from '../not-found-screen/not-found-screen';

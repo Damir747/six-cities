@@ -3,7 +3,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import propertyInsideItemsType from '../../types/property-inside-items';
-import { getPropertyInside } from '../../store/selectors';
+import { getPropertyInside } from '../../store/init-data/selectors';
+
 
 const PropertyInside = ({ propertyInsideItems }) => {
 

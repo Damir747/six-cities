@@ -1,10 +1,12 @@
 import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import menuType from '../../types/menu';
-import { getMenuUpArray, getSort } from '../../store/selectors';
+
 import { connect } from 'react-redux';
 import { selectSort } from '../../store/actions';
 import MenuUpElement from './menu-up-element';
+import { getMenuUpArray } from '../../store/init-data/selectors';
+import { getSort } from '../../store/sort-data/selectors';
 
 // 'places__options--opened' - для раскрытия меню
 

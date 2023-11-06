@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import reviewsType from '../../types/reviews';
-import { getReviews } from '../../store/selectors';
+import { getReviews } from '../../store/comment-data/selectors';
 import OldReview from './old-review';
 
 const OldReviews = ({ reviews }) => {

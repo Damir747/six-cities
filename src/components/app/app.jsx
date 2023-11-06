@@ -12,7 +12,7 @@ import Property from '../property/property';
 import roomsType from '../../types/rooms';
 import reviewsType from '../../types/reviews';
 import { connect } from 'react-redux';
-import { getIsDataLoaded } from '../../store/selectors';
+import { getIsDataLoaded } from '../../store/hotel-data/selectors';
 import Loading from '../loading/loading';
 
 const App = ({ rooms, isDataLoaded, onLoadData, onLoadHotel, onLoadComments, onPostComment }) => {
