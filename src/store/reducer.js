@@ -119,9 +119,7 @@ const SPACE_NAME = {
   INIT: 'INIT',
 };
 
-combineReducers({
+export default combineReducers({
   [SPACE_NAME.INIT]: reducer,
 });
 
-export default combineReducers;
-// export default reducer;
