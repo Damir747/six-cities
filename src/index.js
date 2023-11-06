@@ -24,6 +24,8 @@ const api = createAPI(
   }
 );
 
+console.log(reducer);
+
 const store = createStore(
   reducer,
   composeWithDevTools(
