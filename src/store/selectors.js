@@ -1,34 +1,34 @@
-const getAuthorizationStatus = (state) => state.INIT.authorizationStatus;
+const getAuthorizationStatus = (state) => state.LOGIN.authorizationStatus;
 
-const getLoginName = (state) => state.INIT.loginName ? state.INIT.loginName.email : null;
+const getLoginName = (state) => state.LOGIN.loginName ? state.LOGIN.loginName.email : null;
 
-const getActiveCity = (state) => state.INIT.activeCity;
+const getActiveCity = (state) => state.CITY.activeCity;
 
 const getActiveCityCoordinates = (state) => getCities(state)[getActiveCity(state)];
 
-const getCities = (state) => state.INIT.cities;
+const getCities = (state) => state.CITY.cities;
 
-const getHotel = (state) => state.INIT.hotel;
+const getHotel = (state) => state.HOTEL.hotel;
 
 const getMenuUpArray = (state) => state.INIT.menuUpArray;
 
 const getPropertyInside = (state) => state.INIT.propertyInside;
 
-const getRooms = (state) => state.INIT.rooms;
+const getRooms = (state) => state.HOTEL.rooms;
 
 const getFavoriteRooms = (state) => {
   return getRooms(state).filter((item) => item.bookmark === 'In bookmarks');
 };
 
-const getReviews = (state) => state.INIT.reviews;
+const getReviews = (state) => state.COMMENT.reviews;
 
-const getSort = (state) => state.INIT.sort;
+const getSort = (state) => state.SORT.sort;
 
-const getIsDataLoaded = (state) => state.INIT.isDataLoaded;
+const getIsDataLoaded = (state) => state.HOTEL.isDataLoaded;
 
-const getIsHotelLoaded = (state) => state.INIT.isHotelLoaded;
+const getIsHotelLoaded = (state) => state.HOTEL.isHotelLoaded;
 
-const getNotifications = (state) => state.INIT.notifications;
+const getNotifications = (state) => state.NOTIFICATION.notifications;
 
 const sortedRooms = (rooms, sortType) => {
   switch (sortType) {

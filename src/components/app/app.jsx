@@ -10,7 +10,7 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Property from '../property/property';
 
 import roomsType from '../../types/rooms';
-import reviewsType from "../../types/reviews";
+import reviewsType from '../../types/reviews';
 import { connect } from 'react-redux';
 import { getIsDataLoaded } from '../../store/selectors';
 import Loading from '../loading/loading';

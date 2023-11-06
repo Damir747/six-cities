@@ -1,8 +1,8 @@
-import { AuthorizationStatus } from "../const";
-import cities from "../mock/mock-cities";
-import { appendNotification, changeAuthorizationStatus, commentPost, loadCityList, loadHotel, loadHotelList, loadReviewList, userChange } from "./actions";
-import { Room, City, Comment } from "./adapter";
-import { getPropertyInside } from "./selectors";
+import { AuthorizationStatus } from '../const';
+import cities from '../mock/mock-cities';
+import { appendNotification, changeAuthorizationStatus, commentPost, loadCityList, loadHotel, loadHotelList, loadReviewList, userChange } from './actions';
+import { Room, City, Comment } from './adapter';
+import { getPropertyInside } from './selectors';
 
 const serverLinks = {
   HOTELS: `/hotels`,

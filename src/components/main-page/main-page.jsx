@@ -1,13 +1,13 @@
 /* eslint-disable indent */
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import Top from "../top/top";
-import Header from "../header/header";
-import CityPlaces from "../city-places/city-places";
-import { getActiveCity, getCities } from "../../store/selectors";
-import CityList from "../city-list/city-list";
+import Top from '../top/top';
+import Header from '../header/header';
+import CityPlaces from '../city-places/city-places';
+import { getActiveCity, getCities } from '../../store/selectors';
+import CityList from '../city-list/city-list';
 
 const MainPage = ({ idActiveRoom,
   onMouseEnter = () => { }, onMouseLeave = () => { },

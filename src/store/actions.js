@@ -1,4 +1,4 @@
-import ActionType from "./actions-types";
+import ActionType from './actions-types';
 
 const commentPost = (comment) => ({
   type: ActionType.COMMENT_POST,

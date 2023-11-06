@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import menuElementType from '../../types/menu-element';
-import { classname } from "../../utils/utils";
+import { classname } from '../../utils/utils';
 
 const MenuUpElement = ({ element, onClick, handleMouseEnter, handleMouseLeave, idActiveMenuItem }) => {
   return (

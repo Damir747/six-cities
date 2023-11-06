@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
-import Top from "../top/top";
-import Header from "../header/header";
-import PropertyInside from "../property-inside/property-inside";
-import Reviews from "../reviews/reviews";
-import CityMap from "../city-map/city-map";
-import Room from "../room/room";
-import { bookmarkClassname, classname, numberRating, roundRating } from "../../utils/utils";
+import Top from '../top/top';
+import Header from '../header/header';
+import PropertyInside from '../property-inside/property-inside';
+import Reviews from '../reviews/reviews';
+import CityMap from '../city-map/city-map';
+import Room from '../room/room';
+import { bookmarkClassname, classname, numberRating, roundRating } from '../../utils/utils';
 
-import roomsType from "../../types/rooms";
+import roomsType from '../../types/rooms';
 
-import { getHotel, getIsHotelLoaded, getPropertyInside, getRooms } from "../../store/selectors";
-import { connect } from "react-redux";
+import { getHotel, getIsHotelLoaded, getPropertyInside, getRooms } from '../../store/selectors';
+import { connect } from 'react-redux';
 import Loading from '../loading/loading';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { Frame } from '../../const';

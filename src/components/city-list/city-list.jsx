@@ -1,11 +1,11 @@
 /* eslint-disable indent */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import { classname } from "../../utils/utils";
-import { getActiveCity, getCities } from "../../store/selectors";
-import { selectCity } from "../../store/actions";
+import { classname } from '../../utils/utils';
+import { getActiveCity, getCities } from '../../store/selectors';
+import { selectCity } from '../../store/actions';
 
 const CityList = ({ cities, activeCity, onClick = () => { } }) => {
   return (

@@ -1,12 +1,12 @@
 /* eslint-disable indent */
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import loginType from '../../types/login';
-import { AppRoute, AuthorizationStatus } from "../../const";
-import { connect } from "react-redux";
-import { getAuthorizationStatus, getLoginName } from "../../store/selectors";
-import { useHistory } from "react-router-dom/cjs/react-router-dom";
+import { AppRoute, AuthorizationStatus } from '../../const';
+import { connect } from 'react-redux';
+import { getAuthorizationStatus, getLoginName } from '../../store/selectors';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 
 const Header = ({ authorizationStatus, loginName }) => {
   const history = useHistory();

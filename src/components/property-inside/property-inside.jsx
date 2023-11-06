@@ -1,9 +1,9 @@
 /* eslint-disable indent */
 import React from 'react';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import propertyInsideItemsType from "../../types/property-inside-items";
-import { getPropertyInside } from "../../store/selectors";
+import propertyInsideItemsType from '../../types/property-inside-items';
+import { getPropertyInside } from '../../store/selectors';
 
 const PropertyInside = ({ propertyInsideItems }) => {
 

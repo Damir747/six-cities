@@ -2,9 +2,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import roomType from '../../types/room';
-import { AppRoute, Frame } from "../../const";
-import { bookmarkClassname, capitalizeFirstLetter, classname, frameClassname, roundRating } from "../../utils/utils";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { AppRoute, Frame } from '../../const';
+import { bookmarkClassname, capitalizeFirstLetter, classname, frameClassname, roundRating } from '../../utils/utils';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { memo } from 'react';
 
 const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame }) => {

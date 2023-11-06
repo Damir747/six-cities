@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import MenuUp from "../menu-up/menu-up";
-import CityMap from "../city-map/city-map";
+import MenuUp from '../menu-up/menu-up';
+import CityMap from '../city-map/city-map';
 import Room from '../../components/room/room';
 
 import roomsType from '../../types/rooms';
 
 
-import { getActiveCity, getFilteredRooms, getRooms } from "../../store/selectors";
+import { getActiveCity, getFilteredRooms, getRooms } from '../../store/selectors';
 import { Frame } from '../../const';
 import { useWhyDidYouUpdate } from 'ahooks';
 
