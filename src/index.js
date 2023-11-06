@@ -9,7 +9,7 @@ import { legacy_createStore as createStore } from 'redux';
 
 import rooms from './mock/mock-rooms';
 import { Provider } from 'react-redux';
-import reducer from './store/reducer';
+import combineReducers from './store/reducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { fetchCommentsList, fetchHotel, fetchHotelList, postComment } from './store/api-actions';
 import { changeAuthorizationStatus, loadHotel, loadHotelList, loadReviewList } from './store/actions';
@@ -24,10 +24,10 @@ const api = createAPI(
   }
 );
 
-console.log(reducer);
+console.log(combineReducers);
 
 const store = createStore(
-  reducer,
+  combineReducers,
   composeWithDevTools(
     applyMiddleware(thunk.withExtraArgument(api))
   )

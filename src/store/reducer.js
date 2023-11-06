@@ -6,6 +6,7 @@ import propertyInside from '../mock/mock-property-inside';
 import stars from "../mock/mock-rating-stars";
 import roomTypeToReadable from '../mock/mock-room-types';
 import { AuthorizationStatus } from '../const';
+import { combineReducers } from "redux";
 
 import ActionType from "./actions-types";
 
@@ -114,4 +115,13 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-export default reducer;
+const SPACE_NAME = {
+  INIT: 'INIT',
+};
+
+combineReducers({
+  [SPACE_NAME.INIT]: reducer,
+});
+
+export default combineReducers;
+// export default reducer;
