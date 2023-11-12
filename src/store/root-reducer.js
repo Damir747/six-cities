@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
-import notificationReducer from './notification-data/notification-reducer';
-import loginReducer from './login-data/login-reducer';
-import favoriteReducer from './favorite-data/favorite-reducer';
-import hotelReducer from './hotel-data/hotel-reducer';
-import commentReducer from './comment-data/comment-reducer';
-import cityReducer from './city-data/city-reducer';
-import sortReducer from './sort-data/sort-reducer';
 import initReducer from './init-data/init-reducer';
+import sortReducer from './sort-data/sort-reducer';
+import cityReducer from './city-data/city-reducer';
+import commentReducer from './comment-data/comment-reducer';
+import hotelReducer from './hotel-data/hotel-reducer';
+import favoriteReducer from './favorite-data/favorite-reducer';
+import loginReducer from './login-data/login-reducer';
+import notificationReducer from './notification-data/notification-reducer';
 
 const NameSpace = {
   INIT: 'INIT',

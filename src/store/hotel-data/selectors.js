@@ -1,6 +1,10 @@
+/* eslint-disable indent */
 import { getActiveCity } from '../city-data/selectors';
 import { NameSpace } from '../root-reducer';
 import { getSort } from '../sort-data/selectors';
+import { createSelector } from '@reduxjs/toolkit';
+
+// ? reselect для фильтрации
 
 const getHotel = (state) => state[NameSpace.HOTEL].hotel;
 const getRooms = (state) => state[NameSpace.HOTEL].rooms;
@@ -24,8 +28,12 @@ const sortedRooms = (rooms, sortType) => {
 };
 
 const getFilteredRooms = (state) => {
-  const filteredRooms = getRooms(state).filter((room) => room.cityName === getActiveCity(state)).slice();
-  return sortedRooms(filteredRooms, getSort(state));
+  const filteredRooms = createSelector(
+    getRooms,
+    (rooms) => rooms.filter((room) => room.cityName === getActiveCity(state))
+  );
+
+  return sortedRooms(filteredRooms(state), getSort(state));
 };
 
 export { getHotel, getRooms, getIsDataLoaded, getIsHotelLoaded, sortedRooms, getFilteredRooms };

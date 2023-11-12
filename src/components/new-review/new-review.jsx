@@ -3,6 +3,8 @@ import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import stars from '../../mock/mock-rating-stars';
 
+// ? при комментарии без оценки требуется проверка. Сейчас просто слетает отзыв пользователя
+
 const NewReview = ({ idHotelParam, onPostComment }) => {
   const [commentText, setCommentText] = useState('');
   const [commentStars, setStars] = useState(0);

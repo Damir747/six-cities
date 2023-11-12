@@ -1,4 +1,9 @@
 import ActionType from './actions-types';
+// ? action также разбить по папкам
+// ? redux tool kit
+// ? connect заменить на useSelector
+// ? mapStateToProps => useSelector
+// ? mapDispatchToProps => useDispatch
 
 const commentPost = (comment) => ({
   type: ActionType.COMMENT_POST,
