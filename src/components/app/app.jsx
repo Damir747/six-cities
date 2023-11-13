@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import { Switch, Route, Router } from 'react-router-dom';
 
 import MainPage from '../main-page/main-page';
 import { AppRoute } from '../../const';
@@ -14,6 +14,8 @@ import reviewsType from '../../types/reviews';
 import { connect } from 'react-redux';
 import { getIsDataLoaded } from '../../store/hotel-data/selectors';
 import Loading from '../loading/loading';
+import browserHistory from '../../browser-history';
+// live 6. 01:46:19
 
 const App = ({ rooms, isDataLoaded, onLoadData, onLoadHotel, onLoadComments, onPostComment }) => {
   const [idActiveRoom, setActiveRoom] = useState(null);
@@ -38,7 +40,7 @@ const App = ({ rooms, isDataLoaded, onLoadData, onLoadHotel, onLoadComments, onP
 
   return (
     <>
-      <BrowserRouter>
+      <Router history={browserHistory}>
         <Switch>
           <Route exact path={AppRoute.ROOT}>
             <MainPage
@@ -67,7 +69,7 @@ const App = ({ rooms, isDataLoaded, onLoadData, onLoadHotel, onLoadComments, onP
             <NotFoundScreen />
           </Route>
         </Switch>
-      </BrowserRouter>
+      </Router>
     </>
   );
 };

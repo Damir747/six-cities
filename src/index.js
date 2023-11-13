@@ -14,6 +14,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { fetchCommentsList, fetchHotel, fetchHotelList, postComment } from './store/api-actions';
 import { changeAuthorizationStatus, loadHotel, loadHotelList, loadReviewList } from './store/actions';
 import { AuthorizationStatus } from './const';
+import { redirect } from './store/middleware/redirect';
 
 const api = createAPI(
   () => {
@@ -27,7 +28,8 @@ const api = createAPI(
 const store = createStore(
   rootReducer,
   composeWithDevTools(
-    applyMiddleware(thunk.withExtraArgument(api))
+    applyMiddleware(thunk.withExtraArgument(api)),
+    applyMiddleware(redirect)
   )
 );
 
