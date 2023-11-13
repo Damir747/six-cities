@@ -1,6 +1,6 @@
-/* eslint-disable indent */
-import ActionType from '../actions-types';
+import { COMMENT_POST, REVIEW_LIST } from "./actions-types";
 
+/* eslint-disable indent */
 const initialState = {
   comment: '',
   reviews: [],
@@ -8,13 +8,13 @@ const initialState = {
 
 const commentReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.COMMENT_POST: {
+    case COMMENT_POST: {
       return {
         ...state,
         comment: action.payload,
       };
     }
-    case ActionType.REVIEW_LIST: {
+    case REVIEW_LIST: {
       return {
         ...state,
         reviews: action.payload,

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import { classname } from '../../utils/utils';
 import { getActiveCity, getCities } from '../../store/city-data/selectors';
-import { selectCity } from '../../store/actions';
+import { selectCity } from '../../store/city-data/actions';
 
 const CityList = ({ cities, activeCity, onClick = () => { } }) => {
   return (

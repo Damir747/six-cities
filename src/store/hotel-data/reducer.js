@@ -1,6 +1,6 @@
-/* eslint-disable indent */
-import ActionType from '../actions-types';
+import { HOTEL, HOTEL_LIST } from "./actions-types";
 
+/* eslint-disable indent */
 const initialState = {
   hotel: null,
   rooms: [],
@@ -10,14 +10,14 @@ const initialState = {
 
 const hotelReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.HOTEL_LIST: {
+    case HOTEL_LIST: {
       return {
         ...state,
         rooms: action.payload,
         isDataLoaded: true,
       };
     }
-    case ActionType.HOTEL: {
+    case HOTEL: {
       return {
         ...state,
         hotel: action.payload,

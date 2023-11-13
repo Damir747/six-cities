@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 import cities from '../../mock/mock-cities';
-import ActionType from '../actions-types';
+import { CHANGE_CITY, CITY_LIST } from './actions-types';
 
 const initialState = {
   activeCity: 'Paris',
@@ -9,14 +9,14 @@ const initialState = {
 
 const cityReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.CHANGE_CITY: {
+    case CHANGE_CITY: {
       return {
         ...state,
         activeCity: action.payload,
       };
     }
 
-    case ActionType.CITY_LIST: {
+    case CITY_LIST: {
       return {
         ...state,
         cities: action.payload,

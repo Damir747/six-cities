@@ -1,8 +1,12 @@
 import { AuthorizationStatus } from '../const';
 import cities from '../mock/mock-cities';
-import { appendNotification, changeAuthorizationStatus, commentPost, loadCityList, loadHotel, loadHotelList, loadReviewList, userChange } from './actions';
 import { Room, City, Comment } from './adapter';
-import { getPropertyInside } from './init-data/selectors';
+import { loadCityList } from './city-data/actions';
+import { commentPost, loadReviewList } from './comment-data/actions';
+import { loadHotel, loadHotelList } from './hotel-data/actions';
+import { changeAuthorizationStatus, userChange } from './login-data/actions';
+import { appendNotification } from './notification-data/actions';
+// import { getPropertyInside } from './init-data/selectors';
 
 
 const serverLinks = {

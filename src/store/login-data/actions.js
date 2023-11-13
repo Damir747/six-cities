@@ -1,17 +1,17 @@
-import ActionType from '../actions-types';
+import { CHANGE_AUTHORIZATION_STATUS, LOGIN_NAME, REDIRECT_TO_ROUTE } from "./actions-types";
 
 const changeAuthorizationStatus = (status) => ({
-  type: ActionType.CHANGE_AUTHORIZATION_STATUS,
+  type: CHANGE_AUTHORIZATION_STATUS,
   payload: status,
 });
 
 const userChange = (user) => ({
-  type: ActionType.LOGIN_NAME,
+  type: LOGIN_NAME,
   payload: user,
 });
 
 const redirectToRoute = (url) => ({
-  type: ActionType.REDIRECT_TO_ROUTE,
+  type: REDIRECT_TO_ROUTE,
   payload: url,
 });
 

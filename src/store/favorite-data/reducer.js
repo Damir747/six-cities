@@ -1,12 +1,12 @@
-/* eslint-disable indent */
-import ActionType from '../actions-types';
+import { FAVORITES_LIST } from "./actions-types";
 
+/* eslint-disable indent */
 const initialState = {
 };
 
 const favoriteReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.FAVORITES_LIST: {
+    case FAVORITES_LIST: {
       return {
         ...state
       };

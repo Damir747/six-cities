@@ -15,7 +15,9 @@ import { Provider } from 'react-redux';
 import rootReducer from './store/root-reducer';
 import { AuthorizationStatus } from './const';
 import { checkAuthorizationStatus, fetchCommentsList, fetchHotel, fetchHotelList, postComment } from './store/api-actions';
-import { changeAuthorizationStatus, loadHotel, loadHotelList, loadReviewList } from './store/actions';
+import { changeAuthorizationStatus } from './store/login-data/actions';
+import { loadHotel, loadHotelList } from './store/hotel-data/actions';
+import { loadReviewList } from './store/comment-data/actions';
 
 const api = createAPI(
   () => {
