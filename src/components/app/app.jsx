@@ -16,6 +16,8 @@ import { getIsDataLoaded } from '../../store/hotel-data/selectors';
 import Loading from '../loading/loading';
 import browserHistory from '../../browser-history';
 // ? live 6. 01:46:19 - разобраться с остатками useHistory
+// ? соседи / neighbouhood - на карте не показываются, не кликабельны
+// ? connect убрать
 
 const App = ({ rooms, isDataLoaded, onLoadData, onLoadHotel, onLoadComments, onPostComment }) => {
   const [idActiveRoom, setActiveRoom] = useState(null);

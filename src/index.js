@@ -14,10 +14,12 @@ import rooms from './mock/mock-rooms';
 import { Provider } from 'react-redux';
 import rootReducer from './store/root-reducer';
 import { AuthorizationStatus } from './const';
-import { checkAuthorizationStatus, fetchCommentsList, fetchHotel, fetchHotelList, postComment } from './store/api-actions';
 import { changeAuthorizationStatus } from './store/login-data/actions';
 import { loadHotel, loadHotelList } from './store/hotel-data/actions';
 import { loadReviewList } from './store/comment-data/actions';
+import { checkAuthorizationStatus } from './store/login-data/api-actions';
+import { fetchCommentsList, postComment } from './store/comment-data/api-actions';
+import { fetchHotel, fetchHotelList } from './store/hotel-data/api-actions';
 
 const api = createAPI(
   () => {
@@ -35,7 +37,7 @@ const store = createStore(
     applyMiddleware(redirect)
   )
 );
-
+// ? configureStore (вместо createStore) вызывает ошибку
 // const store = configureStore({
 //   reducer: rootReducer,
 //   middleware: (getDefaultMiddleware) =>
