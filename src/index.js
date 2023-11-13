@@ -2,19 +2,20 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import thunk from 'redux-thunk';
 import { applyMiddleware } from 'redux';
-import createAPI from './services/api';
-
-import App from './components/app/app';
 import { legacy_createStore as createStore } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { configureStore } from '@reduxjs/toolkit';
+import { redirect } from './store/middleware/redirect';
+
+import createAPI from './services/api';
+import App from './components/app/app';
 
 import rooms from './mock/mock-rooms';
 import { Provider } from 'react-redux';
 import rootReducer from './store/root-reducer';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import { fetchCommentsList, fetchHotel, fetchHotelList, postComment } from './store/api-actions';
-import { changeAuthorizationStatus, loadHotel, loadHotelList, loadReviewList } from './store/actions';
 import { AuthorizationStatus } from './const';
-import { redirect } from './store/middleware/redirect';
+import { checkAuthorizationStatus, fetchCommentsList, fetchHotel, fetchHotelList, postComment } from './store/api-actions';
+import { changeAuthorizationStatus, loadHotel, loadHotelList, loadReviewList } from './store/actions';
 
 const api = createAPI(
   () => {
@@ -32,6 +33,17 @@ const store = createStore(
     applyMiddleware(redirect)
   )
 );
+
+// const store = configureStore({
+//   reducer: rootReducer,
+//   middleware: (getDefaultMiddleware) =>
+//     getDefaultMiddleware({
+//       thunk: {
+//         extraArgument: api
+//       },
+//       redirect
+//     })
+// });
 
 const onLoadData = () => {
   // store.dispatch(checkAuthorizationStatus());
