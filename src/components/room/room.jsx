@@ -1,13 +1,12 @@
 /* eslint-disable indent */
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import roomType from '../../types/room';
 import { AppRoute, AuthorizationStatus, Frame } from '../../const';
 import { bookmarkClassname, capitalizeFirstLetter, classname, frameClassname, roundRating } from '../../utils/utils';
-import { Link, Route, Router } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { connect } from 'react-redux';
 
-import LoginPage from '../login-page/login-page';
 import browserHistory from '../../browser-history';
 import { getAuthorizationStatus } from '../../store/login-data/selectors';
 import { useHistory } from "react-router-dom";
@@ -16,10 +15,8 @@ const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame, authorizationSta
   const { id, level, img, priceValue, priceText, bookmark, rating, card, type } = roomElement;
   const history = useHistory();
   const handleAddToFavorites = useCallback((idRoom) => {
-    console.log(authorizationStatus);
     if (authorizationStatus === AuthorizationStatus.AUTH) {
-      console.log(`Пользователь авторизован. Требуется добавить комнату ${idRoom} в Favorites`);
-      onChangeFavorite(id);
+      onChangeFavorite(idRoom);
     } else {
       history.push(AppRoute.LOGIN);
     }
