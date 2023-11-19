@@ -13,6 +13,7 @@ const refreshCommentList = (data) => {
 };
 
 const fetchCommentsList = (idHotel) => (dispatch, _getState, api) => {
+  console.log('fetchCommentsList');
   return api.get(`${serverLinks.COMMENTS}/${idHotel}`)
     .then(({ data }) => {
       const commentList = [];

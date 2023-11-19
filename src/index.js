@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import thunk from 'redux-thunk';
-import { applyMiddleware } from 'redux';
-import { legacy_createStore as createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { configureStore } from '@reduxjs/toolkit';
 import { redirect } from './store/middleware/redirect';
@@ -38,12 +37,13 @@ const store = createStore(
   )
 );
 // ? configureStore (вместо createStore) вызывает ошибку
+
 // const store = configureStore({
 //   reducer: rootReducer,
 //   middleware: (getDefaultMiddleware) =>
 //     getDefaultMiddleware({
 //       thunk: {
-//         extraArgument: api
+//         extraArgument: api,
 //       },
 //       redirect
 //     })

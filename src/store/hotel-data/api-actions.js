@@ -5,25 +5,28 @@ import { loadHotel, loadHotelList } from './actions';
 import { appendNotification } from '../notification-data/actions';
 import { serverLinks } from '../server-links';
 
-const fetchHotelList = () => (dispatch, _getState, api) => (
-  api.get(serverLinks.HOTELS)
-    .then(({ data }) => {
-      console.log('rooms are ready');
-      data = data.map((el) => Room.convertDataHotel(el));
-      dispatch(loadHotelList(data));
-      return data;
-    })
-    .then((data) => {
-      let cityList = cities;
-      data.map((el) => {
-        cityList = Object.assign(cityList, City.convertDataToCity(el.city));
-      });
-      dispatch(loadCityList(cityList));
-    })
-);
+const fetchHotelList = () => (dispatch, _getState, api) => {
+  console.log('fetchHotelList');
+  return (
+    api.get(serverLinks.HOTELS)
+      .then(({ data }) => {
+        console.log('rooms are ready');
+        data = data.map((el) => Room.convertDataHotel(el));
+        dispatch(loadHotelList(data));
+        return data;
+      })
+      .then((data) => {
+        let cityList = cities;
+        data.map((el) => {
+          cityList = Object.assign(cityList, City.convertDataToCity(el.city));
+        });
+        dispatch(loadCityList(cityList));
+      })
+  )
+};
 
 const fetchHotel = (id) => (dispatch, _getState, api) => {
-
+  console.log('fetchHotel');
   // const state = getState();
   // const room = getPropertyInside(state);
 

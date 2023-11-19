@@ -4,8 +4,6 @@ import { NameSpace } from '../root-reducer';
 import { getSort } from '../sort-data/selectors';
 import { createSelector } from '@reduxjs/toolkit';
 
-// ? reselect для фильтрации
-
 const getHotel = (state) => state[NameSpace.HOTEL].hotel;
 const getRooms = (state) => state[NameSpace.HOTEL].rooms;
 const getIsDataLoaded = (state) => state[NameSpace.HOTEL].isDataLoaded;
@@ -32,7 +30,6 @@ const getFilteredRooms = (state) => {
     getRooms,
     (rooms) => rooms.filter((room) => room.cityName === getActiveCity(state))
   );
-
   return sortedRooms(filteredRooms(state), getSort(state));
 };
 
