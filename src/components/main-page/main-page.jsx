@@ -11,7 +11,7 @@ import CityList from '../city-list/city-list';
 
 const MainPage = ({ idActiveRoom,
   onMouseEnter = () => { }, onMouseLeave = () => { },
-  cities, activeCity }) => {
+  cities, activeCity, onChangeFavorite }) => {
 
   return (
     <React.Fragment>
@@ -30,6 +30,7 @@ const MainPage = ({ idActiveRoom,
             idActiveRoom={idActiveRoom}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
+            onChangeFavorite={onChangeFavorite}
           />
         </main >
       </div >
@@ -41,6 +42,7 @@ MainPage.propTypes = {
   idActiveRoom: PropTypes.number,
   onMouseEnter: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func.isRequired,
+  onChangeFavorite: PropTypes.func.isRequired,
   cities: PropTypes.object,
   activeCity: PropTypes.string,
 };

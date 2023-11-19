@@ -1,8 +1,8 @@
 import { FAVORITES_LIST } from "./actions-types";
 
-const favoritesChange = (city) => ({
+const favoritesChange = (hotel) => ({
   type: FAVORITES_LIST,
-  payload: city,
+  payload: hotel,
 });
 
 export {

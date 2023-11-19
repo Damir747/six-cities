@@ -5,9 +5,6 @@ import { connect } from 'react-redux';
 
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import roomsType from '../../types/rooms';
-import { AppRoute } from '../../const';
-import { capitalizeFirstLetter, roundRating } from '../../utils/utils';
-
 import FavorityCityRoom from './favority-city-room';
 import { getFavoriteRooms } from '../../store/favorite-data/selectors';
 

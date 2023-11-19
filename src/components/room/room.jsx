@@ -12,14 +12,14 @@ import browserHistory from '../../browser-history';
 import { getAuthorizationStatus } from '../../store/login-data/selectors';
 import { useHistory } from "react-router-dom";
 
-const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame, authorizationStatus }) => {
+const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame, authorizationStatus, onChangeFavorite }) => {
   const { id, level, img, priceValue, priceText, bookmark, rating, card, type } = roomElement;
   const history = useHistory();
   const handleAddToFavorites = useCallback((idRoom) => {
     console.log(authorizationStatus);
     if (authorizationStatus === AuthorizationStatus.AUTH) {
       console.log(`Пользователь авторизован. Требуется добавить комнату ${idRoom} в Favorites`);
-      // changeFavorite(id);
+      onChangeFavorite(id);
     } else {
       history.push(AppRoute.LOGIN);
     }
@@ -74,6 +74,7 @@ Room.propTypes = {
   roomElement: roomType,
   onMouseEnter: PropTypes.func,
   onMouseLeave: PropTypes.func,
+  onChangeFavorite: PropTypes.func,
   frame: PropTypes.string,
   authorizationStatus: PropTypes.string.isRequired,
 };

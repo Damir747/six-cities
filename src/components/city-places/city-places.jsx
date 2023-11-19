@@ -15,7 +15,7 @@ import { useWhyDidYouUpdate } from 'ahooks';
 import { getFilteredRooms, getRooms } from '../../store/hotel-data/selectors';
 
 const CityPlaces = ({ idActiveRoom, onMouseEnter, onMouseLeave,
-  activeCity, filteredRooms }) => {
+  activeCity, filteredRooms, onChangeFavorite }) => {
   if (filteredRooms.length) {
     return (
       <React.Fragment>
@@ -33,6 +33,7 @@ const CityPlaces = ({ idActiveRoom, onMouseEnter, onMouseLeave,
                     roomElement={roomElement}
                     onMouseEnter={onMouseEnter}
                     onMouseLeave={onMouseLeave}
+                    onChangeFavorite={onChangeFavorite}
                     frame={Frame.CITIES}
                   />
                 )
@@ -75,6 +76,7 @@ CityPlaces.propTypes = {
   idActiveRoom: PropTypes.number,
   onMouseEnter: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func.isRequired,
+  onChangeFavorite: PropTypes.func.isRequired,
   activeCity: PropTypes.string,
   filteredRooms: roomsType,
 };

@@ -19,6 +19,8 @@ import { loadReviewList } from './store/comment-data/actions';
 import { checkAuthorizationStatus } from './store/login-data/api-actions';
 import { fetchCommentsList, postComment } from './store/comment-data/api-actions';
 import { fetchHotel, fetchHotelList } from './store/hotel-data/api-actions';
+import { fetchFavorites } from './store/favorite-data/api-actions';
+import { getReverseFavorite } from './store/favorite-data/selectors';
 
 const api = createAPI(
   () => {
@@ -69,6 +71,10 @@ const onPostComment = (idHotel, commentText, commentStars) => {
   }));
 };
 
+const onChangeFavorite = (idHotel) => {
+  return store.dispatch(fetchFavorites(idHotel));
+};
+
 ReactDom.render(
   <Provider store={store}>
     <App
@@ -77,6 +83,7 @@ ReactDom.render(
       onLoadHotel={(id) => onLoadHotel(id)}
       onLoadComments={(idHotel) => onLoadComments(idHotel)}
       onPostComment={onPostComment}
+      onChangeFavorite={(idHotel) => onChangeFavorite(idHotel)}
     />
   </Provider>,
   document.getElementById(`root`),
