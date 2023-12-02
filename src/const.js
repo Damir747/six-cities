@@ -6,6 +6,7 @@ const AppRoute = {
 };
 
 const IN_BOOKMARKS = 'In bookmarks';
+const TO_BOOKMARKS = 'To bookmarks';
 
 const AuthorizationStatus = {
   AUTH: `AUTH`,
@@ -16,4 +17,4 @@ const Frame = {
   CITIES: 'cities',
   NEAR_PLACES: 'near-places',
 };
-export { AppRoute, IN_BOOKMARKS, AuthorizationStatus, Frame };
+export { AppRoute, IN_BOOKMARKS, TO_BOOKMARKS, AuthorizationStatus, Frame };

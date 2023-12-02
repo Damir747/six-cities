@@ -16,11 +16,9 @@ import { AuthorizationStatus } from './const';
 import { changeAuthorizationStatus } from './store/login-data/actions';
 import { loadHotel, loadHotelList } from './store/hotel-data/actions';
 import { loadReviewList } from './store/comment-data/actions';
-import { checkAuthorizationStatus } from './store/login-data/api-actions';
 import { fetchCommentsList, postComment } from './store/comment-data/api-actions';
 import { fetchHotel, fetchHotelList } from './store/hotel-data/api-actions';
 import { fetchFavorites } from './store/favorite-data/api-actions';
-import { getReverseFavorite } from './store/favorite-data/selectors';
 
 const api = createAPI(
   () => {

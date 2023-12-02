@@ -1,3 +1,5 @@
+import { IN_BOOKMARKS, TO_BOOKMARKS } from "../const";
+
 const rooms = [
   {
     id: 0,
@@ -5,7 +7,7 @@ const rooms = [
     img: '../img/apartment-01.jpg',
     priceValue: '120',
     priceText: 'night',
-    bookmark: 'In bookmarks',
+    bookmark: IN_BOOKMARKS,
     rating: 80,
     card: 'Beautiful & luxurious apartment at great location',
     type: 'apartment',
@@ -88,7 +90,7 @@ const rooms = [
     img: 'img/room.jpg',
     priceValue: '80',
     priceText: '',
-    bookmark: 'In bookmarks',
+    bookmark: IN_BOOKMARKS,
     rating: 30,
     card: 'Wood and stone placen',
     type: 'room',
@@ -104,7 +106,7 @@ const rooms = [
     img: 'img/apartment-02.jpg',
     priceValue: '132',
     priceText: 'night',
-    bookmark: 'To bookmarks',
+    bookmark: TO_BOOKMARKS,
     rating: 50,
     card: 'Canal View Prinsengracht',
     type: 'apartment',
@@ -120,7 +122,7 @@ const rooms = [
     img: 'img/apartment-03.jpg',
     priceValue: '180',
     priceText: 'night',
-    bookmark: 'To bookmarks',
+    bookmark: TO_BOOKMARKS,
     rating: 100,
     card: 'Nice, cozy, warm big bed apartment',
     type: 'apartment',
@@ -136,7 +138,7 @@ const rooms = [
     img: 'img/room.jpg',
     priceValue: '80',
     priceText: 'night',
-    bookmark: 'To bookmarks',
+    bookmark: TO_BOOKMARKS,
     rating: 80,
     card: 'Wood and stone place',
     type: 'private room',

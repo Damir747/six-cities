@@ -1,3 +1,5 @@
+import { IN_BOOKMARKS, TO_BOOKMARKS } from "../const";
+
 /* eslint-disable indent */
 const convertRatingToClient = (rating) => rating * 20;
 
@@ -31,7 +33,7 @@ class Room {
         img: data.preview_image,
         priceValue: data.price.toString(),
         priceText: 'night',
-        bookmark: data.is_favorite ? 'In bookmarks' : 'To bookmarks',
+        bookmark: data.is_favorite ? IN_BOOKMARKS : TO_BOOKMARKS,
         rating: convertRatingToClient(data.rating),
         card: data.description,
         cityName: data.city.name,

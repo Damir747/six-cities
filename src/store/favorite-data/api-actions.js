@@ -8,6 +8,8 @@ const fetchFavorites = (idHotel) => (dispatch, getState, api) => {
   return api.post(`${serverLinks.FAVORITE}/${idHotel}/${status}`)
     .then(({ data }) => {
       dispatch(favoritesChange(data));
+      console.log(data.id, ':', data.is_favorite);
+      return data;
     })
     .catch((error) => {
       console.log('error!', error);

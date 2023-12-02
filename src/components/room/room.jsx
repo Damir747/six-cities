@@ -1,8 +1,8 @@
 /* eslint-disable indent */
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import roomType from '../../types/room';
-import { AppRoute, AuthorizationStatus, Frame } from '../../const';
+import { AppRoute, AuthorizationStatus, Frame, IN_BOOKMARKS, TO_BOOKMARKS } from '../../const';
 import { bookmarkClassname, capitalizeFirstLetter, classname, frameClassname, roundRating } from '../../utils/utils';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { connect } from 'react-redux';
@@ -10,17 +10,31 @@ import { connect } from 'react-redux';
 import browserHistory from '../../browser-history';
 import { getAuthorizationStatus } from '../../store/login-data/selectors';
 import { useHistory } from "react-router-dom";
+import { getReverseFavorite } from '../../store/favorite-data/selectors';
 
 const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame, authorizationStatus, onChangeFavorite }) => {
   const { id, level, img, priceValue, priceText, bookmark, rating, card, type } = roomElement;
   const history = useHistory();
-  const handleAddToFavorites = useCallback((idRoom) => {
+
+  const [roomBookmark, setRoomBookmark] = useState(bookmark === IN_BOOKMARKS);
+  const handleAddToFavorites = useCallback(() => {
     if (authorizationStatus === AuthorizationStatus.AUTH) {
-      onChangeFavorite(idRoom);
+      console.log(bookmark);
+      onChangeFavorite(id)
+        .then((value) => {
+          console.log(`Значение для отеля ${id}: ${value.is_favorite}`);
+          // setRoomBookmark(value.is_favorite);
+        })
+        .catch((err) => console.log(err));
     } else {
       history.push(AppRoute.LOGIN);
     }
   });
+
+  useEffect(() => {
+    console.log('useEffect', roomBookmark, bookmark);
+    setRoomBookmark(!roomBookmark);
+  }, [bookmark]);
 
   return (
     <React.Fragment>
