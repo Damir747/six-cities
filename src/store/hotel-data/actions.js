@@ -1,4 +1,4 @@
-import { FAVORITES_LIST, HOTEL, HOTEL_LIST } from "./actions-types";
+import { FAVORITE, HOTEL, HOTEL_LIST } from "./actions-types";
 
 const loadHotelList = (hotels) => ({
   type: HOTEL_LIST,
@@ -11,7 +11,7 @@ const loadHotel = (hotel) => ({
 });
 
 const favoritesChange = (hotel) => ({
-  type: FAVORITES_LIST,
+  type: FAVORITE,
   payload: hotel,
 });
 

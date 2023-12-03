@@ -5,7 +5,6 @@ import { Switch, Route, Router } from 'react-router-dom';
 import MainPage from '../main-page/main-page';
 import { AppRoute } from '../../const';
 import LoginPage from '../login-page/login-page';
-import FavoritesPage from '../favorites-page/favorite-page';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Property from '../property/property';
 
@@ -15,6 +14,7 @@ import { connect } from 'react-redux';
 import { getIsDataLoaded } from '../../store/hotel-data/selectors';
 import Loading from '../loading/loading';
 import browserHistory from '../../browser-history';
+import FavoriteLogin from '../favorites-page/favorite-login';
 // ? live 6. 01:46:19 - разобраться с остатками useHistory
 // ? соседи / neighbouhood - на карте не показываются, не кликабельны
 // ? убрать connect, заменить на useSelector
@@ -56,7 +56,7 @@ const App = ({ rooms, isDataLoaded, onLoadData, onLoadHotel, onLoadComments, onP
             <LoginPage />
           </Route>
           <Route exact path={AppRoute.FAVORITES}>
-            <FavoritesPage />
+            <FavoriteLogin />
           </Route>
           <Route exact path={AppRoute.OFFER + ':id'}>
             <Property

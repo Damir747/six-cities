@@ -1,5 +1,5 @@
 const HOTEL_LIST = '@hotel/hotel_list';
 const HOTEL = '@hotel/hotel';
-const FAVORITES_LIST = '@hotel/favorite';
+const FAVORITE = '@hotel/favorite';
 
-export { HOTEL_LIST, HOTEL, FAVORITES_LIST };
+export { HOTEL_LIST, HOTEL, FAVORITE };

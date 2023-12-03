@@ -1,5 +1,5 @@
 import { IN_BOOKMARKS, TO_BOOKMARKS } from "../../const";
-import { FAVORITES_LIST, HOTEL, HOTEL_LIST } from "./actions-types";
+import { FAVORITE, HOTEL, HOTEL_LIST } from "./actions-types";
 
 /* eslint-disable indent */
 const initialState = {
@@ -25,7 +25,7 @@ const hotelReducer = (state = initialState, action) => {
         isHotelLoaded: true,
       };
     }
-    case FAVORITES_LIST: {
+    case FAVORITE: {
       console.log(state.rooms);
       console.log(action.payload);
       console.log(`Было: ${state.rooms[action.payload.id].bookmark}. Стало: ${action.payload.is_favorite}`);

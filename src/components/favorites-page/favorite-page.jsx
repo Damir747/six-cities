@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Top from '../top/top';
 import Header from '../header/header';
@@ -6,8 +7,10 @@ import Footer from '../footer/footer';
 
 import FavoriteCities from '../favorite-cities/favorite-cities';
 import loginType from '../../types/login';
+import { getAuthorizationStatus, getLoginName } from '../../store/login-data/selectors';
+import { connect } from 'react-redux';
 
-const FavoritesPage = ({ loginName }) => {
+const FavoritePage = ({ authorizationStatus, loginName }) => {
 
   return (
     <React.Fragment>
@@ -35,8 +38,14 @@ const FavoritesPage = ({ loginName }) => {
   );
 };
 
-FavoritesPage.propTypes = {
+FavoritePage.propTypes = {
+  authorizationStatus: PropTypes.string.isRequired,
   loginName: loginType,
 };
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
+  loginName: getLoginName(state),
+});
 
-export default FavoritesPage;
+export { FavoritePage };
+export default connect(mapStateToProps)(FavoritePage);
