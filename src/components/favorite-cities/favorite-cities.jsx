@@ -8,7 +8,7 @@ import FavoriteCityRooms from '../favorite-city-rooms/favorite-city-rooms';
 import roomsType from '../../types/rooms';
 import { AppRoute } from '../../const';
 import { getCities } from '../../store/city-data/selectors';
-import { getFavoriteRooms } from '../../store/favorite-data/selectors';
+import { getFavoriteRooms } from '../../store/hotel-data/selectors';
 
 const FavoriteCities = ({ cities, favoriteRooms }) => {
   return (

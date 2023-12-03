@@ -1,4 +1,5 @@
 /* eslint-disable indent */
+import { IN_BOOKMARKS } from '../../const';
 import { getActiveCity } from '../city-data/selectors';
 import { NameSpace } from '../root-reducer';
 import { getSort } from '../sort-data/selectors';
@@ -33,4 +34,28 @@ const getFilteredRooms = (state) => {
   return sortedRooms(filteredRooms(state), getSort(state));
 };
 
-export { getHotel, getRooms, getIsDataLoaded, getIsHotelLoaded, sortedRooms, getFilteredRooms };
+const getFavoriteRooms = (state) => {
+  return getRooms(state).filter((item) => item.bookmark === IN_BOOKMARKS);
+};
+
+const getFavorite = (state, idRoom) => {
+  const findRoom = getRooms(state).slice().filter((room) => room.id === idRoom);
+  if (!findRoom.length) {
+    return -1;
+  }
+  return findRoom[0].bookmark;
+};
+
+const getReverseFavorite = (state, idRoom) => getFavorite(state, idRoom) === IN_BOOKMARKS ? 0 : 1;
+
+export {
+  getHotel,
+  getRooms,
+  getIsDataLoaded,
+  getIsHotelLoaded,
+  sortedRooms,
+  getFilteredRooms,
+  getFavoriteRooms,
+  getFavorite,
+  getReverseFavorite
+};

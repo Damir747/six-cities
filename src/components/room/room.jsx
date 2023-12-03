@@ -10,7 +10,6 @@ import { connect } from 'react-redux';
 import browserHistory from '../../browser-history';
 import { getAuthorizationStatus } from '../../store/login-data/selectors';
 import { useHistory } from "react-router-dom";
-import { getReverseFavorite } from '../../store/favorite-data/selectors';
 
 const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame, authorizationStatus, onChangeFavorite }) => {
   const { id, level, img, priceValue, priceText, bookmark, rating, card, type } = roomElement;

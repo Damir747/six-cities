@@ -5,6 +5,9 @@ import { loadHotel, loadHotelList } from './actions';
 import { appendNotification } from '../notification-data/actions';
 import { serverLinks } from '../server-links';
 
+import { favoritesChange } from './actions';
+import { getFavorite, getReverseFavorite } from './selectors';
+
 const fetchHotelList = () => (dispatch, _getState, api) => {
   console.log('fetchHotelList');
   return (
@@ -51,7 +54,27 @@ const fetchHotel = (id) => (dispatch, _getState, api) => {
     });
 };
 
+const fetchFavorites = (idHotel) => (dispatch, getState, api) => {
+  const status = getReverseFavorite(getState(), idHotel);
+  console.log(`status = ${status}`);
+  return api.post(`${serverLinks.FAVORITE}/${idHotel}/${status}`)
+    .then(({ data }) => {
+      dispatch(favoritesChange(data));
+      console.log(data.id, ':', data.is_favorite);
+      return data;
+    })
+    .catch((error) => {
+      console.log('error!', error);
+      dispatch(appendNotification({
+        message: error.message,
+        type: 'error',
+        id: 6,
+      }));
+    });
+};
+
 export {
   fetchHotelList,
-  fetchHotel
+  fetchHotel,
+  fetchFavorites
 };

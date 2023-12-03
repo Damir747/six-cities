@@ -14,12 +14,10 @@ import { Provider } from 'react-redux';
 import rootReducer from './store/root-reducer';
 import { AuthorizationStatus } from './const';
 import { changeAuthorizationStatus } from './store/login-data/actions';
-import { loadHotel, loadHotelList } from './store/hotel-data/actions';
+import { loadHotel, loadHotelList, favoritesChange } from './store/hotel-data/actions';
 import { loadReviewList } from './store/comment-data/actions';
 import { fetchCommentsList, postComment } from './store/comment-data/api-actions';
-import { fetchHotel, fetchHotelList } from './store/hotel-data/api-actions';
-import { fetchFavorites } from './store/favorite-data/api-actions';
-import { favoritesChange } from './store/favorite-data/actions';
+import { fetchHotel, fetchHotelList, fetchFavorites } from './store/hotel-data/api-actions';
 
 const api = createAPI(
   () => {

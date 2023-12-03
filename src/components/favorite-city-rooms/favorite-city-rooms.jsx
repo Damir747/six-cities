@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import roomsType from '../../types/rooms';
 import FavorityCityRoom from './favority-city-room';
-import { getFavoriteRooms } from '../../store/favorite-data/selectors';
+import { getFavoriteRooms } from '../../store/hotel-data/selectors';
 
 const FavoriteCityRooms = ({ favoriteRooms, city }) => {
   const filteredRooms = favoriteRooms.filter((room) => room.cityName === city);
