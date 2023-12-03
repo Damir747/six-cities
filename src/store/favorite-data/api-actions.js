@@ -3,7 +3,6 @@ import { loadFavoriteList } from './actions';
 import { serverLinks } from '../server-links';
 
 const fetchFavoriteList = () => (dispatch, _getState, api) => {
-  console.log('fetchFavoriteList');
   return (
     api.get(serverLinks.FAVORITE)
       .then(({ data }) => {

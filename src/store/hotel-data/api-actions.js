@@ -54,7 +54,7 @@ const fetchHotel = (id) => (dispatch, _getState, api) => {
     });
 };
 
-const fetchFavorites = (idHotel) => (dispatch, getState, api) => {
+const fetchFavorite = (idHotel) => (dispatch, getState, api) => {
   const status = getReverseFavorite(getState(), idHotel);
   console.log(`status = ${status}`);
   return api.post(`${serverLinks.FAVORITE}/${idHotel}/${status}`)
@@ -76,5 +76,5 @@ const fetchFavorites = (idHotel) => (dispatch, getState, api) => {
 export {
   fetchHotelList,
   fetchHotel,
-  fetchFavorites
+  fetchFavorite
 };

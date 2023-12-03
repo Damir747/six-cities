@@ -26,7 +26,9 @@ const FavoriteCities = ({ cities, favoriteRooms }) => {
                 </div>
               </div>
 
-              <FavoriteCityRooms city={city} />
+              <FavoriteCityRooms
+                favoriteRooms={filteredRooms}
+                city={city} />
 
             </li>
           );

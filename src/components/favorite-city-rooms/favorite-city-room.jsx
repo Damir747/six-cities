@@ -5,7 +5,8 @@ import { AppRoute } from '../../const';
 import roomType from '../../types/room';
 
 
-const FavorityCityRoom = ({ room }) => {
+const FavoriteCityRoom = ({ room }) => {
+  console.log(room);
   const { id, img, priceValue, priceText, bookmark, rating, card, type } = room;
   return (
     <React.Fragment>
@@ -44,8 +45,8 @@ const FavorityCityRoom = ({ room }) => {
   );
 };
 
-FavorityCityRoom.propTypes = {
+FavoriteCityRoom.propTypes = {
   room: roomType,
 };
 
-export default FavorityCityRoom;
+export default FavoriteCityRoom;

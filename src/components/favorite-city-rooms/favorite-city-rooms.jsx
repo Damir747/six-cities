@@ -3,18 +3,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import roomsType from '../../types/rooms';
-import FavorityCityRoom from './favority-city-room';
-import { getFavoriteRooms } from '../../store/hotel-data/selectors';
+import FavoriteCityRoom from './favorite-city-room';
+import { getFavoriteList } from '../../store/favorite-data/selectors';
 
 const FavoriteCityRooms = ({ favoriteRooms, city }) => {
-  const filteredRooms = favoriteRooms.filter((room) => room.cityName === city);
+  favoriteRooms.map((room) => console.log(room));
   return (
     <React.Fragment>
       <div className="favorites__places">
-        {filteredRooms.map((room) => {
-          <FavorityCityRoom
+        {favoriteRooms.map((room) => {
+          <FavoriteCityRoom
             key={room.id}
             room={room}
           />;
@@ -30,9 +29,4 @@ FavoriteCityRooms.propTypes = {
   city: PropTypes.string
 };
 
-const mapStateToProps = (state) => ({
-  favoriteRooms: getFavoriteRooms(state),
-});
-
-export { FavoriteCityRooms };
-export default connect(mapStateToProps)(FavoriteCityRooms);
+export default FavoriteCityRooms;

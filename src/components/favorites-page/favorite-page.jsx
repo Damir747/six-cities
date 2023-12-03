@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Top from '../top/top';
@@ -9,8 +9,28 @@ import FavoriteCities from '../favorite-cities/favorite-cities';
 import loginType from '../../types/login';
 import { getAuthorizationStatus, getLoginName } from '../../store/login-data/selectors';
 import { connect } from 'react-redux';
+import Loading from '../loading/loading';
 
-const FavoritePage = ({ authorizationStatus, loginName }) => {
+const FavoritePage = ({ authorizationStatus, loginName, onLoadFavorites }) => {
+  const [fetchingFavorites, setFetchingFavorites] = useState(true);
+  const [favorites, setFavorites] = useState();
+
+  useEffect(() => {
+    onLoadFavorites()
+      .then((data) => {
+        setFetchingFavorites(false);
+        setFavorites(data);
+      })
+      .catch((err) => console.log(err));
+  }, [fetchingFavorites]);
+
+  if (fetchingFavorites) {
+    return (
+      <>
+        <Loading />
+      </>
+    );
+  }
 
   return (
     <React.Fragment>
@@ -41,6 +61,7 @@ const FavoritePage = ({ authorizationStatus, loginName }) => {
 FavoritePage.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   loginName: loginType,
+  onLoadFavorites: () => { }
 };
 const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),
