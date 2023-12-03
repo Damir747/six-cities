@@ -19,6 +19,7 @@ import { loadReviewList } from './store/comment-data/actions';
 import { fetchCommentsList, postComment } from './store/comment-data/api-actions';
 import { fetchHotel, fetchHotelList } from './store/hotel-data/api-actions';
 import { fetchFavorites } from './store/favorite-data/api-actions';
+import { favoritesChange } from './store/favorite-data/actions';
 
 const api = createAPI(
   () => {
@@ -26,6 +27,7 @@ const api = createAPI(
     store.dispatch(loadHotelList);
     store.dispatch(loadHotel);
     store.dispatch(loadReviewList);
+    store.dispatch(favoritesChange);
   }
 );
 

@@ -8,7 +8,8 @@ const favoriteReducer = (state = initialState, action) => {
   switch (action.type) {
     case FAVORITES_LIST: {
       return {
-        ...state
+        ...state,
+        ...action.payload
       };
     }
   }

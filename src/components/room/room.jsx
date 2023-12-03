@@ -17,24 +17,18 @@ const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame, authorizationSta
   const history = useHistory();
 
   const [roomBookmark, setRoomBookmark] = useState(bookmark === IN_BOOKMARKS);
-  const handleAddToFavorites = useCallback(() => {
+
+  const handleAddToFavorites = () => {
     if (authorizationStatus === AuthorizationStatus.AUTH) {
-      console.log(bookmark);
       onChangeFavorite(id)
         .then((value) => {
-          console.log(`Значение для отеля ${id}: ${value.is_favorite}`);
-          // setRoomBookmark(value.is_favorite);
+          setRoomBookmark(value.is_favorite);
         })
         .catch((err) => console.log(err));
     } else {
       history.push(AppRoute.LOGIN);
     }
-  });
-
-  useEffect(() => {
-    console.log('useEffect', roomBookmark, bookmark);
-    setRoomBookmark(!roomBookmark);
-  }, [bookmark]);
+  };
 
   return (
     <React.Fragment>
@@ -57,7 +51,7 @@ const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame, authorizationSta
               <b className="place-card__price-value">&euro;{priceValue}</b>
               <span className="place-card__price-text">&#47;&nbsp;{priceText || 'ночь'}</span>
             </div>
-            <button className={bookmarkClassname('place-card', bookmark)} type="button" onClick={() => handleAddToFavorites(id)}>
+            <button className={bookmarkClassname('place-card', roomBookmark ? IN_BOOKMARKS : TO_BOOKMARKS)} type="button" onClick={handleAddToFavorites}>
 
               <svg className="place-card__bookmark-icon" width="18" height="19">
                 <use xlinkHref="#icon-bookmark"></use>
