@@ -46,7 +46,6 @@ const getFavorite = (state, idRoom) => {
   if (!findRoom.length) {
     return -1;
   }
-  // console.log('getFavorite (ищу статус комнаты)', findRoom[0].bookmark);
   return findRoom[0].bookmark;
 };
 
