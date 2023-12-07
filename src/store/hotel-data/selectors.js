@@ -7,6 +7,9 @@ import { createSelector } from '@reduxjs/toolkit';
 
 const getHotel = (state) => state[NameSpace.HOTEL].hotel;
 const getRooms = (state) => state[NameSpace.HOTEL].rooms;
+const getRoom = (state, idRoom) => getRooms(state)[idRoom];
+const getBookmark = (state, idRoom) => getRoom(state, idRoom).bookmark;
+
 const getIsDataLoaded = (state) => state[NameSpace.HOTEL].isDataLoaded;
 const getIsHotelLoaded = (state) => state[NameSpace.HOTEL].isHotelLoaded;
 const sortedRooms = (rooms, sortType) => {
@@ -43,6 +46,7 @@ const getFavorite = (state, idRoom) => {
   if (!findRoom.length) {
     return -1;
   }
+  // console.log('getFavorite (ищу статус комнаты)', findRoom[0].bookmark);
   return findRoom[0].bookmark;
 };
 
@@ -51,6 +55,8 @@ const getReverseFavorite = (state, idRoom) => getFavorite(state, idRoom) === IN_
 export {
   getHotel,
   getRooms,
+  getRoom,
+  getBookmark,
   getIsDataLoaded,
   getIsHotelLoaded,
   sortedRooms,

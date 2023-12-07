@@ -56,11 +56,11 @@ const fetchHotel = (id) => (dispatch, _getState, api) => {
 
 const fetchFavorite = (idHotel) => (dispatch, getState, api) => {
   const status = getReverseFavorite(getState(), idHotel);
-  console.log(`status = ${status}`);
+  // console.log(status);
   return api.post(`${serverLinks.FAVORITE}/${idHotel}/${status}`)
     .then(({ data }) => {
+      // console.log(`fetch успешен. Передаю ${data.is_favorite} / ${status}`);
       dispatch(favoritesChange(data));
-      console.log(data.id, ':', data.is_favorite);
       return data;
     })
     .catch((error) => {

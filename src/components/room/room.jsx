@@ -21,9 +21,12 @@ const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame, authorizationSta
     if (authorizationStatus === AuthorizationStatus.AUTH) {
       onChangeFavorite(id)
         .then((value) => {
+          // console.log('Отправил на сервер и теперь статус:', value.is_favorite, roomBookmark, bookmark);
           setRoomBookmark(value.is_favorite);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.log(err);
+        });
     } else {
       history.push(AppRoute.LOGIN);
     }
@@ -44,6 +47,7 @@ const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame, authorizationSta
             <img className="place-card__image" src={img} width="260" height="200" alt="Place image" />
           </Link>
         </div>
+        <div>{id}: {bookmark}</div>
         <div className="place-card__info">
           <div className="place-card__price-wrapper">
             <div className="place-card__price">
