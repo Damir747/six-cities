@@ -30,15 +30,6 @@ const api = createAPI(
   }
 );
 
-// const store = createStore(
-//   rootReducer,
-//   composeWithDevTools(
-//     applyMiddleware(thunk.withExtraArgument(api)),
-//     applyMiddleware(redirect)
-//   )
-// );
-// ? configureStore (вместо createStore) вызывает ошибку
-
 const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>

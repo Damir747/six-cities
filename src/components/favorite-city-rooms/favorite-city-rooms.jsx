@@ -13,10 +13,11 @@ const FavoriteCityRooms = ({ favoriteRooms, city }) => {
     <React.Fragment>
       <div className="favorites__places">
         {favoriteRooms.map((room) => {
-          <FavoriteCityRoom
-            key={room.id}
-            room={room}
-          />;
+          (<><div>{room}</div>
+            <FavoriteCityRoom
+              key={room.id}
+              room={room}
+            /></>);
         })
         }
       </div>

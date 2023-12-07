@@ -38,6 +38,7 @@ const getFilteredRooms = (state) => {
 };
 
 const getFavoriteRooms = (state) => {
+  getRooms(state).map((item) => console.log(item.bookmark, item.bookmark === IN_BOOKMARKS));
   return getRooms(state).filter((item) => item.bookmark === IN_BOOKMARKS);
 };
 

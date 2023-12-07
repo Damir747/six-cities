@@ -10,25 +10,32 @@ import loginType from '../../types/login';
 import { getAuthorizationStatus, getLoginName } from '../../store/login-data/selectors';
 import { connect } from 'react-redux';
 import Loading from '../loading/loading';
+import { getIsFavoriteListLoaded } from '../../store/favorite-data/selectors';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
-const FavoritePage = ({ authorizationStatus, loginName, onLoadFavorites }) => {
-  const [fetchingFavorites, setFetchingFavorites] = useState(true);
-  const [favorites, setFavorites] = useState();
+const FavoritePage = ({ authorizationStatus, loginName, onLoadFavorites, isFavoriteListLoaded }) => {
+  const [fetchingFavorites, setFetchingFavorites] = useState(false);
+  const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
     onLoadFavorites()
       .then((data) => {
+        console.log(fetchingFavorites);
         setFetchingFavorites(false);
         setFavorites(data);
+        console.log(data);
       })
       .catch((err) => console.log(err));
   }, [fetchingFavorites]);
 
-  if (fetchingFavorites) {
+  if (!favorites) {
     return (
-      <>
-        <Loading />
-      </>
+      <NotFoundScreen />
+    );
+  }
+  if (fetchingFavorites || !isFavoriteListLoaded) {
+    return (
+      <Loading />
     );
   }
 
@@ -61,11 +68,13 @@ const FavoritePage = ({ authorizationStatus, loginName, onLoadFavorites }) => {
 FavoritePage.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   loginName: loginType,
-  onLoadFavorites: () => { }
+  onLoadFavorites: () => { },
+  isFavoriteListLoaded: PropTypes.bool.isRequired,
 };
 const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),
   loginName: getLoginName(state),
+  isFavoriteListLoaded: getIsFavoriteListLoaded(state),
 });
 
 export { FavoritePage };

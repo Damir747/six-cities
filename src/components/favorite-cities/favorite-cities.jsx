@@ -11,6 +11,11 @@ import { getCities } from '../../store/city-data/selectors';
 import { getFavoriteRooms } from '../../store/hotel-data/selectors';
 
 const FavoriteCities = ({ cities, favoriteRooms }) => {
+  Object.keys(cities).sort((a, b) => a > b).map((city) => {
+    const filteredRooms = favoriteRooms.filter((room) => room.cityName === city);
+    console.log(filteredRooms.length);
+  });
+
   return (
     <React.Fragment>
       {Object.keys(cities).sort((a, b) => a > b).map((city) => {
@@ -25,7 +30,7 @@ const FavoriteCities = ({ cities, favoriteRooms }) => {
                   </Link>
                 </div>
               </div>
-
+              <div>{filteredRooms.length}</div>
               <FavoriteCityRooms
                 favoriteRooms={filteredRooms}
                 city={city} />
@@ -33,7 +38,7 @@ const FavoriteCities = ({ cities, favoriteRooms }) => {
             </li>
           );
         }
-        return '';
+        return (<li>что-то пошло не так ${filteredRooms.length}</li>);
       })}
     </React.Fragment >
   );
