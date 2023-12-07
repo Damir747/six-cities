@@ -30,25 +30,25 @@ const api = createAPI(
   }
 );
 
-const store = createStore(
-  rootReducer,
-  composeWithDevTools(
-    applyMiddleware(thunk.withExtraArgument(api)),
-    applyMiddleware(redirect)
-  )
-);
+// const store = createStore(
+//   rootReducer,
+//   composeWithDevTools(
+//     applyMiddleware(thunk.withExtraArgument(api)),
+//     applyMiddleware(redirect)
+//   )
+// );
 // ? configureStore (вместо createStore) вызывает ошибку
 
-// const store = configureStore({
-//   reducer: rootReducer,
-//   middleware: (getDefaultMiddleware) =>
-//     getDefaultMiddleware({
-//       thunk: {
-//         extraArgument: api,
-//       },
-//       redirect
-//     })
-// });
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      thunk: {
+        extraArgument: api,
+      },
+      redirect
+    })
+});
 
 const onLoadData = () => {
   // store.dispatch(checkAuthorizationStatus());

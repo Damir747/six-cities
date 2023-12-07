@@ -19,7 +19,7 @@ const fetchHotelList = () => (dispatch, _getState, api) => {
         return data;
       })
       .then((data) => {
-        let cityList = cities;
+        let cityList = Object.assign({}, cities);
         data.map((el) => {
           cityList = Object.assign(cityList, City.convertDataToCity(el.city));
         });
