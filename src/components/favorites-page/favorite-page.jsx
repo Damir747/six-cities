@@ -20,10 +20,8 @@ const FavoritePage = ({ authorizationStatus, loginName, onLoadFavorites, isFavor
   useEffect(() => {
     onLoadFavorites()
       .then((data) => {
-        console.log(fetchingFavorites);
         setFetchingFavorites(false);
         setFavorites(data);
-        console.log(data);
       })
       .catch((err) => console.log(err));
   }, [fetchingFavorites]);

@@ -16,7 +16,6 @@ const FavoriteCityRoom = ({ room, authorizationStatus, onChangeFavorite }) => {
     if (authorizationStatus === AuthorizationStatus.AUTH) {
       onChangeFavorite(id)
         .then((_value) => {
-          console.log(_value.is_favorite);
         })
         .catch((err) => {
           console.log(err);

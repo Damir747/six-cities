@@ -22,6 +22,7 @@ import { useHistory } from "react-router-dom";
 
 const Property = ({ idActiveRoom, onMouseEnter, onMouseLeave, rooms, neighbourhood, isHotelLoaded,
   onLoadHotel, onLoadComments, onPostComment, onChangeFavorite, authorizationStatus }) => {
+  const history = useHistory();
 
   const [fetchingHotel, setFetchingHotel] = useState(true);
   const [fetchingComments, setFetchingComments] = useState(true);
@@ -57,6 +58,20 @@ const Property = ({ idActiveRoom, onMouseEnter, onMouseLeave, rooms, neighbourho
   }
   const { id, level, img, priceValue, priceText, bookmark, rating, card, type, description, host, images, cityName } = room;
 
+  const handleAddToFavorites = () => {
+    if (authorizationStatus === AuthorizationStatus.AUTH) {
+      onChangeFavorite(id)
+        .then((_value) => {
+          console.log(_value.is_favorite);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      history.push(AppRoute.LOGIN);
+    }
+  };
+
   return (
     <React.Fragment>
       <Top />
@@ -84,7 +99,7 @@ const Property = ({ idActiveRoom, onMouseEnter, onMouseLeave, rooms, neighbourho
                   <h1 className="property__name">
                     {card}
                   </h1>
-                  <button className={bookmarkClassname('property', bookmark)} type="button" onClick={() => console.log('log')}>
+                  <button className={bookmarkClassname('property', bookmark)} type="button" onClick={handleAddToFavorites}>
                     <svg className="property__bookmark-icon" width="31" height="33">
                       <use xlinkHref="#icon-bookmark"></use>
                     </svg>

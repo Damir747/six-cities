@@ -8,6 +8,7 @@ const handleAddToFavorites = (onChangeFavorite, id) => {
   if (getAuthorizationStatus === AuthorizationStatus.AUTH) {
     onChangeFavorite(id)
       .then((_value) => {
+        console.log(_value.is_favorite);
       })
       .catch((err) => {
         console.log(err);
