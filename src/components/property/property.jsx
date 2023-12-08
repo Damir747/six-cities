@@ -57,21 +57,6 @@ const Property = ({ idActiveRoom, onMouseEnter, onMouseLeave, rooms, neighbourho
   }
   const { id, level, img, priceValue, priceText, bookmark, rating, card, type, description, host, images, cityName } = room;
 
-  const history = useHistory();
-  const handleAddToFavorites = () => {
-    if (authorizationStatus === AuthorizationStatus.AUTH) {
-      onChangeFavorite(id)
-        .then((_value) => {
-          console.log(_value.is_favorite);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-      history.push(AppRoute.LOGIN);
-    }
-  };
-
   return (
     <React.Fragment>
       <Top />
@@ -99,7 +84,7 @@ const Property = ({ idActiveRoom, onMouseEnter, onMouseLeave, rooms, neighbourho
                   <h1 className="property__name">
                     {card}
                   </h1>
-                  <button className={bookmarkClassname('property', bookmark)} type="button" onClick={handleAddToFavorites}>
+                  <button className={bookmarkClassname('property', bookmark)} type="button" onClick={() => console.log('log')}>
                     <svg className="property__bookmark-icon" width="31" height="33">
                       <use xlinkHref="#icon-bookmark"></use>
                     </svg>
@@ -174,6 +159,7 @@ const Property = ({ idActiveRoom, onMouseEnter, onMouseLeave, rooms, neighbourho
                     onMouseEnter={onMouseEnter}
                     onMouseLeave={onMouseLeave}
                     frame={Frame.NEAR_PLACES}
+                    onChangeFavorite={onChangeFavorite}
                   />
                 ))
                 }
@@ -196,7 +182,7 @@ Property.propTypes = {
   onLoadHotel: () => { },
   onLoadComments: () => { },
   onPostComment: () => { },
-  onChangeFavorite: PropTypes.func,
+  onChangeFavorite: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
 };
 
