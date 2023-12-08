@@ -65,7 +65,7 @@ const FavoriteCityRoom = ({ room, authorizationStatus, onChangeFavorite }) => {
 
 FavoriteCityRoom.propTypes = {
   room: roomType,
-  onChangeFavorite: PropTypes.func,
+  onChangeFavorite: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
 };
 

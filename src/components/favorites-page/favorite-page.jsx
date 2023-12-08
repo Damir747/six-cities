@@ -72,7 +72,7 @@ FavoritePage.propTypes = {
   loginName: loginType,
   onLoadFavorites: () => { },
   isFavoriteListLoaded: PropTypes.bool.isRequired,
-  onChangeFavorite: PropTypes.func,
+  onChangeFavorite: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),

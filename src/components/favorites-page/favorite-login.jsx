@@ -28,7 +28,7 @@ const FavoriteLogin = ({ authorizationStatus, onLoadFavorites, onChangeFavorite 
 FavoriteLogin.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   onLoadFavorites: () => { },
-  onChangeFavorite: PropTypes.func,
+  onChangeFavorite: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),

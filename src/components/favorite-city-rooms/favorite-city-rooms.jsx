@@ -24,7 +24,7 @@ const FavoriteCityRooms = ({ favoriteRooms, onChangeFavorite }) => {
 
 FavoriteCityRooms.propTypes = {
   favoriteRooms: roomsType,
-  onChangeFavorite: PropTypes.func,
+  onChangeFavorite: PropTypes.func.isRequired,
 };
 
 export default FavoriteCityRooms;

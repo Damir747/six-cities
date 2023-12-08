@@ -34,7 +34,7 @@ const FavoriteCities = ({ cities, favoriteRooms, onChangeFavorite }) => {
 FavoriteCities.propTypes = {
   cities: PropTypes.object,
   favoriteRooms: roomsType,
-  onChangeFavorite: PropTypes.func,
+  onChangeFavorite: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

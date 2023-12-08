@@ -77,7 +77,7 @@ Room.propTypes = {
   roomElement: roomType,
   onMouseEnter: PropTypes.func,
   onMouseLeave: PropTypes.func,
-  onChangeFavorite: PropTypes.func,
+  onChangeFavorite: PropTypes.func.isRequired,
   frame: PropTypes.string,
   authorizationStatus: PropTypes.string.isRequired,
 };

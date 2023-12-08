@@ -1,8 +1,5 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import thunk from 'redux-thunk';
-import { applyMiddleware, createStore } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
 import { configureStore } from '@reduxjs/toolkit';
 import { redirect } from './store/middleware/redirect';
 

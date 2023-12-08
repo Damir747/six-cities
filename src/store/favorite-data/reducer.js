@@ -1,4 +1,3 @@
-import { IN_BOOKMARKS, TO_BOOKMARKS } from "../../const";
 import { FAVORITE_LIST } from "./actions-types";
 
 /* eslint-disable indent */
