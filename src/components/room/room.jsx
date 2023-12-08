@@ -1,8 +1,8 @@
 /* eslint-disable indent */
-import React, { useCallback, useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import roomType from '../../types/room';
-import { AppRoute, AuthorizationStatus, Frame, IN_BOOKMARKS, TO_BOOKMARKS } from '../../const';
+import { AppRoute, AuthorizationStatus, Frame } from '../../const';
 import { bookmarkClassname, capitalizeFirstLetter, classname, frameClassname, roundRating } from '../../utils/utils';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { connect } from 'react-redux';
@@ -15,13 +15,10 @@ const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame, authorizationSta
   const { id, level, img, priceValue, priceText, bookmark, rating, card, type } = roomElement;
   const history = useHistory();
 
-  const [roomBookmark, setRoomBookmark] = useState(bookmark === IN_BOOKMARKS);
-
   const handleAddToFavorites = () => {
     if (authorizationStatus === AuthorizationStatus.AUTH) {
       onChangeFavorite(id)
-        .then((value) => {
-          setRoomBookmark(value.is_favorite);
+        .then((_value) => {
         })
         .catch((err) => {
           console.log(err);
@@ -52,7 +49,7 @@ const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame, authorizationSta
               <b className="place-card__price-value">&euro;{priceValue}</b>
               <span className="place-card__price-text">&#47;&nbsp;{priceText || 'ночь'}</span>
             </div>
-            <button className={bookmarkClassname('place-card', roomBookmark ? IN_BOOKMARKS : TO_BOOKMARKS)} type="button" onClick={handleAddToFavorites}>
+            <button className={bookmarkClassname('place-card', bookmark)} type="button" onClick={handleAddToFavorites}>
 
               <svg className="place-card__bookmark-icon" width="18" height="19">
                 <use xlinkHref="#icon-bookmark"></use>

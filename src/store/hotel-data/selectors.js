@@ -37,10 +37,7 @@ const getFilteredRooms = (state) => {
   return sortedRooms(filteredRooms(state), getSort(state));
 };
 
-const getFavoriteRooms = (state) => {
-  getRooms(state).map((item) => console.log(item.bookmark, item.bookmark === IN_BOOKMARKS));
-  return getRooms(state).filter((item) => item.bookmark === IN_BOOKMARKS);
-};
+const getFavoriteRooms = (state) => getRooms(state).slice().filter((item) => item.bookmark === IN_BOOKMARKS);
 
 const getFavorite = (state, idRoom) => {
   const findRoom = getRooms(state).slice().filter((room) => room.id === idRoom);

@@ -3,50 +3,38 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-import FavoriteCityRooms from '../favorite-city-rooms/favorite-city-rooms';
 import roomsType from '../../types/rooms';
-import { AppRoute } from '../../const';
 import { getCities } from '../../store/city-data/selectors';
 import { getFavoriteRooms } from '../../store/hotel-data/selectors';
+import FavoriteCity from './favorite-city';
 
-const FavoriteCities = ({ cities, favoriteRooms }) => {
-  Object.keys(cities).sort((a, b) => a > b).map((city) => {
-    const filteredRooms = favoriteRooms.filter((room) => room.cityName === city);
-    console.log(filteredRooms.length);
-  });
+const FavoriteCities = ({ cities, favoriteRooms, onChangeFavorite }) => {
 
   return (
     <React.Fragment>
       {Object.keys(cities).sort((a, b) => a > b).map((city) => {
-        const filteredRooms = favoriteRooms.filter((room) => room.cityName === city);
+        const filteredRooms = favoriteRooms.slice().filter((room) => room.cityName === city);
         if (filteredRooms.length > 0) {
           return (
-            <li key={city} className="favorites__locations-items">
-              <div className="favorites__locations locations locations--current">
-                <div className="locations__item">
-                  <Link className="locations__item-link" to={AppRoute.ROOT}>
-                    <span>{city}</span>
-                  </Link>
-                </div>
-              </div>
-              <div>{filteredRooms.length}</div>
-              <FavoriteCityRooms
-                favoriteRooms={filteredRooms}
-                city={city} />
-
-            </li>
+            <FavoriteCity
+              key={city}
+              city={city}
+              filteredRooms={filteredRooms}
+              onChangeFavorite={onChangeFavorite}
+            />
           );
         }
-        return (<li>что-то пошло не так ${filteredRooms.length}</li>);
-      })}
-    </React.Fragment >
+        return '';
+      }
+      )}
+    </React.Fragment>
   );
 };
 
 FavoriteCities.propTypes = {
   cities: PropTypes.object,
   favoriteRooms: roomsType,
+  onChangeFavorite: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({

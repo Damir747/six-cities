@@ -9,7 +9,6 @@ import { favoritesChange } from './actions';
 import { getFavorite, getReverseFavorite } from './selectors';
 
 const fetchHotelList = () => (dispatch, _getState, api) => {
-  console.log('fetchHotelList');
   return (
     api.get(serverLinks.HOTELS)
       .then(({ data }) => {
@@ -56,7 +55,6 @@ const fetchHotel = (id) => (dispatch, _getState, api) => {
 
 const fetchFavorite = (idHotel) => (dispatch, getState, api) => {
   const status = getReverseFavorite(getState(), idHotel);
-  console.log(status);
   return api.post(`${serverLinks.FAVORITE}/${idHotel}/${status}`)
     .then(({ data }) => {
       dispatch(favoritesChange(data));

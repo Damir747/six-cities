@@ -57,7 +57,9 @@ const App = ({ rooms, isDataLoaded, onLoadData, onLoadHotel, onLoadComments, onP
           </Route>
           <Route exact path={AppRoute.FAVORITES}>
             <FavoriteLogin
-              onLoadFavorites={() => onLoadFavorites()} />
+              onLoadFavorites={() => onLoadFavorites()}
+              onChangeFavorite={onChangeFavorite}
+            />
           </Route>
           <Route exact path={AppRoute.OFFER + ':id'}>
             <Property
@@ -67,6 +69,7 @@ const App = ({ rooms, isDataLoaded, onLoadData, onLoadHotel, onLoadComments, onP
               onLoadHotel={(id) => onLoadHotel(id)}
               onLoadComments={(idHotel) => onLoadComments(idHotel)}
               onPostComment={onPostComment}
+              onChangeFavorite={onChangeFavorite}
             />
           </Route>
           <Route>

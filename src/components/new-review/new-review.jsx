@@ -19,7 +19,6 @@ const NewReview = ({ idHotelParam, onPostComment }) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    console.log(commentStars, commentText);
     onPostComment(idHotelParam, commentText, commentStars)
       .then(() => {
         setCommentText('');

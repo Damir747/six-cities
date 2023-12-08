@@ -1,13 +1,31 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-import { capitalizeFirstLetter, roundRating } from '../../utils/utils';
-import { AppRoute } from '../../const';
+import { bookmarkClassname, capitalizeFirstLetter, roundRating } from '../../utils/utils';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import roomType from '../../types/room';
+import { useHistory } from "react-router-dom";
+import { connect } from 'react-redux';
+import { getAuthorizationStatus } from '../../store/login-data/selectors';
 
-
-const FavoriteCityRoom = ({ room }) => {
-  console.log(room);
+const FavoriteCityRoom = ({ room, authorizationStatus, onChangeFavorite }) => {
   const { id, img, priceValue, priceText, bookmark, rating, card, type } = room;
+
+  const history = useHistory();
+  const handleAddToFavorites = () => {
+    if (authorizationStatus === AuthorizationStatus.AUTH) {
+      onChangeFavorite(id)
+        .then((_value) => {
+          console.log(_value.is_favorite);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      history.push(AppRoute.LOGIN);
+    }
+  };
+
   return (
     <React.Fragment>
       <article key={id} className="favorites__card place-card">
@@ -22,7 +40,7 @@ const FavoriteCityRoom = ({ room }) => {
               <b className="place-card__price-value">&euro;{priceValue}</b>
               <span className="place-card__price-text">&#47;&nbsp;{priceText || 'ночь'}</span>
             </div>
-            <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
+            <button className={bookmarkClassname('place-card', bookmark)} type="button" onClick={handleAddToFavorites}>
               <svg className="place-card__bookmark-icon" width="18" height="19">
                 <use xlinkHref="#icon-bookmark"></use>
               </svg>
@@ -47,6 +65,13 @@ const FavoriteCityRoom = ({ room }) => {
 
 FavoriteCityRoom.propTypes = {
   room: roomType,
+  onChangeFavorite: PropTypes.func,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
-export default FavoriteCityRoom;
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
+});
+
+export { FavoriteCityRoom };
+export default connect(mapStateToProps)(FavoriteCityRoom);

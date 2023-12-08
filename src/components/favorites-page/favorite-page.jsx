@@ -13,7 +13,7 @@ import Loading from '../loading/loading';
 import { getIsFavoriteListLoaded } from '../../store/favorite-data/selectors';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
-const FavoritePage = ({ authorizationStatus, loginName, onLoadFavorites, isFavoriteListLoaded }) => {
+const FavoritePage = ({ authorizationStatus, loginName, onLoadFavorites, isFavoriteListLoaded, onChangeFavorite }) => {
   const [fetchingFavorites, setFetchingFavorites] = useState(false);
   const [favorites, setFavorites] = useState([]);
 
@@ -52,7 +52,9 @@ const FavoritePage = ({ authorizationStatus, loginName, onLoadFavorites, isFavor
               <h1 className="favorites__title">Saved listing</h1>
               <ul className="favorites__list">
 
-                <FavoriteCities />
+                <FavoriteCities
+                  onChangeFavorite={onChangeFavorite}
+                />
 
               </ul>
             </section>
@@ -70,6 +72,7 @@ FavoritePage.propTypes = {
   loginName: loginType,
   onLoadFavorites: () => { },
   isFavoriteListLoaded: PropTypes.bool.isRequired,
+  onChangeFavorite: PropTypes.func,
 };
 const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),
