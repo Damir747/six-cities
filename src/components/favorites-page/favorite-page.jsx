@@ -11,24 +11,27 @@ import { getAuthorizationStatus, getLoginName } from '../../store/login-data/sel
 import { connect } from 'react-redux';
 import Loading from '../loading/loading';
 import { getIsFavoriteListLoaded } from '../../store/favorite-data/selectors';
-import NotFoundScreen from '../not-found-screen/not-found-screen';
+import FavoritesEmpty from '../favorites-empty/favorites-empty';
 
 const FavoritePage = ({ authorizationStatus, loginName, onLoadFavorites, isFavoriteListLoaded, onChangeFavorite }) => {
   const [fetchingFavorites, setFetchingFavorites] = useState(false);
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
     onLoadFavorites()
       .then((data) => {
-        setFetchingFavorites(false);
         setFavorites(data);
+        setFetchingFavorites(false);
       })
       .catch((err) => console.log(err));
-  }, [fetchingFavorites]);
+    return () => controller.abort();
+  }, []);
 
-  if (!favorites) {
+  if (!favorites.length) {
     return (
-      <NotFoundScreen />
+      <FavoritesEmpty />
     );
   }
   if (fetchingFavorites || !isFavoriteListLoaded) {

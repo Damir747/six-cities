@@ -16,6 +16,8 @@ import { loadReviewList } from './store/comment-data/actions';
 import { fetchCommentsList, postComment } from './store/comment-data/api-actions';
 import { fetchHotel, fetchHotelList, fetchFavorite } from './store/hotel-data/api-actions';
 import { fetchFavoriteList } from './store/favorite-data/api-actions';
+// ? избавиться от connect: dispatch = useDispatch()
+// ? редирект на логин после запроса к серверу, когда он возвращает 401
 
 const api = createAPI(
   () => {
