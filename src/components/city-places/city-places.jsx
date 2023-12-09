@@ -7,12 +7,12 @@ import CityMap from '../city-map/city-map';
 import Room from '../../components/room/room';
 
 import roomsType from '../../types/rooms';
-import { getActiveCity } from '../../store/city-data/selectors';
+import { getActiveCity, getActiveCityCoordinates } from '../../store/city-data/selectors';
 import { Frame } from '../../const';
 import { useWhyDidYouUpdate } from 'ahooks';
 import { getFilteredRooms } from '../../store/hotel-data/selectors';
 
-const CityPlaces = ({ activeCity, filteredRooms }) => {
+const CityPlaces = ({ activeCity, coordinates, filteredRooms }) => {
   if (filteredRooms.length) {
     const [idActiveRoom, setActiveRoom] = useState(null);
     const handleMouseEnter = useCallback((item) => {
@@ -47,6 +47,8 @@ const CityPlaces = ({ activeCity, filteredRooms }) => {
             <div className="cities__right-section">
               <section className="cities__map map">
                 <CityMap
+                  city={activeCity}
+                  coordinates={coordinates}
                   rooms={filteredRooms}
                   idActiveRoom={idActiveRoom}
                 />
@@ -76,11 +78,13 @@ const CityPlaces = ({ activeCity, filteredRooms }) => {
 
 CityPlaces.propTypes = {
   activeCity: PropTypes.string,
+  coordinates: PropTypes.object,
   filteredRooms: roomsType,
 };
 
 const mapStateToProps = (state) => ({
   activeCity: getActiveCity(state),
+  coordinates: getActiveCityCoordinates(state),
   filteredRooms: getFilteredRooms(state),
 });
 

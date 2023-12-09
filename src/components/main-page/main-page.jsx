@@ -9,7 +9,7 @@ import CityPlaces from '../city-places/city-places';
 import { getActiveCity, getCities } from '../../store/city-data/selectors';
 import CityList from '../city-list/city-list';
 
-const MainPage = ({ idActiveRoom, cities, activeCity }) => {
+const MainPage = ({ cities, activeCity }) => {
 
   return (
     <React.Fragment>
@@ -32,7 +32,6 @@ const MainPage = ({ idActiveRoom, cities, activeCity }) => {
 };
 
 MainPage.propTypes = {
-  idActiveRoom: PropTypes.number,
   cities: PropTypes.object,
   activeCity: PropTypes.string,
 };

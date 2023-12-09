@@ -20,9 +20,11 @@ import { getAuthorizationStatus } from '../../store/login-data/selectors';
 import { useHistory } from "react-router-dom";
 import { fetchFavorite, fetchHotel, fetchNeighbourhood } from '../../store/hotel-data/api-actions';
 import { fetchCommentsList } from '../../store/comment-data/api-actions';
+import { selectCurrentCity } from '../../store/city-data/actions';
+import { getCurrentCity, getCurrentCityCoordinates } from '../../store/city-data/selectors';
 
-const Property = ({ rooms, isHotelLoaded,
-  onLoadHotel, onLoadComments, onChangeFavorite, onLoadNeighbourhood, authorizationStatus }) => {
+const Property = ({ rooms, isHotelLoaded, currentCity, coordinates,
+  onLoadHotel, onLoadComments, onChangeFavorite, onLoadNeighbourhood, onSelectCurrentCity, authorizationStatus }) => {
   const history = useHistory();
 
   const [fetchingHotel, setFetchingHotel] = useState(true);
@@ -41,13 +43,14 @@ const Property = ({ rooms, isHotelLoaded,
     setActiveRoom(null);
   }, []);
 
-  const [roomId, setRoom] = useState(room);
+  const [curRoom, setRoom] = useState(room);
   const [reviews, setReviews] = useState();
   const [neighbourhood, setNeighbourhood] = useState();
 
   useEffect(() => {
     onLoadHotel(idHotelParam)
       .then((value) => {
+        onSelectCurrentCity(value.cityName);
         setRoom(value);
         setFetchingHotel(false);
       })
@@ -173,6 +176,8 @@ const Property = ({ rooms, isHotelLoaded,
             </div>
             <section className="property__map map">
               <CityMap
+                city={currentCity}
+                coordinates={coordinates}
                 rooms={neighbourhood}
                 idActiveRoom={idActiveRoom}
 
@@ -205,7 +210,10 @@ const Property = ({ rooms, isHotelLoaded,
 Property.propTypes = {
   rooms: roomsType,
   isHotelLoaded: PropTypes.bool.isRequired,
+  currentCity: PropTypes.string,
+  coordinates: PropTypes.object,
   onLoadHotel: PropTypes.func.isRequired,
+  onSelectCurrentCity: PropTypes.func.isRequired,
   onLoadNeighbourhood: PropTypes.func.isRequired,
   onLoadComments: PropTypes.func.isRequired,
   onChangeFavorite: PropTypes.func.isRequired,
@@ -214,6 +222,8 @@ Property.propTypes = {
 
 const mapStateToProps = (state) => ({
   rooms: getRooms(state),
+  currentCity: getCurrentCity(state),
+  coordinates: getCurrentCityCoordinates(state),
   isHotelLoaded: getIsHotelLoaded(state),
   authorizationStatus: getAuthorizationStatus(state),
 });
@@ -227,6 +237,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onLoadHotel(idHotel) {
     return dispatch(fetchHotel(idHotel));
+  },
+  onSelectCurrentCity(city) {
+    dispatch(selectCurrentCity(city));
   },
   onLoadNeighbourhood(idHotel) {
     return dispatch(fetchNeighbourhood(idHotel));

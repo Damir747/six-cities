@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import { classname } from '../../utils/utils';
 import { getActiveCity, getCities } from '../../store/city-data/selectors';
-import { selectCity } from '../../store/city-data/actions';
+import { selectActiveCity } from '../../store/city-data/actions';
 
 const CityList = ({ cities, activeCity, onClick = () => { } }) => {
   return (
@@ -45,7 +45,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onClick(activeCity) {
-    dispatch(selectCity(activeCity));
+    dispatch(selectActiveCity(activeCity));
   },
 });
 

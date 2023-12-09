@@ -5,10 +5,8 @@ import 'leaflet/dist/leaflet.css';
 import roomsType from '../../types/rooms';
 
 import { connect } from 'react-redux';
-import { getActiveCity, getActiveCityCoordinates } from '../../store/city-data/selectors';
 
-const CityMap = ({ rooms, idActiveRoom, activeCity, coordinates }) => {
-
+const CityMap = ({ rooms, idActiveRoom, city, coordinates }) => {
   const mapRef = useRef(null);
   const [mapSettings, setMapSettings] = useState(null);
 
@@ -38,7 +36,7 @@ const CityMap = ({ rooms, idActiveRoom, activeCity, coordinates }) => {
   }, [mapRef, setMapSettings]);
 
   useEffect(() => {
-    const filteredRooms = rooms.filter((room) => room.cityName === activeCity);
+    const filteredRooms = rooms.filter((room) => room.cityName === city);
     const markers = [];
     if (mapSettings) {
       mapSettings.setView(coordinates, zoom);
@@ -64,7 +62,7 @@ const CityMap = ({ rooms, idActiveRoom, activeCity, coordinates }) => {
     return () => {
       markers.forEach((marker) => marker.remove());
     };
-  }, [rooms, idActiveRoom, activeCity, mapSettings]);
+  }, [rooms, idActiveRoom, city, mapSettings]);
 
   return (
     <div style={{ height: `100%` }} ref={mapRef} ></div >
@@ -74,14 +72,8 @@ const CityMap = ({ rooms, idActiveRoom, activeCity, coordinates }) => {
 CityMap.propTypes = {
   rooms: roomsType,
   idActiveRoom: PropTypes.number,
-  activeCity: PropTypes.string,
+  city: PropTypes.string,
   coordinates: PropTypes.object,
 };
 
-const mapStateToProps = (state) => ({
-  activeCity: getActiveCity(state),
-  coordinates: getActiveCityCoordinates(state),
-});
-
-export { CityMap };
-export default connect(mapStateToProps)(CityMap);
+export default CityMap;
