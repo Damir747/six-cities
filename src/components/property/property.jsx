@@ -9,7 +9,6 @@ import Reviews from '../reviews/reviews';
 import CityMap from '../city-map/city-map';
 import Room from '../room/room';
 import { bookmarkClassname, classname, numberRating, roundRating } from '../../utils/utils';
-
 import roomsType from '../../types/rooms';
 
 import { getIsHotelLoaded, getRooms } from '../../store/hotel-data/selectors';
@@ -21,7 +20,7 @@ import { getAuthorizationStatus } from '../../store/login-data/selectors';
 import { useHistory } from "react-router-dom";
 import { fetchFavorite } from '../../store/hotel-data/api-actions';
 
-const Property = ({ idActiveRoom, onMouseEnter, onMouseLeave, rooms, neighbourhood, isHotelLoaded,
+const Property = ({ rooms, onMouseEnter, onMouseLeave, neighbourhood, isHotelLoaded,
   onLoadHotel, onLoadComments, onPostComment, onChangeFavorite, authorizationStatus }) => {
   const history = useHistory();
 
@@ -29,20 +28,22 @@ const Property = ({ idActiveRoom, onMouseEnter, onMouseLeave, rooms, neighbourho
   const [fetchingComments, setFetchingComments] = useState(true);
 
   const idHotelParam = Number(useParams().id);
-  const [room, setRoom] = useState();
+  const room = rooms.find((el) => el.id === idHotelParam);
+  // ? доделать. Работает, но нужно навести красоту
+  const [roomId, setRoom] = useState(room);
   const [reviews, setReviews] = useState();
 
   useEffect(() => {
     onLoadHotel(idHotelParam)
       .then((value) => {
-        setFetchingHotel(false);
         setRoom(value);
+        setFetchingHotel(false);
       })
       .catch((err) => console.log(err));
     onLoadComments(idHotelParam)
       .then((value) => {
-        setFetchingComments(false);
         setReviews(value);
+        setFetchingComments(false);
       })
       .catch((err) => console.log(err));
   }, [fetchingHotel, fetchingComments]);
@@ -153,7 +154,7 @@ const Property = ({ idActiveRoom, onMouseEnter, onMouseLeave, rooms, neighbourho
             <section className="property__map map">
               <CityMap
                 rooms={neighbourhood}
-                idActiveRoom={idActiveRoom}
+                idActiveRoom={idHotelParam}
 
               />
             </section>
@@ -182,10 +183,9 @@ const Property = ({ idActiveRoom, onMouseEnter, onMouseLeave, rooms, neighbourho
 };
 
 Property.propTypes = {
-  idActiveRoom: PropTypes.number,
+  rooms: roomsType,
   onMouseEnter: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func.isRequired,
-  rooms: roomsType,
   neighbourhood: roomsType,
   isHotelLoaded: PropTypes.bool.isRequired,
   onLoadHotel: () => { },

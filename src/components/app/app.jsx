@@ -39,7 +39,6 @@ const App = ({ rooms, isDataLoaded, onLoadData, onLoadHotel, onLoadComments, onP
       <Loading />
     );
   }
-
   return (
     <>
       <Router history={browserHistory}>
@@ -61,7 +60,6 @@ const App = ({ rooms, isDataLoaded, onLoadData, onLoadHotel, onLoadComments, onP
           </Route>
           <Route exact path={AppRoute.OFFER + ':id'}>
             <Property
-              idActiveRoom={idActiveRoom}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
               onLoadHotel={(id) => onLoadHotel(id)}

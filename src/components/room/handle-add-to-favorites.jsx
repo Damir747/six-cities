@@ -2,6 +2,8 @@ import { useHistory } from "react-router-dom";
 import { getAuthorizationStatus } from '../../store/login-data/selectors';
 import { AppRoute, AuthorizationStatus } from '../../const';
 const history = useHistory();
+import { connect } from 'react-redux';
+import { fetchFavorite } from "../../store/hotel-data/api-actions";
 
 // ? authorizationStatus / getAuthorizationStatus
 const handleAddToFavorites = (authorizationStatus, onChangeFavorite, id) => {
@@ -12,4 +14,15 @@ const handleAddToFavorites = (authorizationStatus, onChangeFavorite, id) => {
   }
 };
 
-export default handleAddToFavorites;
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onChangeFavorite(idHotel) {
+    dispatch(fetchFavorite(idHotel));
+  }
+});
+
+export { handleAddToFavorites };
+export default connect(mapStateToProps, mapDispatchToProps)(handleAddToFavorites);
