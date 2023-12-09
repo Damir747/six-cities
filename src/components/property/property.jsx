@@ -156,7 +156,7 @@ const Property = ({ rooms, neighbourhood, isHotelLoaded,
                 </div>
 
                 <Reviews
-                  idHotelParam={idHotelParam}
+                  idHotel={idHotelParam}
                 />
 
               </div>

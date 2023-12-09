@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import roomType from '../../types/room';
 import { AppRoute, AuthorizationStatus, Frame } from '../../const';

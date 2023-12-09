@@ -28,7 +28,6 @@ const fetchHotelList = () => (dispatch, _getState, api) => {
 };
 
 const fetchHotel = (id) => (dispatch, _getState, api) => {
-  console.log('fetchHotel');
   // const state = getState();
   // const room = getPropertyInside(state);
 

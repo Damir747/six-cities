@@ -9,7 +9,7 @@ import { getReviews } from '../../store/comment-data/selectors';
 import { AuthorizationStatus } from '../../const';
 import { getAuthorizationStatus } from '../../store/login-data/selectors';
 
-const Reviews = ({ idHotelParam, reviews, authorizationStatus }) => {
+const Reviews = ({ idHotel, reviews, authorizationStatus }) => {
   return (
     <React.Fragment>
       <section className="property__reviews reviews">
@@ -17,7 +17,7 @@ const Reviews = ({ idHotelParam, reviews, authorizationStatus }) => {
         <OldReviews reviews={reviews} />
         {authorizationStatus === AuthorizationStatus.AUTH
           ? <NewReview
-            idHotelParam={idHotelParam}
+            idHotel={idHotel}
           />
           : ''}
 
@@ -27,7 +27,7 @@ const Reviews = ({ idHotelParam, reviews, authorizationStatus }) => {
 };
 
 Reviews.propTypes = {
-  idHotelParam: PropTypes.number.isRequired,
+  idHotel: PropTypes.number.isRequired,
   reviews: reviewsType,
   authorizationStatus: PropTypes.string.isRequired,
 };

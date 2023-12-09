@@ -7,14 +7,11 @@ import CityMap from '../city-map/city-map';
 import Room from '../../components/room/room';
 
 import roomsType from '../../types/rooms';
-
-
 import { getActiveCity } from '../../store/city-data/selectors';
 import { Frame } from '../../const';
 import { useWhyDidYouUpdate } from 'ahooks';
-import { getFilteredRooms, getRooms } from '../../store/hotel-data/selectors';
+import { getFilteredRooms } from '../../store/hotel-data/selectors';
 
-// ? такие props странные?
 const CityPlaces = ({ activeCity, filteredRooms }) => {
   if (filteredRooms.length) {
     const [idActiveRoom, setActiveRoom] = useState(null);

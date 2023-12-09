@@ -7,7 +7,7 @@ import { fetchPostComment } from '../../store/comment-data/api-actions';
 
 // ? при комментарии без оценки требуется проверка. Сейчас просто слетает отзыв пользователя
 
-const NewReview = ({ idHotelParam, onPostComment }) => {
+const NewReview = ({ idHotel, onPostComment }) => {
   const [commentText, setCommentText] = useState('');
   const [commentStars, setStars] = useState(0);
 
@@ -21,7 +21,7 @@ const NewReview = ({ idHotelParam, onPostComment }) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    onPostComment(idHotelParam, commentText, commentStars);
+    onPostComment(idHotel, commentText, commentStars);
     setCommentText('');
     setStars(0);
   };
@@ -71,13 +71,13 @@ const NewReview = ({ idHotelParam, onPostComment }) => {
 };
 
 NewReview.propTypes = {
-  idHotelParam: PropTypes.number.isRequired,
+  idHotel: PropTypes.number.isRequired,
   onPostComment: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onPostComment(idHotelParam, commentText, commentStars) {
-    dispatch(fetchPostComment(idHotelParam, {
+  onPostComment(idHotel, commentText, commentStars) {
+    dispatch(fetchPostComment(idHotel, {
       'comment': commentText,
       'rating': commentStars,
     }));

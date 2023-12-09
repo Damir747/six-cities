@@ -7,8 +7,8 @@ import roomsType from '../../types/rooms';
 import { connect } from 'react-redux';
 import { getActiveCity, getActiveCityCoordinates } from '../../store/city-data/selectors';
 
-const CityMap = (props) => {
-  const { rooms, idActiveRoom, activeCity, coordinates } = props;
+const CityMap = ({ rooms, idActiveRoom, activeCity, coordinates }) => {
+
   const mapRef = useRef(null);
   const [mapSettings, setMapSettings] = useState(null);
 
