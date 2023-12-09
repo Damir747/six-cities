@@ -19,6 +19,7 @@ import { AppRoute, AuthorizationStatus, Frame } from '../../const';
 import { getAuthorizationStatus } from '../../store/login-data/selectors';
 import { useHistory } from "react-router-dom";
 import { fetchFavorite } from '../../store/hotel-data/api-actions';
+import { fetchCommentsList } from '../../store/comment-data/api-actions';
 
 const Property = ({ rooms, onMouseEnter, onMouseLeave, neighbourhood, isHotelLoaded,
   onLoadHotel, onLoadComments, onChangeFavorite, authorizationStatus }) => {
@@ -189,7 +190,7 @@ Property.propTypes = {
   neighbourhood: roomsType,
   isHotelLoaded: PropTypes.bool.isRequired,
   onLoadHotel: () => { },
-  onLoadComments: () => { },
+  onLoadComments: PropTypes.func.isRequired,
   onChangeFavorite: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
 };
@@ -202,6 +203,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  onLoadComments(idHotel) {
+    return dispatch(fetchCommentsList(idHotel));
+  },
   onChangeFavorite(idHotel) {
     dispatch(fetchFavorite(idHotel));
   }

@@ -15,7 +15,6 @@ import { loadHotel, loadHotelList, changeFavorite } from './store/hotel-data/act
 import { loadReviewList } from './store/comment-data/actions';
 import { fetchCommentsList, fetchPostComment } from './store/comment-data/api-actions';
 import { fetchHotel, fetchHotelList, fetchFavorite } from './store/hotel-data/api-actions';
-import { fetchFavoriteList } from './store/favorite-data/api-actions';
 // ? избавиться от connect: dispatch = useDispatch()
 // ? редирект на логин после запроса к серверу, когда он возвращает 401
 
@@ -49,17 +48,12 @@ const onLoadHotel = (id) => {
   return store.dispatch(fetchHotel(id));
 };
 
-const onLoadComments = (idHotel) => {
-  return store.dispatch(fetchCommentsList(idHotel));
-};
-
 ReactDom.render(
   <Provider store={store}>
     <App
       rooms={rooms}
       onLoadData={() => onLoadData()}
       onLoadHotel={(id) => onLoadHotel(id)}
-      onLoadComments={(idHotel) => onLoadComments(idHotel)}
     />
   </Provider>,
   document.getElementById(`root`),

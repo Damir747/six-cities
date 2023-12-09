@@ -14,66 +14,68 @@ import FavoritesEmpty from '../favorites-empty/favorites-empty';
 import { fetchFavoriteList } from '../../store/favorite-data/api-actions';
 
 const FavoritePage = ({ onLoadFavorites, isFavoriteListLoaded }) => {
-	const [fetchingFavorites, setFetchingFavorites] = useState(true);
-	const [favorites, setFavorites] = useState([]);
+  const [fetchingFavorites, setFetchingFavorites] = useState(true);
+  const [favorites, setFavorites] = useState([]);
 
-	useEffect(() => {
-		onLoadFavorites()
-			.then((data) => {
-				setFavorites(data);
-				setFetchingFavorites(false);
-			});
-	}, []);
+  useEffect(() => {
+    onLoadFavorites()
+      .then((data) => {
+        setFavorites(data);
+        setFetchingFavorites(false);
+      });
+  }, []);
 
-	if (fetchingFavorites || !isFavoriteListLoaded) {
-		return (
-			<Loading />
-		);
-	}
+  if (fetchingFavorites || !isFavoriteListLoaded) {
+    return (
+      <Loading />
+    );
+  }
 
-	if (!favorites.length) {
-		return (
-			<FavoritesEmpty />
-		);
-	}
+  if (!favorites.length) {
+    return (
+      <FavoritesEmpty />
+    );
+  }
 
-	return (
-		<React.Fragment>
-			<Top />
+  return (
+    <React.Fragment>
+      <Top />
 
-			<div className="page">
-				<Header />
+      <div className="page">
+        <Header />
 
-				<main className="page__main page__main--favorites">
-					<div className="page__favorites-container container">
-						<section className="favorites">
-							<h1 className="favorites__title">Saved listing</h1>
-							<ul className="favorites__list">
+        <main className="page__main page__main--favorites">
+          <div className="page__favorites-container container">
+            <section className="favorites">
+              <h1 className="favorites__title">Saved listing</h1>
+              <ul className="favorites__list">
 
-								<FavoriteCities />
+                <FavoriteCities />
 
-							</ul>
-						</section>
-					</div>
-				</main>
+              </ul>
+            </section>
+          </div>
+        </main>
 
-				<Footer />
-			</div>
-		</React.Fragment>
-	);
+        <Footer />
+      </div>
+    </React.Fragment>
+  );
 };
 
 FavoritePage.propTypes = {
-	onLoadFavorites: () => { },
-	isFavoriteListLoaded: PropTypes.bool.isRequired,
+  onLoadFavorites: () => { },
+  isFavoriteListLoaded: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-	isFavoriteListLoaded: getIsFavoriteListLoaded(state),
+  isFavoriteListLoaded: getIsFavoriteListLoaded(state),
 });
 
-const mapDispatchToProps = ({
-	onLoadFavorites: fetchFavoriteList,
+const mapDispatchToProps = (dispatch) => ({
+  onLoadFavorites() {
+    return dispatch(fetchFavoriteList());
+  },
 });
 
 export { FavoritePage };

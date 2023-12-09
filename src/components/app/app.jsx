@@ -19,7 +19,7 @@ import FavoriteLogin from '../favorites-page/favorite-login';
 // ? соседи / neighbouhood - на карте не показываются, не кликабельны
 // ? убрать connect, заменить на useSelector
 
-const App = ({ rooms, isDataLoaded, onLoadData, onLoadHotel, onLoadComments }) => {
+const App = ({ rooms, isDataLoaded, onLoadData, onLoadHotel }) => {
   const [idActiveRoom, setActiveRoom] = useState(null);
   const handleMouseEnter = useCallback((item) => {
     setActiveRoom(item);
@@ -61,7 +61,6 @@ const App = ({ rooms, isDataLoaded, onLoadData, onLoadHotel, onLoadComments }) =
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
               onLoadHotel={(id) => onLoadHotel(id)}
-              onLoadComments={(idHotel) => onLoadComments(idHotel)}
             />
           </Route>
           <Route>
@@ -80,7 +79,6 @@ App.propTypes = {
   isDataLoaded: PropTypes.bool.isRequired,
   onLoadData: () => { },
   onLoadHotel: () => { },
-  onLoadComments: () => { },
 };
 
 const mapStateToProps = (state) => ({
