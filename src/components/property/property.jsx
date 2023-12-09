@@ -64,18 +64,20 @@ const Property = ({ rooms, isHotelLoaded,
         setFetchingNeighbourhood(false);
       })
       .catch((err) => console.log(err));
-  }, [fetchingHotel, fetchingComments, fetchingNeighbourhood]);
+  }, [fetchingHotel, fetchingComments, fetchingNeighbourhood, idHotelParam]);
+
+  if (fetchingHotel || fetchingComments || fetchingNeighbourhood || !isHotelLoaded) {
+    return (
+      <Loading />
+    );
+  }
 
   if (!room) {
     return (
       <NotFoundScreen />
     );
   }
-  if (fetchingHotel || fetchingComments || fetchingNeighbourhood || !isHotelLoaded) {
-    return (
-      <Loading />
-    );
-  }
+
   const { id, level, img, priceValue, priceText, bookmark, rating, card, type, description, host, images, cityName } = room;
 
   const handleAddToFavorites = () => {

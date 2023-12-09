@@ -17,9 +17,12 @@ const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame, authorizationSta
   const history = useHistory();
 
   const handleAddToFavorites = () => {
+    console.log('handleAddToFavorites');
     if (authorizationStatus === AuthorizationStatus.AUTH) {
+      console.log('authorizationStatus === AuthorizationStatus.AUTH');
       onChangeFavorite(id);
     } else {
+      console.log('history.push(AppRoute.LOGIN);');
       history.push(AppRoute.LOGIN);
     }
   };

@@ -16,7 +16,7 @@ import browserHistory from '../../browser-history';
 import FavoriteLogin from '../favorites-page/favorite-login';
 import { fetchHotelList } from '../../store/hotel-data/api-actions';
 // ? live 6. 01:46:19 - разобраться с остатками useHistory
-// ? соседи / neighbouhood - на карте не показываются, не кликабельны
+// ? соседи / neighbouhood - не кликабельны
 // ? убрать connect, заменить на useSelector
 
 const App = ({ onLoadData, isDataLoaded }) => {
