@@ -1,41 +1,31 @@
 import cities from '../../mock/mock-cities';
 import { Room, City } from '../adapter';
 import { loadCityList } from '../city-data/actions';
-import { loadHotel, loadHotelList } from './actions';
+import { loadHotel, loadHotelList, loadNeighbourhood } from './actions';
 import { appendNotification } from '../notification-data/actions';
 import { serverLinks } from '../server-links';
 
 import { changeFavorite } from './actions';
-import { getFavorite, getReverseFavorite } from './selectors';
+import { getReverseFavorite } from './selectors';
 
 const fetchHotelList = () => (dispatch, _getState, api) => {
-  return (
-    api.get(serverLinks.HOTELS)
-      .then(({ data }) => {
-        console.log('rooms are ready');
-        data = data.map((el) => Room.convertDataHotel(el));
-        dispatch(loadHotelList(data));
-        return data;
-      })
-      .then((data) => {
-        let cityList = Object.assign({}, cities);
-        data.map((el) => {
-          cityList = Object.assign(cityList, City.convertDataToCity(el.city));
-        });
-        dispatch(loadCityList(cityList));
-      })
-  )
+  return api.get(serverLinks.HOTELS)
+    .then(({ data }) => {
+      console.log('rooms are ready');
+      data = data.map((el) => Room.convertDataHotel(el));
+      dispatch(loadHotelList(data));
+      return data;
+    })
+    .then((data) => {
+      let cityList = Object.assign({}, cities);
+      data.map((el) => {
+        cityList = Object.assign(cityList, City.convertDataToCity(el.city));
+      });
+      dispatch(loadCityList(cityList));
+    });
 };
 
 const fetchHotel = (id) => (dispatch, _getState, api) => {
-  // const state = getState();
-  // const room = getPropertyInside(state);
-
-  // if (room) {
-  //   console.log(room);
-  //   return Promise.resolve(room); // ? конвертировать надо?
-  // }
-
   return api.get(`${serverLinks.HOTELS}/${id}`)
     .then(({ data }) => {
       data = Room.convertDataHotel(data);
@@ -69,8 +59,26 @@ const fetchFavorite = (idHotel) => (dispatch, getState, api) => {
     });
 };
 
+const fetchNeighbourhood = (id) => (dispatch, getState, api) => {
+  return api.get(`${serverLinks.HOTELS}/${id}${serverLinks.NEIGHBOURHOOD}`)
+    .then(({ data }) => {
+      data = data.map((el) => Room.convertDataHotel(el));
+      dispatch(loadNeighbourhood(data));
+      return data;
+    })
+    .catch((error) => {
+      console.log('error!', error.message);
+      dispatch(appendNotification({
+        message: error.message,
+        type: 'error',
+        id: 8,
+      }));
+    });
+};
+
 export {
   fetchHotelList,
   fetchHotel,
-  fetchFavorite
+  fetchFavorite,
+  fetchNeighbourhood,
 };

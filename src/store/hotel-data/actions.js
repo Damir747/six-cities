@@ -15,8 +15,14 @@ const changeFavorite = (hotel) => ({
   payload: hotel,
 });
 
+const loadNeighbourhood = (hotels) => ({
+  type: HOTEL,
+  payload: hotels,
+});
+
 export {
   loadHotelList,
   loadHotel,
   changeFavorite,
+  loadNeighbourhood,
 };

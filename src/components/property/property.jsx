@@ -18,15 +18,16 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { AppRoute, AuthorizationStatus, Frame } from '../../const';
 import { getAuthorizationStatus } from '../../store/login-data/selectors';
 import { useHistory } from "react-router-dom";
-import { fetchFavorite, fetchHotel } from '../../store/hotel-data/api-actions';
+import { fetchFavorite, fetchHotel, fetchNeighbourhood } from '../../store/hotel-data/api-actions';
 import { fetchCommentsList } from '../../store/comment-data/api-actions';
 
-const Property = ({ rooms, neighbourhood, isHotelLoaded,
-  onLoadHotel, onLoadComments, onChangeFavorite, authorizationStatus }) => {
+const Property = ({ rooms, isHotelLoaded,
+  onLoadHotel, onLoadComments, onChangeFavorite, onLoadNeighbourhood, authorizationStatus }) => {
   const history = useHistory();
 
   const [fetchingHotel, setFetchingHotel] = useState(true);
   const [fetchingComments, setFetchingComments] = useState(true);
+  const [fetchingNeighbourhood, setFetchingNeighbourhood] = useState(true);
 
   const idHotelParam = Number(useParams().id);
   const room = rooms.find((el) => el.id === idHotelParam);
@@ -42,6 +43,7 @@ const Property = ({ rooms, neighbourhood, isHotelLoaded,
 
   const [roomId, setRoom] = useState(room);
   const [reviews, setReviews] = useState();
+  const [neighbourhood, setNeighbourhood] = useState();
 
   useEffect(() => {
     onLoadHotel(idHotelParam)
@@ -56,14 +58,20 @@ const Property = ({ rooms, neighbourhood, isHotelLoaded,
         setFetchingComments(false);
       })
       .catch((err) => console.log(err));
-  }, [fetchingHotel, fetchingComments]);
+    onLoadNeighbourhood(idHotelParam)
+      .then((value) => {
+        setNeighbourhood(value);
+        setFetchingNeighbourhood(false);
+      })
+      .catch((err) => console.log(err));
+  }, [fetchingHotel, fetchingComments, fetchingNeighbourhood]);
 
   if (!room) {
     return (
       <NotFoundScreen />
     );
   }
-  if (fetchingHotel || fetchingComments || !isHotelLoaded) {
+  if (fetchingHotel || fetchingComments || fetchingNeighbourhood || !isHotelLoaded) {
     return (
       <Loading />
     );
@@ -194,9 +202,9 @@ const Property = ({ rooms, neighbourhood, isHotelLoaded,
 
 Property.propTypes = {
   rooms: roomsType,
-  neighbourhood: roomsType,
   isHotelLoaded: PropTypes.bool.isRequired,
   onLoadHotel: PropTypes.func.isRequired,
+  onLoadNeighbourhood: PropTypes.func.isRequired,
   onLoadComments: PropTypes.func.isRequired,
   onChangeFavorite: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
@@ -204,7 +212,6 @@ Property.propTypes = {
 
 const mapStateToProps = (state) => ({
   rooms: getRooms(state),
-  neighbourhood: getRooms(state).slice(2, 5), // ? с сервера данные приходят? GET /hotels/: hotel_id/nearby
   isHotelLoaded: getIsHotelLoaded(state),
   authorizationStatus: getAuthorizationStatus(state),
 });
@@ -218,6 +225,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onLoadHotel(idHotel) {
     return dispatch(fetchHotel(idHotel));
+  },
+  onLoadNeighbourhood(idHotel) {
+    return dispatch(fetchNeighbourhood(idHotel));
   },
 });
 

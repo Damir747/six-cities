@@ -3,15 +3,6 @@ import { appendNotification } from '../notification-data/actions';
 import { commentPost, loadReviewList } from './actions';
 import { serverLinks } from '../server-links';
 
-const refreshCommentList = (data) => {
-  const commentList = [];
-  data.map((el) => {
-    commentList.push(Object.assign({}, Comment.convertDataToComment(el)));
-  });
-  dispatch(loadReviewList(commentList));
-  return commentList.slice();
-};
-
 const fetchCommentsList = (idHotel) => (dispatch, _getState, api) => {
   return api.get(`${serverLinks.COMMENTS}/${idHotel}`)
     .then(({ data }) => {
