@@ -169,7 +169,6 @@ const Property = ({ idActiveRoom, onMouseEnter, onMouseLeave, rooms, neighbourho
                     onMouseEnter={onMouseEnter}
                     onMouseLeave={onMouseLeave}
                     frame={Frame.NEAR_PLACES}
-                    onChangeFavorite={onChangeFavorite}
                   />
                 ))
                 }

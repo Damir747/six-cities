@@ -33,7 +33,6 @@ const CityPlaces = ({ idActiveRoom, onMouseEnter, onMouseLeave,
                     roomElement={roomElement}
                     onMouseEnter={onMouseEnter}
                     onMouseLeave={onMouseLeave}
-                    // onChangeFavorite={onChangeFavorite}
                     frame={Frame.CITIES}
                   />
                 )
@@ -45,7 +44,6 @@ const CityPlaces = ({ idActiveRoom, onMouseEnter, onMouseLeave,
                 <CityMap
                   rooms={filteredRooms}
                   idActiveRoom={idActiveRoom}
-
                 />
               </section>
             </div>
@@ -76,7 +74,6 @@ CityPlaces.propTypes = {
   idActiveRoom: PropTypes.number,
   onMouseEnter: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func.isRequired,
-  onChangeFavorite: PropTypes.func.isRequired,
   activeCity: PropTypes.string,
   filteredRooms: roomsType,
 };
