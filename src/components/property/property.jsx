@@ -21,7 +21,7 @@ import { useHistory } from "react-router-dom";
 import { fetchFavorite } from '../../store/hotel-data/api-actions';
 
 const Property = ({ rooms, onMouseEnter, onMouseLeave, neighbourhood, isHotelLoaded,
-  onLoadHotel, onLoadComments, onPostComment, onChangeFavorite, authorizationStatus }) => {
+  onLoadHotel, onLoadComments, onChangeFavorite, authorizationStatus }) => {
   const history = useHistory();
 
   const [fetchingHotel, setFetchingHotel] = useState(true);
@@ -147,7 +147,7 @@ const Property = ({ rooms, onMouseEnter, onMouseLeave, neighbourhood, isHotelLoa
 
                 <Reviews
                   idHotelParam={idHotelParam}
-                  onPostComment={onPostComment} />
+                />
 
               </div>
             </div>
@@ -190,7 +190,6 @@ Property.propTypes = {
   isHotelLoaded: PropTypes.bool.isRequired,
   onLoadHotel: () => { },
   onLoadComments: () => { },
-  onPostComment: () => { },
   onChangeFavorite: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
 };

@@ -13,7 +13,7 @@ import { AuthorizationStatus } from './const';
 import { changeAuthorizationStatus } from './store/login-data/actions';
 import { loadHotel, loadHotelList, changeFavorite } from './store/hotel-data/actions';
 import { loadReviewList } from './store/comment-data/actions';
-import { fetchCommentsList, postComment } from './store/comment-data/api-actions';
+import { fetchCommentsList, fetchPostComment } from './store/comment-data/api-actions';
 import { fetchHotel, fetchHotelList, fetchFavorite } from './store/hotel-data/api-actions';
 import { fetchFavoriteList } from './store/favorite-data/api-actions';
 // ? избавиться от connect: dispatch = useDispatch()
@@ -53,17 +53,6 @@ const onLoadComments = (idHotel) => {
   return store.dispatch(fetchCommentsList(idHotel));
 };
 
-const onPostComment = (idHotel, commentText, commentStars) => {
-  return store.dispatch(postComment(idHotel, {
-    'comment': commentText,
-    'rating': commentStars,
-  }));
-};
-
-const onLoadFavorites = () => {
-  return store.dispatch(fetchFavoriteList());
-};
-
 ReactDom.render(
   <Provider store={store}>
     <App
@@ -71,7 +60,6 @@ ReactDom.render(
       onLoadData={() => onLoadData()}
       onLoadHotel={(id) => onLoadHotel(id)}
       onLoadComments={(idHotel) => onLoadComments(idHotel)}
-      onPostComment={onPostComment}
     />
   </Provider>,
   document.getElementById(`root`),

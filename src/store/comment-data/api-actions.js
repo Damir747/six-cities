@@ -32,7 +32,7 @@ const fetchCommentsList = (idHotel) => (dispatch, _getState, api) => {
     });
 };
 
-const postComment = (idHotel, commentObj) => (dispatch, _getState, api) => {
+const fetchPostComment = (idHotel, commentObj) => (dispatch, _getState, api) => {
   return api.post(`${serverLinks.COMMENTS}/${idHotel}`, commentObj)
     .then(({ data }) => {
       dispatch(commentPost(data));
@@ -55,5 +55,5 @@ const postComment = (idHotel, commentObj) => (dispatch, _getState, api) => {
 
 export {
   fetchCommentsList,
-  postComment
+  fetchPostComment
 };

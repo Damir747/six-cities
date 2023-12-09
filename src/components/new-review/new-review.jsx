@@ -2,6 +2,8 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import stars from '../../mock/mock-rating-stars';
+import { connect } from 'react-redux';
+import { fetchPostComment } from '../../store/comment-data/api-actions';
 
 // ? при комментарии без оценки требуется проверка. Сейчас просто слетает отзыв пользователя
 
@@ -19,11 +21,9 @@ const NewReview = ({ idHotelParam, onPostComment }) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    onPostComment(idHotelParam, commentText, commentStars)
-      .then(() => {
-        setCommentText('');
-        setStars(0);
-      });
+    onPostComment(idHotelParam, commentText, commentStars);
+    setCommentText('');
+    setStars(0);
   };
 
   return (
@@ -72,6 +72,17 @@ const NewReview = ({ idHotelParam, onPostComment }) => {
 
 NewReview.propTypes = {
   idHotelParam: PropTypes.number.isRequired,
-  onPostComment: () => { },
+  onPostComment: PropTypes.func.isRequired,
 };
-export default NewReview;
+
+const mapDispatchToProps = (dispatch) => ({
+  onPostComment(idHotelParam, commentText, commentStars) {
+    dispatch(fetchPostComment(idHotelParam, {
+      'comment': commentText,
+      'rating': commentStars,
+    }));
+  }
+});
+
+export { NewReview };
+export default connect(null, mapDispatchToProps)(NewReview);
