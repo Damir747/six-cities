@@ -4,8 +4,6 @@ import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import roomsType from '../../types/rooms';
 
-import { connect } from 'react-redux';
-
 const CityMap = ({ rooms, idActiveRoom, city, coordinates }) => {
   const mapRef = useRef(null);
   const [mapSettings, setMapSettings] = useState(null);
