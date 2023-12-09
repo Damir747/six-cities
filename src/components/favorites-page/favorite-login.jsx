@@ -7,26 +7,19 @@ import { connect } from 'react-redux';
 import FavoritePage from './favorite-page';
 import LoginPage from '../login-page/login-page';
 
-const FavoriteLogin = ({ authorizationStatus, onLoadFavorites }) => {
+const FavoriteLogin = ({ authorizationStatus }) => {
   if (authorizationStatus === AuthorizationStatus.AUTH) {
     return (
-      <>
-        <FavoritePage
-          onLoadFavorites={() => onLoadFavorites()}
-        />
-      </>
+      <FavoritePage />
     );
   }
   return (
-    <>
-      <LoginPage />
-    </>
+    <LoginPage />
   );
 };
 
 FavoriteLogin.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
-  onLoadFavorites: () => { },
 };
 const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),

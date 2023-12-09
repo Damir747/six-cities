@@ -72,7 +72,6 @@ ReactDom.render(
       onLoadHotel={(id) => onLoadHotel(id)}
       onLoadComments={(idHotel) => onLoadComments(idHotel)}
       onPostComment={onPostComment}
-      onLoadFavorites={() => onLoadFavorites()}
     />
   </Provider>,
   document.getElementById(`root`),

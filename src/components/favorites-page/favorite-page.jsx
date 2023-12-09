@@ -6,27 +6,22 @@ import Header from '../header/header';
 import Footer from '../footer/footer';
 
 import FavoriteCities from '../favorite-cities/favorite-cities';
-import loginType from '../../types/login';
-import { getAuthorizationStatus, getLoginName } from '../../store/login-data/selectors';
 import { connect } from 'react-redux';
 import Loading from '../loading/loading';
 import { getIsFavoriteListLoaded } from '../../store/favorite-data/selectors';
 import FavoritesEmpty from '../favorites-empty/favorites-empty';
+import { fetchFavoriteList } from '../../store/favorite-data/api-actions';
 
-const FavoritePage = ({ authorizationStatus, loginName, onLoadFavorites, isFavoriteListLoaded }) => {
-  const [fetchingFavorites, setFetchingFavorites] = useState(false);
+const FavoritePage = ({ onLoadFavorites, isFavoriteListLoaded }) => {
+  const [fetchingFavorites, setFetchingFavorites] = useState(true);
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
     onLoadFavorites()
       .then((data) => {
         setFavorites(data);
         setFetchingFavorites(false);
-      })
-      .catch((err) => console.log(err));
-    return () => controller.abort();
+      });
   }, []);
 
   if (!favorites.length) {
@@ -67,16 +62,17 @@ const FavoritePage = ({ authorizationStatus, loginName, onLoadFavorites, isFavor
 };
 
 FavoritePage.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-  loginName: loginType,
   onLoadFavorites: () => { },
   isFavoriteListLoaded: PropTypes.bool.isRequired,
 };
+
 const mapStateToProps = (state) => ({
-  authorizationStatus: getAuthorizationStatus(state),
-  loginName: getLoginName(state),
   isFavoriteListLoaded: getIsFavoriteListLoaded(state),
 });
 
+const mapDispatchToProps = ({
+  onLoadFavorites: fetchFavoriteList,
+});
+
 export { FavoritePage };
-export default connect(mapStateToProps)(FavoritePage);
+export default connect(mapStateToProps, mapDispatchToProps)(FavoritePage);

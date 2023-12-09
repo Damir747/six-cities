@@ -8,7 +8,7 @@ import { useCallback } from 'react';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 import { connect } from 'react-redux';
-import { login } from '../../store/login-data/api-actions';
+import { fetchLogin } from '../../store/login-data/api-actions';
 
 const LoginPage = ({ onLogin }) => {
   const history = useHistory();
@@ -67,7 +67,7 @@ const LoginPage = ({ onLogin }) => {
 };
 
 const mapDispatchToProps = ({
-  onLogin: login
+  onLogin: fetchLogin
 });
 
 export { LoginPage };
