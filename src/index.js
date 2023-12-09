@@ -44,16 +44,11 @@ const onLoadData = () => {
   store.dispatch(fetchHotelList());
 };
 
-const onLoadHotel = (id) => {
-  return store.dispatch(fetchHotel(id));
-};
-
 ReactDom.render(
   <Provider store={store}>
     <App
       rooms={rooms}
       onLoadData={() => onLoadData()}
-      onLoadHotel={(id) => onLoadHotel(id)}
     />
   </Provider>,
   document.getElementById(`root`),

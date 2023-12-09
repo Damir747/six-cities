@@ -18,7 +18,7 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { AppRoute, AuthorizationStatus, Frame } from '../../const';
 import { getAuthorizationStatus } from '../../store/login-data/selectors';
 import { useHistory } from "react-router-dom";
-import { fetchFavorite } from '../../store/hotel-data/api-actions';
+import { fetchFavorite, fetchHotel } from '../../store/hotel-data/api-actions';
 import { fetchCommentsList } from '../../store/comment-data/api-actions';
 
 const Property = ({ rooms, onMouseEnter, onMouseLeave, neighbourhood, isHotelLoaded,
@@ -189,7 +189,7 @@ Property.propTypes = {
   onMouseLeave: PropTypes.func.isRequired,
   neighbourhood: roomsType,
   isHotelLoaded: PropTypes.bool.isRequired,
-  onLoadHotel: () => { },
+  onLoadHotel: PropTypes.func.isRequired,
   onLoadComments: PropTypes.func.isRequired,
   onChangeFavorite: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
@@ -208,7 +208,10 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onChangeFavorite(idHotel) {
     dispatch(fetchFavorite(idHotel));
-  }
+  },
+  onLoadHotel(idHotel) {
+    return dispatch(fetchHotel(idHotel));
+  },
 });
 
 export { Property };
