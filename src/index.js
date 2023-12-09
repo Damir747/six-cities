@@ -35,7 +35,9 @@ const store = configureStore({
       thunk: {
         extraArgument: api,
       },
-      redirect
+      redirect,
+      immutableCheck: { warnAfter: 128 },
+      serializableCheck: { warnAfter: 128 },
     })
 });
 
