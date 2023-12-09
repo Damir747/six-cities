@@ -9,9 +9,7 @@ import CityPlaces from '../city-places/city-places';
 import { getActiveCity, getCities } from '../../store/city-data/selectors';
 import CityList from '../city-list/city-list';
 
-const MainPage = ({ idActiveRoom,
-  onMouseEnter = () => { }, onMouseLeave = () => { },
-  cities, activeCity }) => {
+const MainPage = ({ idActiveRoom, cities, activeCity }) => {
 
   return (
     <React.Fragment>
@@ -26,11 +24,7 @@ const MainPage = ({ idActiveRoom,
             cities={cities}
             activeCity={activeCity}
           />
-          <CityPlaces
-            idActiveRoom={idActiveRoom}
-            onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}
-          />
+          <CityPlaces />
         </main >
       </div >
     </React.Fragment >
@@ -39,8 +33,6 @@ const MainPage = ({ idActiveRoom,
 
 MainPage.propTypes = {
   idActiveRoom: PropTypes.number,
-  onMouseEnter: PropTypes.func.isRequired,
-  onMouseLeave: PropTypes.func.isRequired,
   cities: PropTypes.object,
   activeCity: PropTypes.string,
 };

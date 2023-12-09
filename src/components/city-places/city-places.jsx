@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -14,9 +14,17 @@ import { Frame } from '../../const';
 import { useWhyDidYouUpdate } from 'ahooks';
 import { getFilteredRooms, getRooms } from '../../store/hotel-data/selectors';
 
-const CityPlaces = ({ idActiveRoom, onMouseEnter, onMouseLeave,
-  activeCity, filteredRooms }) => {
+// ? такие props странные?
+const CityPlaces = ({ activeCity, filteredRooms }) => {
   if (filteredRooms.length) {
+    const [idActiveRoom, setActiveRoom] = useState(null);
+    const handleMouseEnter = useCallback((item) => {
+      setActiveRoom(item);
+    }, []);
+    const handleMouseLeave = useCallback(() => {
+      setActiveRoom(null);
+    }, []);
+
     return (
       <React.Fragment>
         <div className="cities">
@@ -31,8 +39,8 @@ const CityPlaces = ({ idActiveRoom, onMouseEnter, onMouseLeave,
                   <Room
                     key={roomElement.id}
                     roomElement={roomElement}
-                    onMouseEnter={onMouseEnter}
-                    onMouseLeave={onMouseLeave}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
                     frame={Frame.CITIES}
                   />
                 )
@@ -70,16 +78,11 @@ const CityPlaces = ({ idActiveRoom, onMouseEnter, onMouseLeave,
 };
 
 CityPlaces.propTypes = {
-  rooms: roomsType,
-  idActiveRoom: PropTypes.number,
-  onMouseEnter: PropTypes.func.isRequired,
-  onMouseLeave: PropTypes.func.isRequired,
   activeCity: PropTypes.string,
   filteredRooms: roomsType,
 };
 
 const mapStateToProps = (state) => ({
-  rooms: getRooms(state),
   activeCity: getActiveCity(state),
   filteredRooms: getFilteredRooms(state),
 });

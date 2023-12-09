@@ -1,22 +1,22 @@
 import React from 'react';
 import ReactDom from 'react-dom';
+import { Provider } from 'react-redux';
+
+import createAPI from './services/api';
 import { configureStore } from '@reduxjs/toolkit';
 import { redirect } from './store/middleware/redirect';
 
-import createAPI from './services/api';
-import App from './components/app/app';
-
-import rooms from './mock/mock-rooms';
-import { Provider } from 'react-redux';
 import rootReducer from './store/root-reducer';
 import { AuthorizationStatus } from './const';
 import { changeAuthorizationStatus } from './store/login-data/actions';
 import { loadHotel, loadHotelList, changeFavorite } from './store/hotel-data/actions';
 import { loadReviewList } from './store/comment-data/actions';
-import { fetchCommentsList, fetchPostComment } from './store/comment-data/api-actions';
-import { fetchHotel, fetchHotelList, fetchFavorite } from './store/hotel-data/api-actions';
+
+import App from './components/app/app';
+
 // ? избавиться от connect: dispatch = useDispatch()
 // ? редирект на логин после запроса к серверу, когда он возвращает 401
+// ? logout сделать?
 
 const api = createAPI(
   () => {
@@ -39,17 +39,9 @@ const store = configureStore({
     })
 });
 
-const onLoadData = () => {
-  // store.dispatch(checkAuthorizationStatus());
-  store.dispatch(fetchHotelList());
-};
-
 ReactDom.render(
   <Provider store={store}>
-    <App
-      rooms={rooms}
-      onLoadData={() => onLoadData()}
-    />
+    <App />
   </Provider>,
   document.getElementById(`root`),
 );

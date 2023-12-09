@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
@@ -21,7 +21,7 @@ import { useHistory } from "react-router-dom";
 import { fetchFavorite, fetchHotel } from '../../store/hotel-data/api-actions';
 import { fetchCommentsList } from '../../store/comment-data/api-actions';
 
-const Property = ({ rooms, onMouseEnter, onMouseLeave, neighbourhood, isHotelLoaded,
+const Property = ({ rooms, neighbourhood, isHotelLoaded,
   onLoadHotel, onLoadComments, onChangeFavorite, authorizationStatus }) => {
   const history = useHistory();
 
@@ -31,6 +31,15 @@ const Property = ({ rooms, onMouseEnter, onMouseLeave, neighbourhood, isHotelLoa
   const idHotelParam = Number(useParams().id);
   const room = rooms.find((el) => el.id === idHotelParam);
   // ? доделать. Работает, но нужно навести красоту
+
+  const [idActiveRoom, setActiveRoom] = useState(null);
+  const handleMouseEnter = useCallback((item) => {
+    setActiveRoom(item);
+  }, []);
+  const handleMouseLeave = useCallback(() => {
+    setActiveRoom(null);
+  }, []);
+
   const [roomId, setRoom] = useState(room);
   const [reviews, setReviews] = useState();
 
@@ -155,7 +164,7 @@ const Property = ({ rooms, onMouseEnter, onMouseLeave, neighbourhood, isHotelLoa
             <section className="property__map map">
               <CityMap
                 rooms={neighbourhood}
-                idActiveRoom={idHotelParam}
+                idActiveRoom={idActiveRoom}
 
               />
             </section>
@@ -168,8 +177,8 @@ const Property = ({ rooms, onMouseEnter, onMouseLeave, neighbourhood, isHotelLoa
                   <Room
                     key={neighbour.id}
                     roomElement={neighbour}
-                    onMouseEnter={onMouseEnter}
-                    onMouseLeave={onMouseLeave}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
                     frame={Frame.NEAR_PLACES}
                   />
                 ))
@@ -185,8 +194,6 @@ const Property = ({ rooms, onMouseEnter, onMouseLeave, neighbourhood, isHotelLoa
 
 Property.propTypes = {
   rooms: roomsType,
-  onMouseEnter: PropTypes.func.isRequired,
-  onMouseLeave: PropTypes.func.isRequired,
   neighbourhood: roomsType,
   isHotelLoaded: PropTypes.bool.isRequired,
   onLoadHotel: PropTypes.func.isRequired,
@@ -197,7 +204,7 @@ Property.propTypes = {
 
 const mapStateToProps = (state) => ({
   rooms: getRooms(state),
-  neighbourhood: getRooms(state).slice(2, 5), // ? с сервера данные приходят?
+  neighbourhood: getRooms(state).slice(2, 5), // ? с сервера данные приходят? GET /hotels/: hotel_id/nearby
   isHotelLoaded: getIsHotelLoaded(state),
   authorizationStatus: getAuthorizationStatus(state),
 });

@@ -8,25 +8,18 @@ import LoginPage from '../login-page/login-page';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Property from '../property/property';
 
-import roomsType from '../../types/rooms';
 import reviewsType from '../../types/reviews';
 import { connect } from 'react-redux';
 import { getIsDataLoaded } from '../../store/hotel-data/selectors';
 import Loading from '../loading/loading';
 import browserHistory from '../../browser-history';
 import FavoriteLogin from '../favorites-page/favorite-login';
+import { fetchHotelList } from '../../store/hotel-data/api-actions';
 // ? live 6. 01:46:19 - разобраться с остатками useHistory
 // ? соседи / neighbouhood - на карте не показываются, не кликабельны
 // ? убрать connect, заменить на useSelector
 
-const App = ({ rooms, isDataLoaded, onLoadData }) => {
-  const [idActiveRoom, setActiveRoom] = useState(null);
-  const handleMouseEnter = useCallback((item) => {
-    setActiveRoom(item);
-  }, []);
-  const handleMouseLeave = useCallback(() => {
-    setActiveRoom(null);
-  }, []);
+const App = ({ onLoadData, isDataLoaded }) => {
 
   useEffect(() => {
     if (!isDataLoaded) {
@@ -44,11 +37,7 @@ const App = ({ rooms, isDataLoaded, onLoadData }) => {
       <Router history={browserHistory}>
         <Switch>
           <Route exact path={AppRoute.ROOT}>
-            <MainPage
-              idActiveRoom={idActiveRoom}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-            />
+            <MainPage />
           </Route>
           <Route exact path={AppRoute.LOGIN}>
             <LoginPage />
@@ -57,10 +46,7 @@ const App = ({ rooms, isDataLoaded, onLoadData }) => {
             <FavoriteLogin />
           </Route>
           <Route exact path={AppRoute.OFFER + ':id'}>
-            <Property
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-            />
+            <Property />
           </Route>
           <Route>
             <NotFoundScreen />
@@ -72,19 +58,24 @@ const App = ({ rooms, isDataLoaded, onLoadData }) => {
 };
 
 App.propTypes = {
-  rooms: roomsType,
   reviews: reviewsType,
   cities: PropTypes.object,
   isDataLoaded: PropTypes.bool.isRequired,
-  onLoadData: () => { },
+  onLoadData: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   isDataLoaded: getIsDataLoaded(state)
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  onLoadData() {
+    dispatch(fetchHotelList());
+  }
+});
+
 export { App };
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 // Задайте себе три вопроса:
 
