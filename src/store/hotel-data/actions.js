@@ -10,7 +10,7 @@ const loadHotel = (hotel) => ({
   payload: hotel,
 });
 
-const favoritesChange = (hotel) => ({
+const changeFavorite = (hotel) => ({
   type: FAVORITE,
   payload: hotel,
 });
@@ -18,5 +18,5 @@ const favoritesChange = (hotel) => ({
 export {
   loadHotelList,
   loadHotel,
-  favoritesChange,
+  changeFavorite,
 };

@@ -11,7 +11,7 @@ import { Provider } from 'react-redux';
 import rootReducer from './store/root-reducer';
 import { AuthorizationStatus } from './const';
 import { changeAuthorizationStatus } from './store/login-data/actions';
-import { loadHotel, loadHotelList, favoritesChange } from './store/hotel-data/actions';
+import { loadHotel, loadHotelList, changeFavorite } from './store/hotel-data/actions';
 import { loadReviewList } from './store/comment-data/actions';
 import { fetchCommentsList, postComment } from './store/comment-data/api-actions';
 import { fetchHotel, fetchHotelList, fetchFavorite } from './store/hotel-data/api-actions';
@@ -25,7 +25,7 @@ const api = createAPI(
     store.dispatch(loadHotelList);
     store.dispatch(loadHotel);
     store.dispatch(loadReviewList);
-    store.dispatch(favoritesChange);
+    store.dispatch(changeFavorite);
   }
 );
 
@@ -60,10 +60,6 @@ const onPostComment = (idHotel, commentText, commentStars) => {
   }));
 };
 
-const onChangeFavorite = (idHotel) => {
-  return store.dispatch(fetchFavorite(idHotel));
-};
-
 const onLoadFavorites = () => {
   return store.dispatch(fetchFavoriteList());
 };
@@ -76,7 +72,6 @@ ReactDom.render(
       onLoadHotel={(id) => onLoadHotel(id)}
       onLoadComments={(idHotel) => onLoadComments(idHotel)}
       onPostComment={onPostComment}
-      onChangeFavorite={(idHotel) => onChangeFavorite(idHotel)}
       onLoadFavorites={() => onLoadFavorites()}
     />
   </Provider>,

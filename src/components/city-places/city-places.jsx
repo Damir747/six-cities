@@ -33,7 +33,7 @@ const CityPlaces = ({ idActiveRoom, onMouseEnter, onMouseLeave,
                     roomElement={roomElement}
                     onMouseEnter={onMouseEnter}
                     onMouseLeave={onMouseLeave}
-                    onChangeFavorite={onChangeFavorite}
+                    // onChangeFavorite={onChangeFavorite}
                     frame={Frame.CITIES}
                   />
                 )

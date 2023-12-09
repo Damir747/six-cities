@@ -1,3 +1,4 @@
+import { FAVORITE } from "../hotel-data/actions-types";
 import { FAVORITE_LIST } from "./actions-types";
 
 /* eslint-disable indent */

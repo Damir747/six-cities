@@ -19,7 +19,7 @@ import FavoriteLogin from '../favorites-page/favorite-login';
 // ? соседи / neighbouhood - на карте не показываются, не кликабельны
 // ? убрать connect, заменить на useSelector
 
-const App = ({ rooms, isDataLoaded, onLoadData, onLoadHotel, onLoadComments, onPostComment, onChangeFavorite, onLoadFavorites }) => {
+const App = ({ rooms, isDataLoaded, onLoadData, onLoadHotel, onLoadComments, onPostComment, onLoadFavorites }) => {
   const [idActiveRoom, setActiveRoom] = useState(null);
   const handleMouseEnter = useCallback((item) => {
     setActiveRoom(item);
@@ -49,7 +49,6 @@ const App = ({ rooms, isDataLoaded, onLoadData, onLoadHotel, onLoadComments, onP
               idActiveRoom={idActiveRoom}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
-              onChangeFavorite={onChangeFavorite}
             />
           </Route>
           <Route exact path={AppRoute.LOGIN}>
@@ -58,7 +57,6 @@ const App = ({ rooms, isDataLoaded, onLoadData, onLoadHotel, onLoadComments, onP
           <Route exact path={AppRoute.FAVORITES}>
             <FavoriteLogin
               onLoadFavorites={() => onLoadFavorites()}
-              onChangeFavorite={onChangeFavorite}
             />
           </Route>
           <Route exact path={AppRoute.OFFER + ':id'}>
@@ -69,7 +67,6 @@ const App = ({ rooms, isDataLoaded, onLoadData, onLoadHotel, onLoadComments, onP
               onLoadHotel={(id) => onLoadHotel(id)}
               onLoadComments={(idHotel) => onLoadComments(idHotel)}
               onPostComment={onPostComment}
-              onChangeFavorite={onChangeFavorite}
             />
           </Route>
           <Route>
@@ -90,7 +87,6 @@ App.propTypes = {
   onLoadHotel: () => { },
   onLoadComments: () => { },
   onPostComment: () => { },
-  onChangeFavorite: () => { },
   onLoadFavorites: () => { },
 };
 

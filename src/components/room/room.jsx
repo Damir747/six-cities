@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import browserHistory from '../../browser-history';
 import { getAuthorizationStatus } from '../../store/login-data/selectors';
 import { useHistory } from "react-router-dom";
+import { fetchFavorite } from '../../store/hotel-data/api-actions';
 
 const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame, authorizationStatus, onChangeFavorite }) => {
   const { id, level, img, priceValue, priceText, bookmark, rating, card, type } = roomElement;
@@ -17,12 +18,7 @@ const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame, authorizationSta
 
   const handleAddToFavorites = () => {
     if (authorizationStatus === AuthorizationStatus.AUTH) {
-      onChangeFavorite(id)
-        .then((_value) => {
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      onChangeFavorite(id);
     } else {
       history.push(AppRoute.LOGIN);
     }
@@ -81,8 +77,16 @@ Room.propTypes = {
   frame: PropTypes.string,
   authorizationStatus: PropTypes.string.isRequired,
 };
+
 const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),
 });
+
+const mapDispatchToProps = (dispatch) => ({
+  onChangeFavorite(idHotel) {
+    dispatch(fetchFavorite(idHotel));
+  }
+});
+
 export { Room };
-export default connect(mapStateToProps)(Room);
+export default connect(mapStateToProps, mapDispatchToProps)(Room);

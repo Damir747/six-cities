@@ -13,7 +13,7 @@ import Loading from '../loading/loading';
 import { getIsFavoriteListLoaded } from '../../store/favorite-data/selectors';
 import FavoritesEmpty from '../favorites-empty/favorites-empty';
 
-const FavoritePage = ({ authorizationStatus, loginName, onLoadFavorites, isFavoriteListLoaded, onChangeFavorite }) => {
+const FavoritePage = ({ authorizationStatus, loginName, onLoadFavorites, isFavoriteListLoaded }) => {
   const [fetchingFavorites, setFetchingFavorites] = useState(false);
   const [favorites, setFavorites] = useState([]);
 
@@ -53,9 +53,7 @@ const FavoritePage = ({ authorizationStatus, loginName, onLoadFavorites, isFavor
               <h1 className="favorites__title">Saved listing</h1>
               <ul className="favorites__list">
 
-                <FavoriteCities
-                  onChangeFavorite={onChangeFavorite}
-                />
+                <FavoriteCities />
 
               </ul>
             </section>
@@ -73,7 +71,6 @@ FavoritePage.propTypes = {
   loginName: loginType,
   onLoadFavorites: () => { },
   isFavoriteListLoaded: PropTypes.bool.isRequired,
-  onChangeFavorite: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),

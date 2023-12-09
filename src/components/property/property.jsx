@@ -19,6 +19,7 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { AppRoute, AuthorizationStatus, Frame } from '../../const';
 import { getAuthorizationStatus } from '../../store/login-data/selectors';
 import { useHistory } from "react-router-dom";
+import { fetchFavorite } from '../../store/hotel-data/api-actions';
 
 const Property = ({ idActiveRoom, onMouseEnter, onMouseLeave, rooms, neighbourhood, isHotelLoaded,
   onLoadHotel, onLoadComments, onPostComment, onChangeFavorite, authorizationStatus }) => {
@@ -60,13 +61,7 @@ const Property = ({ idActiveRoom, onMouseEnter, onMouseLeave, rooms, neighbourho
 
   const handleAddToFavorites = () => {
     if (authorizationStatus === AuthorizationStatus.AUTH) {
-      onChangeFavorite(id)
-        .then((_value) => {
-          console.log(_value.is_favorite);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      onChangeFavorite(id);
     } else {
       history.push(AppRoute.LOGIN);
     }
@@ -208,5 +203,11 @@ const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  onChangeFavorite(idHotel) {
+    dispatch(fetchFavorite(idHotel));
+  }
+});
+
 export { Property };
-export default connect(mapStateToProps)(Property);
+export default connect(mapStateToProps, mapDispatchToProps)(Property);

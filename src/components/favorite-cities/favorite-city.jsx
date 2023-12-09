@@ -7,7 +7,7 @@ import FavoriteCityRooms from '../favorite-city-rooms/favorite-city-rooms';
 import roomsType from '../../types/rooms';
 import { AppRoute } from '../../const';
 
-const FavoriteCity = ({ city, filteredRooms, onChangeFavorite }) => {
+const FavoriteCity = ({ city, filteredRooms }) => {
   return (
     <React.Fragment>
       <li key={city} className="favorites__locations-items">
@@ -21,7 +21,6 @@ const FavoriteCity = ({ city, filteredRooms, onChangeFavorite }) => {
         <div className="favorites__places">
           <FavoriteCityRooms
             favoriteRooms={filteredRooms}
-            onChangeFavorite={onChangeFavorite}
           />
         </div>
       </li>
@@ -32,7 +31,6 @@ const FavoriteCity = ({ city, filteredRooms, onChangeFavorite }) => {
 FavoriteCity.propTypes = {
   city: PropTypes.string,
   filteredRooms: roomsType,
-  onChangeFavorite: PropTypes.func.isRequired,
 };
 
 export default FavoriteCity;

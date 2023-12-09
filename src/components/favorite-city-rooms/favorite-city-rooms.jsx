@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import roomsType from '../../types/rooms';
 import FavoriteCityRoom from './favorite-city-room';
 
-const FavoriteCityRooms = ({ favoriteRooms, onChangeFavorite }) => {
+const FavoriteCityRooms = ({ favoriteRooms }) => {
   return (
     <React.Fragment>
       {favoriteRooms.map((room) => {
@@ -13,7 +13,6 @@ const FavoriteCityRooms = ({ favoriteRooms, onChangeFavorite }) => {
           <FavoriteCityRoom
             key={room.id}
             room={room}
-            onChangeFavorite={onChangeFavorite}
           />
         );
       })
@@ -24,7 +23,6 @@ const FavoriteCityRooms = ({ favoriteRooms, onChangeFavorite }) => {
 
 FavoriteCityRooms.propTypes = {
   favoriteRooms: roomsType,
-  onChangeFavorite: PropTypes.func.isRequired,
 };
 
 export default FavoriteCityRooms;

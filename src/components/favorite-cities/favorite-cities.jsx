@@ -8,7 +8,7 @@ import { getCities } from '../../store/city-data/selectors';
 import { getFavoriteRooms } from '../../store/hotel-data/selectors';
 import FavoriteCity from './favorite-city';
 
-const FavoriteCities = ({ cities, favoriteRooms, onChangeFavorite }) => {
+const FavoriteCities = ({ cities, favoriteRooms }) => {
 
   return (
     <React.Fragment>
@@ -20,7 +20,6 @@ const FavoriteCities = ({ cities, favoriteRooms, onChangeFavorite }) => {
               key={city}
               city={city}
               filteredRooms={filteredRooms}
-              onChangeFavorite={onChangeFavorite}
             />
           );
         }
@@ -34,7 +33,6 @@ const FavoriteCities = ({ cities, favoriteRooms, onChangeFavorite }) => {
 FavoriteCities.propTypes = {
   cities: PropTypes.object,
   favoriteRooms: roomsType,
-  onChangeFavorite: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
