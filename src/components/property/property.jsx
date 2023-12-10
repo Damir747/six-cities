@@ -43,27 +43,20 @@ const Property = ({ rooms, isHotelLoaded, currentCity, coordinates, neighbourhoo
     setActiveRoom(null);
   }, []);
 
-  const [curRoom, setRoom] = useState(room);
-  const [reviews, setReviews] = useState();
-  const [neighbourhood1, setNeighbourhood] = useState();
-
   useEffect(() => {
     onLoadHotel(idHotelParam)
       .then((value) => {
         onSelectCurrentCity(value.cityName);
-        setRoom(value);
         setFetchingHotel(false);
       })
       .catch((err) => console.log(err));
     onLoadComments(idHotelParam)
-      .then((value) => {
-        setReviews(value);
+      .then((_value) => {
         setFetchingComments(false);
       })
       .catch((err) => console.log(err));
     onLoadNeighbourhood(idHotelParam)
-      .then((value) => {
-        setNeighbourhood(value);
+      .then((_value) => {
         setFetchingNeighbourhood(false);
       })
       .catch((err) => console.log(err));
