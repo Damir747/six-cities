@@ -11,7 +11,7 @@ import Room from '../room/room';
 import { bookmarkClassname, classname, numberRating, roundRating } from '../../utils/utils';
 import roomsType from '../../types/rooms';
 
-import { getIsHotelLoaded, getRooms } from '../../store/hotel-data/selectors';
+import { getIsHotelLoaded, getNeighbourhood, getRooms } from '../../store/hotel-data/selectors';
 import { connect } from 'react-redux';
 import Loading from '../loading/loading';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
@@ -23,7 +23,7 @@ import { fetchCommentsList } from '../../store/comment-data/api-actions';
 import { selectCurrentCity } from '../../store/city-data/actions';
 import { getCurrentCity, getCurrentCityCoordinates } from '../../store/city-data/selectors';
 
-const Property = ({ rooms, isHotelLoaded, currentCity, coordinates,
+const Property = ({ rooms, isHotelLoaded, currentCity, coordinates, neighbourhood,
   onLoadHotel, onLoadComments, onChangeFavorite, onLoadNeighbourhood, onSelectCurrentCity, authorizationStatus }) => {
   const history = useHistory();
 
@@ -45,7 +45,7 @@ const Property = ({ rooms, isHotelLoaded, currentCity, coordinates,
 
   const [curRoom, setRoom] = useState(room);
   const [reviews, setReviews] = useState();
-  const [neighbourhood, setNeighbourhood] = useState();
+  const [neighbourhood1, setNeighbourhood] = useState();
 
   useEffect(() => {
     onLoadHotel(idHotelParam)
@@ -218,6 +218,7 @@ Property.propTypes = {
   onLoadComments: PropTypes.func.isRequired,
   onChangeFavorite: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
+  neighbourhood: roomsType,
 };
 
 const mapStateToProps = (state) => ({
@@ -226,6 +227,7 @@ const mapStateToProps = (state) => ({
   coordinates: getCurrentCityCoordinates(state),
   isHotelLoaded: getIsHotelLoaded(state),
   authorizationStatus: getAuthorizationStatus(state),
+  neighbourhood: getNeighbourhood(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

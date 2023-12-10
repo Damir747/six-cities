@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import roomType from '../../types/room';
 import { AppRoute, AuthorizationStatus, Frame } from '../../const';
@@ -11,11 +11,11 @@ import browserHistory from '../../browser-history';
 import { getAuthorizationStatus } from '../../store/login-data/selectors';
 import { useHistory } from "react-router-dom";
 import { fetchFavorite } from '../../store/hotel-data/api-actions';
-import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame, authorizationStatus, onChangeFavorite }) => {
   const { id, level, img, priceValue, priceText, bookmark, rating, card, type } = roomElement;
   const history = useHistory();
+  const [book, setBook] = useState(bookmark);
 
   const handleAddToFavorites = () => {
     if (authorizationStatus === AuthorizationStatus.AUTH) {
@@ -24,7 +24,7 @@ const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame, authorizationSta
       history.push(AppRoute.LOGIN);
     }
   };
-  console.log('render');
+
   return (
     <React.Fragment>
       <article

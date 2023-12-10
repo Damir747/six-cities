@@ -49,6 +49,8 @@ const getFavorite = (state, idRoom) => {
 
 const getReverseFavorite = (state, idRoom) => getFavorite(state, idRoom) === IN_BOOKMARKS ? 0 : 1;
 
+const getNeighbourhood = (state) => state[NameSpace.HOTEL].neighbourhood;
+
 export {
   getHotel,
   getRooms,
@@ -60,5 +62,6 @@ export {
   getFilteredRooms,
   getFavoriteRooms,
   getFavorite,
-  getReverseFavorite
+  getReverseFavorite,
+  getNeighbourhood,
 };

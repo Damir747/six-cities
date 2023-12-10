@@ -1,7 +1,7 @@
 import cities from '../../mock/mock-cities';
 import { Room, City } from '../adapter';
 import { loadCityList } from '../city-data/actions';
-import { loadHotel, loadHotelList, loadNeighbourhood } from './actions';
+import { changeFavoriteNeighbourhood, loadHotel, loadHotelList, loadNeighbourhood } from './actions';
 import { appendNotification } from '../notification-data/actions';
 import { serverLinks } from '../server-links';
 
@@ -47,6 +47,7 @@ const fetchFavorite = (idHotel) => (dispatch, getState, api) => {
   return api.post(`${serverLinks.FAVORITE}/${idHotel}/${status}`)
     .then(({ data }) => {
       dispatch(changeFavorite(data));
+      dispatch(changeFavoriteNeighbourhood(data));
       return data;
     })
     .catch((error) => {
@@ -59,7 +60,7 @@ const fetchFavorite = (idHotel) => (dispatch, getState, api) => {
     });
 };
 
-const fetchNeighbourhood = (id) => (dispatch, getState, api) => {
+const fetchNeighbourhood = (id) => (dispatch, _getState, api) => {
   return api.get(`${serverLinks.HOTELS}/${id}${serverLinks.NEIGHBOURHOOD}`)
     .then(({ data }) => {
       data = data.map((el) => Room.convertDataHotel(el));

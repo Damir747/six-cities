@@ -1,4 +1,4 @@
-import { FAVORITE, HOTEL, HOTEL_LIST, NEIGHBOURHOOD } from "./actions-types";
+import { FAVORITE, FAVORITE_NEIGHBOURHOOD, HOTEL, HOTEL_LIST, NEIGHBOURHOOD } from "./actions-types";
 
 const loadHotelList = (hotels) => ({
   type: HOTEL_LIST,
@@ -20,9 +20,15 @@ const loadNeighbourhood = (hotels) => ({
   payload: hotels,
 });
 
+const changeFavoriteNeighbourhood = (hotel) => ({
+  type: FAVORITE_NEIGHBOURHOOD,
+  payload: hotel,
+});
+
 export {
   loadHotelList,
   loadHotel,
   changeFavorite,
   loadNeighbourhood,
+  changeFavoriteNeighbourhood,
 };
