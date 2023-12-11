@@ -1,13 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import { AuthorizationStatus } from '../../const';
-import { getAuthorizationStatus } from '../../store/login-data/selectors';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import FavoritePage from './favorite-page';
 import LoginPage from '../login-page/login-page';
+import { NameSpace } from '../../store/root-reducer';
 
-const FavoriteLogin = ({ authorizationStatus }) => {
+const FavoriteLogin = () => {
+  const { authorizationStatus } = useSelector((state) => state[NameSpace.LOGIN]);
   if (authorizationStatus === AuthorizationStatus.AUTH) {
     return (
       <FavoritePage />
@@ -18,12 +18,4 @@ const FavoriteLogin = ({ authorizationStatus }) => {
   );
 };
 
-FavoriteLogin.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-};
-const mapStateToProps = (state) => ({
-  authorizationStatus: getAuthorizationStatus(state),
-});
-
-export { FavoriteLogin };
-export default connect(mapStateToProps)(FavoriteLogin);
+export default FavoriteLogin;

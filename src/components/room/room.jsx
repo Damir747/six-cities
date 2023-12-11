@@ -2,20 +2,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import roomType from '../../types/room';
-import { AppRoute, AuthorizationStatus, Frame } from '../../const';
+import { AppRoute, Frame } from '../../const';
 import { bookmarkClassname, capitalizeFirstLetter, classname, frameClassname, roundRating } from '../../utils/utils';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import browserHistory from '../../browser-history';
-import { getAuthorizationStatus } from '../../store/login-data/selectors';
 import { useHistory } from "react-router-dom";
 import { fetchFavorite } from '../../store/hotel-data/api-actions';
-import runFunc from './handle-add-to-favorites';
 import handleAddToFavorites from './handle-add-to-favorites';
+import { NameSpace } from '../../store/root-reducer';
 
-const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame, authorizationStatus, onChangeFavorite }) => {
+const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame }) => {
   const { id, level, img, priceValue, priceText, bookmark, rating, card, type } = roomElement;
+  const { authorizationStatus } = useSelector((state) => state[NameSpace.LOGIN]);
+  const dispatch = useDispatch();
   const history = useHistory();
 
   return (
@@ -40,7 +41,7 @@ const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame, authorizationSta
               <span className="place-card__price-text">&#47;&nbsp;{priceText || 'ночь'}</span>
             </div>
             <button className={bookmarkClassname('place-card', bookmark)} type="button"
-              onClick={handleAddToFavorites(authorizationStatus, onChangeFavorite, id, history.push)}>
+              onClick={handleAddToFavorites(authorizationStatus, dispatch(fetchFavorite(id)), id, history.push)}>
 
               <svg className="place-card__bookmark-icon" width="18" height="19">
                 <use xlinkHref="#icon-bookmark"></use>
@@ -68,20 +69,7 @@ Room.propTypes = {
   roomElement: roomType,
   onMouseEnter: PropTypes.func,
   onMouseLeave: PropTypes.func,
-  onChangeFavorite: PropTypes.func.isRequired,
   frame: PropTypes.string,
-  authorizationStatus: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: getAuthorizationStatus(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onChangeFavorite(idHotel) {
-    dispatch(fetchFavorite(idHotel));
-  }
-});
-
-export { Room };
-export default connect(mapStateToProps, mapDispatchToProps)(Room);
+export default Room;

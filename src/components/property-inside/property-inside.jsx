@@ -1,13 +1,11 @@
 /* eslint-disable indent */
 import React from 'react';
-import { connect } from 'react-redux';
-
-import propertyInsideItemsType from '../../types/property-inside-items';
-import { getPropertyInside } from '../../store/init-data/selectors';
+import { useSelector } from 'react-redux';
+import { NameSpace } from '../../store/root-reducer';
 
 
-const PropertyInside = ({ propertyInsideItems }) => {
-
+const PropertyInside = () => {
+  const { propertyInsideItems } = useSelector((state) => state[NameSpace.INIT]);
   return (
     <React.Fragment>
       <div className="property__inside">
@@ -28,13 +26,4 @@ const PropertyInside = ({ propertyInsideItems }) => {
   );
 };
 
-PropertyInside.propTypes = {
-  propertyInsideItems: propertyInsideItemsType,
-};
-
-const mapStateToProps = (state) => ({
-  propertyInsideItems: getPropertyInside(state),
-});
-
-export { PropertyInside };
-export default connect(mapStateToProps)(PropertyInside);
+export default PropertyInside;
