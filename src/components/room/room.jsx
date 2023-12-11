@@ -18,16 +18,6 @@ const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame, authorizationSta
   const { id, level, img, priceValue, priceText, bookmark, rating, card, type } = roomElement;
   const history = useHistory();
 
-  // const runFunc = (func, param) => func(param);
-
-  // const handleAddToFavorites = () => {
-  //   if (authorizationStatus === AuthorizationStatus.AUTH) {
-  //     runFunc(onChangeFavorite, id);
-  //   } else {
-  //     history.push(AppRoute.LOGIN);
-  //   }
-  // };
-
   return (
     <React.Fragment>
       <article
