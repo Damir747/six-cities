@@ -1,15 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import reviewsType from '../../types/reviews';
 import OldReviews from '../old-reviews/old-reviews';
 import NewReview from '../new-review/new-review';
 import { getReviews } from '../../store/comment-data/selectors';
 import { AuthorizationStatus } from '../../const';
-import { getAuthorizationStatus } from '../../store/login-data/selectors';
+import { NameSpace } from '../../store/root-reducer';
 
-const Reviews = ({ idHotel, reviews, authorizationStatus }) => {
+const Reviews = ({ idHotel }) => {
+  const { reviews } = useSelector((state) => state[NameSpace.COMMENT]);
+  const { authorizationStatus } = useSelector((state) => state[NameSpace.LOGIN]);
+
   return (
     <React.Fragment>
       <section className="property__reviews reviews">
@@ -28,14 +30,7 @@ const Reviews = ({ idHotel, reviews, authorizationStatus }) => {
 
 Reviews.propTypes = {
   idHotel: PropTypes.number.isRequired,
-  reviews: reviewsType,
-  authorizationStatus: PropTypes.string.isRequired,
 };
 
 
-const mapStateToProps = (state) => ({
-  reviews: getReviews(state),
-  authorizationStatus: getAuthorizationStatus(state),
-});
-export { Reviews };
-export default connect(mapStateToProps)(Reviews);
+export default Reviews;
