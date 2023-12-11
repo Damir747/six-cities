@@ -15,7 +15,7 @@ import { loadReviewList } from './store/comment-data/actions';
 import App from './components/app/app';
 
 // ? избавиться от connect: dispatch = useDispatch()
-// ? редирект на логин после запроса к серверу, когда он возвращает 401
+// ? редирект на логин после запроса к серверу, когда он возвращает 401 (в разборе 7.8)
 // ? logout сделать?
 
 const api = createAPI(

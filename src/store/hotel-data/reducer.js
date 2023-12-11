@@ -46,6 +46,9 @@ const hotelReducer = (state = initialState, action) => {
       };
     }
     case FAVORITE_NEIGHBOURHOOD: {
+      if (!state.neighbourhood) {
+        return state;
+      }
       const findId = state.neighbourhood.findIndex((el) => el.id === action.payload.id);
       if (findId === -1) {
         return state;

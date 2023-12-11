@@ -11,18 +11,22 @@ import browserHistory from '../../browser-history';
 import { getAuthorizationStatus } from '../../store/login-data/selectors';
 import { useHistory } from "react-router-dom";
 import { fetchFavorite } from '../../store/hotel-data/api-actions';
+import runFunc from './handle-add-to-favorites';
+import handleAddToFavorites from './handle-add-to-favorites';
 
 const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame, authorizationStatus, onChangeFavorite }) => {
   const { id, level, img, priceValue, priceText, bookmark, rating, card, type } = roomElement;
   const history = useHistory();
 
-  const handleAddToFavorites = () => {
-    if (authorizationStatus === AuthorizationStatus.AUTH) {
-      onChangeFavorite(id);
-    } else {
-      history.push(AppRoute.LOGIN);
-    }
-  };
+  // const runFunc = (func, param) => func(param);
+
+  // const handleAddToFavorites = () => {
+  //   if (authorizationStatus === AuthorizationStatus.AUTH) {
+  //     runFunc(onChangeFavorite, id);
+  //   } else {
+  //     history.push(AppRoute.LOGIN);
+  //   }
+  // };
 
   return (
     <React.Fragment>
@@ -45,7 +49,8 @@ const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame, authorizationSta
               <b className="place-card__price-value">&euro;{priceValue}</b>
               <span className="place-card__price-text">&#47;&nbsp;{priceText || 'ночь'}</span>
             </div>
-            <button className={bookmarkClassname('place-card', bookmark)} type="button" onClick={handleAddToFavorites}>
+            <button className={bookmarkClassname('place-card', bookmark)} type="button"
+              onClick={handleAddToFavorites(authorizationStatus, onChangeFavorite, id, history.push)}>
 
               <svg className="place-card__bookmark-icon" width="18" height="19">
                 <use xlinkHref="#icon-bookmark"></use>
