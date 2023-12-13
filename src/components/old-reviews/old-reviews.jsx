@@ -1,11 +1,11 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
-import reviewsType from '../../types/reviews';
-import { getReviews } from '../../store/comment-data/selectors';
 import OldReview from './old-review';
+import { NameSpace } from '../../store/root-reducer';
+import { useSelector } from 'react-redux';
 
-const OldReviews = ({ reviews }) => {
+const OldReviews = () => {
+  const { reviews } = useSelector((state) => state[NameSpace.COMMENT]);
   const countReviews = reviews.length;
   return (
     <React.Fragment>
@@ -23,13 +23,4 @@ const OldReviews = ({ reviews }) => {
   );
 };
 
-OldReviews.propTypes = {
-  reviews: reviewsType.isRequired
-};
-
-const mapStateToProps = (state) => ({
-  reviews: getReviews(state),
-});
-
-export { OldReviews };
-export default connect(mapStateToProps)(OldReviews);
+export default OldReviews;
