@@ -8,8 +8,7 @@ import LoginPage from '../login-page/login-page';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Property from '../property/property';
 
-import reviewsType from '../../types/reviews';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getIsDataLoaded } from '../../store/hotel-data/selectors';
 import Loading from '../loading/loading';
 import browserHistory from '../../browser-history';
@@ -19,63 +18,47 @@ import { fetchHotelList } from '../../store/hotel-data/api-actions';
 // ? соседи / neighbouhood - не обновляются при добавлении в избранное
 // ? убрать connect, заменить на useSelector
 
-const App = ({ onLoadData, isDataLoaded }) => {
+const App = () => {
+	const isDataLoaded = useSelector((state) => getIsDataLoaded(state));
+	const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (!isDataLoaded) {
-      onLoadData();
-    }
-  }, [isDataLoaded]);
+	useEffect(() => {
+		if (!isDataLoaded) {
+			dispatch(fetchHotelList());
+		}
+	}, [isDataLoaded]);
 
-  if (!isDataLoaded) {
-    return (
-      <Loading />
-    );
-  }
-  return (
-    <>
-      <Router history={browserHistory}>
-        <Switch>
-          <Route exact path={AppRoute.ROOT}>
-            <MainPage />
-          </Route>
-          <Route exact path={AppRoute.LOGIN}>
-            <LoginPage />
-          </Route>
-          <Route exact path={AppRoute.FAVORITES}>
-            <FavoriteLogin />
-          </Route>
-          <Route exact path={AppRoute.OFFER + ':id'}>
-            <Property />
-          </Route>
-          <Route>
-            <NotFoundScreen />
-          </Route>
-        </Switch>
-      </Router>
-    </>
-  );
+	if (!isDataLoaded) {
+		return (
+			<Loading />
+		);
+	}
+	return (
+		<>
+			<Router history={browserHistory}>
+				<Switch>
+					<Route exact path={AppRoute.ROOT}>
+						<MainPage />
+					</Route>
+					<Route exact path={AppRoute.LOGIN}>
+						<LoginPage />
+					</Route>
+					<Route exact path={AppRoute.FAVORITES}>
+						<FavoriteLogin />
+					</Route>
+					<Route exact path={AppRoute.OFFER + ':id'}>
+						<Property />
+					</Route>
+					<Route>
+						<NotFoundScreen />
+					</Route>
+				</Switch>
+			</Router>
+		</>
+	);
 };
 
-App.propTypes = {
-  reviews: reviewsType,
-  cities: PropTypes.object,
-  isDataLoaded: PropTypes.bool.isRequired,
-  onLoadData: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  isDataLoaded: getIsDataLoaded(state)
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLoadData() {
-    dispatch(fetchHotelList());
-  }
-});
-
-export { App };
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
 
 // Задайте себе три вопроса:
 
