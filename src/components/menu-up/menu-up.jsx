@@ -1,15 +1,21 @@
 import React, { useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
-import menuType from '../../types/menu';
 import { selectSort } from '../../store/sort-data/actions';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import MenuUpElement from './menu-up-element';
 import { getMenuUpArray } from '../../store/init-data/selectors';
 import { getSort } from '../../store/sort-data/selectors';
 
 // 'places__options--opened' - для раскрытия меню
 
-const MenuUp = ({ menuUpArray, sort, onClick = () => { } }) => {
+const MenuUp = () => {
+
+  const menuUpArray = useSelector((state) => getMenuUpArray(state));
+  const sort = ((state) => getSort(state));
+  const dispatch = useDispatch();
+  const onClick = (sortt) => {
+    dispatch(selectSort(sortt));
+  };
+  // ? сделать нормальную сортировку
   const [idActiveMenuItem, setMenuItem] = useState(null);
   const onMouseEnter = useCallback((item) => {
     setMenuItem(item);
@@ -44,22 +50,4 @@ const MenuUp = ({ menuUpArray, sort, onClick = () => { } }) => {
   );
 };
 
-MenuUp.propTypes = {
-  menuUpArray: menuType,
-  sort: PropTypes.number,
-  onClick: PropTypes.func,
-};
-
-const mapStateToProps = (state) => ({
-  menuUpArray: getMenuUpArray(state),
-  sort: getSort(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onClick(sort) {
-    dispatch(selectSort(sort));
-  },
-});
-
-export { MenuUp };
-export default connect(mapStateToProps, mapDispatchToProps)(MenuUp);
+export default MenuUp;
