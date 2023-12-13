@@ -1,18 +1,20 @@
 import React, { useCallback, useState } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import MenuUp from '../menu-up/menu-up';
 import CityMap from '../city-map/city-map';
 import Room from '../../components/room/room';
 
-import roomsType from '../../types/rooms';
-import { getActiveCity, getActiveCityCoordinates } from '../../store/city-data/selectors';
+import { getCities } from '../../store/city-data/selectors';
 import { Frame } from '../../const';
 import { useWhyDidYouUpdate } from 'ahooks';
 import { getFilteredRooms } from '../../store/hotel-data/selectors';
+import { NameSpace } from '../../store/root-reducer';
 
-const CityPlaces = ({ activeCity, coordinates, filteredRooms }) => {
+const CityPlaces = () => {
+  const { activeCity } = useSelector((state) => state[NameSpace.CITY]);
+  const coordinates = useSelector((state) => getCities(state)[activeCity]);
+  const filteredRooms = useSelector((state) => getFilteredRooms(state));
   if (filteredRooms.length) {
     const [idActiveRoom, setActiveRoom] = useState(null);
     const handleMouseEnter = useCallback((item) => {
@@ -76,17 +78,4 @@ const CityPlaces = ({ activeCity, coordinates, filteredRooms }) => {
   );
 };
 
-CityPlaces.propTypes = {
-  activeCity: PropTypes.string,
-  coordinates: PropTypes.object,
-  filteredRooms: roomsType,
-};
-
-const mapStateToProps = (state) => ({
-  activeCity: getActiveCity(state),
-  coordinates: getActiveCityCoordinates(state),
-  filteredRooms: getFilteredRooms(state),
-});
-
-export { CityPlaces };
-export default connect(mapStateToProps)(CityPlaces);
+export default CityPlaces;
