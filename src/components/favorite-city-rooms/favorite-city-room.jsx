@@ -1,17 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { bookmarkClassname, capitalizeFirstLetter, roundRating } from '../../utils/utils';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import roomType from '../../types/room';
 import { useHistory } from "react-router-dom";
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getAuthorizationStatus } from '../../store/login-data/selectors';
 import { fetchFavorite } from '../../store/hotel-data/api-actions';
 
-const FavoriteCityRoom = ({ room, authorizationStatus, onChangeFavorite }) => {
+const FavoriteCityRoom = ({ room }) => {
   const { id, img, priceValue, priceText, bookmark, rating, card, type } = room;
 
+  const authorizationStatus = useSelector((state) => getAuthorizationStatus(state));
+  const dispatch = useDispatch();
+  const onChangeFavorite = (idHotel) => {
+    dispatch(fetchFavorite(idHotel));
+  };
   const history = useHistory();
   const handleAddToFavorites = () => {
     if (authorizationStatus === AuthorizationStatus.AUTH) {
@@ -60,19 +64,6 @@ const FavoriteCityRoom = ({ room, authorizationStatus, onChangeFavorite }) => {
 
 FavoriteCityRoom.propTypes = {
   room: roomType,
-  onChangeFavorite: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: getAuthorizationStatus(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onChangeFavorite(idHotel) {
-    dispatch(fetchFavorite(idHotel));
-  }
-});
-
-export { FavoriteCityRoom };
-export default connect(mapStateToProps, mapDispatchToProps)(FavoriteCityRoom);
+export default FavoriteCityRoom;
