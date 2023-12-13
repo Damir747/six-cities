@@ -11,7 +11,6 @@ import browserHistory from '../../browser-history';
 import { getAuthorizationStatus } from '../../store/login-data/selectors';
 import { useHistory } from "react-router-dom";
 import { fetchFavorite } from '../../store/hotel-data/api-actions';
-import runFunc from './handle-add-to-favorites';
 import handleAddToFavorites from './handle-add-to-favorites';
 
 const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame, authorizationStatus, onChangeFavorite }) => {

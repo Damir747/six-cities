@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 
 import OldReviews from '../old-reviews/old-reviews';
 import NewReview from '../new-review/new-review';
-import { getReviews } from '../../store/comment-data/selectors';
 import { AuthorizationStatus } from '../../const';
 import { NameSpace } from '../../store/root-reducer';
 
