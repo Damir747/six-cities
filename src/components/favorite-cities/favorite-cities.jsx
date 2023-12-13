@@ -1,15 +1,15 @@
 /* eslint-disable indent */
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import roomsType from '../../types/rooms';
 import { getCities } from '../../store/city-data/selectors';
 import { getFavoriteRooms } from '../../store/hotel-data/selectors';
 import FavoriteCity from './favorite-city';
+import { NameSpace } from '../../store/root-reducer';
 
-const FavoriteCities = ({ cities, favoriteRooms }) => {
-
+const FavoriteCities = () => {
+  const { cities } = useSelector((state) => state[NameSpace.CITY]);
+  const favoriteRooms = useSelector((state) => getFavoriteRooms(state));
   return (
     <React.Fragment>
       {Object.keys(cities).sort((a, b) => a > b).map((city) => {
@@ -30,15 +30,4 @@ const FavoriteCities = ({ cities, favoriteRooms }) => {
   );
 };
 
-FavoriteCities.propTypes = {
-  cities: PropTypes.object,
-  favoriteRooms: roomsType,
-};
-
-const mapStateToProps = (state) => ({
-  cities: getCities(state),
-  favoriteRooms: getFavoriteRooms(state),
-});
-
-export { FavoriteCities };
-export default connect(mapStateToProps)(FavoriteCities);
+export default FavoriteCities;
