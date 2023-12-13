@@ -5,7 +5,7 @@ import roomType from '../../types/room';
 import { AppRoute, AuthorizationStatus, Frame } from '../../const';
 import { bookmarkClassname, capitalizeFirstLetter, classname, frameClassname, roundRating } from '../../utils/utils';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 
 import browserHistory from '../../browser-history';
 import { getAuthorizationStatus } from '../../store/login-data/selectors';
@@ -13,9 +13,15 @@ import { useHistory } from "react-router-dom";
 import { fetchFavorite } from '../../store/hotel-data/api-actions';
 import handleAddToFavorites from './handle-add-to-favorites';
 
-const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame, authorizationStatus, onChangeFavorite }) => {
+const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame }) => {
   const { id, level, img, priceValue, priceText, bookmark, rating, card, type } = roomElement;
   const history = useHistory();
+
+  const authorizationStatus = useSelector((state) => getAuthorizationStatus(state));
+  const dispatch = useDispatch();
+  const onChangeFavorite = (idHotel) => {
+    dispatch(fetchFavorite(idHotel));
+  };
 
   return (
     <React.Fragment>
@@ -67,20 +73,7 @@ Room.propTypes = {
   roomElement: roomType,
   onMouseEnter: PropTypes.func,
   onMouseLeave: PropTypes.func,
-  onChangeFavorite: PropTypes.func.isRequired,
   frame: PropTypes.string,
-  authorizationStatus: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: getAuthorizationStatus(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onChangeFavorite(idHotel) {
-    dispatch(fetchFavorite(idHotel));
-  }
-});
-
-export { Room };
-export default connect(mapStateToProps, mapDispatchToProps)(Room);
+export default Room;
