@@ -1,26 +1,25 @@
 /* eslint-disable indent */
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 
 import Top from '../top/top';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 
 import FavoriteCities from '../favorite-cities/favorite-cities';
-import { connect, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../loading/loading';
 import { getIsFavoriteListLoaded } from '../../store/favorite-data/selectors';
 import FavoritesEmpty from '../favorites-empty/favorites-empty';
 import { fetchFavoriteList } from '../../store/favorite-data/api-actions';
 
-const FavoritePage = ({ onLoadFavorites }) => {
-
+const FavoritePage = () => {
+  const dispatch = useDispatch();
   const isFavoriteListLoaded = useSelector((state) => getIsFavoriteListLoaded(state));
   const [fetchingFavorites, setFetchingFavorites] = useState(true);
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-    onLoadFavorites()
+    dispatch(fetchFavoriteList())
       .then((data) => {
         setFavorites(data);
         setFetchingFavorites(false);
@@ -70,15 +69,4 @@ const FavoritePage = ({ onLoadFavorites }) => {
   );
 };
 
-FavoritePage.propTypes = {
-  onLoadFavorites: () => { },
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  onLoadFavorites() {
-    return dispatch(fetchFavoriteList());
-  },
-});
-
-export { FavoritePage };
-export default connect(null, mapDispatchToProps)(FavoritePage);
+export default FavoritePage;
