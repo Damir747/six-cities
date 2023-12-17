@@ -12,7 +12,7 @@ import { bookmarkClassname, classname, numberRating, roundRating } from '../../u
 import roomsType from '../../types/rooms';
 
 import { getIsHotelLoaded, getNeighbourhood, getRooms } from '../../store/hotel-data/selectors';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import Loading from '../loading/loading';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { AppRoute, AuthorizationStatus, Frame } from '../../const';
@@ -23,9 +23,15 @@ import { fetchCommentsList } from '../../store/comment-data/api-actions';
 import { selectCurrentCity } from '../../store/city-data/actions';
 import { getCurrentCity, getCurrentCityCoordinates } from '../../store/city-data/selectors';
 
-const Property = ({ rooms, isHotelLoaded, currentCity, coordinates, neighbourhood,
-  onLoadHotel, onLoadComments, onChangeFavorite, onLoadNeighbourhood, onSelectCurrentCity, authorizationStatus }) => {
+const Property = ({ onLoadHotel, onLoadComments, onChangeFavorite, onLoadNeighbourhood, onSelectCurrentCity }) => {
   const history = useHistory();
+
+  const rooms = useSelector((state) => getRooms(state));
+  const currentCity = useSelector((state) => getCurrentCity(state));
+  const coordinates = useSelector((state) => getCurrentCityCoordinates(state));
+  const isHotelLoaded = useSelector((state) => getIsHotelLoaded(state));
+  const authorizationStatus = useSelector((state) => getAuthorizationStatus(state));
+  const neighbourhood = useSelector((state) => getNeighbourhood(state));
 
   const [fetchingHotel, setFetchingHotel] = useState(true);
   const [fetchingComments, setFetchingComments] = useState(true);
@@ -201,27 +207,12 @@ const Property = ({ rooms, isHotelLoaded, currentCity, coordinates, neighbourhoo
 };
 
 Property.propTypes = {
-  rooms: roomsType,
-  isHotelLoaded: PropTypes.bool.isRequired,
-  currentCity: PropTypes.string,
-  coordinates: PropTypes.object,
   onLoadHotel: PropTypes.func.isRequired,
   onSelectCurrentCity: PropTypes.func.isRequired,
   onLoadNeighbourhood: PropTypes.func.isRequired,
   onLoadComments: PropTypes.func.isRequired,
   onChangeFavorite: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-  neighbourhood: roomsType,
 };
-
-const mapStateToProps = (state) => ({
-  rooms: getRooms(state),
-  currentCity: getCurrentCity(state),
-  coordinates: getCurrentCityCoordinates(state),
-  isHotelLoaded: getIsHotelLoaded(state),
-  authorizationStatus: getAuthorizationStatus(state),
-  neighbourhood: getNeighbourhood(state),
-});
 
 const mapDispatchToProps = (dispatch) => ({
   onLoadComments(idHotel) {
@@ -242,4 +233,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export { Property };
-export default connect(mapStateToProps, mapDispatchToProps)(Property);
+export default connect(null, mapDispatchToProps)(Property);
