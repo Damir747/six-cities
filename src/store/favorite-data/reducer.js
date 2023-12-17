@@ -2,6 +2,7 @@ import { FAVORITE_LIST } from "./actions-types";
 
 /* eslint-disable indent */
 const initialState = {
+  favorites: [],
   isFavoriteListLoaded: false,
 };
 
