@@ -1,8 +1,7 @@
 /* eslint-disable indent */
 import React from 'react';
-import { connect, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import propertyInsideItemsType from '../../types/property-inside-items';
 import { getPropertyInside } from '../../store/init-data/selectors';
 
 
