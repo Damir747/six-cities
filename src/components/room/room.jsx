@@ -15,13 +15,6 @@ import handleAddToFavorites from './handle-add-to-favorites';
 
 const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame }) => {
   const { id, level, img, priceValue, priceText, bookmark, rating, card, type } = roomElement;
-  const history = useHistory();
-
-  const authorizationStatus = useSelector(getAuthorizationStatus);
-  const dispatch = useDispatch();
-  const onChangeFavorite = (idHotel) => {
-    dispatch(fetchFavorite(idHotel));
-  };
 
   return (
     <React.Fragment>
@@ -45,7 +38,7 @@ const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame }) => {
               <span className="place-card__price-text">&#47;&nbsp;{priceText || 'ночь'}</span>
             </div>
             <button className={bookmarkClassname('place-card', bookmark)} type="button"
-              onClick={handleAddToFavorites(authorizationStatus, onChangeFavorite, id, history.push)}>
+              onClick={handleAddToFavorites(id)}>
 
               <svg className="place-card__bookmark-icon" width="18" height="19">
                 <use xlinkHref="#icon-bookmark"></use>
