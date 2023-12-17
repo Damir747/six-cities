@@ -14,8 +14,8 @@ import { fetchFavoriteList } from '../../store/favorite-data/api-actions';
 
 const FavoritePage = () => {
   const dispatch = useDispatch();
-  const isFavoriteListLoaded = useSelector((state) => getIsFavoriteListLoaded(state));
-  const favorites = useSelector((state) => getFavoriteList(state));
+  const isFavoriteListLoaded = useSelector(getIsFavoriteListLoaded);
+  const favorites = useSelector(getFavoriteList);
 
   useEffect(() => {
     if (!isFavoriteListLoaded) {

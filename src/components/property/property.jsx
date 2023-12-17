@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 import Top from '../top/top';
@@ -26,18 +25,24 @@ import { initHotel } from '../../store/hotel-data/actions';
 const Property = () => {
   const history = useHistory();
 
-  const rooms = useSelector((state) => getRooms(state));
-  const currentCity = useSelector((state) => getCurrentCity(state));
-  const coordinates = useSelector((state) => getCurrentCityCoordinates(state));
-  const authorizationStatus = useSelector((state) => getAuthorizationStatus(state));
-  const neighbourhood = useSelector((state) => getNeighbourhood(state));
-  const isHotelLoaded = useSelector((state) => getIsHotelLoaded(state));
-  const isCommentLoaded = useSelector((state) => getIsCommentLoaded(state));
-  const isNeighbourhoodLoaded = useSelector((state) => getIsNeighbourhoodLoaded(state));
+  const rooms = useSelector(getRooms);
+  const currentCity = useSelector(getCurrentCity);
+  const coordinates = useSelector(getCurrentCityCoordinates);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const neighbourhood = useSelector(getNeighbourhood);
+  const isHotelLoaded = useSelector(getIsHotelLoaded);
+  const isCommentLoaded = useSelector(getIsCommentLoaded);
+  const isNeighbourhoodLoaded = useSelector(getIsNeighbourhoodLoaded);
   const dispatch = useDispatch();
 
   const idHotelParam = Number(useParams().id);
   const room = rooms.find((el) => el.id === idHotelParam);
+  if (!room) {
+    return (
+      <NotFoundScreen />
+    );
+  }
+
   // ? доделать. Работает, но нужно навести красоту
 
   const [idActiveRoom, setActiveRoom] = useState(null);
@@ -71,12 +76,6 @@ const Property = () => {
   if (!isHotelLoaded || !isCommentLoaded || !isNeighbourhoodLoaded) {
     return (
       <Loading />
-    );
-  }
-
-  if (!room) {
-    return (
-      <NotFoundScreen />
     );
   }
 

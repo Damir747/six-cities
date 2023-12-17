@@ -8,8 +8,8 @@ import { selectActiveCity } from '../../store/city-data/actions';
 
 const CityList = () => {
 
-  const cities = useSelector((state) => getCities(state));
-  const activeCity = useSelector((state) => getActiveCity(state));
+  const cities = useSelector(getCities);
+  const activeCity = useSelector(getActiveCity);
   const dispatch = useDispatch();
   const onClick = (city) => {
     dispatch(selectActiveCity(city));

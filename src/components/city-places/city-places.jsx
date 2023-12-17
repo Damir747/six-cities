@@ -14,7 +14,7 @@ import { NameSpace } from '../../store/root-reducer';
 const CityPlaces = () => {
   const { activeCity } = useSelector((state) => state[NameSpace.CITY]);
   const coordinates = useSelector((state) => getCities(state)[activeCity]);
-  const filteredRooms = useSelector((state) => getFilteredRooms(state));
+  const filteredRooms = useSelector(getFilteredRooms);
   if (filteredRooms.length) {
     const [idActiveRoom, setActiveRoom] = useState(null);
     const handleMouseEnter = useCallback((item) => {

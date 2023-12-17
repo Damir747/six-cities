@@ -9,7 +9,7 @@ import { NameSpace } from '../../store/root-reducer';
 
 const FavoriteCities = () => {
   const { cities } = useSelector((state) => state[NameSpace.CITY]);
-  const favoriteRooms = useSelector((state) => getFavoriteRooms(state));
+  const favoriteRooms = useSelector(getFavoriteRooms);
   return (
     <React.Fragment>
       {Object.keys(cities).sort((a, b) => a > b).map((city) => {

@@ -17,7 +17,7 @@ const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame }) => {
   const { id, level, img, priceValue, priceText, bookmark, rating, card, type } = roomElement;
   const history = useHistory();
 
-  const authorizationStatus = useSelector((state) => getAuthorizationStatus(state));
+  const authorizationStatus = useSelector(getAuthorizationStatus);
   const dispatch = useDispatch();
   const onChangeFavorite = (idHotel) => {
     dispatch(fetchFavorite(idHotel));

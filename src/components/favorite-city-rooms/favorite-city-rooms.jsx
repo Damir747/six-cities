@@ -1,6 +1,5 @@
 /* eslint-disable indent */
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import roomsType from '../../types/rooms';
 import FavoriteCityRoom from './favorite-city-room';

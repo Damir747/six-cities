@@ -13,7 +13,6 @@ import { loadHotel, loadHotelList, changeFavorite, loadComments } from './store/
 
 import App from './components/app/app';
 
-// ? избавиться от connect: dispatch = useDispatch()
 // ? редирект на логин после запроса к серверу, когда он возвращает 401 (в разборе 7.8)
 // ? logout сделать?
 

@@ -19,7 +19,7 @@ import { fetchHotelList } from '../../store/hotel-data/api-actions';
 // ? по прямой ссылке - переходить на аутентификацию
 
 const App = () => {
-  const isDataLoaded = useSelector((state) => getIsDataLoaded(state));
+  const isDataLoaded = useSelector(getIsDataLoaded);
   const dispatch = useDispatch();
 
   useEffect(() => {

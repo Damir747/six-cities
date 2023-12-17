@@ -7,15 +7,15 @@ import LoginPage from '../login-page/login-page';
 import { useSelector } from 'react-redux';
 
 const FavoriteLogin = () => {
-  const authorizationStatus = useSelector((state) => getAuthorizationStatus(state));
-  if (authorizationStatus === AuthorizationStatus.AUTH) {
-    return (
-      <FavoritePage />
-    );
-  }
-  return (
-    <LoginPage />
-  );
+	const authorizationStatus = useSelector(getAuthorizationStatus);
+	if (authorizationStatus === AuthorizationStatus.AUTH) {
+		return (
+			<FavoritePage />
+		);
+	}
+	return (
+		<LoginPage />
+	);
 };
 
 export default FavoriteLogin;
