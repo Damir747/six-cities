@@ -9,7 +9,7 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Property from '../property/property';
 
 import reviewsType from '../../types/reviews';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { getIsDataLoaded } from '../../store/hotel-data/selectors';
 import Loading from '../loading/loading';
 import browserHistory from '../../browser-history';
@@ -19,7 +19,8 @@ import { fetchHotelList } from '../../store/hotel-data/api-actions';
 // ? по прямой ссылке - переходить на аутентификацию
 // ? убрать connect, заменить на useSelector
 
-const App = ({ onLoadData, isDataLoaded }) => {
+const App = ({ onLoadData }) => {
+  const isDataLoaded = useSelector((state) => getIsDataLoaded(state));
 
   useEffect(() => {
     if (!isDataLoaded) {
@@ -60,13 +61,8 @@ const App = ({ onLoadData, isDataLoaded }) => {
 App.propTypes = {
   reviews: reviewsType,
   cities: PropTypes.object,
-  isDataLoaded: PropTypes.bool.isRequired,
   onLoadData: PropTypes.func.isRequired,
 };
-
-const mapStateToProps = (state) => ({
-  isDataLoaded: getIsDataLoaded(state)
-});
 
 const mapDispatchToProps = (dispatch) => ({
   onLoadData() {
@@ -75,7 +71,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export { App };
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(App);
 
 // Задайте себе три вопроса:
 
