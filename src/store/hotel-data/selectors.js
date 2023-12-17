@@ -12,6 +12,9 @@ const getBookmark = (state, idRoom) => getRoom(state, idRoom).bookmark;
 
 const getIsDataLoaded = (state) => state[NameSpace.HOTEL].isDataLoaded;
 const getIsHotelLoaded = (state) => state[NameSpace.HOTEL].isHotelLoaded;
+const getIsCommentLoaded = (state) => state[NameSpace.HOTEL].isCommentLoaded;
+const getIsNeighbourhoodLoaded = (state) => state[NameSpace.HOTEL].isNeighbourhoodLoaded;
+
 const sortedRooms = (rooms, sortType) => {
   switch (sortType) {
     case (1): {
@@ -58,6 +61,8 @@ export {
   getBookmark,
   getIsDataLoaded,
   getIsHotelLoaded,
+  getIsCommentLoaded,
+  getIsNeighbourhoodLoaded,
   sortedRooms,
   getFilteredRooms,
   getFavoriteRooms,

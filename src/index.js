@@ -9,8 +9,7 @@ import { redirect } from './store/middleware/redirect';
 import rootReducer from './store/root-reducer';
 import { AuthorizationStatus } from './const';
 import { changeAuthorizationStatus } from './store/login-data/actions';
-import { loadHotel, loadHotelList, changeFavorite } from './store/hotel-data/actions';
-import { loadReviewList } from './store/comment-data/actions';
+import { loadHotel, loadHotelList, changeFavorite, loadComments } from './store/hotel-data/actions';
 
 import App from './components/app/app';
 
@@ -22,9 +21,6 @@ const api = createAPI(
   () => {
     store.dispatch(changeAuthorizationStatus(AuthorizationStatus.NO_AUTH));
     store.dispatch(loadHotelList);
-    store.dispatch(loadHotel);
-    store.dispatch(loadReviewList);
-    store.dispatch(changeFavorite);
   }
 );
 

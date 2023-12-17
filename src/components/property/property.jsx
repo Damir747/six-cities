@@ -10,7 +10,7 @@ import CityMap from '../city-map/city-map';
 import Room from '../room/room';
 import { bookmarkClassname, classname, numberRating, roundRating } from '../../utils/utils';
 
-import { getIsHotelLoaded, getNeighbourhood, getRooms } from '../../store/hotel-data/selectors';
+import { getIsCommentLoaded, getIsHotelLoaded, getIsNeighbourhoodLoaded, getNeighbourhood, getRooms } from '../../store/hotel-data/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../loading/loading';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
@@ -21,6 +21,7 @@ import { fetchFavorite, fetchHotel, fetchNeighbourhood } from '../../store/hotel
 import { fetchCommentsList } from '../../store/comment-data/api-actions';
 import { selectCurrentCity } from '../../store/city-data/actions';
 import { getCurrentCity, getCurrentCityCoordinates } from '../../store/city-data/selectors';
+import { initHotel } from '../../store/hotel-data/actions';
 
 const Property = () => {
   const history = useHistory();
@@ -28,14 +29,12 @@ const Property = () => {
   const rooms = useSelector((state) => getRooms(state));
   const currentCity = useSelector((state) => getCurrentCity(state));
   const coordinates = useSelector((state) => getCurrentCityCoordinates(state));
-  const isHotelLoaded = useSelector((state) => getIsHotelLoaded(state));
   const authorizationStatus = useSelector((state) => getAuthorizationStatus(state));
   const neighbourhood = useSelector((state) => getNeighbourhood(state));
+  const isHotelLoaded = useSelector((state) => getIsHotelLoaded(state));
+  const isCommentLoaded = useSelector((state) => getIsCommentLoaded(state));
+  const isNeighbourhoodLoaded = useSelector((state) => getIsNeighbourhoodLoaded(state));
   const dispatch = useDispatch();
-
-  const [fetchingHotel, setFetchingHotel] = useState(true);
-  const [fetchingComments, setFetchingComments] = useState(true);
-  const [fetchingNeighbourhood, setFetchingNeighbourhood] = useState(true);
 
   const idHotelParam = Number(useParams().id);
   const room = rooms.find((el) => el.id === idHotelParam);
@@ -50,25 +49,26 @@ const Property = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(fetchHotel(idHotelParam))
-      .then((value) => {
-        dispatch(selectCurrentCity(value.cityName));
-        setFetchingHotel(false);
-      })
-      .catch((err) => console.log(err));
-    dispatch(fetchCommentsList(idHotelParam))
-      .then((_value) => {
-        setFetchingComments(false);
-      })
-      .catch((err) => console.log(err));
-    dispatch(fetchNeighbourhood(idHotelParam))
-      .then((_value) => {
-        setFetchingNeighbourhood(false);
-      })
-      .catch((err) => console.log(err));
-  }, [fetchingHotel, fetchingComments, fetchingNeighbourhood, idHotelParam]);
+    dispatch(initHotel());
+  }, [idHotelParam]);
 
-  if (fetchingHotel || fetchingComments || fetchingNeighbourhood || !isHotelLoaded) {
+  useEffect(() => {
+    if (!isHotelLoaded) {
+      dispatch(fetchHotel(idHotelParam))
+        .then((value) => {
+          dispatch(selectCurrentCity(value.cityName));
+        })
+        .catch((err) => console.log(err));
+    }
+    if (!isCommentLoaded) {
+      dispatch(fetchCommentsList(idHotelParam));
+    }
+    if (!isNeighbourhoodLoaded) {
+      dispatch(fetchNeighbourhood(idHotelParam));
+    }
+  }, [isHotelLoaded, isCommentLoaded, isNeighbourhoodLoaded]);
+
+  if (!isHotelLoaded || !isCommentLoaded || !isNeighbourhoodLoaded) {
     return (
       <Loading />
     );

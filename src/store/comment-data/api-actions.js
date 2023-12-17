@@ -1,7 +1,8 @@
 import { Comment } from '../adapter';
 import { appendNotification } from '../notification-data/actions';
-import { commentPost, loadReviewList } from './actions';
+import { commentPost } from './actions';
 import { serverLinks } from '../server-links';
+import { loadComments } from '../hotel-data/actions';
 
 const fetchCommentsList = (idHotel) => (dispatch, _getState, api) => {
   return api.get(`${serverLinks.COMMENTS}/${idHotel}`)
@@ -10,7 +11,7 @@ const fetchCommentsList = (idHotel) => (dispatch, _getState, api) => {
       data.map((el) => {
         commentList.push(Object.assign({}, Comment.convertDataToComment(el)));
       });
-      dispatch(loadReviewList(commentList));
+      dispatch(loadComments(commentList));
       return commentList;
     })
     .catch((error) => {
@@ -32,7 +33,7 @@ const fetchPostComment = (idHotel, commentObj) => (dispatch, _getState, api) => 
       data.map((el) => {
         commentList.push(Object.assign({}, Comment.convertDataToComment(el)));
       });
-      dispatch(loadReviewList(commentList));
+      dispatch(loadComments(commentList));
       return commentList;
     })
     .catch((error) => {

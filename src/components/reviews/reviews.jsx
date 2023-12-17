@@ -8,14 +8,13 @@ import { AuthorizationStatus } from '../../const';
 import { NameSpace } from '../../store/root-reducer';
 
 const Reviews = ({ idHotel }) => {
-  const { reviews } = useSelector((state) => state[NameSpace.COMMENT]);
   const { authorizationStatus } = useSelector((state) => state[NameSpace.LOGIN]);
 
   return (
     <React.Fragment>
       <section className="property__reviews reviews">
 
-        <OldReviews reviews={reviews} />
+        <OldReviews />
         {authorizationStatus === AuthorizationStatus.AUTH
           ? <NewReview
             idHotel={idHotel}

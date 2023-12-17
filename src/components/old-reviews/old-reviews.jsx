@@ -1,7 +1,6 @@
 import React from 'react';
-import { connect, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import reviewsType from '../../types/reviews';
 import { getReviews } from '../../store/comment-data/selectors';
 import OldReview from './old-review';
 
