@@ -7,13 +7,15 @@ import Header from '../header/header';
 import Footer from '../footer/footer';
 
 import FavoriteCities from '../favorite-cities/favorite-cities';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import Loading from '../loading/loading';
 import { getIsFavoriteListLoaded } from '../../store/favorite-data/selectors';
 import FavoritesEmpty from '../favorites-empty/favorites-empty';
 import { fetchFavoriteList } from '../../store/favorite-data/api-actions';
 
-const FavoritePage = ({ onLoadFavorites, isFavoriteListLoaded }) => {
+const FavoritePage = ({ onLoadFavorites }) => {
+
+  const isFavoriteListLoaded = useSelector((state) => getIsFavoriteListLoaded(state));
   const [fetchingFavorites, setFetchingFavorites] = useState(true);
   const [favorites, setFavorites] = useState([]);
 
@@ -70,12 +72,7 @@ const FavoritePage = ({ onLoadFavorites, isFavoriteListLoaded }) => {
 
 FavoritePage.propTypes = {
   onLoadFavorites: () => { },
-  isFavoriteListLoaded: PropTypes.bool.isRequired,
 };
-
-const mapStateToProps = (state) => ({
-  isFavoriteListLoaded: getIsFavoriteListLoaded(state),
-});
 
 const mapDispatchToProps = (dispatch) => ({
   onLoadFavorites() {
@@ -84,4 +81,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export { FavoritePage };
-export default connect(mapStateToProps, mapDispatchToProps)(FavoritePage);
+export default connect(null, mapDispatchToProps)(FavoritePage);

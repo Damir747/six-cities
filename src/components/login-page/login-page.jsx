@@ -4,27 +4,22 @@ import Header from '../header/header';
 import Top from '../top/top';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { AppRoute } from '../../const';
-import { useCallback } from 'react';
-import { useState } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { fetchLogin } from '../../store/login-data/api-actions';
 
-const LoginPage = ({ onLogin }) => {
+const LoginPage = () => {
   const history = useHistory();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
 
-  const handleSubmit = useCallback((evt) => {
+  const handleSubmit = (evt) => {
     evt.preventDefault();
-    setEmail(evt.target['email'].value);
-    setPassword(evt.target['password'].value);
-    onLogin({
+    dispatch(fetchLogin({
       email: evt.target['email'].value,
       password: evt.target['password'].value
-    })
+    }))
       .then(() => history.push(AppRoute.ROOT));
-  });
+  };
 
   return (
     <React.Fragment>
@@ -66,9 +61,4 @@ const LoginPage = ({ onLogin }) => {
   );
 };
 
-const mapDispatchToProps = ({
-  onLogin: fetchLogin
-});
-
-export { LoginPage };
-export default connect(null, mapDispatchToProps)(LoginPage);
+export default LoginPage;
