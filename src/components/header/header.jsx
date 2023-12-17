@@ -1,17 +1,17 @@
 /* eslint-disable indent */
 import React, { memo } from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-import loginType from '../../types/login';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 import { getAuthorizationStatus, getLoginName } from '../../store/login-data/selectors';
 
-const Header = ({ authorizationStatus, loginName }) => {
+const Header = () => {
   const history = useHistory();
   const buttonStyle = { height: '50%', width: '80px', margin: '10px' };
+  const authorizationStatus = useSelector((state) => getAuthorizationStatus(state));
+  const loginName = useSelector((state) => getLoginName(state));
 
   return (
     <React.Fragment>
@@ -44,15 +44,4 @@ const Header = ({ authorizationStatus, loginName }) => {
   );
 };
 
-Header.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-  loginName: loginType,
-};
-
-const mapStateToProps = (state) => ({
-  authorizationStatus: getAuthorizationStatus(state),
-  loginName: getLoginName(state),
-});
-
-export { Header };
-export default connect(mapStateToProps)(memo(Header));
+export default memo(Header);
