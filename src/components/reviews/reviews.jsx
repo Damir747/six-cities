@@ -5,10 +5,10 @@ import { useSelector } from 'react-redux';
 import OldReviews from '../old-reviews/old-reviews';
 import NewReview from '../new-review/new-review';
 import { AuthorizationStatus } from '../../const';
-import { NameSpace } from '../../store/root-reducer';
+import { getAuthorizationStatus } from '../../store/login-data/selectors';
 
 const Reviews = ({ idHotel }) => {
-  const { authorizationStatus } = useSelector((state) => state[NameSpace.LOGIN]);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
 
   return (
     <React.Fragment>

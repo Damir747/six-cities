@@ -5,15 +5,13 @@ import MenuUp from '../menu-up/menu-up';
 import CityMap from '../city-map/city-map';
 import Room from '../../components/room/room';
 
-import { getCities } from '../../store/city-data/selectors';
+import { getActiveCity, getActiveCityCoordinates } from '../../store/city-data/selectors';
 import { Frame } from '../../const';
-import { useWhyDidYouUpdate } from 'ahooks';
 import { getFilteredRooms } from '../../store/hotel-data/selectors';
-import { NameSpace } from '../../store/root-reducer';
 
 const CityPlaces = () => {
-  const { activeCity } = useSelector((state) => state[NameSpace.CITY]);
-  const coordinates = useSelector((state) => getCities(state)[activeCity]);
+  const activeCity = useSelector(getActiveCity);
+  const coordinates = useSelector(getActiveCityCoordinates);
   const filteredRooms = useSelector(getFilteredRooms);
   if (filteredRooms.length) {
     const [idActiveRoom, setActiveRoom] = useState(null);

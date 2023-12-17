@@ -5,10 +5,9 @@ import { useSelector } from 'react-redux';
 import { getCities } from '../../store/city-data/selectors';
 import { getFavoriteRooms } from '../../store/hotel-data/selectors';
 import FavoriteCity from './favorite-city';
-import { NameSpace } from '../../store/root-reducer';
 
 const FavoriteCities = () => {
-  const { cities } = useSelector((state) => state[NameSpace.CITY]);
+  const cities = useSelector(getCities);
   const favoriteRooms = useSelector(getFavoriteRooms);
   return (
     <React.Fragment>
