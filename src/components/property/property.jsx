@@ -9,10 +9,9 @@ import Reviews from '../reviews/reviews';
 import CityMap from '../city-map/city-map';
 import Room from '../room/room';
 import { bookmarkClassname, classname, numberRating, roundRating } from '../../utils/utils';
-import roomsType from '../../types/rooms';
 
 import { getIsHotelLoaded, getNeighbourhood, getRooms } from '../../store/hotel-data/selectors';
-import { connect, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../loading/loading';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { AppRoute, AuthorizationStatus, Frame } from '../../const';
@@ -23,7 +22,7 @@ import { fetchCommentsList } from '../../store/comment-data/api-actions';
 import { selectCurrentCity } from '../../store/city-data/actions';
 import { getCurrentCity, getCurrentCityCoordinates } from '../../store/city-data/selectors';
 
-const Property = ({ onLoadHotel, onLoadComments, onChangeFavorite, onLoadNeighbourhood, onSelectCurrentCity }) => {
+const Property = () => {
   const history = useHistory();
 
   const rooms = useSelector((state) => getRooms(state));
@@ -32,6 +31,7 @@ const Property = ({ onLoadHotel, onLoadComments, onChangeFavorite, onLoadNeighbo
   const isHotelLoaded = useSelector((state) => getIsHotelLoaded(state));
   const authorizationStatus = useSelector((state) => getAuthorizationStatus(state));
   const neighbourhood = useSelector((state) => getNeighbourhood(state));
+  const dispatch = useDispatch();
 
   const [fetchingHotel, setFetchingHotel] = useState(true);
   const [fetchingComments, setFetchingComments] = useState(true);
@@ -50,18 +50,18 @@ const Property = ({ onLoadHotel, onLoadComments, onChangeFavorite, onLoadNeighbo
   }, []);
 
   useEffect(() => {
-    onLoadHotel(idHotelParam)
+    dispatch(fetchHotel(idHotelParam))
       .then((value) => {
-        onSelectCurrentCity(value.cityName);
+        dispatch(selectCurrentCity(value.cityName));
         setFetchingHotel(false);
       })
       .catch((err) => console.log(err));
-    onLoadComments(idHotelParam)
+    dispatch(fetchCommentsList(idHotelParam))
       .then((_value) => {
         setFetchingComments(false);
       })
       .catch((err) => console.log(err));
-    onLoadNeighbourhood(idHotelParam)
+    dispatch(fetchNeighbourhood(idHotelParam))
       .then((_value) => {
         setFetchingNeighbourhood(false);
       })
@@ -84,7 +84,7 @@ const Property = ({ onLoadHotel, onLoadComments, onChangeFavorite, onLoadNeighbo
 
   const handleAddToFavorites = () => {
     if (authorizationStatus === AuthorizationStatus.AUTH) {
-      onChangeFavorite(id);
+      dispatch(fetchFavorite(id));
     } else {
       history.push(AppRoute.LOGIN);
     }
@@ -206,31 +206,4 @@ const Property = ({ onLoadHotel, onLoadComments, onChangeFavorite, onLoadNeighbo
   );
 };
 
-Property.propTypes = {
-  onLoadHotel: PropTypes.func.isRequired,
-  onSelectCurrentCity: PropTypes.func.isRequired,
-  onLoadNeighbourhood: PropTypes.func.isRequired,
-  onLoadComments: PropTypes.func.isRequired,
-  onChangeFavorite: PropTypes.func.isRequired,
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  onLoadComments(idHotel) {
-    return dispatch(fetchCommentsList(idHotel));
-  },
-  onChangeFavorite(idHotel) {
-    dispatch(fetchFavorite(idHotel));
-  },
-  onLoadHotel(idHotel) {
-    return dispatch(fetchHotel(idHotel));
-  },
-  onSelectCurrentCity(city) {
-    dispatch(selectCurrentCity(city));
-  },
-  onLoadNeighbourhood(idHotel) {
-    return dispatch(fetchNeighbourhood(idHotel));
-  },
-});
-
-export { Property };
-export default connect(null, mapDispatchToProps)(Property);
+export default Property;
