@@ -9,7 +9,7 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Property from '../property/property';
 
 import reviewsType from '../../types/reviews';
-import { connect, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getIsDataLoaded } from '../../store/hotel-data/selectors';
 import Loading from '../loading/loading';
 import browserHistory from '../../browser-history';
@@ -17,14 +17,14 @@ import FavoriteLogin from '../favorites-page/favorite-login';
 import { fetchHotelList } from '../../store/hotel-data/api-actions';
 // ? live 6. 01:46:19 - разобраться с остатками useHistory
 // ? по прямой ссылке - переходить на аутентификацию
-// ? убрать connect, заменить на useSelector
 
-const App = ({ onLoadData }) => {
+const App = () => {
   const isDataLoaded = useSelector((state) => getIsDataLoaded(state));
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!isDataLoaded) {
-      onLoadData();
+      dispatch(fetchHotelList());
     }
   }, [isDataLoaded]);
 
@@ -61,17 +61,9 @@ const App = ({ onLoadData }) => {
 App.propTypes = {
   reviews: reviewsType,
   cities: PropTypes.object,
-  onLoadData: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  onLoadData() {
-    dispatch(fetchHotelList());
-  }
-});
-
-export { App };
-export default connect(null, mapDispatchToProps)(App);
+export default App;
 
 // Задайте себе три вопроса:
 
