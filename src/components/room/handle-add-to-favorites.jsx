@@ -1,10 +1,18 @@
+import { useDispatch, useSelector } from 'react-redux';
 import { AppRoute, AuthorizationStatus } from '../../const';
+import { getAuthorizationStatus } from '../../store/login-data/selectors';
+import { useHistory } from "react-router-dom";
+import { fetchFavorite } from '../../store/hotel-data/api-actions';
 
-const handleAddToFavorites = (authorizationStatus, onChangeFavorite, id, historyPush) => {
+const handleAddToFavorites = (idHotel) => {
+  const history = useHistory();
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const dispatch = useDispatch();
+
   if (authorizationStatus === AuthorizationStatus.AUTH) {
-    return () => onChangeFavorite(id);
+    return () => dispatch(fetchFavorite(idHotel));
   } else {
-    return () => historyPush(AppRoute.LOGIN);
+    return () => history.push(AppRoute.LOGIN);
   }
 };
 
