@@ -13,8 +13,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getIsDataLoaded } from '../../store/hotel-data/selectors';
 import Loading from '../loading/loading';
 import browserHistory from '../../browser-history';
-import FavoriteLogin from '../favorites-page/favorite-login';
 import { fetchHotelList } from '../../store/hotel-data/api-actions';
+import PrivateRoute from '../private-route/private-route';
+import FavoritePage from '../favorites-page/favorite-page';
 // ? live 6. 01:46:19 - разобраться с остатками useHistory
 // ? по прямой ссылке - переходить на аутентификацию
 
@@ -43,9 +44,14 @@ const App = () => {
           <Route exact path={AppRoute.LOGIN}>
             <LoginPage />
           </Route>
-          <Route exact path={AppRoute.FAVORITES}>
-            <FavoriteLogin />
-          </Route>
+          <PrivateRoute exact
+            path={AppRoute.FAVORITES}
+            render={() => {
+              return (
+                <FavoritePage />
+              );
+            }}
+          />
           <Route exact path={AppRoute.OFFER + ':id'}>
             <Property />
           </Route>

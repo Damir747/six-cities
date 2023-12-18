@@ -26,7 +26,8 @@ const NewReview = ({ idHotel }) => {
     dispatch(fetchPostComment(idHotel, {
       'comment': commentText,
       'rating': commentStars,
-    }));
+    }))
+      .then((value) => console.log(value));
     setCommentText('');
     setStars(0);
   };

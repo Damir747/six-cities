@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 import Top from '../top/top';
 import Header from '../header/header';
@@ -14,21 +14,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../loading/loading';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { AppRoute, AuthorizationStatus, Frame } from '../../const';
-import { getAuthorizationStatus } from '../../store/login-data/selectors';
-import { useHistory } from "react-router-dom";
 import { fetchFavorite, fetchHotel, fetchNeighbourhood } from '../../store/hotel-data/api-actions';
 import { fetchCommentsList } from '../../store/comment-data/api-actions';
 import { selectCurrentCity } from '../../store/city-data/actions';
 import { getCurrentCity, getCurrentCityCoordinates } from '../../store/city-data/selectors';
 import { initHotel } from '../../store/hotel-data/actions';
+import { getAuthorizationStatus } from '../../store/login-data/selectors';
+
+// ? доделать. Работает, но нужно навести красоту
 
 const Property = () => {
   const history = useHistory();
+  const authorizationStatus = useSelector(getAuthorizationStatus);
 
   const rooms = useSelector(getRooms);
   const currentCity = useSelector(getCurrentCity);
   const coordinates = useSelector(getCurrentCityCoordinates);
-  const authorizationStatus = useSelector(getAuthorizationStatus);
   const neighbourhood = useSelector(getNeighbourhood);
   const isHotelLoaded = useSelector(getIsHotelLoaded);
   const isCommentLoaded = useSelector(getIsCommentLoaded);
@@ -42,8 +43,6 @@ const Property = () => {
       <NotFoundScreen />
     );
   }
-
-  // ? доделать. Работает, но нужно навести красоту
 
   const [idActiveRoom, setActiveRoom] = useState(null);
   const handleMouseEnter = useCallback((item) => {
@@ -81,13 +80,15 @@ const Property = () => {
 
   const { id, level, img, priceValue, priceText, bookmark, rating, card, type, description, host, images, cityName } = room;
 
-  const handleAddToFavorites = () => {
+  const handleAddToFavorites = function (idHotel) {
+
     if (authorizationStatus === AuthorizationStatus.AUTH) {
-      dispatch(fetchFavorite(id));
+      return () => dispatch(fetchFavorite(idHotel));
     } else {
-      history.push(AppRoute.LOGIN);
+      return () => history.push(AppRoute.LOGIN);
     }
   };
+
 
   return (
     <React.Fragment>
@@ -116,7 +117,7 @@ const Property = () => {
                   <h1 className="property__name">
                     {card}
                   </h1>
-                  <button className={bookmarkClassname('property', bookmark)} type="button" onClick={handleAddToFavorites}>
+                  <button className={bookmarkClassname('property', bookmark)} type="button" onClick={handleAddToFavorites(id)}>
                     <svg className="property__bookmark-icon" width="31" height="33">
                       <use xlinkHref="#icon-bookmark"></use>
                     </svg>
