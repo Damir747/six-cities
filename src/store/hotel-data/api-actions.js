@@ -22,6 +22,14 @@ const fetchHotelList = () => (dispatch, _getState, api) => {
         cityList = Object.assign(cityList, City.convertDataToCity(el.city));
       });
       dispatch(loadCityList(cityList));
+    })
+    .catch((error) => {
+      console.log('error!');
+      dispatch(appendNotification({
+        message: error.message,
+        type: 'error',
+        id: 4
+      }));
     });
 };
 

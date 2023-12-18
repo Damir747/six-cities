@@ -2,15 +2,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import roomType from '../../types/room';
-import { AppRoute, AuthorizationStatus, Frame } from '../../const';
+import { AppRoute, Frame } from '../../const';
 import { bookmarkClassname, capitalizeFirstLetter, classname, frameClassname, roundRating } from '../../utils/utils';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-import { connect, useDispatch, useSelector } from 'react-redux';
 
-import browserHistory from '../../browser-history';
-import { getAuthorizationStatus } from '../../store/login-data/selectors';
-import { useHistory } from "react-router-dom";
-import { fetchFavorite } from '../../store/hotel-data/api-actions';
 import handleAddToFavorites from './handle-add-to-favorites';
 
 const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame }) => {
