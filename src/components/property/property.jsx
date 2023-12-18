@@ -141,9 +141,14 @@ const Property = () => {
                   <b className="property__price-value">&euro;{priceValue}</b>
                   <span className="property__price-text">&nbsp;{priceText || 'ночь'}</span>
                 </div>
+                <div className="property__inside">
+                  <h2 className="property__inside-title">What&apos;s inside</h2>
+                  <ul className="property__inside-list">
 
-                <PropertyInside />
+                    <PropertyInside />
 
+                  </ul>
+                </div >
                 <div className="property__host">
                   <h2 className="property__host-title">{host && host.title}</h2>
                   <div className="property__host-user user">
@@ -165,11 +170,13 @@ const Property = () => {
 
                   </div>
                 </div>
+                <section className="property__reviews reviews">
 
-                <Reviews
-                  idHotel={idHotelParam}
-                />
+                  <Reviews
+                    idHotel={idHotelParam}
+                  />
 
+                </section>
               </div>
             </div>
             <section className="property__map map">

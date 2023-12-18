@@ -12,23 +12,19 @@ const Reviews = ({ idHotel }) => {
 
   return (
     <React.Fragment>
-      <section className="property__reviews reviews">
+      <OldReviews />
+      {authorizationStatus === AuthorizationStatus.AUTH
+        ? <NewReview
+          idHotel={idHotel}
+        />
+        : ''}
 
-        <OldReviews />
-        {authorizationStatus === AuthorizationStatus.AUTH
-          ? <NewReview
-            idHotel={idHotel}
-          />
-          : ''}
-
-      </section>
-    </React.Fragment>
+    </React.Fragment >
   );
 };
 
 Reviews.propTypes = {
   idHotel: PropTypes.number.isRequired,
 };
-
 
 export default Reviews;
