@@ -8,19 +8,18 @@ const CityMap = ({ rooms, idActiveRoom, city, coordinates }) => {
   const mapRef = useRef(null);
   const [mapSettings, setMapSettings] = useState(null);
 
-  const zoom = 12;
   useEffect(() => {
     const mapLeaflet = leaflet.map(mapRef.current, {
       center: {
         lat: coordinates.lat,
         lng: coordinates.lng,
       },
-      zoom,
+      zoom: coordinates.zoom,
       zoomControl: false,
       marker: true
     });
 
-    mapLeaflet.setView(coordinates, zoom);
+    mapLeaflet.setView(coordinates, coordinates.zoom);
 
     leaflet.tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`,
       { attribution: '© OpenStreetMap contributors © CARTO' })
@@ -37,7 +36,7 @@ const CityMap = ({ rooms, idActiveRoom, city, coordinates }) => {
     const filteredRooms = rooms.filter((room) => room.cityName === city);
     const markers = [];
     if (mapSettings) {
-      mapSettings.setView(coordinates, zoom);
+      mapSettings.setView(coordinates, coordinates.zoom);
       filteredRooms.forEach((room) => {
         const isActive = (idActiveRoom !== null) ? room.id === idActiveRoom : false;
 

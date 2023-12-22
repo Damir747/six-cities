@@ -26,18 +26,16 @@ const cityReducer = (state = initialState, action) => {
         } else {
           activeCity = Object.keys(action.payload)[0];
         }
-
         return {
           ...state,
-          cities: action.payload,
+          cities: Object.assign({}, action.payload),
           activeCity,
           isCityListLoaded: true,
         };
       }
-      // ? если пустой список городов
+      // с сервера пришёл пустой список городов, остаемся с данными по умолчанию
       return {
         ...state,
-        cities: action.payload,
         isCityListLoaded: true,
       };
     }
