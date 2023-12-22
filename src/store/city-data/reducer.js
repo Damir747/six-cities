@@ -5,7 +5,7 @@ import { CHANGE_CITY, CITY_LIST, CURRENT_CITY } from './actions-types';
 const initialState = {
   activeCity: 'Paris',
   cities,
-  currentCity: 'Paris',
+  currentCity: '',
   isCityListLoaded: false,
 };
 
@@ -19,6 +19,22 @@ const cityReducer = (state = initialState, action) => {
     }
 
     case CITY_LIST: {
+      if (!Object.keys(action.payload).length) {
+        let activeCity = action.payload[state.activeCity];
+        if (activeCity) {
+          activeCity = state.activeCity;
+        } else {
+          activeCity = Object.keys(action.payload)[0];
+        }
+
+        return {
+          ...state,
+          cities: action.payload,
+          activeCity,
+          isCityListLoaded: true,
+        };
+      }
+      // ? если пустой список городов
       return {
         ...state,
         cities: action.payload,
