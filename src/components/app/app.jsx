@@ -53,7 +53,8 @@ const App = () => {
             }}
           />
           <Route exact path={AppRoute.OFFER + ':id'}>
-            <Property />
+            <Property
+              onLogin={() => history.push(AppRoute.LOGIN)} />
           </Route>
           <Route>
             <NotFoundScreen />

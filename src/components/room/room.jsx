@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import roomType from '../../types/room';
-import { AppRoute, Frame } from '../../const';
+import { AppRoute, LevelFrame } from '../../const';
 import { bookmarkClassname, capitalizeFirstLetter, classname, frameClassname, roundRating } from '../../utils/utils';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
@@ -18,7 +18,7 @@ const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame }) => {
         className={frameClassname(frame)}
         onMouseEnter={() => onMouseEnter(id)}
         onMouseLeave={() => onMouseLeave()}>
-        {(frame === Frame.CITIES) && level && <div className="place-card__mark">
+        {(frame === LevelFrame.CITIES) && level && <div className="place-card__mark">
           <span>{level}</span>
         </div>}
         <div className={classname(frame + '__image-wrapper', 'place-card__image-wrapper')}>

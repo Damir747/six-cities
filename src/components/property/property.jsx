@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 import Top from '../top/top';
@@ -13,7 +14,7 @@ import { getIsCommentLoaded, getIsHotelLoaded, getIsNeighbourhoodLoaded, getNeig
 import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../loading/loading';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import { AppRoute, AuthorizationStatus, Frame } from '../../const';
+import { AppRoute, AuthorizationStatus, LevelFrame } from '../../const';
 import { fetchFavorite, fetchHotel, fetchNeighbourhood } from '../../store/hotel-data/api-actions';
 import { fetchCommentsList } from '../../store/comment-data/api-actions';
 import { selectCurrentCity } from '../../store/city-data/actions';
@@ -23,7 +24,7 @@ import { getAuthorizationStatus } from '../../store/login-data/selectors';
 
 // ? доделать. Работает, но нужно навести красоту
 
-const Property = () => {
+const Property = ({ onLogin }) => {
   const history = useHistory();
   const authorizationStatus = useSelector(getAuthorizationStatus);
 
@@ -200,7 +201,7 @@ const Property = () => {
                     roomElement={neighbour}
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
-                    frame={Frame.NEAR_PLACES}
+                    frame={LevelFrame.NEAR_PLACES}
                   />
                 ))
                 }
@@ -211,6 +212,10 @@ const Property = () => {
       </div>
     </React.Fragment >
   );
+};
+
+Property.propTypes = {
+  onLogin: PropTypes.func,
 };
 
 export default Property;

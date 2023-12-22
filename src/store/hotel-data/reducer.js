@@ -1,4 +1,4 @@
-import { IN_BOOKMARKS, TO_BOOKMARKS } from "../../const";
+import { BOOKMARKS } from "../../const";
 import { FAVORITE, FAVORITE_NEIGHBOURHOOD, HOTEL, HOTEL_LIST, INIT, NEIGHBOURHOOD, REVIEWS_LIST } from "./actions-types";
 
 /* eslint-disable indent */
@@ -57,7 +57,7 @@ const hotelReducer = (state = initialState, action) => {
           ...state.rooms.slice(0, findId),
           {
             ...state.rooms[findId],
-            bookmark: action.payload.is_favorite ? IN_BOOKMARKS : TO_BOOKMARKS
+            bookmark: action.payload.is_favorite ? BOOKMARKS.IN : BOOKMARKS.TO
           },
           ...state.rooms.slice(findId + 1),
         ]
@@ -77,7 +77,7 @@ const hotelReducer = (state = initialState, action) => {
           ...state.neighbourhood.slice(0, findId),
           {
             ...state.neighbourhood[findId],
-            bookmark: action.payload.is_favorite ? IN_BOOKMARKS : TO_BOOKMARKS
+            bookmark: action.payload.is_favorite ? BOOKMARKS.IN : BOOKMARKS.TO
           },
           ...state.neighbourhood.slice(findId + 1),
         ]

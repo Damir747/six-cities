@@ -6,7 +6,7 @@ import CityMap from '../city-map/city-map';
 import Room from '../../components/room/room';
 
 import { getActiveCity, getActiveCityCoordinates } from '../../store/city-data/selectors';
-import { Frame } from '../../const';
+import { LevelFrame } from '../../const';
 import { getFilteredRooms } from '../../store/hotel-data/selectors';
 
 const CityPlaces = () => {
@@ -38,7 +38,7 @@ const CityPlaces = () => {
                     roomElement={roomElement}
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
-                    frame={Frame.CITIES}
+                    frame={LevelFrame.CITIES}
                   />
                 )
                 )}

@@ -1,4 +1,4 @@
-import { Frame, IN_BOOKMARKS } from '../const';
+import { BOOKMARKS, LevelFrame } from '../const';
 
 const capitalizeFirstLetter = (str) => {
   if (!str) {
@@ -20,11 +20,11 @@ const classname = (...arr) => arr.join(' ');
 
 const bookmarkClassname = (frame, bookmark) => {
   return classname(`${frame}__bookmark-button`, `button`,
-    bookmark === IN_BOOKMARKS ? `${frame}__bookmark-button--active` : '');
+    bookmark === BOOKMARKS.IN ? `${frame}__bookmark-button--active` : '');
 };
 
 const frameClassname = (frame) => {
-  if (frame === Frame.NEAR_PLACES) {
+  if (frame === LevelFrame.NEAR_PLACES) {
     return classname('near-places__card', 'place-card');
   }
   return classname('cities__place-card', 'place-card');
