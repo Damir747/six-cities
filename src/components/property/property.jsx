@@ -178,7 +178,6 @@ const Property = ({ historyPush }) => {
                 coordinates={coordinates}
                 rooms={neighbourhood}
                 idActiveRoom={idActiveRoom}
-
               />
             </section>
           </section>

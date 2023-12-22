@@ -17,11 +17,13 @@ import { fetchHotelList } from '../../store/hotel-data/api-actions';
 import PrivateRoute from '../private-route/private-route';
 import FavoritePage from '../favorites-page/favorite-page';
 // ? live 6. 01:46:19 - разобраться с остатками useHistory
-// ? по прямой ссылке - переходить на аутентификацию
+// ? По клику на имя пользователя можно переходить в Favorites или logout
 
 const App = () => {
   const isDataLoaded = useSelector(getIsDataLoaded);
   const dispatch = useDispatch();
+  // ? а если города не загрузились?
+  // ? Loading-флаг: долго грузятся данные
 
   useEffect(() => {
     if (!isDataLoaded) {
@@ -34,6 +36,7 @@ const App = () => {
       <Loading />
     );
   }
+
   return (
     <>
       <Router history={browserHistory}>
@@ -66,10 +69,15 @@ const App = () => {
             }
             }
           />
-          <Route exact path={AppRoute.OFFER + ':id'}>
-            <Property
-              onLogin={history.push} />
-          </Route>
+          <Route exact path={AppRoute.OFFER + ':id'} render={({ history }) => {
+            return (
+              <Property
+                historyPush={history.push}
+              />
+            );
+          }
+          }
+          />
           <Route>
             <NotFoundScreen />
           </Route>

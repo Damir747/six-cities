@@ -9,17 +9,16 @@ import { redirect } from './store/middleware/redirect';
 import rootReducer from './store/root-reducer';
 import { AuthorizationStatus } from './const';
 import { changeAuthorizationStatus } from './store/login-data/actions';
-import { loadHotel, loadHotelList, changeFavorite, loadComments } from './store/hotel-data/actions';
 
 import App from './components/app/app';
 
 // ? редирект на логин после запроса к серверу, когда он возвращает 401 (в разборе 7.8)
 // ? logout сделать?
+// ? Не показывать значение избранного для неавторизованного пользователя
 
 const api = createAPI(
   () => {
     store.dispatch(changeAuthorizationStatus(AuthorizationStatus.NO_AUTH));
-    store.dispatch(loadHotelList);
   }
 );
 

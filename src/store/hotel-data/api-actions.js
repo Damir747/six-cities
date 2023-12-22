@@ -7,6 +7,7 @@ import { serverLinks } from '../server-links';
 
 import { changeFavorite } from './actions';
 import { getReverseFavorite } from './selectors';
+import { changeFavoriteList } from '../favorite-data/actions';
 
 const fetchHotelList = () => (dispatch, _getState, api) => {
   return api.get(serverLinks.HOTELS)
@@ -56,6 +57,7 @@ const fetchFavorite = (idHotel) => (dispatch, getState, api) => {
     .then(({ data }) => {
       dispatch(changeFavorite(data));
       dispatch(changeFavoriteNeighbourhood(data));
+      dispatch(changeFavoriteList(data));
       return data;
     })
     .catch((error) => {
