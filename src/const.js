@@ -5,8 +5,6 @@ const AppRoute = {
   OFFER: `/offer/`,
 };
 
-const IN_BOOKMARKS = 'In bookmarks';
-const TO_BOOKMARKS = 'To bookmarks';
 const BOOKMARKS = {
   IN: 'In bookmarks',
   TO: 'To bookmarks'
@@ -41,4 +39,4 @@ const AddToFavoriteButtonSize = {
   }
 };
 
-export { AppRoute, IN_BOOKMARKS, TO_BOOKMARKS, BOOKMARKS, AuthorizationStatus, LevelFrame, RoomFrame, AddToFavoriteButtonSize };
+export { AppRoute, BOOKMARKS, AuthorizationStatus, LevelFrame, RoomFrame, AddToFavoriteButtonSize };
