@@ -1,5 +1,5 @@
 import { BOOKMARKS } from "../../const";
-import { FAVORITE, FAVORITE_NEIGHBOURHOOD, HOTEL, HOTEL_LIST, INIT, NEIGHBOURHOOD, REVIEWS_LIST } from "./actions-types";
+import { FAVORITE, FAVORITE_NEIGHBOURHOOD, HOTEL, HOTEL_LIST, HOTEL_INIT, NEIGHBOURHOOD, REVIEWS_LIST } from "./actions-types";
 
 /* eslint-disable indent */
 const initialState = {
@@ -21,9 +21,10 @@ const hotelReducer = (state = initialState, action) => {
         isDataLoaded: true,
       };
     }
-    case INIT: {
+    case HOTEL_INIT: {
       return {
         ...state,
+        isHotelLoaded: false,
         isCommentLoaded: false,
         isNeighbourhoodLoaded: false,
       };

@@ -1,4 +1,4 @@
-import { REVIEWS_LIST, FAVORITE, FAVORITE_NEIGHBOURHOOD, HOTEL, HOTEL_LIST, NEIGHBOURHOOD, INIT } from "./actions-types";
+import { REVIEWS_LIST, FAVORITE, FAVORITE_NEIGHBOURHOOD, HOTEL, HOTEL_LIST, NEIGHBOURHOOD, HOTEL_INIT } from "./actions-types";
 
 const loadHotelList = (hotels) => ({
   type: HOTEL_LIST,
@@ -6,7 +6,7 @@ const loadHotelList = (hotels) => ({
 });
 
 const initHotel = () => ({
-  type: INIT,
+  type: HOTEL_INIT,
   payload: false,
 });
 
