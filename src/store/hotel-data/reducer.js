@@ -5,7 +5,7 @@ import { FAVORITE, FAVORITE_NEIGHBOURHOOD, HOTEL, HOTEL_LIST, HOTEL_INIT, NEIGHB
 const initialState = {
   hotel: null,
   rooms: [],
-  isDataLoaded: false,
+  isHotelListLoaded: false,
   reviews: [],
   isHotelLoaded: false,
   isCommentLoaded: false,
@@ -18,7 +18,7 @@ const hotelReducer = (state = initialState, action) => {
       return {
         ...state,
         rooms: action.payload,
-        isDataLoaded: true,
+        isHotelListLoaded: true,
       };
     }
     case HOTEL_INIT: {

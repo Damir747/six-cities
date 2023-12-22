@@ -10,28 +10,30 @@ import Property from '../property/property';
 
 import reviewsType from '../../types/reviews';
 import { useDispatch, useSelector } from 'react-redux';
-import { getIsDataLoaded } from '../../store/hotel-data/selectors';
+import { getIsHotelListLoaded } from '../../store/hotel-data/selectors';
 import Loading from '../loading/loading';
 import browserHistory from '../../browser-history';
 import { fetchHotelList } from '../../store/hotel-data/api-actions';
 import PrivateRoute from '../private-route/private-route';
 import FavoritePage from '../favorites-page/favorite-page';
+import { getIsCityListIsLoaded } from '../../store/city-data/selectors';
 // ? live 6. 01:46:19 - разобраться с остатками useHistory
 // ? По клику на имя пользователя можно переходить в Favorites или logout
 
 const App = () => {
-  const isDataLoaded = useSelector(getIsDataLoaded);
+  const isHotelListLoaded = useSelector(getIsHotelListLoaded);
+  const isCityListIsLoaded = useSelector(getIsCityListIsLoaded);
   const dispatch = useDispatch();
   // ? а если города не загрузились?
   // ? Loading-флаг: долго грузятся данные
 
   useEffect(() => {
-    if (!isDataLoaded) {
+    if (!isHotelListLoaded && !isCityListIsLoaded) {
       dispatch(fetchHotelList());
     }
-  }, [isDataLoaded]);
+  }, [isHotelListLoaded, isCityListIsLoaded]);
 
-  if (!isDataLoaded) {
+  if (!isHotelListLoaded || !isCityListIsLoaded) {
     return (
       <Loading />
     );

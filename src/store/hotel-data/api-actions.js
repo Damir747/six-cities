@@ -23,6 +23,7 @@ const fetchHotelList = () => (dispatch, _getState, api) => {
         cityList = Object.assign(cityList, City.convertDataToCity(el.city));
       });
       dispatch(loadCityList(cityList));
+      return cityList;
     })
     .catch((error) => {
       console.log('error!');

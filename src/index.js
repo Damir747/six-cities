@@ -17,9 +17,9 @@ import App from './components/app/app';
 // ? Не показывать значение избранного для неавторизованного пользователя
 
 const api = createAPI(
-  () => {
-    store.dispatch(changeAuthorizationStatus(AuthorizationStatus.NO_AUTH));
-  }
+  // () => {
+  //   store.dispatch(changeAuthorizationStatus(AuthorizationStatus.NO_AUTH));
+  // }
 );
 
 const store = configureStore({

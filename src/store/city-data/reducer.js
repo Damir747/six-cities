@@ -6,6 +6,7 @@ const initialState = {
   activeCity: 'Paris',
   cities,
   currentCity: 'Paris',
+  isCityListLoaded: false,
 };
 
 const cityReducer = (state = initialState, action) => {
@@ -21,6 +22,7 @@ const cityReducer = (state = initialState, action) => {
       return {
         ...state,
         cities: action.payload,
+        isCityListLoaded: true,
       };
     }
 
