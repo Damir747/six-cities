@@ -7,7 +7,7 @@ import { getAuthorizationStatus } from '../../store/login-data/selectors';
 import { AddToFavoriteButtonSize, AppRoute, AuthorizationStatus, RoomFrame } from '../../const';
 import { fetchFavorite } from '../../store/hotel-data/api-actions';
 
-const ButtonAddToFavorites = (id, bookmark, frame) => {
+const ButtonAddToFavorites = ({ id, bookmark, frame }) => {
 
   const handleAddToFavorites = function (idHotel) {
     if (authorizationStatus === AuthorizationStatus.AUTH) {
@@ -41,7 +41,7 @@ const ButtonAddToFavorites = (id, bookmark, frame) => {
 ButtonAddToFavorites.propTypes = {
   id: PropTypes.number.isRequired,
   bookmark: PropTypes.string.isRequired,
-  frame: PropTypes.oneOf(RoomFrame),
+  frame: PropTypes.oneOf(Array.from(Object.values(RoomFrame))),
 };
 
 export default ButtonAddToFavorites;
