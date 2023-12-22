@@ -20,7 +20,7 @@ import { fetchCommentsList } from '../../store/comment-data/api-actions';
 import { selectCurrentCity } from '../../store/city-data/actions';
 import { getCurrentCity, getCurrentCityCoordinates } from '../../store/city-data/selectors';
 import { initHotel } from '../../store/hotel-data/actions';
-import ButtonAddToFavorites from '../room/button-add-to-favorites';
+import ButtonAddToFavorites from '../button-add-to-favorites/button-add-to-favorites';
 
 // ? доделать. Работает, но нужно навести красоту
 

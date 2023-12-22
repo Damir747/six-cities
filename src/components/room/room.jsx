@@ -5,8 +5,7 @@ import roomType from '../../types/room';
 import { AppRoute, LevelFrame, RoomFrame } from '../../const';
 import { capitalizeFirstLetter, classname, frameClassname, roundRating } from '../../utils/utils';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-
-import ButtonAddToFavorites from './button-add-to-favorites';
+import ButtonAddToFavorites from '../button-add-to-favorites/button-add-to-favorites';
 
 const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame }) => {
   const { id, level, img, priceValue, priceText, bookmark, rating, card, type } = roomElement;

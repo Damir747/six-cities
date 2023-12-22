@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-import { bookmarkClassname, capitalizeFirstLetter, roundRating } from '../../utils/utils';
-import { AppRoute } from '../../const';
+import { capitalizeFirstLetter, roundRating } from '../../utils/utils';
+import { AppRoute, RoomFrame } from '../../const';
 import roomType from '../../types/room';
-import handleAddToFavorites from '../room/handle-add-to-favorites';
+import ButtonAddToFavorites from '../button-add-to-favorites/button-add-to-favorites';
 
 const FavoriteCityRoom = ({ room }) => {
   const { id, img, priceValue, priceText, bookmark, rating, card, type } = room;
@@ -22,13 +22,12 @@ const FavoriteCityRoom = ({ room }) => {
               <b className="place-card__price-value">&euro;{priceValue}</b>
               <span className="place-card__price-text">&#47;&nbsp;{priceText || 'ночь'}</span>
             </div>
-            <button className={bookmarkClassname('place-card', bookmark)} type="button"
-              onClick={handleAddToFavorites(id)}>
-              <svg className="place-card__bookmark-icon" width="18" height="19">
-                <use xlinkHref="#icon-bookmark"></use>
-              </svg>
-              <span className="visually-hidden">{bookmark}</span>
-            </button>
+
+            <ButtonAddToFavorites
+              id={id}
+              bookmark={bookmark}
+              frame={RoomFrame.PLACE_CARD} />
+
           </div>
           <div className="place-card__rating rating">
             <div className="place-card__stars rating__stars">
