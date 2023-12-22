@@ -18,16 +18,19 @@ const numberRating = (rating) => Math.round(rating / 20).toFixed(1);
 
 const classname = (...arr) => arr.join(' ');
 
+// className для кнопки bookmark в зависимости от расположения кнопки (frame)
 const bookmarkClassname = (frame, bookmark) => {
   return classname(`${frame}__bookmark-button`, `button`,
     bookmark === BOOKMARKS.IN ? `${frame}__bookmark-button--active` : '');
 };
 
+// ? сделать названия более наглядные
+// для Room в зависимости от расположения формы
 const frameClassname = (frame) => {
   if (frame === LevelFrame.NEAR_PLACES) {
-    return classname('near-places__card', 'place-card');
+    return classname(`${frame}__card`, 'place-card');
   }
-  return classname('cities__place-card', 'place-card');
+  return classname(`${frame}__place-card`, 'place-card');
 };
 
 export { capitalizeFirstLetter, roundRating, numberRating, classname, bookmarkClassname, frameClassname };

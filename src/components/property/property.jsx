@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 import Top from '../top/top';
 import Header from '../header/header';
@@ -8,26 +8,23 @@ import PropertyInside from '../property-inside/property-inside';
 import Reviews from '../reviews/reviews';
 import CityMap from '../city-map/city-map';
 import Room from '../room/room';
-import { bookmarkClassname, classname, numberRating, roundRating } from '../../utils/utils';
+import { classname, numberRating, roundRating } from '../../utils/utils';
 
 import { getIsCommentLoaded, getIsHotelLoaded, getIsNeighbourhoodLoaded, getNeighbourhood, getRooms } from '../../store/hotel-data/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../loading/loading';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import { AppRoute, AuthorizationStatus, LevelFrame } from '../../const';
-import { fetchFavorite, fetchHotel, fetchNeighbourhood } from '../../store/hotel-data/api-actions';
+import { LevelFrame, RoomFrame } from '../../const';
+import { fetchHotel, fetchNeighbourhood } from '../../store/hotel-data/api-actions';
 import { fetchCommentsList } from '../../store/comment-data/api-actions';
 import { selectCurrentCity } from '../../store/city-data/actions';
 import { getCurrentCity, getCurrentCityCoordinates } from '../../store/city-data/selectors';
 import { initHotel } from '../../store/hotel-data/actions';
-import { getAuthorizationStatus } from '../../store/login-data/selectors';
+import ButtonAddToFavorites from '../room/button-add-to-favorites';
 
 // ? доделать. Работает, но нужно навести красоту
 
 const Property = ({ onLogin }) => {
-  const history = useHistory();
-  const authorizationStatus = useSelector(getAuthorizationStatus);
-
   const rooms = useSelector(getRooms);
   const currentCity = useSelector(getCurrentCity);
   const coordinates = useSelector(getCurrentCityCoordinates);
@@ -81,16 +78,6 @@ const Property = ({ onLogin }) => {
 
   const { id, level, img, priceValue, priceText, bookmark, rating, card, type, description, host, images, cityName } = room;
 
-  const handleAddToFavorites = function (idHotel) {
-
-    if (authorizationStatus === AuthorizationStatus.AUTH) {
-      return () => dispatch(fetchFavorite(idHotel));
-    } else {
-      return () => history.push(AppRoute.LOGIN);
-    }
-  };
-
-
   return (
     <React.Fragment>
       <Top />
@@ -118,12 +105,12 @@ const Property = ({ onLogin }) => {
                   <h1 className="property__name">
                     {card}
                   </h1>
-                  <button className={bookmarkClassname('property', bookmark)} type="button" onClick={handleAddToFavorites(id)}>
-                    <svg className="property__bookmark-icon" width="31" height="33">
-                      <use xlinkHref="#icon-bookmark"></use>
-                    </svg>
-                    <span className="visually-hidden">{bookmark}</span>
-                  </button>
+
+                  <ButtonAddToFavorites
+                    id={id}
+                    bookmark={bookmark}
+                    frame={RoomFrame.PROPERTY} />
+
                 </div>
                 <div className="property__rating rating">
                   <div className="property__stars rating__stars">

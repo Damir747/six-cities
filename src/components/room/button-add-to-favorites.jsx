@@ -23,7 +23,7 @@ const ButtonAddToFavorites = ({ id, bookmark, frame }) => {
 
   return (
     <React.Fragment>
-      <button className={bookmarkClassname(`${frame}__bookmark-button button`, bookmark)} type="button"
+      <button className={bookmarkClassname(frame, bookmark)} type="button"
         onClick={handleAddToFavorites(id)}>
 
         <svg
