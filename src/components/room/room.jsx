@@ -7,7 +7,7 @@ import { capitalizeFirstLetter, classname, frameClassname, roundRating } from '.
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import ButtonAddToFavorites from '../button-add-to-favorites/button-add-to-favorites';
 
-const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame }) => {
+const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame, historyPush }) => {
   const { id, level, img, priceValue, priceText, bookmark, rating, card, type } = roomElement;
 
   return (
@@ -35,7 +35,9 @@ const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame }) => {
             <ButtonAddToFavorites
               id={id}
               bookmark={bookmark}
-              frame={RoomFrame.PLACE_CARD} />
+              frame={RoomFrame.PLACE_CARD}
+              historyPush={historyPush}
+            />
 
           </div>
           <div className="place-card__rating rating">
@@ -59,6 +61,7 @@ Room.propTypes = {
   onMouseEnter: PropTypes.func,
   onMouseLeave: PropTypes.func,
   frame: PropTypes.string,
+  historyPush: PropTypes.func,
 };
 
 export default Room;

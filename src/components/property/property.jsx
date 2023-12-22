@@ -24,7 +24,7 @@ import ButtonAddToFavorites from '../button-add-to-favorites/button-add-to-favor
 
 // ? доделать. Работает, но нужно навести красоту
 
-const Property = ({ onLogin }) => {
+const Property = ({ historyPush }) => {
   const rooms = useSelector(getRooms);
   const currentCity = useSelector(getCurrentCity);
   const coordinates = useSelector(getCurrentCityCoordinates);
@@ -83,7 +83,9 @@ const Property = ({ onLogin }) => {
       <Top />
 
       <div className="page">
-        <Header />
+        <Header
+          historyPush={historyPush}
+        />
 
         <main className="page__main page__main--property">
           <section className="property">
@@ -109,7 +111,9 @@ const Property = ({ onLogin }) => {
                   <ButtonAddToFavorites
                     id={id}
                     bookmark={bookmark}
-                    frame={RoomFrame.PROPERTY} />
+                    frame={RoomFrame.PROPERTY}
+                    historyPush={historyPush}
+                  />
 
                 </div>
                 <div className="property__rating rating">
@@ -189,6 +193,7 @@ const Property = ({ onLogin }) => {
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
                     frame={LevelFrame.NEAR_PLACES}
+                    historyPush={historyPush}
                   />
                 ))
                 }
@@ -202,7 +207,7 @@ const Property = ({ onLogin }) => {
 };
 
 Property.propTypes = {
-  onLogin: PropTypes.func,
+  historyPush: PropTypes.func,
 };
 
 export default Property;

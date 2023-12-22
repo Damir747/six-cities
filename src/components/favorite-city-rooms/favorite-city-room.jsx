@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { capitalizeFirstLetter, roundRating } from '../../utils/utils';
 import { AppRoute, RoomFrame } from '../../const';
 import roomType from '../../types/room';
 import ButtonAddToFavorites from '../button-add-to-favorites/button-add-to-favorites';
 
-const FavoriteCityRoom = ({ room }) => {
+const FavoriteCityRoom = ({ room, historyPush }) => {
   const { id, img, priceValue, priceText, bookmark, rating, card, type } = room;
 
   return (
@@ -26,7 +27,9 @@ const FavoriteCityRoom = ({ room }) => {
             <ButtonAddToFavorites
               id={id}
               bookmark={bookmark}
-              frame={RoomFrame.PLACE_CARD} />
+              frame={RoomFrame.PLACE_CARD}
+              historyPush={historyPush}
+            />
 
           </div>
           <div className="place-card__rating rating">
@@ -47,6 +50,7 @@ const FavoriteCityRoom = ({ room }) => {
 
 FavoriteCityRoom.propTypes = {
   room: roomType,
+  historyPush: PropTypes.func,
 };
 
 export default FavoriteCityRoom;

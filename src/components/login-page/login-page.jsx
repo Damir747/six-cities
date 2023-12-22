@@ -1,15 +1,14 @@
 /* eslint-disable indent */
 import React from 'react';
+import PropTypes from 'prop-types';
 import Header from '../header/header';
 import Top from '../top/top';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { AppRoute } from '../../const';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 import { useDispatch } from 'react-redux';
 import { fetchLogin } from '../../store/login-data/api-actions';
 
-const LoginPage = () => {
-  const history = useHistory();
+const LoginPage = ({ historyPush }) => {
   const dispatch = useDispatch();
 
   const handleSubmit = (evt) => {
@@ -18,7 +17,7 @@ const LoginPage = () => {
       email: evt.target['email'].value,
       password: evt.target['password'].value
     }))
-      .then(() => history.push(AppRoute.ROOT));
+      .then(() => historyPush(AppRoute.ROOT));
   };
 
   return (
@@ -26,7 +25,9 @@ const LoginPage = () => {
       <Top />
 
       <div className="page page--gray page--login">
-        <Header />
+        <Header
+          historyPush={historyPush}
+        />
 
         <main className="page__main page__main--login">
           <div className="page__login-container container">
@@ -59,6 +60,10 @@ const LoginPage = () => {
       </div>
     </React.Fragment>
   );
+};
+
+LoginPage.propTypes = {
+  historyPush: PropTypes.func,
 };
 
 export default LoginPage;

@@ -38,29 +38,43 @@ const App = () => {
     <>
       <Router history={browserHistory}>
         <Switch>
-          <Route exact path={AppRoute.ROOT}>
-            <MainPage />
-          </Route>
-          <Route exact path={AppRoute.LOGIN}>
-            <LoginPage />
-          </Route>
+          <Route exact path={AppRoute.ROOT}
+            render={({ history }) => {
+              return (
+                <MainPage
+                  historyPush={history.push}
+                />
+              );
+            }
+            } />
+          <Route exact path={AppRoute.LOGIN} render={({ history }) => {
+            return (
+              <LoginPage
+                historyPush={history.push}
+              />
+            );
+          }
+          } />
           <PrivateRoute exact
             path={AppRoute.FAVORITES}
-            render={() => {
+            render={({ history }) => {
               return (
-                <FavoritePage />
+                <FavoritePage
+                  historyPush={history.push}
+                />
               );
-            }}
+            }
+            }
           />
           <Route exact path={AppRoute.OFFER + ':id'}>
             <Property
-              onLogin={() => history.push(AppRoute.LOGIN)} />
+              onLogin={history.push} />
           </Route>
           <Route>
             <NotFoundScreen />
           </Route>
         </Switch>
-      </Router>
+      </Router >
     </>
   );
 };

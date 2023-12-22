@@ -1,14 +1,14 @@
 /* eslint-disable indent */
 import React, { memo } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useSelector } from 'react-redux';
 
-import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 import { getAuthorizationStatus, getLoginName } from '../../store/login-data/selectors';
 
-const Header = () => {
-  const history = useHistory();
+
+const Header = ({ historyPush }) => {
   const buttonStyle = { height: '50%', width: '80px', margin: '10px' };
   const authorizationStatus = useSelector(getAuthorizationStatus);
   const loginName = useSelector(getLoginName);
@@ -22,7 +22,7 @@ const Header = () => {
               <Link className="header__logo-link header__logo-link--active" to={AppRoute.ROOT}>
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
               </Link>
-              <button style={buttonStyle} onClick={() => history.push(AppRoute.FAVORITES)}>Favorites</button>
+              <button style={buttonStyle} onClick={() => historyPush(AppRoute.FAVORITES)}>Favorites</button>
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
@@ -42,6 +42,10 @@ const Header = () => {
       </header>
     </React.Fragment >
   );
+};
+
+Header.propTypes = {
+  historyPush: PropTypes.func,
 };
 
 export default memo(Header);

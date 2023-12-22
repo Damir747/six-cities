@@ -1,17 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Top from '../top/top';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 
 import loginType from '../../types/login';
 
-const FavoritesEmpty = ({ loginName }) => {
+const FavoritesEmpty = ({ historyPush }) => {
   return (
     <React.Fragment>
       <Top />
 
       <div className="page">
-        <Header />
+        <Header
+          historyPush={historyPush}
+        />
 
         <main className="page__main page__main--favorites page__main--favorites-empty">
           <div className="page__favorites-container container">
@@ -32,7 +35,7 @@ const FavoritesEmpty = ({ loginName }) => {
 };
 
 FavoritesEmpty.propTypes = {
-  loginName: loginType,
+  historyPush: PropTypes.func,
 };
 
 export default FavoritesEmpty;

@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 import MenuUp from '../menu-up/menu-up';
@@ -9,7 +10,7 @@ import { getActiveCity, getActiveCityCoordinates } from '../../store/city-data/s
 import { LevelFrame } from '../../const';
 import { getFilteredRooms } from '../../store/hotel-data/selectors';
 
-const CityPlaces = () => {
+const CityPlaces = ({ historyPush }) => {
   const activeCity = useSelector(getActiveCity);
   const coordinates = useSelector(getActiveCityCoordinates);
   const filteredRooms = useSelector(getFilteredRooms);
@@ -39,6 +40,7 @@ const CityPlaces = () => {
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
                     frame={LevelFrame.CITIES}
+                    historyPush={historyPush}
                   />
                 )
                 )}
@@ -74,6 +76,10 @@ const CityPlaces = () => {
       </div>
     </React.Fragment>
   );
+};
+
+CityPlaces.propTypes = {
+  historyPush: PropTypes.func,
 };
 
 export default CityPlaces;

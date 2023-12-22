@@ -1,18 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Top from '../top/top';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import { AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
-import loginType from '../../types/login';
 
-const NotFoundScreen = ({ loginName }) => {
+const NotFoundScreen = ({ historyPush }) => {
   return (
     <React.Fragment>
       <Top />
 
       <div className="page">
-        <Header />
+        <Header
+          historyPush={historyPush}
+        />
 
         <h1>404 Not Found</h1>
         <Link to={AppRoute.ROOT} >
@@ -26,7 +28,7 @@ const NotFoundScreen = ({ loginName }) => {
 };
 
 NotFoundScreen.propTypes = {
-  loginName: loginType,
+  historyPush: PropTypes.func,
 };
 
 export default NotFoundScreen;

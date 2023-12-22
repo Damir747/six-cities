@@ -1,23 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { bookmarkClassname } from '../../utils/utils';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAuthorizationStatus } from '../../store/login-data/selectors';
 import { AddToFavoriteButtonSize, AppRoute, AuthorizationStatus, RoomFrame } from '../../const';
 import { fetchFavorite } from '../../store/hotel-data/api-actions';
 
-const ButtonAddToFavorites = ({ id, bookmark, frame }) => {
+const ButtonAddToFavorites = ({ id, bookmark, frame, historyPush }) => {
 
   const handleAddToFavorites = function (idHotel) {
     if (authorizationStatus === AuthorizationStatus.AUTH) {
       return () => dispatch(fetchFavorite(idHotel));
     } else {
-      return () => history.push(AppRoute.LOGIN);
+      return () => historyPush(AppRoute.LOGIN);
     }
   };
 
-  const history = useHistory();
   const authorizationStatus = useSelector(getAuthorizationStatus);
   const dispatch = useDispatch();
 
@@ -42,6 +40,7 @@ ButtonAddToFavorites.propTypes = {
   id: PropTypes.number.isRequired,
   bookmark: PropTypes.string.isRequired,
   frame: PropTypes.oneOf(Array.from(Object.values(RoomFrame))),
+  historyPush: PropTypes.func,
 };
 
 export default ButtonAddToFavorites;
