@@ -1,24 +1,26 @@
 /* eslint-disable indent */
 import React from 'react';
+import PropTypes from 'prop-types';
 import Header from '../header/header';
 import Top from '../top/top';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { AppRoute } from '../../const';
 import { useDispatch } from 'react-redux';
 import { fetchLogin } from '../../store/login-data/api-actions';
-import browserHistory from '../../browser-history';
 
-const LoginPage = () => {
+// ? если войти не удалось, надо отправлять на логин снова
+const LoginPage = ({ onAfterLoginRedirect }) => {
   const dispatch = useDispatch();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    // ? если войти не удалось, надо отправлять на логин снова
     dispatch(fetchLogin({
       email: evt.target['email'].value,
       password: evt.target['password'].value
     }))
-      .then(() => browserHistory.push(AppRoute.ROOT));
+      .then(() => {
+        onAfterLoginRedirect();
+      });
   };
 
   return (
@@ -61,4 +63,7 @@ const LoginPage = () => {
   );
 };
 
+LoginPage.propTypes = {
+  onAfterLoginRedirect: PropTypes.func,
+};
 export default LoginPage;
