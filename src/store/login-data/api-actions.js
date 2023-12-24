@@ -1,5 +1,5 @@
-import { AuthorizationStatus } from '../../const';
-import { changeAuthorizationStatus, userChange } from './actions';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import { changeAuthorizationStatus, redirectToRoute, userChange } from './actions';
 import { appendNotification } from '../notification-data/actions';
 import { serverLinks } from '../server-links';
 
@@ -9,9 +9,9 @@ function fetchLogin({ email, password }) {
       api.post(serverLinks.LOGIN, { email, password })
         .then(({ data }) => {
           dispatch(changeAuthorizationStatus(AuthorizationStatus.AUTH));
-          // AuthInfo
           dispatch(userChange(data));
         })
+        // .then(() => dispatch(redirectToRoute(AppRoute.FAVORITES)))
         .catch((error) => {
           console.log('error!', error);
           dispatch(appendNotification({

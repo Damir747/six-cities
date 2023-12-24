@@ -16,6 +16,7 @@ import { fetchHotelList } from '../../store/hotel-data/api-actions';
 import PrivateRoute from '../private-route/private-route';
 import FavoritePage from '../favorites-page/favorite-page';
 import { getIsCityListIsLoaded } from '../../store/city-data/selectors';
+import browserHistory from '../../browser-history';
 // ? live 6. 01:46:19 - разобраться с остатками useHistory
 // ? По клику на имя пользователя можно переходить в Favorites или logout
 
@@ -44,7 +45,9 @@ const App = () => {
         <MainPage />
       </Route>
       <Route exact path={AppRoute.LOGIN}>
-        <LoginPage />
+        <LoginPage
+          onAfterLoginRedirect={() => browserHistory.push(AppRoute.ROOT)}
+        />
       </Route>
       <PrivateRoute exact
         path={AppRoute.FAVORITES}
