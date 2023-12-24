@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Switch, Route, Router } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 import MainPage from '../main-page/main-page';
 import { AppRoute } from '../../const';
@@ -12,7 +12,6 @@ import reviewsType from '../../types/reviews';
 import { useDispatch, useSelector } from 'react-redux';
 import { getIsHotelListLoaded } from '../../store/hotel-data/selectors';
 import Loading from '../loading/loading';
-import browserHistory from '../../browser-history';
 import { fetchHotelList } from '../../store/hotel-data/api-actions';
 import PrivateRoute from '../private-route/private-route';
 import FavoritePage from '../favorites-page/favorite-page';
@@ -40,52 +39,48 @@ const App = () => {
   }
 
   return (
-    <>
-      <Router history={browserHistory}>
-        <Switch>
-          <Route exact path={AppRoute.ROOT}
-            render={({ history }) => {
-              return (
-                <MainPage
-                  historyPush={history.push}
-                />
-              );
-            }
-            } />
-          <Route exact path={AppRoute.LOGIN} render={({ history }) => {
-            return (
-              <LoginPage
-                historyPush={history.push}
-              />
-            );
-          }
-          } />
-          <PrivateRoute exact
-            path={AppRoute.FAVORITES}
-            render={({ history }) => {
-              return (
-                <FavoritePage
-                  historyPush={history.push}
-                />
-              );
-            }
-            }
+    <Switch>
+      <Route exact path={AppRoute.ROOT}
+        render={({ history }) => {
+          return (
+            <MainPage
+              historyPush={history.push}
+            />
+          );
+        }
+        } />
+      <Route exact path={AppRoute.LOGIN} render={({ history }) => {
+        return (
+          <LoginPage
+            historyPush={history.push}
           />
-          <Route exact path={AppRoute.OFFER + ':id'} render={({ history }) => {
-            return (
-              <Property
-                historyPush={history.push}
-              />
-            );
-          }
-          }
+        );
+      }
+      } />
+      <PrivateRoute exact
+        path={AppRoute.FAVORITES}
+        render={({ history }) => {
+          return (
+            <FavoritePage
+              historyPush={history.push}
+            />
+          );
+        }
+        }
+      />
+      <Route exact path={AppRoute.OFFER + ':id'} render={({ history }) => {
+        return (
+          <Property
+            historyPush={history.push}
           />
-          <Route>
-            <NotFoundScreen />
-          </Route>
-        </Switch>
-      </Router >
-    </>
+        );
+      }
+      }
+      />
+      <Route>
+        <NotFoundScreen />
+      </Route>
+    </Switch>
   );
 };
 
