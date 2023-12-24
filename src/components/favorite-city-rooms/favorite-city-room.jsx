@@ -28,7 +28,6 @@ const FavoriteCityRoom = ({ room, historyPush }) => {
               id={id}
               bookmark={bookmark}
               frame={RoomFrame.PLACE_CARD}
-              historyPush={historyPush}
             />
 
           </div>

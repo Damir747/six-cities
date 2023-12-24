@@ -5,14 +5,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAuthorizationStatus } from '../../store/login-data/selectors';
 import { AddToFavoriteButtonSize, AppRoute, AuthorizationStatus, RoomFrame } from '../../const';
 import { fetchFavorite } from '../../store/hotel-data/api-actions';
+import browserHistory from '../../browser-history';
 
-const ButtonAddToFavorites = ({ id, bookmark, frame, historyPush }) => {
+const ButtonAddToFavorites = ({ id, bookmark, frame }) => {
 
   const handleAddToFavorites = function (idHotel) {
     if (authorizationStatus === AuthorizationStatus.AUTH) {
       return () => dispatch(fetchFavorite(idHotel));
     } else {
-      return () => historyPush(AppRoute.LOGIN);
+      return () => browserHistory.push(AppRoute.LOGIN);
     }
   };
 

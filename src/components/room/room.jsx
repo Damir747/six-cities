@@ -36,7 +36,6 @@ const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame, historyPush }) =
               id={id}
               bookmark={bookmark}
               frame={RoomFrame.PLACE_CARD}
-              historyPush={historyPush}
             />
 
           </div>

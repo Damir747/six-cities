@@ -12,9 +12,7 @@ const NotFoundScreen = ({ historyPush }) => {
       <Top />
 
       <div className="page">
-        <Header
-          historyPush={historyPush}
-        />
+        <Header />
 
         <h1>404 Not Found</h1>
         <Link to={AppRoute.ROOT} >

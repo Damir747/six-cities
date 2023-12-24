@@ -83,9 +83,7 @@ const Property = ({ historyPush }) => {
       <Top />
 
       <div className="page">
-        <Header
-          historyPush={historyPush}
-        />
+        <Header />
 
         <main className="page__main page__main--property">
           <section className="property">
@@ -112,7 +110,6 @@ const Property = ({ historyPush }) => {
                     id={id}
                     bookmark={bookmark}
                     frame={RoomFrame.PROPERTY}
-                    historyPush={historyPush}
                   />
 
                 </div>

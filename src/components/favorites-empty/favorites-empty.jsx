@@ -10,9 +10,7 @@ const FavoritesEmpty = ({ historyPush }) => {
       <Top />
 
       <div className="page">
-        <Header
-          historyPush={historyPush}
-        />
+        <Header />
 
         <main className="page__main page__main--favorites page__main--favorites-empty">
           <div className="page__favorites-container container">
