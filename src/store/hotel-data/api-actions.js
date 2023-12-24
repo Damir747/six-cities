@@ -1,7 +1,7 @@
 import cities from '../../mock/mock-cities';
 import { Room, City } from '../adapter';
 import { loadCityList } from '../city-data/actions';
-import { changeFavoriteNeighbourhood, loadHotel, loadHotelList, loadNeighbourhood } from './actions';
+import { changeFavoriteNeighbourhood, initHotelList, loadHotel, loadHotelList, loadNeighbourhood } from './actions';
 import { appendNotification } from '../notification-data/actions';
 import { serverLinks } from '../server-links';
 
@@ -10,6 +10,7 @@ import { getReverseFavorite } from './selectors';
 import { changeFavoriteList } from '../favorite-data/actions';
 
 const fetchHotelList = () => (dispatch, _getState, api) => {
+  dispatch(initHotelList());
   return api.get(serverLinks.HOTELS)
     .then(({ data }) => {
       console.log('rooms are ready');
@@ -27,6 +28,7 @@ const fetchHotelList = () => (dispatch, _getState, api) => {
     })
     .catch((error) => {
       console.log('error!');
+      dispatch(loadHotelList([]));
       dispatch(appendNotification({
         message: error.message,
         type: 'error',

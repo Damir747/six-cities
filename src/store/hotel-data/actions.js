@@ -1,4 +1,8 @@
-import { REVIEWS_LIST, FAVORITE, FAVORITE_NEIGHBOURHOOD, HOTEL, HOTEL_LIST, NEIGHBOURHOOD, HOTEL_INIT } from "./actions-types";
+import { REVIEWS_LIST, FAVORITE, FAVORITE_NEIGHBOURHOOD, HOTEL, HOTEL_LIST, NEIGHBOURHOOD, HOTEL_INIT, HOTEL_LIST_INIT } from "./actions-types";
+
+const initHotelList = () => ({
+  type: HOTEL_LIST_INIT,
+});
 
 const loadHotelList = (hotels) => ({
   type: HOTEL_LIST,
@@ -36,6 +40,7 @@ const changeFavoriteNeighbourhood = (hotel) => ({
 });
 
 export {
+  initHotelList,
   loadHotelList,
   initHotel,
   loadHotel,

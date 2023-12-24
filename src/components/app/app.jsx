@@ -10,7 +10,7 @@ import Property from '../property/property';
 
 import reviewsType from '../../types/reviews';
 import { useDispatch, useSelector } from 'react-redux';
-import { getIsHotelListLoaded } from '../../store/hotel-data/selectors';
+import { getIsHotelListLoaded, getIsHotelListLoading } from '../../store/hotel-data/selectors';
 import Loading from '../loading/loading';
 import { fetchHotelList } from '../../store/hotel-data/api-actions';
 import PrivateRoute from '../private-route/private-route';
@@ -22,6 +22,7 @@ import browserHistory from '../../browser-history';
 
 const App = () => {
   const isHotelListLoaded = useSelector(getIsHotelListLoaded);
+  const isHotelListLoading = useSelector(getIsHotelListLoading);
   const isCityListIsLoaded = useSelector(getIsCityListIsLoaded);
   const dispatch = useDispatch();
   // ? а если города не загрузились?
@@ -33,7 +34,7 @@ const App = () => {
     }
   }, [isHotelListLoaded, isCityListIsLoaded]);
 
-  if (!isHotelListLoaded || !isCityListIsLoaded) {
+  if (isHotelListLoading) {  //|| !isCityListIsLoaded
     return (
       <Loading />
     );

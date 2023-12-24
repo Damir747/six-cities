@@ -1,11 +1,12 @@
 import { BOOKMARKS } from "../../const";
-import { FAVORITE, FAVORITE_NEIGHBOURHOOD, HOTEL, HOTEL_LIST, HOTEL_INIT, NEIGHBOURHOOD, REVIEWS_LIST } from "./actions-types";
+import { FAVORITE, FAVORITE_NEIGHBOURHOOD, HOTEL, HOTEL_LIST, HOTEL_INIT, NEIGHBOURHOOD, REVIEWS_LIST, HOTEL_LIST_INIT } from "./actions-types";
 
 /* eslint-disable indent */
 const initialState = {
   hotel: null,
   rooms: [],
   isHotelListLoaded: false,
+  isHotelListLoading: false,
   reviews: [],
   isHotelLoaded: false,
   isCommentLoaded: false,
@@ -14,11 +15,19 @@ const initialState = {
 
 const hotelReducer = (state = initialState, action) => {
   switch (action.type) {
+    case HOTEL_LIST_INIT: {
+      return {
+        ...state,
+        isHotelListLoaded: false,
+        isHotelListLoading: true,
+      };
+    }
     case HOTEL_LIST: {
       return {
         ...state,
         rooms: action.payload,
         isHotelListLoaded: true,
+        isHotelListLoading: false,
       };
     }
     case HOTEL_INIT: {
