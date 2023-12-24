@@ -48,28 +48,17 @@ const App = () => {
       </Route>
       <PrivateRoute exact
         path={AppRoute.FAVORITES}
-        render={({ history }) => {
-          return (
-            <FavoritePage
-              historyPush={history.push}
-            />
-          );
-        }
-        }
+        render={() => (
+          <FavoritePage />
+        )}
       />
-      <Route exact path={AppRoute.OFFER + ':id'} render={({ history }) => {
-        return (
-          <Property
-            historyPush={history.push}
-          />
-        );
-      }
-      }
-      />
+      <Route exact path={AppRoute.OFFER + ':id'}>
+        <Property />
+      </Route>
       <Route>
         <NotFoundScreen />
       </Route>
-    </Switch>
+    </Switch >
   );
 };
 

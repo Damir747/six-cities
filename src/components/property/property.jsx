@@ -24,7 +24,7 @@ import ButtonAddToFavorites from '../button-add-to-favorites/button-add-to-favor
 
 // ? доделать. Работает, но нужно навести красоту
 
-const Property = ({ historyPush }) => {
+const Property = () => {
   const rooms = useSelector(getRooms);
   const currentCity = useSelector(getCurrentCity);
   const coordinates = useSelector(getCurrentCityCoordinates);
@@ -189,7 +189,6 @@ const Property = ({ historyPush }) => {
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
                     frame={LevelFrame.NEAR_PLACES}
-                    historyPush={historyPush}
                   />
                 ))
                 }
@@ -200,10 +199,6 @@ const Property = ({ historyPush }) => {
       </div>
     </React.Fragment >
   );
-};
-
-Property.propTypes = {
-  historyPush: PropTypes.func,
 };
 
 export default Property;

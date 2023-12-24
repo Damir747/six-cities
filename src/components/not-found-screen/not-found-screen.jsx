@@ -6,7 +6,7 @@ import Footer from '../footer/footer';
 import { AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
 
-const NotFoundScreen = ({ historyPush }) => {
+const NotFoundScreen = () => {
   return (
     <React.Fragment>
       <Top />
@@ -23,10 +23,6 @@ const NotFoundScreen = ({ historyPush }) => {
       </div>
     </React.Fragment>
   );
-};
-
-NotFoundScreen.propTypes = {
-  historyPush: PropTypes.func,
 };
 
 export default NotFoundScreen;

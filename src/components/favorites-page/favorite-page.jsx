@@ -1,6 +1,5 @@
 /* eslint-disable indent */
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import Top from '../top/top';
 import Header from '../header/header';
 import Footer from '../footer/footer';
@@ -12,7 +11,7 @@ import { getFavoriteList, getIsFavoriteListLoaded } from '../../store/favorite-d
 import FavoritesEmpty from '../favorites-empty/favorites-empty';
 import { fetchFavoriteList } from '../../store/favorite-data/api-actions';
 
-const FavoritePage = ({ historyPush }) => {
+const FavoritePage = () => {
   const dispatch = useDispatch();
   const isFavoriteListLoaded = useSelector(getIsFavoriteListLoaded);
   const favorites = useSelector(getFavoriteList);
@@ -59,10 +58,6 @@ const FavoritePage = ({ historyPush }) => {
       </div>
     </React.Fragment>
   );
-};
-
-FavoritePage.propTypes = {
-  historyPush: PropTypes.func,
 };
 
 export default FavoritePage;

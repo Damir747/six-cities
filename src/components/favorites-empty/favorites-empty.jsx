@@ -1,10 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Top from '../top/top';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 
-const FavoritesEmpty = ({ historyPush }) => {
+const FavoritesEmpty = () => {
   return (
     <React.Fragment>
       <Top />
@@ -28,10 +27,6 @@ const FavoritesEmpty = ({ historyPush }) => {
       </div>
     </React.Fragment>
   );
-};
-
-FavoritesEmpty.propTypes = {
-  historyPush: PropTypes.func,
 };
 
 export default FavoritesEmpty;

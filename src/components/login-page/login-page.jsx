@@ -1,23 +1,24 @@
 /* eslint-disable indent */
 import React from 'react';
-import PropTypes from 'prop-types';
 import Header from '../header/header';
 import Top from '../top/top';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { AppRoute } from '../../const';
 import { useDispatch } from 'react-redux';
 import { fetchLogin } from '../../store/login-data/api-actions';
+import browserHistory from '../../browser-history';
 
-const LoginPage = ({ historyPush }) => {
+const LoginPage = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    // ? если войти не удалось, надо отправлять на логин снова
     dispatch(fetchLogin({
       email: evt.target['email'].value,
       password: evt.target['password'].value
     }))
-      .then(() => historyPush(AppRoute.ROOT));
+      .then(() => browserHistory(AppRoute.ROOT));
   };
 
   return (
@@ -58,10 +59,6 @@ const LoginPage = ({ historyPush }) => {
       </div>
     </React.Fragment>
   );
-};
-
-LoginPage.propTypes = {
-  historyPush: PropTypes.func,
 };
 
 export default LoginPage;

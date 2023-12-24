@@ -7,7 +7,7 @@ import { capitalizeFirstLetter, roomClassname, roomImageClassname, roundRating }
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import ButtonAddToFavorites from '../button-add-to-favorites/button-add-to-favorites';
 
-const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame, historyPush }) => {
+const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame }) => {
   const { id, level, img, priceValue, priceText, bookmark, rating, card, type } = roomElement;
 
   return (
@@ -60,7 +60,6 @@ Room.propTypes = {
   onMouseEnter: PropTypes.func,
   onMouseLeave: PropTypes.func,
   frame: PropTypes.oneOf(Array.from(Object.values(LevelFrame))),
-  historyPush: PropTypes.func,
 };
 
 export default Room;

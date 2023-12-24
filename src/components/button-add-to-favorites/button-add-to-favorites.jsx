@@ -41,7 +41,6 @@ ButtonAddToFavorites.propTypes = {
   id: PropTypes.number.isRequired,
   bookmark: PropTypes.string.isRequired,
   frame: PropTypes.oneOf(Array.from(Object.values(RoomFrame))),
-  historyPush: PropTypes.func,
 };
 
 export default ButtonAddToFavorites;
