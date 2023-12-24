@@ -18,7 +18,7 @@ const LoginPage = () => {
       email: evt.target['email'].value,
       password: evt.target['password'].value
     }))
-      .then(() => browserHistory(AppRoute.ROOT));
+      .then(() => browserHistory.push(AppRoute.ROOT));
   };
 
   return (
