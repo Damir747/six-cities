@@ -40,23 +40,12 @@ const App = () => {
 
   return (
     <Switch>
-      <Route exact path={AppRoute.ROOT}
-        render={({ history }) => {
-          return (
-            <MainPage
-              historyPush={history.push}
-            />
-          );
-        }
-        } />
-      <Route exact path={AppRoute.LOGIN} render={({ history }) => {
-        return (
-          <LoginPage
-            historyPush={history.push}
-          />
-        );
-      }
-      } />
+      <Route exact path={AppRoute.ROOT}>
+        <MainPage />
+      </Route>
+      <Route exact path={AppRoute.LOGIN}>
+        <LoginPage />
+      </Route>
       <PrivateRoute exact
         path={AppRoute.FAVORITES}
         render={({ history }) => {
