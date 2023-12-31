@@ -17,6 +17,7 @@ import PrivateRoute from '../private-route/private-route';
 import FavoritePage from '../favorites-page/favorite-page';
 import { getIsCityListIsLoaded, getIsCityListIsLoading } from '../../store/city-data/selectors';
 import browserHistory from '../../browser-history';
+import NonPrivateRoute from '../private-route/non-private-route';
 // ? live 6. 01:46:19 - разобраться с остатками useHistory
 // ? Переход на страницу «Favorites» осуществляется при клике на email авторизованного пользователя.
 // ? и тогда убрать кнопку Favorites
@@ -27,8 +28,6 @@ const App = () => {
   const isCityListLoading = useSelector(getIsCityListIsLoading);
   const isCityListLoaded = useSelector(getIsCityListIsLoaded);
   const dispatch = useDispatch();
-  // ? а если города не загрузились?
-  // ? Loading-флаг: долго грузятся данные
 
   useEffect(() => {
     if (!isHotelListLoaded && !isCityListLoaded) {
@@ -47,11 +46,13 @@ const App = () => {
       <Route exact path={AppRoute.ROOT}>
         <MainPage />
       </Route>
-      <Route exact path={AppRoute.LOGIN}>
-        <LoginPage
-          onAfterLoginRedirect={() => browserHistory.push(AppRoute.ROOT)}
-        />
-      </Route>
+      <NonPrivateRoute exact
+        path={AppRoute.LOGIN}
+        render={() => (
+          <LoginPage
+            onAfterLoginRedirect={() => browserHistory.push(AppRoute.ROOT)}
+          />)}
+      />
       <PrivateRoute exact
         path={AppRoute.FAVORITES}
         render={() => (

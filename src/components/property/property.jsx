@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 import Top from '../top/top';
@@ -14,13 +13,14 @@ import { getIsCommentLoaded, getIsHotelLoaded, getIsNeighbourhoodLoaded, getNeig
 import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../loading/loading';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import { LevelFrame, RoomFrame } from '../../const';
+import { AuthorizationStatus, BOOKMARKS, LevelFrame, RoomFrame } from '../../const';
 import { fetchHotel, fetchNeighbourhood } from '../../store/hotel-data/api-actions';
 import { fetchCommentsList } from '../../store/comment-data/api-actions';
 import { selectCurrentCity } from '../../store/city-data/actions';
 import { getCurrentCity, getCurrentCityCoordinates } from '../../store/city-data/selectors';
 import { initHotel } from '../../store/hotel-data/actions';
 import ButtonAddToFavorites from '../button-add-to-favorites/button-add-to-favorites';
+import { getAuthorizationStatus } from '../../store/login-data/selectors';
 
 // ? доделать. Работает, но нужно навести красоту
 
@@ -32,6 +32,7 @@ const Property = () => {
   const isHotelLoaded = useSelector(getIsHotelLoaded);
   const isCommentLoaded = useSelector(getIsCommentLoaded);
   const isNeighbourhoodLoaded = useSelector(getIsNeighbourhoodLoaded);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
   const dispatch = useDispatch();
 
   const idHotelParam = Number(useParams().id);
@@ -76,7 +77,8 @@ const Property = () => {
     );
   }
 
-  const { id, level, img, priceValue, priceText, bookmark, rating, card, type, description, host, images, cityName } = room;
+  const { id, level, img, priceValue, priceText, rating, card, type, description, host, images, cityName } = room;
+  const bookmark = authorizationStatus === AuthorizationStatus.AUTH ? room.bookmark : BOOKMARKS.TO;
 
   return (
     <React.Fragment>

@@ -28,7 +28,7 @@ const cityReducer = (state = initialState, action) => {
     }
 
     case CITY_LIST: {
-      if (!Object.keys(action.payload).length) {
+      if (Object.keys(action.payload).length) {
         let activeCity = action.payload[state.activeCity];
         if (activeCity) {
           activeCity = state.activeCity;

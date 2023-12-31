@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 import { AuthorizationStatus } from '../../const';
-import { CHANGE_AUTHORIZATION_STATUS, LOGIN_NAME } from './actions-types';
+import { AUTH_INIT, CHANGE_AUTHORIZATION_STATUS, LOGIN_NAME } from './actions-types';
 
 const initialState = {
   loginName: '',
@@ -9,12 +9,21 @@ const initialState = {
 
 const loginReducer = (state = initialState, action) => {
   switch (action.type) {
+    case AUTH_INIT: {
+      return {
+        ...state,
+        loginName: initialState.loginName,
+        authorizationStatus: initialState.authorizationStatus,
+      };
+    }
+
     case CHANGE_AUTHORIZATION_STATUS: {
       return {
         ...state,
         authorizationStatus: action.payload,
       };
     }
+
     case LOGIN_NAME: {
       return {
         ...state,

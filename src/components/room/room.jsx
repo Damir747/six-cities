@@ -2,13 +2,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import roomType from '../../types/room';
-import { AppRoute, LevelFrame, RoomFrame } from '../../const';
+import { AppRoute, AuthorizationStatus, BOOKMARKS, LevelFrame, RoomFrame } from '../../const';
 import { capitalizeFirstLetter, roomClassname, roomImageClassname, roundRating } from '../../utils/utils';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import ButtonAddToFavorites from '../button-add-to-favorites/button-add-to-favorites';
+import { useSelector } from 'react-redux';
+import { getAuthorizationStatus } from '../../store/login-data/selectors';
 
 const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame }) => {
-  const { id, level, img, priceValue, priceText, bookmark, rating, card, type } = roomElement;
+  const { id, level, img, priceValue, priceText, rating, card, type } = roomElement;
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const bookmark = authorizationStatus === AuthorizationStatus.AUTH ? roomElement.bookmark : BOOKMARKS.TO;
 
   return (
     <React.Fragment>

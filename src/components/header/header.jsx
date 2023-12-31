@@ -22,6 +22,7 @@ const Header = () => {
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
               </Link>
               <button style={buttonStyle} onClick={() => browserHistory.push(AppRoute.FAVORITES)}>Favorites</button>
+              <button style={buttonStyle} onClick={() => browserHistory.push(AppRoute.LOGIN)}>Login</button>
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">

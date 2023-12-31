@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import stars from '../../mock/mock-rating-stars';
 import { useDispatch } from 'react-redux';
 import { fetchPostComment } from '../../store/comment-data/api-actions';
+import { COMMENT_LENGTH } from '../../const';
 
 const NewReview = ({ idHotel }) => {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const NewReview = ({ idHotel }) => {
     setStars(evt.target.value);
   }, []);
 
+  const disableSubmit = !((commentText.length >= COMMENT_LENGTH.MIN && commentText.length <= COMMENT_LENGTH.MAX && commentStars >= 1 && commentStars <= 5));
   const handleSubmit = (evt) => {
     evt.preventDefault();
     function onAfterSendComment() {
@@ -66,9 +68,9 @@ const NewReview = ({ idHotel }) => {
         ></textarea>
         <div className="reviews__button-wrapper">
           <p className="reviews__help">
-            To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
+            To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">{COMMENT_LENGTH.MIN} characters</b> and no more than <b className="reviews__text-amount">{COMMENT_LENGTH.MAX} characters</b>.
           </p>
-          <button className="reviews__submit form__submit button" type="submit" disabled="">Submit</button>
+          <button className="reviews__submit form__submit button" type="submit" disabled={disableSubmit}>Submit</button>
         </div>
       </form>
     </React.Fragment >

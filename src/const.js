@@ -39,4 +39,9 @@ const AddToFavoriteButtonSize = {
   }
 };
 
-export { AppRoute, BOOKMARKS, AuthorizationStatus, LevelFrame, RoomFrame, AddToFavoriteButtonSize };
+const COMMENT_LENGTH = {
+  MIN: 50,
+  MAX: 300,
+};
+
+export { AppRoute, BOOKMARKS, AuthorizationStatus, LevelFrame, RoomFrame, AddToFavoriteButtonSize, COMMENT_LENGTH };
