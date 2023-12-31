@@ -1,11 +1,3 @@
-// ? видео 5.3 разбор 6:20
-
-const SortType = {
-  POPULAR: 'Popular',
-
-};
-const SortTypes = Object.values(SortType);
-
 const menuUpArray = [
   {
     id: 0,
@@ -24,4 +16,4 @@ const menuUpArray = [
     title: 'Top rated first',
   }];
 
-export default menuUpArray;
+export { menuUpArray };
