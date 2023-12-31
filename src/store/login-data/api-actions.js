@@ -34,6 +34,34 @@ function fetchLogin({ email, password }, onAfterLoginRedirect) {
   };
 }
 
+const fetchLogout = () => async (dispatch, _getState, api) => {
+
+  function onSuccess(success) {
+    dispatch(changeAuthorizationStatus(AuthorizationStatus.NO_AUTH));
+    dispatch(userChange({ loginName: '' }));
+    return success.data;
+  }
+
+  function onError(error) {
+    console.log('error!', error);
+    dispatch(appendNotification({
+      message: error.message,
+      type: 'error',
+      id: 11
+    }));
+    return error;
+  }
+
+  try {
+    const success = await api.get(serverLinks.LOGOUT);
+    return onSuccess(success);
+  } catch (error) {
+    return onError(error);
+  }
+
+};
+
 export {
   fetchLogin,
+  fetchLogout,
 };
