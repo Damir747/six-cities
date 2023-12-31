@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { AppRoute } from '../../const';
 import { useDispatch } from 'react-redux';
 import { fetchLogin } from '../../store/login-data/api-actions';
+import browserHistory from '../../browser-history';
 
 // ? если войти не удалось, надо отправлять на логин снова
 // ? надо через onAfterLoginRedirect передавать адрес страницы, на которой пользователь кликнул Логин,
@@ -22,8 +23,10 @@ const LoginPage = ({ onAfterLoginRedirect }) => {
       email: evt.target['email'].value,
       password: evt.target['password'].value
     }))
-      .then(() => {
-        onAfterLoginRedirect();
+      .then((data) => {
+        if (data) {
+          onAfterLoginRedirect();
+        }
       });
   };
 

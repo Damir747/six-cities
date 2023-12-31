@@ -9,9 +9,8 @@ function fetchLogin({ email, password }) {
       api.post(serverLinks.LOGIN, { email, password })
         .then(({ data }) => {
           dispatch(changeAuthorizationStatus(AuthorizationStatus.AUTH));
-          dispatch(userChange(data));
+          return dispatch(userChange(data));
         })
-        // .then(() => dispatch(redirectToRoute(AppRoute.FAVORITES)))
         .catch((error) => {
           console.log('error!', error);
           dispatch(appendNotification({
