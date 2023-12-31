@@ -15,7 +15,9 @@ import browserHistory from './browser-history';
 // ? logout сделать?
 // ? Не показывать значение (поле) избранного для неавторизованного пользователя
 
-const api = createAPI(() => { });
+const api = createAPI(() => {
+  console.log('Неавторизован!');
+});
 
 const store = configureStore({
   reducer: rootReducer,

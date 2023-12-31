@@ -18,7 +18,9 @@ import FavoritePage from '../favorites-page/favorite-page';
 import { getIsCityListIsLoaded } from '../../store/city-data/selectors';
 import browserHistory from '../../browser-history';
 // ? live 6. 01:46:19 - разобраться с остатками useHistory
-// ? По клику на имя пользователя можно переходить в Favorites или logout
+// ? Переход на страницу «Favorites» осуществляется при клике на email авторизованного пользователя.
+// ? и тогда убрать кнопку Favorites
+// ? остановился на загрузке данных isLoading
 
 const App = () => {
   const isHotelListLoaded = useSelector(getIsHotelListLoaded);

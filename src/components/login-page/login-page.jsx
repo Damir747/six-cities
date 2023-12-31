@@ -9,6 +9,10 @@ import { useDispatch } from 'react-redux';
 import { fetchLogin } from '../../store/login-data/api-actions';
 
 // ? если войти не удалось, надо отправлять на логин снова
+// ? надо через onAfterLoginRedirect передавать адрес страницы, на которой пользователь кликнул Логин,
+// ? чтобы вернуться после авторизации точно на эту же страницу
+// ? Sign In: Страница доступна только неавторизованным пользователям.Авторизованных пользователей перенаправляет на главную страницу.
+// ? сейчас происходит разлогин?
 const LoginPage = ({ onAfterLoginRedirect }) => {
   const dispatch = useDispatch();
 
