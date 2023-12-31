@@ -11,9 +11,6 @@ import rootReducer from './store/root-reducer';
 import App from './components/app/app';
 import browserHistory from './browser-history';
 
-// ? редирект на логин после запроса к серверу, когда он возвращает 401 (в разборе 7.8 6:16)
-// ? logout сделать?
-
 const api = createAPI(() => {
   console.log('Неавторизован!');
 });

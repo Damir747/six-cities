@@ -2,12 +2,20 @@
 import React, { memo } from 'react';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getAuthorizationStatus, getLoginName } from '../../store/login-data/selectors';
+import { fetchLogout, getLogin } from '../../store/login-data/api-actions';
 
 const Header = () => {
+  const buttonStyle = { height: '50%', width: '80px', margin: '10px' };
+  const dispatch = useDispatch();
+  dispatch(getLogin());
   const authorizationStatus = useSelector(getAuthorizationStatus);
   const loginName = useSelector(getLoginName);
+
+  const handleLogout = () => {
+    dispatch(fetchLogout());
+  };
 
   return (
     <React.Fragment>
@@ -19,6 +27,7 @@ const Header = () => {
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
               </Link>
             </div>
+            <button style={buttonStyle} hidden={authorizationStatus !== AuthorizationStatus.AUTH} onClick={handleLogout}>Logout</button>
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
