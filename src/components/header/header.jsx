@@ -3,12 +3,9 @@ import React, { memo } from 'react';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useSelector } from 'react-redux';
-
 import { getAuthorizationStatus, getLoginName } from '../../store/login-data/selectors';
-import browserHistory from '../../browser-history';
 
 const Header = () => {
-  const buttonStyle = { height: '50%', width: '80px', margin: '10px' };
   const authorizationStatus = useSelector(getAuthorizationStatus);
   const loginName = useSelector(getLoginName);
 
@@ -21,13 +18,11 @@ const Header = () => {
               <Link className="header__logo-link header__logo-link--active" to={AppRoute.ROOT}>
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
               </Link>
-              <button style={buttonStyle} onClick={() => browserHistory.push(AppRoute.FAVORITES)}>Favorites</button>
-              <button style={buttonStyle} onClick={() => browserHistory.push(AppRoute.LOGIN)}>Login</button>
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <Link className="header__nav-link header__nav-link--profile" to={authorizationStatus === AuthorizationStatus.AUTH ? `` : AppRoute.LOGIN}>
+                  <Link className="header__nav-link header__nav-link--profile" to={authorizationStatus === AuthorizationStatus.AUTH ? AppRoute.FAVORITES : AppRoute.LOGIN}>
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">

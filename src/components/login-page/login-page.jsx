@@ -11,7 +11,7 @@ import { fetchLogin } from '../../store/login-data/api-actions';
 // ? надо через onAfterLoginRedirect передавать адрес страницы, на которой пользователь кликнул Логин,
 // ? чтобы вернуться после авторизации точно на эту же страницу
 // ? но проблема в том, что идёт переход на страницу, а там уже по этому адресу компонент, а компонент запрашивает fetchLogin
-// ? Клик по логину - делать разлогин?
+
 const LoginPage = ({ onAfterLoginRedirect }) => {
   const dispatch = useDispatch();
 

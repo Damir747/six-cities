@@ -18,9 +18,6 @@ import FavoritePage from '../favorites-page/favorite-page';
 import { getIsCityListIsLoaded, getIsCityListIsLoading } from '../../store/city-data/selectors';
 import browserHistory from '../../browser-history';
 import NonPrivateRoute from '../private-route/non-private-route';
-// ? live 6. 01:46:19 - разобраться с остатками useHistory
-// ? Переход на страницу «Favorites» осуществляется при клике на email авторизованного пользователя.
-// ? и тогда убрать кнопку Favorites
 
 const App = () => {
   const isHotelListLoading = useSelector(getIsHotelListLoading);
