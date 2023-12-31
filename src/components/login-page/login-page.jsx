@@ -7,11 +7,10 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { AppRoute } from '../../const';
 import { useDispatch } from 'react-redux';
 import { fetchLogin } from '../../store/login-data/api-actions';
-import browserHistory from '../../browser-history';
 
-// ? если войти не удалось, надо отправлять на логин снова
 // ? надо через onAfterLoginRedirect передавать адрес страницы, на которой пользователь кликнул Логин,
 // ? чтобы вернуться после авторизации точно на эту же страницу
+// ? но проблема в том, что идёт переход на страницу, а там уже по этому адресу компонент, а компонент запрашивает fetchLogin
 // ? Sign In: Страница доступна только неавторизованным пользователям.Авторизованных пользователей перенаправляет на главную страницу.
 // ? сейчас происходит разлогин?
 const LoginPage = ({ onAfterLoginRedirect }) => {
@@ -22,12 +21,8 @@ const LoginPage = ({ onAfterLoginRedirect }) => {
     dispatch(fetchLogin({
       email: evt.target['email'].value,
       password: evt.target['password'].value
-    }))
-      .then((data) => {
-        if (data) {
-          onAfterLoginRedirect();
-        }
-      });
+    },
+      () => onAfterLoginRedirect()));
   };
 
   return (

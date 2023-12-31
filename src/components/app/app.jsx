@@ -15,28 +15,28 @@ import Loading from '../loading/loading';
 import { fetchHotelList } from '../../store/hotel-data/api-actions';
 import PrivateRoute from '../private-route/private-route';
 import FavoritePage from '../favorites-page/favorite-page';
-import { getIsCityListIsLoaded } from '../../store/city-data/selectors';
+import { getIsCityListIsLoaded, getIsCityListIsLoading } from '../../store/city-data/selectors';
 import browserHistory from '../../browser-history';
 // ? live 6. 01:46:19 - разобраться с остатками useHistory
 // ? Переход на страницу «Favorites» осуществляется при клике на email авторизованного пользователя.
 // ? и тогда убрать кнопку Favorites
-// ? остановился на загрузке данных isLoading
 
 const App = () => {
-  const isHotelListLoaded = useSelector(getIsHotelListLoaded);
   const isHotelListLoading = useSelector(getIsHotelListLoading);
-  const isCityListIsLoaded = useSelector(getIsCityListIsLoaded);
+  const isHotelListLoaded = useSelector(getIsHotelListLoaded);
+  const isCityListLoading = useSelector(getIsCityListIsLoading);
+  const isCityListLoaded = useSelector(getIsCityListIsLoaded);
   const dispatch = useDispatch();
   // ? а если города не загрузились?
   // ? Loading-флаг: долго грузятся данные
 
   useEffect(() => {
-    if (!isHotelListLoaded && !isCityListIsLoaded) {
+    if (!isHotelListLoaded && !isCityListLoaded) {
       dispatch(fetchHotelList());
     }
-  }, [isHotelListLoaded, isCityListIsLoaded]);
+  }, [isHotelListLoaded, isCityListLoaded]);
 
-  if (isHotelListLoading) {  //|| !isCityListIsLoaded
+  if (isHotelListLoading || isCityListLoading) {
     return (
       <Loading />
     );

@@ -24,26 +24,39 @@ const fetchCommentsList = (idHotel) => (dispatch, _getState, api) => {
     });
 };
 
-const fetchPostComment = (idHotel, commentObj) => (dispatch, _getState, api) => {
-  return api.post(`${serverLinks.COMMENTS}/${idHotel}`, commentObj)
-    .then(({ data }) => {
-      dispatch(commentPost(data));
+function fetchPostComment(idHotel, commentObj, onAfterSendComment) {
+  return async function (dispatch, _getState, api) {
 
+    function onSuccess(success) {
+      dispatch(commentPost(success.data));
       const commentList = [];
-      data.map((el) => {
+      success.data.map((el) => {
         commentList.push(Object.assign({}, Comment.convertDataToComment(el)));
       });
       dispatch(loadComments(commentList));
+      onAfterSendComment();
       return commentList;
-    })
-    .catch((error) => {
+    }
+
+    function onError(error) {
+      console.log('error!', error);
       dispatch(appendNotification({
         message: error.message,
         type: 'error',
         id: 5,
       }));
-    });
-};
+      return error;
+    }
+
+    try {
+      const success = await api.post(`${serverLinks.COMMENTS}/${idHotel}`, commentObj);
+      return onSuccess(success);
+    } catch (error) {
+      return onError(error);
+    }
+
+  };
+}
 
 export {
   fetchCommentsList,

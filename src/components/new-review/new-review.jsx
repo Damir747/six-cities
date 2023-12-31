@@ -5,9 +5,6 @@ import stars from '../../mock/mock-rating-stars';
 import { useDispatch } from 'react-redux';
 import { fetchPostComment } from '../../store/comment-data/api-actions';
 
-// ? при комментарии без оценки требуется проверка. Сейчас просто слетает отзыв пользователя
-// ? при отсутствии подключения теряются пользовательские данные
-
 const NewReview = ({ idHotel }) => {
   const dispatch = useDispatch();
   const [commentText, setCommentText] = useState('');
@@ -23,13 +20,15 @@ const NewReview = ({ idHotel }) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    function onAfterSendComment() {
+      setCommentText('');
+      setStars(0);
+    }
     dispatch(fetchPostComment(idHotel, {
       'comment': commentText,
       'rating': commentStars,
-    }))
-      .then((value) => console.log(value));
-    setCommentText('');
-    setStars(0);
+    },
+      () => onAfterSendComment()));
   };
 
   return (

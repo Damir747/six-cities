@@ -1,12 +1,13 @@
 /* eslint-disable indent */
 import cities from '../../mock/mock-cities';
-import { CHANGE_CITY, CITY_LIST, CURRENT_CITY } from './actions-types';
+import { CHANGE_CITY, CITY_LIST, CITY_LIST_INIT, CURRENT_CITY } from './actions-types';
 
 const initialState = {
   activeCity: 'Paris',
   cities,
   currentCity: '',
   isCityListLoaded: false,
+  isCityListLoading: false,
 };
 
 const cityReducer = (state = initialState, action) => {
@@ -15,6 +16,14 @@ const cityReducer = (state = initialState, action) => {
       return {
         ...state,
         activeCity: action.payload,
+      };
+    }
+
+    case CITY_LIST_INIT: {
+      return {
+        ...state,
+        isCityListLoaded: false,
+        isCityListLoading: true,
       };
     }
 
@@ -31,12 +40,14 @@ const cityReducer = (state = initialState, action) => {
           cities: Object.assign({}, action.payload),
           activeCity,
           isCityListLoaded: true,
+          isCityListLoading: false,
         };
       }
       // с сервера пришёл пустой список городов, остаемся с данными по умолчанию
       return {
         ...state,
         isCityListLoaded: true,
+        isCityListLoading: false,
       };
     }
 
