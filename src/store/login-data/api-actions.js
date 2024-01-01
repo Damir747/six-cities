@@ -6,11 +6,11 @@ import { serverLinks } from '../server-links';
 function fetchLogin({ email, password }, onAfterLoginRedirect) {
   return async function (dispatch, _getState, api) {
 
-    function onSuccess(success) {
+    function onSuccess({ data }) {
       dispatch(changeAuthorizationStatus(AuthorizationStatus.AUTH));
-      dispatch(userChange(success.data));
+      dispatch(userChange(data));
       onAfterLoginRedirect();
-      return success.data;
+      return data;
     }
 
     function onError(error) {
@@ -36,10 +36,10 @@ function fetchLogin({ email, password }, onAfterLoginRedirect) {
 
 const fetchLogout = () => async (dispatch, _getState, api) => {
 
-  function onSuccess(success) {
+  function onSuccess({ data }) {
     dispatch(changeAuthorizationStatus(AuthorizationStatus.NO_AUTH));
     dispatch(userChange({ loginName: '' }));
-    return success.data;
+    return data;
   }
 
   function onError(error) {
@@ -63,10 +63,10 @@ const fetchLogout = () => async (dispatch, _getState, api) => {
 
 const getLogin = () => async (dispatch, _getState, api) => {
 
-  function onSuccess(success) {
-    dispatch(userChange(success.data));
+  function onSuccess({ data }) {
+    dispatch(userChange(data));
     dispatch(changeAuthorizationStatus(AuthorizationStatus.AUTH));
-    return success.status;
+    return status;
   }
 
   function onError(error) {

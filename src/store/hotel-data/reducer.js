@@ -5,11 +5,14 @@ import { FAVORITE, FAVORITE_NEIGHBOURHOOD, HOTEL, HOTEL_LIST, HOTEL_INIT, NEIGHB
 const initialState = {
   hotel: null,
   rooms: [],
-  isHotelListLoaded: false,
   isHotelListLoading: false,
+  isHotelListLoaded: false,
   reviews: [],
+  isHotelLoading: true,
   isHotelLoaded: false,
+  isCommentLoading: true,
   isCommentLoaded: false,
+  isNeighbourhoodLoading: true,
   isNeighbourhoodLoaded: false,
 };
 
@@ -18,23 +21,26 @@ const hotelReducer = (state = initialState, action) => {
     case HOTEL_LIST_INIT: {
       return {
         ...state,
-        isHotelListLoaded: false,
         isHotelListLoading: true,
+        isHotelListLoaded: false,
       };
     }
     case HOTEL_LIST: {
       return {
         ...state,
         rooms: action.payload,
-        isHotelListLoaded: true,
         isHotelListLoading: false,
+        isHotelListLoaded: true,
       };
     }
     case HOTEL_INIT: {
       return {
         ...state,
+        isHotelLoading: true,
         isHotelLoaded: false,
+        isCommentLoading: true,
         isCommentLoaded: false,
+        isNeighbourhoodLoading: true,
         isNeighbourhoodLoaded: false,
       };
     }
@@ -42,6 +48,7 @@ const hotelReducer = (state = initialState, action) => {
       return {
         ...state,
         hotel: action.payload,
+        isHotelLoading: false,
         isHotelLoaded: true,
       };
     }
@@ -49,6 +56,7 @@ const hotelReducer = (state = initialState, action) => {
       return {
         ...state,
         reviews: action.payload,
+        isCommentLoading: false,
         isCommentLoaded: true,
       };
     }
@@ -56,6 +64,7 @@ const hotelReducer = (state = initialState, action) => {
       return {
         ...state,
         neighbourhood: action.payload,
+        isNeighbourhoodLoading: false,
         isNeighbourhoodLoaded: true,
       };
     }

@@ -44,4 +44,6 @@ const COMMENT_LENGTH = {
   MAX: 300,
 };
 
-export { AppRoute, BOOKMARKS, AuthorizationStatus, LevelFrame, RoomFrame, AddToFavoriteButtonSize, COMMENT_LENGTH };
+const mockPriceText = 'ночь';
+
+export { AppRoute, BOOKMARKS, AuthorizationStatus, LevelFrame, RoomFrame, AddToFavoriteButtonSize, COMMENT_LENGTH, mockPriceText };

@@ -1,7 +1,7 @@
 import cities from '../../mock/mock-cities';
 import { Room, City } from '../adapter';
-import { initCitylList, loadCityList } from '../city-data/actions';
-import { changeFavoriteNeighbourhood, initHotelList, loadHotel, loadHotelList, loadNeighbourhood } from './actions';
+import { initCitylList, loadCityList, selectCurrentCity } from '../city-data/actions';
+import { changeFavoriteNeighbourhood, initHotel, initHotelList, loadHotel, loadHotelList, loadNeighbourhood } from './actions';
 import { appendNotification } from '../notification-data/actions';
 import { serverLinks } from '../server-links';
 
@@ -38,21 +38,33 @@ const fetchHotelList = () => (dispatch, _getState, api) => {
     });
 };
 
-const fetchHotel = (id) => (dispatch, _getState, api) => {
-  return api.get(`${serverLinks.HOTELS}/${id}`)
-    .then(({ data }) => {
-      data = Room.convertDataHotel(data);
-      dispatch(loadHotel(data));
-      return data;
-    })
-    .catch((error) => {
-      console.log('error!');
-      dispatch(appendNotification({
-        message: error.message,
-        type: 'error',
-        id: 0
-      }));
-    });
+const fetchHotel = (id) => async (dispatch, _getState, api) => {
+
+  function onSuccess({ data }) {
+    data = Room.convertDataHotel(data);
+    dispatch(loadHotel(data));
+    dispatch(selectCurrentCity(data.cityName));
+    return data;
+  }
+
+  function onError(error) {
+    console.log('error!');
+    dispatch(appendNotification({
+      message: error.message,
+      type: 'error',
+      id: 0
+    }));
+    dispatch(loadHotel([]));
+    return error;
+  }
+
+  try {
+    const success = await api.get(`${serverLinks.HOTELS}/${id}`);
+    return onSuccess(success);
+  } catch (error) {
+    return onError(error);
+  }
+
 };
 
 const fetchFavorite = (idHotel) => (dispatch, getState, api) => {
@@ -74,21 +86,32 @@ const fetchFavorite = (idHotel) => (dispatch, getState, api) => {
     });
 };
 
-const fetchNeighbourhood = (id) => (dispatch, _getState, api) => {
-  return api.get(`${serverLinks.HOTELS}/${id}${serverLinks.NEIGHBOURHOOD}`)
-    .then(({ data }) => {
-      data = data.map((el) => Room.convertDataHotel(el));
-      dispatch(loadNeighbourhood(data));
-      return data;
-    })
-    .catch((error) => {
-      console.log('error!', error.message);
-      dispatch(appendNotification({
-        message: error.message,
-        type: 'error',
-        id: 8,
-      }));
-    });
+const fetchNeighbourhood = (id) => async (dispatch, _getState, api) => {
+
+  function onSuccess({ data }) {
+    data = data.map((el) => Room.convertDataHotel(el));
+    dispatch(loadNeighbourhood(data));
+    return data;
+  }
+
+  function onError(error) {
+    console.log('error!', error.message);
+    dispatch(appendNotification({
+      message: error.message,
+      type: 'error',
+      id: 8,
+    }));
+    dispatch(loadNeighbourhood([]));
+    return error;
+  }
+
+  try {
+    const success = await api.get(`${serverLinks.HOTELS}/${id}${serverLinks.NEIGHBOURHOOD}`);
+    return onSuccess(success);
+  } catch (error) {
+    return onError(error);
+  }
+
 };
 
 export {

@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import roomType from '../../types/room';
-import { AppRoute, AuthorizationStatus, BOOKMARKS, LevelFrame, RoomFrame } from '../../const';
+import { AppRoute, AuthorizationStatus, BOOKMARKS, LevelFrame, RoomFrame, mockPriceText } from '../../const';
 import { capitalizeFirstLetter, roomClassname, roomImageClassname, roundRating } from '../../utils/utils';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import ButtonAddToFavorites from '../button-add-to-favorites/button-add-to-favorites';
@@ -33,7 +33,7 @@ const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame }) => {
           <div className="place-card__price-wrapper">
             <div className="place-card__price">
               <b className="place-card__price-value">&euro;{priceValue}</b>
-              <span className="place-card__price-text">&#47;&nbsp;{priceText || 'ночь'}</span>
+              <span className="place-card__price-text">&#47;&nbsp;{priceText || mockPriceText}</span>
             </div>
 
             <ButtonAddToFavorites

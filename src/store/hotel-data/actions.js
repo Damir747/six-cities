@@ -11,7 +11,6 @@ const loadHotelList = (hotels) => ({
 
 const initHotel = () => ({
   type: HOTEL_INIT,
-  payload: false,
 });
 
 const loadHotel = (hotel) => ({

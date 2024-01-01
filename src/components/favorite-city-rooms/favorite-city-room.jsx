@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { capitalizeFirstLetter, roundRating } from '../../utils/utils';
-import { AppRoute, RoomFrame } from '../../const';
+import { AppRoute, RoomFrame, mockPriceText } from '../../const';
 import roomType from '../../types/room';
 import ButtonAddToFavorites from '../button-add-to-favorites/button-add-to-favorites';
 
@@ -20,7 +20,7 @@ const FavoriteCityRoom = ({ room }) => {
           <div className="place-card__price-wrapper">
             <div className="place-card__price">
               <b className="place-card__price-value">&euro;{priceValue}</b>
-              <span className="place-card__price-text">&#47;&nbsp;{priceText || 'ночь'}</span>
+              <span className="place-card__price-text">&#47;&nbsp;{priceText || mockPriceText}</span>
             </div>
 
             <ButtonAddToFavorites

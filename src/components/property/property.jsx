@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 import Top from '../top/top';
@@ -9,11 +10,15 @@ import CityMap from '../city-map/city-map';
 import Room from '../room/room';
 import { classname, numberRating, roundRating } from '../../utils/utils';
 
-import { getIsCommentLoaded, getIsHotelLoaded, getIsNeighbourhoodLoaded, getNeighbourhood, getRooms } from '../../store/hotel-data/selectors';
-import { useDispatch, useSelector } from 'react-redux';
+import {
+  getIsHotelLoading, getIsHotelLoaded,
+  getIsCommentLoading, getIsCommentLoaded,
+  getIsNeighbourhoodLoading, getIsNeighbourhoodLoaded,
+  getNeighbourhood, getRooms
+} from '../../store/hotel-data/selectors';
 import Loading from '../loading/loading';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import { AuthorizationStatus, BOOKMARKS, LevelFrame, RoomFrame } from '../../const';
+import { AuthorizationStatus, BOOKMARKS, LevelFrame, RoomFrame, mockPriceText } from '../../const';
 import { fetchHotel, fetchNeighbourhood } from '../../store/hotel-data/api-actions';
 import { fetchCommentsList } from '../../store/comment-data/api-actions';
 import { selectCurrentCity } from '../../store/city-data/actions';
@@ -25,23 +30,21 @@ import { getAuthorizationStatus } from '../../store/login-data/selectors';
 // ? доделать. Работает, но нужно навести красоту
 
 const Property = () => {
+  const isHotelLoading = useSelector(getIsHotelLoading);
+  const isHotelLoaded = useSelector(getIsHotelLoaded);
+  const isCommentLoading = useSelector(getIsCommentLoading);
+  const isCommentLoaded = useSelector(getIsCommentLoaded);
+  const isNeighbourhoodLoading = useSelector(getIsNeighbourhoodLoading);
+  const isNeighbourhoodLoaded = useSelector(getIsNeighbourhoodLoaded);
+
   const rooms = useSelector(getRooms);
   const currentCity = useSelector(getCurrentCity);
   const coordinates = useSelector(getCurrentCityCoordinates);
-  const neighbourhood = useSelector(getNeighbourhood);
-  const isHotelLoaded = useSelector(getIsHotelLoaded);
-  const isCommentLoaded = useSelector(getIsCommentLoaded);
-  const isNeighbourhoodLoaded = useSelector(getIsNeighbourhoodLoaded);
   const authorizationStatus = useSelector(getAuthorizationStatus);
+  const neighbourhood = useSelector(getNeighbourhood);
   const dispatch = useDispatch();
 
   const idHotelParam = Number(useParams().id);
-  const room = rooms.find((el) => el.id === idHotelParam);
-  if (!room) {
-    return (
-      <NotFoundScreen />
-    );
-  }
 
   const [idActiveRoom, setActiveRoom] = useState(null);
   const handleMouseEnter = useCallback((item) => {
@@ -57,11 +60,7 @@ const Property = () => {
 
   useEffect(() => {
     if (!isHotelLoaded) {
-      dispatch(fetchHotel(idHotelParam))
-        .then((value) => {
-          dispatch(selectCurrentCity(value.cityName));
-        })
-        .catch((err) => console.log(err));
+      dispatch(fetchHotel(idHotelParam));
     }
     if (!isCommentLoaded) {
       dispatch(fetchCommentsList(idHotelParam));
@@ -71,13 +70,20 @@ const Property = () => {
     }
   }, [isHotelLoaded, isCommentLoaded, isNeighbourhoodLoaded]);
 
-  if (!isHotelLoaded || !isCommentLoaded || !isNeighbourhoodLoaded) {
+  if (isHotelLoading || isCommentLoading || isNeighbourhoodLoading) {
     return (
       <Loading />
     );
   }
 
-  const { id, level, img, priceValue, priceText, rating, card, type, description, host, images, cityName } = room;
+  const room = rooms.find((el) => el.id === idHotelParam);
+  if (!room) {
+    return (
+      <NotFoundScreen />
+    );
+  }
+
+  const { id, level, priceValue, priceText, rating, card, description, host, images } = room;
   const bookmark = authorizationStatus === AuthorizationStatus.AUTH ? room.bookmark : BOOKMARKS.TO;
 
   return (
@@ -131,7 +137,7 @@ const Property = () => {
                 </ul>
                 <div className="property__price">
                   <b className="property__price-value">&euro;{priceValue}</b>
-                  <span className="property__price-text">&nbsp;{priceText || 'ночь'}</span>
+                  <span className="property__price-text">&nbsp;{priceText || mockPriceText}</span>
                 </div>
                 <div className="property__inside">
                   <h2 className="property__inside-title">What&apos;s inside</h2>

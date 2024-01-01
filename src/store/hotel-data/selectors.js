@@ -10,10 +10,13 @@ const getRooms = (state) => state[NameSpace.HOTEL].rooms;
 const getRoom = (state, idRoom) => getRooms(state)[idRoom];
 const getBookmark = (state, idRoom) => getRoom(state, idRoom).bookmark;
 
-const getIsHotelListLoaded = (state) => state[NameSpace.HOTEL].isHotelListLoaded;
 const getIsHotelListLoading = (state) => state[NameSpace.HOTEL].isHotelListLoading;
+const getIsHotelListLoaded = (state) => state[NameSpace.HOTEL].isHotelListLoaded;
+const getIsHotelLoading = (state) => state[NameSpace.HOTEL].isHotelLoading;
 const getIsHotelLoaded = (state) => state[NameSpace.HOTEL].isHotelLoaded;
+const getIsCommentLoading = (state) => state[NameSpace.HOTEL].isCommentLoading;
 const getIsCommentLoaded = (state) => state[NameSpace.HOTEL].isCommentLoaded;
+const getIsNeighbourhoodLoading = (state) => state[NameSpace.HOTEL].isNeighbourhoodLoading;
 const getIsNeighbourhoodLoaded = (state) => state[NameSpace.HOTEL].isNeighbourhoodLoaded;
 
 const sortedRooms = (rooms, sortType) => {
@@ -60,10 +63,13 @@ export {
   getRooms,
   getRoom,
   getBookmark,
-  getIsHotelListLoaded,
   getIsHotelListLoading,
+  getIsHotelListLoaded,
+  getIsHotelLoading,
   getIsHotelLoaded,
+  getIsCommentLoading,
   getIsCommentLoaded,
+  getIsNeighbourhoodLoading,
   getIsNeighbourhoodLoaded,
   sortedRooms,
   getFilteredRooms,

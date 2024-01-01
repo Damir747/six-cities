@@ -11,9 +11,7 @@ import rootReducer from './store/root-reducer';
 import App from './components/app/app';
 import browserHistory from './browser-history';
 
-const api = createAPI(() => {
-  console.log('Неавторизован!');
-});
+const api = createAPI();
 
 const store = configureStore({
   reducer: rootReducer,
