@@ -2,12 +2,12 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import stars from '../../mock/mock-rating-stars';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { fetchPostComment } from '../../store/comment-data/api-actions';
+import { COMMENT_LENGTH } from '../../const';
 
-// ? при комментарии без оценки требуется проверка. Сейчас просто слетает отзыв пользователя
-
-const NewReview = ({ idHotel, onPostComment }) => {
+const NewReview = ({ idHotel }) => {
+  const dispatch = useDispatch();
   const [commentText, setCommentText] = useState('');
   const [commentStars, setStars] = useState(0);
 
@@ -19,11 +19,18 @@ const NewReview = ({ idHotel, onPostComment }) => {
     setStars(evt.target.value);
   }, []);
 
+  const disableSubmit = !((commentText.length >= COMMENT_LENGTH.MIN && commentText.length <= COMMENT_LENGTH.MAX && commentStars >= 1 && commentStars <= 5));
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    onPostComment(idHotel, commentText, commentStars);
-    setCommentText('');
-    setStars(0);
+    function onAfterSendComment() {
+      setCommentText('');
+      setStars(0);
+    }
+    dispatch(fetchPostComment(idHotel, {
+      'comment': commentText,
+      'rating': commentStars,
+    },
+      () => onAfterSendComment()));
   };
 
   return (
@@ -61,9 +68,9 @@ const NewReview = ({ idHotel, onPostComment }) => {
         ></textarea>
         <div className="reviews__button-wrapper">
           <p className="reviews__help">
-            To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
+            To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">{COMMENT_LENGTH.MIN} characters</b> and no more than <b className="reviews__text-amount">{COMMENT_LENGTH.MAX} characters</b>.
           </p>
-          <button className="reviews__submit form__submit button" type="submit" disabled="">Submit</button>
+          <button className="reviews__submit form__submit button" type="submit" disabled={disableSubmit}>Submit</button>
         </div>
       </form>
     </React.Fragment >
@@ -72,17 +79,6 @@ const NewReview = ({ idHotel, onPostComment }) => {
 
 NewReview.propTypes = {
   idHotel: PropTypes.number.isRequired,
-  onPostComment: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  onPostComment(idHotel, commentText, commentStars) {
-    dispatch(fetchPostComment(idHotel, {
-      'comment': commentText,
-      'rating': commentStars,
-    }));
-  }
-});
-
-export { NewReview };
-export default connect(null, mapDispatchToProps)(NewReview);
+export default NewReview;

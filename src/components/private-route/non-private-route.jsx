@@ -5,7 +5,7 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 import { getAuthorizationStatus } from '../../store/login-data/selectors';
 import { useSelector } from 'react-redux';
 
-const PrivateRoute = (props) => {
+const NonPrivateRoute = (props) => {
   const { path, exact, render } = props;
   const authorizationStatus = useSelector(getAuthorizationStatus);
   return (
@@ -14,9 +14,9 @@ const PrivateRoute = (props) => {
       exact={exact}
       render={(routeProps) => {
         return (
-          authorizationStatus === AuthorizationStatus.AUTH
+          authorizationStatus === AuthorizationStatus.NO_AUTH
             ? render(routeProps)
-            : <Redirect to={AppRoute.LOGIN} />
+            : <Redirect to={AppRoute.ROOT} />
         );
       }
       }
@@ -24,10 +24,10 @@ const PrivateRoute = (props) => {
   );
 };
 
-PrivateRoute.propTypes = {
+NonPrivateRoute.propTypes = {
   path: PropTypes.string.isRequired,
   exact: PropTypes.bool.isRequired,
   render: PropTypes.func.isRequired,
 };
 
-export default PrivateRoute;
+export default NonPrivateRoute;

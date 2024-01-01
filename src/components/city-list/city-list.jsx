@@ -1,13 +1,20 @@
 /* eslint-disable indent */
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { classname } from '../../utils/utils';
 import { getActiveCity, getCities } from '../../store/city-data/selectors';
 import { selectActiveCity } from '../../store/city-data/actions';
 
-const CityList = ({ cities, activeCity, onClick = () => { } }) => {
+const CityList = () => {
+
+  const cities = useSelector(getCities);
+  const activeCity = useSelector(getActiveCity);
+  const dispatch = useDispatch();
+  const onClick = (city) => {
+    dispatch(selectActiveCity(city));
+  };
+
   return (
     <>
       <div className="tabs">
@@ -32,22 +39,5 @@ const CityList = ({ cities, activeCity, onClick = () => { } }) => {
   );
 };
 
-CityList.propTypes = {
-  cities: PropTypes.object,
-  activeCity: PropTypes.string,
-  onClick: PropTypes.func,
-};
 
-const mapStateToProps = (state) => ({
-  cities: getCities(state),
-  activeCity: getActiveCity(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onClick(activeCity) {
-    dispatch(selectActiveCity(activeCity));
-  },
-});
-
-export { CityList };
-export default connect(mapStateToProps, mapDispatchToProps)(CityList);
+export default CityList;

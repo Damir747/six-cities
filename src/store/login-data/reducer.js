@@ -15,6 +15,7 @@ const loginReducer = (state = initialState, action) => {
         authorizationStatus: action.payload,
       };
     }
+
     case LOGIN_NAME: {
       return {
         ...state,

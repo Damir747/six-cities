@@ -1,4 +1,4 @@
-import { Frame, IN_BOOKMARKS } from '../const';
+import { BOOKMARKS, LevelFrame } from '../const';
 
 const capitalizeFirstLetter = (str) => {
   if (!str) {
@@ -18,16 +18,21 @@ const numberRating = (rating) => Math.round(rating / 20).toFixed(1);
 
 const classname = (...arr) => arr.join(' ');
 
+// className для кнопки bookmark в зависимости от расположения кнопки (frame) и значения
 const bookmarkClassname = (frame, bookmark) => {
   return classname(`${frame}__bookmark-button`, `button`,
-    bookmark === IN_BOOKMARKS ? `${frame}__bookmark-button--active` : '');
+    bookmark === BOOKMARKS.IN ? `${frame}__bookmark-button--active` : '');
 };
 
-const frameClassname = (frame) => {
-  if (frame === Frame.NEAR_PLACES) {
-    return classname('near-places__card', 'place-card');
+// className для Room в зависимости от расположения компонента (frame)
+const roomClassname = (frame) => {
+  if (frame === LevelFrame.NEAR_PLACES) {
+    return classname(`${frame}__card`, 'place-card');
   }
-  return classname('cities__place-card', 'place-card');
+  return classname(`${frame}__place-card`, 'place-card');
 };
 
-export { capitalizeFirstLetter, roundRating, numberRating, classname, bookmarkClassname, frameClassname };
+// className для картинки в Room в зависимости от расположения компонента (frame)
+const roomImageClassname = (frame) => classname(`${frame}__image-wrapper`, 'place-card__image-wrapper');
+
+export { capitalizeFirstLetter, roundRating, numberRating, classname, bookmarkClassname, roomClassname, roomImageClassname };

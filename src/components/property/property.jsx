@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 import Top from '../top/top';
@@ -8,32 +8,42 @@ import PropertyInside from '../property-inside/property-inside';
 import Reviews from '../reviews/reviews';
 import CityMap from '../city-map/city-map';
 import Room from '../room/room';
-import { bookmarkClassname, classname, numberRating, roundRating } from '../../utils/utils';
-import roomsType from '../../types/rooms';
+import { classname, numberRating, roundRating } from '../../utils/utils';
 
-import { getIsHotelLoaded, getNeighbourhood, getRooms } from '../../store/hotel-data/selectors';
-import { connect } from 'react-redux';
+import {
+  getIsHotelLoading, getIsHotelLoaded,
+  getIsCommentLoading, getIsCommentLoaded,
+  getIsNeighbourhoodLoading, getIsNeighbourhoodLoaded,
+  getNeighbourhood, getRooms
+} from '../../store/hotel-data/selectors';
 import Loading from '../loading/loading';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import { AppRoute, AuthorizationStatus, Frame } from '../../const';
-import { getAuthorizationStatus } from '../../store/login-data/selectors';
-import { useHistory } from "react-router-dom";
-import { fetchFavorite, fetchHotel, fetchNeighbourhood } from '../../store/hotel-data/api-actions';
+import { AuthorizationStatus, BOOKMARKS, LevelFrame, RoomFrame, mockPriceText } from '../../const';
+import { fetchHotel, fetchNeighbourhood } from '../../store/hotel-data/api-actions';
 import { fetchCommentsList } from '../../store/comment-data/api-actions';
-import { selectCurrentCity } from '../../store/city-data/actions';
 import { getCurrentCity, getCurrentCityCoordinates } from '../../store/city-data/selectors';
+import { initHotel } from '../../store/hotel-data/actions';
+import ButtonAddToFavorites from '../button-add-to-favorites/button-add-to-favorites';
+import { getAuthorizationStatus } from '../../store/login-data/selectors';
 
-const Property = ({ rooms, isHotelLoaded, currentCity, coordinates, neighbourhood,
-  onLoadHotel, onLoadComments, onChangeFavorite, onLoadNeighbourhood, onSelectCurrentCity, authorizationStatus }) => {
-  const history = useHistory();
+// ? доделать. Работает, но нужно навести красоту
 
-  const [fetchingHotel, setFetchingHotel] = useState(true);
-  const [fetchingComments, setFetchingComments] = useState(true);
-  const [fetchingNeighbourhood, setFetchingNeighbourhood] = useState(true);
+const Property = () => {
+  const isHotelLoading = useSelector(getIsHotelLoading);
+  const isHotelLoaded = useSelector(getIsHotelLoaded);
+  const isCommentLoading = useSelector(getIsCommentLoading);
+  const isCommentLoaded = useSelector(getIsCommentLoaded);
+  const isNeighbourhoodLoading = useSelector(getIsNeighbourhoodLoading);
+  const isNeighbourhoodLoaded = useSelector(getIsNeighbourhoodLoaded);
+
+  const rooms = useSelector(getRooms);
+  const currentCity = useSelector(getCurrentCity);
+  const coordinates = useSelector(getCurrentCityCoordinates);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const neighbourhood = useSelector(getNeighbourhood);
+  const dispatch = useDispatch();
 
   const idHotelParam = Number(useParams().id);
-  const room = rooms.find((el) => el.id === idHotelParam);
-  // ? доделать. Работает, но нужно навести красоту
 
   const [idActiveRoom, setActiveRoom] = useState(null);
   const handleMouseEnter = useCallback((item) => {
@@ -44,45 +54,36 @@ const Property = ({ rooms, isHotelLoaded, currentCity, coordinates, neighbourhoo
   }, []);
 
   useEffect(() => {
-    onLoadHotel(idHotelParam)
-      .then((value) => {
-        onSelectCurrentCity(value.cityName);
-        setFetchingHotel(false);
-      })
-      .catch((err) => console.log(err));
-    onLoadComments(idHotelParam)
-      .then((_value) => {
-        setFetchingComments(false);
-      })
-      .catch((err) => console.log(err));
-    onLoadNeighbourhood(idHotelParam)
-      .then((_value) => {
-        setFetchingNeighbourhood(false);
-      })
-      .catch((err) => console.log(err));
-  }, [fetchingHotel, fetchingComments, fetchingNeighbourhood, idHotelParam]);
+    dispatch(initHotel());
+  }, [idHotelParam]);
 
-  if (fetchingHotel || fetchingComments || fetchingNeighbourhood || !isHotelLoaded) {
+  useEffect(() => {
+    if (!isHotelLoaded) {
+      dispatch(fetchHotel(idHotelParam));
+    }
+    if (!isCommentLoaded) {
+      dispatch(fetchCommentsList(idHotelParam));
+    }
+    if (!isNeighbourhoodLoaded) {
+      dispatch(fetchNeighbourhood(idHotelParam));
+    }
+  }, [isHotelLoaded, isCommentLoaded, isNeighbourhoodLoaded]);
+
+  if (isHotelLoading || isCommentLoading || isNeighbourhoodLoading) {
     return (
       <Loading />
     );
   }
 
+  const room = rooms.find((el) => el.id === idHotelParam);
   if (!room) {
     return (
       <NotFoundScreen />
     );
   }
 
-  const { id, level, img, priceValue, priceText, bookmark, rating, card, type, description, host, images, cityName } = room;
-
-  const handleAddToFavorites = () => {
-    if (authorizationStatus === AuthorizationStatus.AUTH) {
-      onChangeFavorite(id);
-    } else {
-      history.push(AppRoute.LOGIN);
-    }
-  };
+  const { id, level, priceValue, priceText, rating, card, description, host, images } = room;
+  const bookmark = authorizationStatus === AuthorizationStatus.AUTH ? room.bookmark : BOOKMARKS.TO;
 
   return (
     <React.Fragment>
@@ -111,12 +112,13 @@ const Property = ({ rooms, isHotelLoaded, currentCity, coordinates, neighbourhoo
                   <h1 className="property__name">
                     {card}
                   </h1>
-                  <button className={bookmarkClassname('property', bookmark)} type="button" onClick={handleAddToFavorites}>
-                    <svg className="property__bookmark-icon" width="31" height="33">
-                      <use xlinkHref="#icon-bookmark"></use>
-                    </svg>
-                    <span className="visually-hidden">{bookmark}</span>
-                  </button>
+
+                  <ButtonAddToFavorites
+                    id={id}
+                    bookmark={bookmark}
+                    frame={RoomFrame.PROPERTY}
+                  />
+
                 </div>
                 <div className="property__rating rating">
                   <div className="property__stars rating__stars">
@@ -134,11 +136,16 @@ const Property = ({ rooms, isHotelLoaded, currentCity, coordinates, neighbourhoo
                 </ul>
                 <div className="property__price">
                   <b className="property__price-value">&euro;{priceValue}</b>
-                  <span className="property__price-text">&nbsp;{priceText || 'ночь'}</span>
+                  <span className="property__price-text">&nbsp;{priceText || mockPriceText}</span>
                 </div>
+                <div className="property__inside">
+                  <h2 className="property__inside-title">What&apos;s inside</h2>
+                  <ul className="property__inside-list">
 
-                <PropertyInside />
+                    <PropertyInside />
 
+                  </ul>
+                </div >
                 <div className="property__host">
                   <h2 className="property__host-title">{host && host.title}</h2>
                   <div className="property__host-user user">
@@ -160,11 +167,13 @@ const Property = ({ rooms, isHotelLoaded, currentCity, coordinates, neighbourhoo
 
                   </div>
                 </div>
+                <section className="property__reviews reviews">
 
-                <Reviews
-                  idHotel={idHotelParam}
-                />
+                  <Reviews
+                    idHotel={idHotelParam}
+                  />
 
+                </section>
               </div>
             </div>
             <section className="property__map map">
@@ -173,7 +182,6 @@ const Property = ({ rooms, isHotelLoaded, currentCity, coordinates, neighbourhoo
                 coordinates={coordinates}
                 rooms={neighbourhood}
                 idActiveRoom={idActiveRoom}
-
               />
             </section>
           </section>
@@ -187,7 +195,7 @@ const Property = ({ rooms, isHotelLoaded, currentCity, coordinates, neighbourhoo
                     roomElement={neighbour}
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
-                    frame={Frame.NEAR_PLACES}
+                    frame={LevelFrame.NEAR_PLACES}
                   />
                 ))
                 }
@@ -200,46 +208,4 @@ const Property = ({ rooms, isHotelLoaded, currentCity, coordinates, neighbourhoo
   );
 };
 
-Property.propTypes = {
-  rooms: roomsType,
-  isHotelLoaded: PropTypes.bool.isRequired,
-  currentCity: PropTypes.string,
-  coordinates: PropTypes.object,
-  onLoadHotel: PropTypes.func.isRequired,
-  onSelectCurrentCity: PropTypes.func.isRequired,
-  onLoadNeighbourhood: PropTypes.func.isRequired,
-  onLoadComments: PropTypes.func.isRequired,
-  onChangeFavorite: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-  neighbourhood: roomsType,
-};
-
-const mapStateToProps = (state) => ({
-  rooms: getRooms(state),
-  currentCity: getCurrentCity(state),
-  coordinates: getCurrentCityCoordinates(state),
-  isHotelLoaded: getIsHotelLoaded(state),
-  authorizationStatus: getAuthorizationStatus(state),
-  neighbourhood: getNeighbourhood(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLoadComments(idHotel) {
-    return dispatch(fetchCommentsList(idHotel));
-  },
-  onChangeFavorite(idHotel) {
-    dispatch(fetchFavorite(idHotel));
-  },
-  onLoadHotel(idHotel) {
-    return dispatch(fetchHotel(idHotel));
-  },
-  onSelectCurrentCity(city) {
-    dispatch(selectCurrentCity(city));
-  },
-  onLoadNeighbourhood(idHotel) {
-    return dispatch(fetchNeighbourhood(idHotel));
-  },
-});
-
-export { Property };
-export default connect(mapStateToProps, mapDispatchToProps)(Property);
+export default Property;

@@ -1,25 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-import { bookmarkClassname, capitalizeFirstLetter, roundRating } from '../../utils/utils';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { capitalizeFirstLetter, roundRating } from '../../utils/utils';
+import { AppRoute, RoomFrame, mockPriceText } from '../../const';
 import roomType from '../../types/room';
-import { useHistory } from "react-router-dom";
-import { connect } from 'react-redux';
-import { getAuthorizationStatus } from '../../store/login-data/selectors';
-import { fetchFavorite } from '../../store/hotel-data/api-actions';
+import ButtonAddToFavorites from '../button-add-to-favorites/button-add-to-favorites';
 
-const FavoriteCityRoom = ({ room, authorizationStatus, onChangeFavorite }) => {
+const FavoriteCityRoom = ({ room }) => {
   const { id, img, priceValue, priceText, bookmark, rating, card, type } = room;
-
-  const history = useHistory();
-  const handleAddToFavorites = () => {
-    if (authorizationStatus === AuthorizationStatus.AUTH) {
-      onChangeFavorite(id);
-    } else {
-      history.push(AppRoute.LOGIN);
-    }
-  };
 
   return (
     <React.Fragment>
@@ -33,14 +20,15 @@ const FavoriteCityRoom = ({ room, authorizationStatus, onChangeFavorite }) => {
           <div className="place-card__price-wrapper">
             <div className="place-card__price">
               <b className="place-card__price-value">&euro;{priceValue}</b>
-              <span className="place-card__price-text">&#47;&nbsp;{priceText || 'ночь'}</span>
+              <span className="place-card__price-text">&#47;&nbsp;{priceText || mockPriceText}</span>
             </div>
-            <button className={bookmarkClassname('place-card', bookmark)} type="button" onClick={handleAddToFavorites}>
-              <svg className="place-card__bookmark-icon" width="18" height="19">
-                <use xlinkHref="#icon-bookmark"></use>
-              </svg>
-              <span className="visually-hidden">{bookmark}</span>
-            </button>
+
+            <ButtonAddToFavorites
+              id={id}
+              bookmark={bookmark}
+              frame={RoomFrame.PLACE_CARD}
+            />
+
           </div>
           <div className="place-card__rating rating">
             <div className="place-card__stars rating__stars">
@@ -60,19 +48,6 @@ const FavoriteCityRoom = ({ room, authorizationStatus, onChangeFavorite }) => {
 
 FavoriteCityRoom.propTypes = {
   room: roomType,
-  onChangeFavorite: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: getAuthorizationStatus(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onChangeFavorite(idHotel) {
-    dispatch(fetchFavorite(idHotel));
-  }
-});
-
-export { FavoriteCityRoom };
-export default connect(mapStateToProps, mapDispatchToProps)(FavoriteCityRoom);
+export default FavoriteCityRoom;

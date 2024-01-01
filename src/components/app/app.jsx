@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Switch, Route, Router } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 import MainPage from '../main-page/main-page';
 import { AppRoute } from '../../const';
@@ -9,73 +9,73 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Property from '../property/property';
 
 import reviewsType from '../../types/reviews';
-import { connect } from 'react-redux';
-import { getIsDataLoaded } from '../../store/hotel-data/selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { getIsHotelListLoaded, getIsHotelListLoading } from '../../store/hotel-data/selectors';
 import Loading from '../loading/loading';
-import browserHistory from '../../browser-history';
-import FavoriteLogin from '../favorites-page/favorite-login';
 import { fetchHotelList } from '../../store/hotel-data/api-actions';
-// ? live 6. 01:46:19 - разобраться с остатками useHistory
-// ? соседи / neighbouhood - не обновляются при добавлении в избранное
-// ? убрать connect, заменить на useSelector
+import PrivateRoute from '../private-route/private-route';
+import FavoritePage from '../favorites-page/favorite-page';
+import { getIsCityListIsLoaded, getIsCityListIsLoading } from '../../store/city-data/selectors';
+import browserHistory from '../../browser-history';
+import NonPrivateRoute from '../private-route/non-private-route';
+import { initHotelList } from '../../store/hotel-data/actions';
+import { initCitylList } from '../../store/city-data/actions';
 
-const App = ({ onLoadData, isDataLoaded }) => {
+const App = () => {
+  const isHotelListLoading = useSelector(getIsHotelListLoading);
+  const isHotelListLoaded = useSelector(getIsHotelListLoaded);
+  const isCityListLoading = useSelector(getIsCityListIsLoading);
+  const isCityListLoaded = useSelector(getIsCityListIsLoaded);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!isDataLoaded) {
-      onLoadData();
+    if (!isHotelListLoaded && !isCityListLoaded) {
+      dispatch(initHotelList());
+      dispatch(initCitylList());
+      dispatch(fetchHotelList());
     }
-  }, [isDataLoaded]);
+  }, [isHotelListLoaded, isCityListLoaded]);
 
-  if (!isDataLoaded) {
+  if (isHotelListLoading || isCityListLoading) {
     return (
       <Loading />
     );
   }
+
   return (
-    <>
-      <Router history={browserHistory}>
-        <Switch>
-          <Route exact path={AppRoute.ROOT}>
-            <MainPage />
-          </Route>
-          <Route exact path={AppRoute.LOGIN}>
-            <LoginPage />
-          </Route>
-          <Route exact path={AppRoute.FAVORITES}>
-            <FavoriteLogin />
-          </Route>
-          <Route exact path={AppRoute.OFFER + ':id'}>
-            <Property />
-          </Route>
-          <Route>
-            <NotFoundScreen />
-          </Route>
-        </Switch>
-      </Router>
-    </>
+    <Switch>
+      <Route exact path={AppRoute.ROOT}>
+        <MainPage />
+      </Route>
+      <NonPrivateRoute exact
+        path={AppRoute.LOGIN}
+        render={() => (
+          <LoginPage
+            onAfterLoginRedirect={() => browserHistory.push(AppRoute.ROOT)}
+          />)}
+      />
+      <PrivateRoute exact
+        path={AppRoute.FAVORITES}
+        render={() => (
+          <FavoritePage />
+        )}
+      />
+      <Route exact path={AppRoute.OFFER + ':id'}>
+        <Property />
+      </Route>
+      <Route>
+        <NotFoundScreen />
+      </Route>
+    </Switch >
   );
 };
 
 App.propTypes = {
   reviews: reviewsType,
   cities: PropTypes.object,
-  isDataLoaded: PropTypes.bool.isRequired,
-  onLoadData: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  isDataLoaded: getIsDataLoaded(state)
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLoadData() {
-    dispatch(fetchHotelList());
-  }
-});
-
-export { App };
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
 
 // Задайте себе три вопроса:
 

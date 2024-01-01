@@ -1,34 +1,71 @@
-import { IN_BOOKMARKS, TO_BOOKMARKS } from "../../const";
-import { FAVORITE, FAVORITE_NEIGHBOURHOOD, HOTEL, HOTEL_LIST, NEIGHBOURHOOD } from "./actions-types";
+import { BOOKMARKS } from "../../const";
+import { FAVORITE, FAVORITE_NEIGHBOURHOOD, HOTEL, HOTEL_LIST, HOTEL_INIT, NEIGHBOURHOOD, REVIEWS_LIST, HOTEL_LIST_INIT } from "./actions-types";
 
 /* eslint-disable indent */
 const initialState = {
   hotel: null,
   rooms: [],
-  isDataLoaded: false,
+  isHotelListLoading: false,
+  isHotelListLoaded: false,
+  reviews: [],
+  isHotelLoading: true,
   isHotelLoaded: false,
+  isCommentLoading: true,
+  isCommentLoaded: false,
+  isNeighbourhoodLoading: true,
+  isNeighbourhoodLoaded: false,
 };
 
 const hotelReducer = (state = initialState, action) => {
   switch (action.type) {
+    case HOTEL_LIST_INIT: {
+      return {
+        ...state,
+        isHotelListLoading: true,
+        isHotelListLoaded: false,
+      };
+    }
     case HOTEL_LIST: {
       return {
         ...state,
         rooms: action.payload,
-        isDataLoaded: true,
+        isHotelListLoading: false,
+        isHotelListLoaded: true,
+      };
+    }
+    case HOTEL_INIT: {
+      return {
+        ...state,
+        isHotelLoading: true,
+        isHotelLoaded: false,
+        isCommentLoading: true,
+        isCommentLoaded: false,
+        isNeighbourhoodLoading: true,
+        isNeighbourhoodLoaded: false,
       };
     }
     case HOTEL: {
       return {
         ...state,
         hotel: action.payload,
+        isHotelLoading: false,
         isHotelLoaded: true,
+      };
+    }
+    case REVIEWS_LIST: {
+      return {
+        ...state,
+        reviews: action.payload,
+        isCommentLoading: false,
+        isCommentLoaded: true,
       };
     }
     case NEIGHBOURHOOD: {
       return {
         ...state,
         neighbourhood: action.payload,
+        isNeighbourhoodLoading: false,
+        isNeighbourhoodLoaded: true,
       };
     }
     case FAVORITE: {
@@ -39,7 +76,7 @@ const hotelReducer = (state = initialState, action) => {
           ...state.rooms.slice(0, findId),
           {
             ...state.rooms[findId],
-            bookmark: action.payload.is_favorite ? IN_BOOKMARKS : TO_BOOKMARKS
+            bookmark: action.payload.is_favorite ? BOOKMARKS.IN : BOOKMARKS.TO
           },
           ...state.rooms.slice(findId + 1),
         ]
@@ -59,7 +96,7 @@ const hotelReducer = (state = initialState, action) => {
           ...state.neighbourhood.slice(0, findId),
           {
             ...state.neighbourhood[findId],
-            bookmark: action.payload.is_favorite ? IN_BOOKMARKS : TO_BOOKMARKS
+            bookmark: action.payload.is_favorite ? BOOKMARKS.IN : BOOKMARKS.TO
           },
           ...state.neighbourhood.slice(findId + 1),
         ]

@@ -9,7 +9,13 @@ import CityList from '../city-list/city-list';
 import { NameSpace } from '../../store/root-reducer';
 
 const MainPage = () => {
+<<<<<<< HEAD
   const { cities, activeCity } = useSelector((state) => state[NameSpace.CITY]);
+=======
+  const cities = useSelector(getCities);
+  const activeCity = useSelector(getActiveCity);
+
+>>>>>>> january
   return (
     <React.Fragment>
       <Top />

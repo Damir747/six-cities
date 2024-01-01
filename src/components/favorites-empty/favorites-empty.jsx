@@ -3,9 +3,7 @@ import Top from '../top/top';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 
-import loginType from '../../types/login';
-
-const FavoritesEmpty = ({ loginName }) => {
+const FavoritesEmpty = () => {
   return (
     <React.Fragment>
       <Top />
@@ -29,10 +27,6 @@ const FavoritesEmpty = ({ loginName }) => {
       </div>
     </React.Fragment>
   );
-};
-
-FavoritesEmpty.propTypes = {
-  loginName: loginType,
 };
 
 export default FavoritesEmpty;

@@ -1,9 +1,8 @@
-import { COMMENT_POST, REVIEW_LIST } from "./actions-types";
+import { COMMENT_POST } from "./actions-types";
 
 /* eslint-disable indent */
 const initialState = {
   comment: '',
-  reviews: [],
 };
 
 const commentReducer = (state = initialState, action) => {
@@ -12,12 +11,6 @@ const commentReducer = (state = initialState, action) => {
       return {
         ...state,
         comment: action.payload,
-      };
-    }
-    case REVIEW_LIST: {
-      return {
-        ...state,
-        reviews: action.payload,
       };
     }
   }

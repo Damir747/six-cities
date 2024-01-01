@@ -1,8 +1,6 @@
-import menuUpArray from '../../mock/mock-menu';
 import propertyInside from '../../mock/mock-property-inside';
 
 const initialState = {
-  menuUpArray,
   propertyInside,
 };
 

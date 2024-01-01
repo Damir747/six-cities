@@ -2,6 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import roomType from '../../types/room';
+<<<<<<< HEAD
 import { AppRoute, Frame } from '../../const';
 import { bookmarkClassname, capitalizeFirstLetter, classname, frameClassname, roundRating } from '../../utils/utils';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
@@ -18,18 +19,31 @@ const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame }) => {
   const { authorizationStatus } = useSelector((state) => state[NameSpace.LOGIN]);
   const dispatch = useDispatch();
   const history = useHistory();
+=======
+import { AppRoute, AuthorizationStatus, BOOKMARKS, LevelFrame, RoomFrame, mockPriceText } from '../../const';
+import { capitalizeFirstLetter, roomClassname, roomImageClassname, roundRating } from '../../utils/utils';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import ButtonAddToFavorites from '../button-add-to-favorites/button-add-to-favorites';
+import { useSelector } from 'react-redux';
+import { getAuthorizationStatus } from '../../store/login-data/selectors';
+
+const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame }) => {
+  const { id, level, img, priceValue, priceText, rating, card, type } = roomElement;
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const bookmark = authorizationStatus === AuthorizationStatus.AUTH ? roomElement.bookmark : BOOKMARKS.TO;
+>>>>>>> january
 
   return (
     <React.Fragment>
       <article
         key={id}
-        className={frameClassname(frame)}
+        className={roomClassname(frame)}
         onMouseEnter={() => onMouseEnter(id)}
         onMouseLeave={() => onMouseLeave()}>
-        {(frame === Frame.CITIES) && level && <div className="place-card__mark">
+        {(frame === LevelFrame.CITIES) && level && <div className="place-card__mark">
           <span>{level}</span>
         </div>}
-        <div className={classname(frame + '__image-wrapper', 'place-card__image-wrapper')}>
+        <div className={roomImageClassname(frame)}>
           <Link to={AppRoute.ROOT}>
             <img className="place-card__image" src={img} width="260" height="200" alt="Place image" />
           </Link>
@@ -38,16 +52,20 @@ const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame }) => {
           <div className="place-card__price-wrapper">
             <div className="place-card__price">
               <b className="place-card__price-value">&euro;{priceValue}</b>
-              <span className="place-card__price-text">&#47;&nbsp;{priceText || 'ночь'}</span>
+              <span className="place-card__price-text">&#47;&nbsp;{priceText || mockPriceText}</span>
             </div>
+<<<<<<< HEAD
             <button className={bookmarkClassname('place-card', bookmark)} type="button"
               onClick={handleAddToFavorites(authorizationStatus, dispatch(fetchFavorite(id)), id, history.push)}>
+=======
+>>>>>>> january
 
-              <svg className="place-card__bookmark-icon" width="18" height="19">
-                <use xlinkHref="#icon-bookmark"></use>
-              </svg>
-              <span className="visually-hidden">{bookmark}</span>
-            </button>
+            <ButtonAddToFavorites
+              id={id}
+              bookmark={bookmark}
+              frame={RoomFrame.PLACE_CARD}
+            />
+
           </div>
           <div className="place-card__rating rating">
             <div className="place-card__stars rating__stars">
@@ -69,7 +87,11 @@ Room.propTypes = {
   roomElement: roomType,
   onMouseEnter: PropTypes.func,
   onMouseLeave: PropTypes.func,
+<<<<<<< HEAD
   frame: PropTypes.string,
+=======
+  frame: PropTypes.oneOf(Array.from(Object.values(LevelFrame))),
+>>>>>>> january
 };
 
 export default Room;

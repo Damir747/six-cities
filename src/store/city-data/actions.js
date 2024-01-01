@@ -1,4 +1,9 @@
+import { HOTEL_LIST_INIT } from '../hotel-data/actions-types';
 import { CHANGE_CITY, CITY_LIST, CURRENT_CITY } from './actions-types';
+
+const initCitylList = () => ({
+  type: HOTEL_LIST_INIT,
+});
 
 const loadCityList = (cities) => ({
   type: CITY_LIST,
@@ -16,6 +21,7 @@ const selectCurrentCity = (city) => ({
 });
 
 export {
+  initCitylList,
   loadCityList,
   selectActiveCity,
   selectCurrentCity,

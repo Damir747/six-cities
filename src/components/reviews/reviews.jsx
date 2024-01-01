@@ -4,33 +4,27 @@ import { useSelector } from 'react-redux';
 
 import OldReviews from '../old-reviews/old-reviews';
 import NewReview from '../new-review/new-review';
-import { getReviews } from '../../store/comment-data/selectors';
 import { AuthorizationStatus } from '../../const';
-import { NameSpace } from '../../store/root-reducer';
+import { getAuthorizationStatus } from '../../store/login-data/selectors';
 
 const Reviews = ({ idHotel }) => {
-  const { reviews } = useSelector((state) => state[NameSpace.COMMENT]);
-  const { authorizationStatus } = useSelector((state) => state[NameSpace.LOGIN]);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
 
   return (
     <React.Fragment>
-      <section className="property__reviews reviews">
+      <OldReviews />
+      {authorizationStatus === AuthorizationStatus.AUTH
+        ? <NewReview
+          idHotel={idHotel}
+        />
+        : ''}
 
-        <OldReviews reviews={reviews} />
-        {authorizationStatus === AuthorizationStatus.AUTH
-          ? <NewReview
-            idHotel={idHotel}
-          />
-          : ''}
-
-      </section>
-    </React.Fragment>
+    </React.Fragment >
   );
 };
 
 Reviews.propTypes = {
   idHotel: PropTypes.number.isRequired,
 };
-
 
 export default Reviews;

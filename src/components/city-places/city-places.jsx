@@ -1,18 +1,18 @@
 import React, { useCallback, useState } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import MenuUp from '../menu-up/menu-up';
 import CityMap from '../city-map/city-map';
 import Room from '../../components/room/room';
 
-import roomsType from '../../types/rooms';
 import { getActiveCity, getActiveCityCoordinates } from '../../store/city-data/selectors';
-import { Frame } from '../../const';
-import { useWhyDidYouUpdate } from 'ahooks';
+import { LevelFrame } from '../../const';
 import { getFilteredRooms } from '../../store/hotel-data/selectors';
 
-const CityPlaces = ({ activeCity, coordinates, filteredRooms }) => {
+const CityPlaces = () => {
+  const activeCity = useSelector(getActiveCity);
+  const coordinates = useSelector(getActiveCityCoordinates);
+  const filteredRooms = useSelector(getFilteredRooms);
   if (filteredRooms.length) {
     const [idActiveRoom, setActiveRoom] = useState(null);
     const handleMouseEnter = useCallback((item) => {
@@ -38,7 +38,7 @@ const CityPlaces = ({ activeCity, coordinates, filteredRooms }) => {
                     roomElement={roomElement}
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
-                    frame={Frame.CITIES}
+                    frame={LevelFrame.CITIES}
                   />
                 )
                 )}
@@ -76,17 +76,4 @@ const CityPlaces = ({ activeCity, coordinates, filteredRooms }) => {
   );
 };
 
-CityPlaces.propTypes = {
-  activeCity: PropTypes.string,
-  coordinates: PropTypes.object,
-  filteredRooms: roomsType,
-};
-
-const mapStateToProps = (state) => ({
-  activeCity: getActiveCity(state),
-  coordinates: getActiveCityCoordinates(state),
-  filteredRooms: getFilteredRooms(state),
-});
-
-export { CityPlaces };
-export default connect(mapStateToProps)(CityPlaces);
+export default CityPlaces;

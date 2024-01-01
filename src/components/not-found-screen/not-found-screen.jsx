@@ -1,12 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Top from '../top/top';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import { AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
-import loginType from '../../types/login';
 
-const NotFoundScreen = ({ loginName }) => {
+const NotFoundScreen = () => {
   return (
     <React.Fragment>
       <Top />
@@ -23,10 +23,6 @@ const NotFoundScreen = ({ loginName }) => {
       </div>
     </React.Fragment>
   );
-};
-
-NotFoundScreen.propTypes = {
-  loginName: loginType,
 };
 
 export default NotFoundScreen;
