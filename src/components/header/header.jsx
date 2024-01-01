@@ -3,7 +3,7 @@ import React, { memo } from 'react';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAuthorizationStatus, getLoginName } from '../../store/login-data/selectors';
+import { getAuthorizationStatus, getLoginAvatar, getLoginName } from '../../store/login-data/selectors';
 import { fetchLogout, fetchGetLogin } from '../../store/login-data/api-actions';
 import { fetchFavoriteList } from '../../store/favorite-data/api-actions';
 
@@ -13,6 +13,7 @@ const Header = () => {
   dispatch(fetchGetLogin());
   const authorizationStatus = useSelector(getAuthorizationStatus);
   const loginName = useSelector(getLoginName);
+  const loginAvatar = useSelector(getLoginAvatar);
 
   const handleLogout = () => {
     dispatch(fetchLogout());
@@ -34,7 +35,7 @@ const Header = () => {
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
                   <Link className="header__nav-link header__nav-link--profile" to={authorizationStatus === AuthorizationStatus.AUTH ? AppRoute.FAVORITES : AppRoute.LOGIN}>
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
+                    <div className="header__avatar-wrapper user__avatar-wrapper"><img src={loginAvatar} />
                     </div>
                     <span className="header__user-name user__name">
                       {authorizationStatus === AuthorizationStatus.AUTH ? loginName : 'Sign in'}
