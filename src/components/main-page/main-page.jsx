@@ -6,16 +6,12 @@ import Top from '../top/top';
 import Header from '../header/header';
 import CityPlaces from '../city-places/city-places';
 import CityList from '../city-list/city-list';
-import { NameSpace } from '../../store/root-reducer';
+import { getActiveCity, getCities } from '../../store/city-data/selectors';
 
 const MainPage = () => {
-<<<<<<< HEAD
-  const { cities, activeCity } = useSelector((state) => state[NameSpace.CITY]);
-=======
   const cities = useSelector(getCities);
   const activeCity = useSelector(getActiveCity);
 
->>>>>>> january
   return (
     <React.Fragment>
       <Top />

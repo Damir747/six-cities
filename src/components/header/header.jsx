@@ -2,25 +2,13 @@
 import React, { memo } from 'react';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { AppRoute, AuthorizationStatus } from '../../const';
-<<<<<<< HEAD
-import { useSelector } from 'react-redux';
-
-import { useHistory } from 'react-router-dom/cjs/react-router-dom';
-import { NameSpace } from '../../store/root-reducer';
-
-const Header = () => {
-
-  const { authorizationStatus, loginName } = useSelector((state) => state[NameSpace.LOGIN]);
-  const history = useHistory();
-=======
 import { useDispatch, useSelector } from 'react-redux';
 import { getAuthorizationStatus, getLoginAvatar, getLoginName } from '../../store/login-data/selectors';
 import { fetchLogout, fetchGetLogin } from '../../store/login-data/api-actions';
 import { fetchFavoriteList } from '../../store/favorite-data/api-actions';
 
 const Header = () => {
->>>>>>> january
-  const buttonStyle = { height: '50%', width: '80px', margin: '10px' };
+  const buttonStyle = { height: '50%', width: '150px', margin: '10px' };
   const dispatch = useDispatch();
   dispatch(fetchGetLogin());
   const authorizationStatus = useSelector(getAuthorizationStatus);
@@ -63,8 +51,4 @@ const Header = () => {
   );
 };
 
-<<<<<<< HEAD
-export default Header;
-=======
 export default memo(Header);
->>>>>>> january

@@ -2,24 +2,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import roomType from '../../types/room';
-<<<<<<< HEAD
-import { AppRoute, Frame } from '../../const';
-import { bookmarkClassname, capitalizeFirstLetter, classname, frameClassname, roundRating } from '../../utils/utils';
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-import { useDispatch, useSelector } from 'react-redux';
-
-import browserHistory from '../../browser-history';
-import { useHistory } from "react-router-dom";
-import { fetchFavorite } from '../../store/hotel-data/api-actions';
-import handleAddToFavorites from './handle-add-to-favorites';
-import { NameSpace } from '../../store/root-reducer';
-
-const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame }) => {
-  const { id, level, img, priceValue, priceText, bookmark, rating, card, type } = roomElement;
-  const { authorizationStatus } = useSelector((state) => state[NameSpace.LOGIN]);
-  const dispatch = useDispatch();
-  const history = useHistory();
-=======
 import { AppRoute, AuthorizationStatus, BOOKMARKS, LevelFrame, RoomFrame, mockPriceText } from '../../const';
 import { capitalizeFirstLetter, roomClassname, roomImageClassname, roundRating } from '../../utils/utils';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
@@ -31,7 +13,6 @@ const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame }) => {
   const { id, level, img, priceValue, priceText, rating, card, type } = roomElement;
   const authorizationStatus = useSelector(getAuthorizationStatus);
   const bookmark = authorizationStatus === AuthorizationStatus.AUTH ? roomElement.bookmark : BOOKMARKS.TO;
->>>>>>> january
 
   return (
     <React.Fragment>
@@ -54,11 +35,6 @@ const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame }) => {
               <b className="place-card__price-value">&euro;{priceValue}</b>
               <span className="place-card__price-text">&#47;&nbsp;{priceText || mockPriceText}</span>
             </div>
-<<<<<<< HEAD
-            <button className={bookmarkClassname('place-card', bookmark)} type="button"
-              onClick={handleAddToFavorites(authorizationStatus, dispatch(fetchFavorite(id)), id, history.push)}>
-=======
->>>>>>> january
 
             <ButtonAddToFavorites
               id={id}
@@ -77,9 +53,9 @@ const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame }) => {
             <Link to={AppRoute.OFFER + id}>{card}</Link>
           </h2>
           <p className="place-card__type">{capitalizeFirstLetter(type)}</p>
-        </div>
+        </div >
       </article >
-    </React.Fragment>
+    </React.Fragment >
   );
 };
 
@@ -87,11 +63,7 @@ Room.propTypes = {
   roomElement: roomType,
   onMouseEnter: PropTypes.func,
   onMouseLeave: PropTypes.func,
-<<<<<<< HEAD
-  frame: PropTypes.string,
-=======
   frame: PropTypes.oneOf(Array.from(Object.values(LevelFrame))),
->>>>>>> january
 };
 
 export default Room;

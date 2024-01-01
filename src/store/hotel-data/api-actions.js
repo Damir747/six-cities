@@ -93,7 +93,6 @@ const fetchFavorite = (idHotel) => async (dispatch, getState, api) => {
 
   try {
     const status = getReverseFavorite(getState(), idHotel);
-    console.log(status, `${serverLinks.FAVORITE}/${idHotel}/${status}`);
     const success = await api.post(`${serverLinks.FAVORITE}/${idHotel}/${status}`);
     return onSuccess(success);
   } catch (error) {
