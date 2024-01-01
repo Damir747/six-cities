@@ -22,7 +22,7 @@ const fetchCommentsList = (idHotel) => async (dispatch, _getState, api) => {
       type: 'error',
       id: 3
     }));
-    dispatch(loadComments({}));
+    dispatch(loadComments([]));
     return error;
   }
 

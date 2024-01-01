@@ -59,7 +59,7 @@ const fetchHotel = (id) => async (dispatch, _getState, api) => {
       type: 'error',
       id: 0
     }));
-    dispatch(loadHotel([]));
+    dispatch(loadHotel({}));
     return error;
   }
 

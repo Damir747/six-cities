@@ -58,13 +58,9 @@ const Property = () => {
   }, [idHotelParam]);
 
   useEffect(() => {
-    if (!isHotelLoaded) {
+    if (!isHotelLoaded && !isCommentLoaded && !isNeighbourhoodLoaded) {
       dispatch(fetchHotel(idHotelParam));
-    }
-    if (!isCommentLoaded) {
       dispatch(fetchCommentsList(idHotelParam));
-    }
-    if (!isNeighbourhoodLoaded) {
       dispatch(fetchNeighbourhood(idHotelParam));
     }
   }, [isHotelLoaded, isCommentLoaded, isNeighbourhoodLoaded]);

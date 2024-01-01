@@ -20,6 +20,7 @@ const fetchFavoriteList = () => async (dispatch, _getState, api) => {
       type: 'error',
       id: 7,
     }));
+    dispatch(loadFavoriteList([]));
   }
 
   try {

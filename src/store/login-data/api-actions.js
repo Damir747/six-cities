@@ -5,9 +5,7 @@ import { serverLinks } from '../server-links';
 
 const fetchLogin = ({ email, password }, onAfterLoginRedirect) => async function (dispatch, _getState, api) {
 
-  function onSuccess(success) {
-    console.log(success);
-    const { data } = success;
+  function onSuccess({ data }) {
     dispatch(changeAuthorizationStatus(AuthorizationStatus.AUTH));
     dispatch(userChange(data));
     onAfterLoginRedirect();
