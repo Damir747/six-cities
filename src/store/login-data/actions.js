@@ -1,8 +1,4 @@
-import { AUTH_INIT, CHANGE_AUTHORIZATION_STATUS, LOGIN_NAME, REDIRECT_TO_ROUTE } from "./actions-types";
-
-const authorizationStatusInit = () => ({
-  type: AUTH_INIT
-});
+import { CHANGE_AUTHORIZATION_STATUS, LOGIN_NAME, REDIRECT_TO_ROUTE } from "./actions-types";
 
 const changeAuthorizationStatus = (status) => ({
   type: CHANGE_AUTHORIZATION_STATUS,
@@ -20,7 +16,6 @@ const redirectToRoute = (url) => ({
 });
 
 export {
-  authorizationStatusInit,
   changeAuthorizationStatus,
   userChange,
   redirectToRoute
