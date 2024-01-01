@@ -21,7 +21,6 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { AuthorizationStatus, BOOKMARKS, LevelFrame, RoomFrame, mockPriceText } from '../../const';
 import { fetchHotel, fetchNeighbourhood } from '../../store/hotel-data/api-actions';
 import { fetchCommentsList } from '../../store/comment-data/api-actions';
-import { selectCurrentCity } from '../../store/city-data/actions';
 import { getCurrentCity, getCurrentCityCoordinates } from '../../store/city-data/selectors';
 import { initHotel } from '../../store/hotel-data/actions';
 import ButtonAddToFavorites from '../button-add-to-favorites/button-add-to-favorites';

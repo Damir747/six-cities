@@ -7,6 +7,7 @@ import { appendNotification } from '../notification-data/actions';
 const fetchFavoriteList = () => async (dispatch, _getState, api) => {
 
   function onSuccess({ data }) {
+    console.log(data);
     data = data.map((el) => Room.convertDataHotel(el));
     dispatch(loadFavoriteList(data));
     return data;

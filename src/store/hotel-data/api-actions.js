@@ -1,7 +1,7 @@
 import cities from '../../mock/mock-cities';
 import { Room, City } from '../adapter';
-import { initCitylList, loadCityList, selectCurrentCity } from '../city-data/actions';
-import { changeFavoriteNeighbourhood, initHotelList, loadHotel, loadHotelList, loadNeighbourhood } from './actions';
+import { loadCityList, selectCurrentCity } from '../city-data/actions';
+import { changeFavoriteNeighbourhood, loadHotel, loadHotelList, loadNeighbourhood } from './actions';
 import { appendNotification } from '../notification-data/actions';
 import { serverLinks } from '../server-links';
 
@@ -93,6 +93,7 @@ const fetchFavorite = (idHotel) => async (dispatch, getState, api) => {
 
   try {
     const status = getReverseFavorite(getState(), idHotel);
+    console.log(status, `${serverLinks.FAVORITE}/${idHotel}/${status}`);
     const success = await api.post(`${serverLinks.FAVORITE}/${idHotel}/${status}`);
     return onSuccess(success);
   } catch (error) {

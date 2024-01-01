@@ -1,4 +1,8 @@
-import { FAVORITE_CHANGE, FAVORITE_LIST } from "./actions-types";
+import { FAVORITE_CHANGE, FAVORITE_LIST, FAVORITE_LIST_INIT } from "./actions-types";
+
+const initFavoriteList = () => ({
+  type: FAVORITE_LIST_INIT,
+});
 
 const loadFavoriteList = (favoriteHotels) => ({
   type: FAVORITE_LIST,
@@ -11,6 +15,7 @@ const changeFavoriteList = (hotel) => ({
 });
 
 export {
+  initFavoriteList,
   loadFavoriteList,
   changeFavoriteList,
 };

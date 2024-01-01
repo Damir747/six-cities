@@ -1,17 +1,26 @@
-import { FAVORITE_CHANGE, FAVORITE_LIST } from "./actions-types";
+import { FAVORITE_CHANGE, FAVORITE_LIST, FAVORITE_LIST_INIT } from "./actions-types";
 
 /* eslint-disable indent */
 const initialState = {
   favorites: [],
+  isFavoriteListLoading: false,
   isFavoriteListLoaded: false,
 };
 
 const favoriteReducer = (state = initialState, action) => {
   switch (action.type) {
+    case FAVORITE_LIST_INIT: {
+      return {
+        ...state,
+        isFavoriteListLoading: true,
+        isFavoriteListLoaded: false,
+      };
+    }
     case FAVORITE_LIST: {
       return {
         ...state,
         favorites: action.payload,
+        isFavoriteListLoading: false,
         isFavoriteListLoaded: true,
       };
     }
