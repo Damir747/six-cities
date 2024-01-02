@@ -82,7 +82,7 @@ const fetchFavorite = (idHotel) => async (dispatch, getState, api) => {
   }
 
   function onError(error) {
-    console.log('error!', error);
+    console.log('error!');
     dispatch(appendNotification({
       message: error.message,
       type: 'error',
@@ -110,7 +110,7 @@ const fetchNeighbourhood = (id) => async (dispatch, _getState, api) => {
   }
 
   function onError(error) {
-    console.log('error!', error.message);
+    console.log('error!');
     dispatch(appendNotification({
       message: error.message,
       type: 'error',

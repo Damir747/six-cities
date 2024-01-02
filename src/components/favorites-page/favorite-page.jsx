@@ -20,7 +20,7 @@ const FavoritePage = () => {
 
   useEffect(() => {
     if (!isFavoriteListLoaded) {
-      dispatch(initFavoriteList()); //? не работает. Надо подумать, где инициализировать загрузку формы Favorites
+      dispatch(initFavoriteList()); // ? не работает. Надо подумать, где инициализировать загрузку формы Favorites
       dispatch(fetchFavoriteList());
     }
   }, [isFavoriteListLoaded]);

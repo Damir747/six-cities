@@ -13,7 +13,7 @@ const fetchLogin = ({ email, password }, onAfterLoginRedirect) => async function
   }
 
   function onError(error) {
-    console.log('error!', error);
+    console.log('error!');
     dispatch(appendNotification({
       message: error.message,
       type: 'error',
@@ -41,7 +41,7 @@ const fetchLogout = () => async (dispatch, _getState, api) => {
   }
 
   function onError(error) {
-    console.log('error!', error);
+    console.log('error!');
     dispatch(appendNotification({
       message: error.message,
       type: 'error',

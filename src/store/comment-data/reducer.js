@@ -8,6 +8,8 @@ const initialState = {
 const commentReducer = (state = initialState, action) => {
   switch (action.type) {
     case COMMENT_POST: {
+      // console.log(action);
+      // console.log(state);
       return {
         ...state,
         comment: action.payload,
