@@ -41,23 +41,18 @@ const fetchLogout = () => (dispatch, _getState, api) => {
 
 };
 
-const fetchGetLogin = () => async (dispatch, _getState, api) => {
-  function onSuccess({ data }) {
-    dispatch(userChange(data));
-    dispatch(changeAuthorizationStatus(AuthorizationStatus.AUTH));
-    return data;
-  }
-
+const fetchGetLogin = () => (dispatch, _getState, api) => {
   function onError(error) {
     return error;
   }
 
-  try {
-    const success = await api.get(serverLinks.LOGIN);
-    return onSuccess(success);
-  } catch (error) {
-    return onError(error);
-  }
+  return api.get(serverLinks.LOGIN)
+    .then(({ data }) => {
+      dispatch(userChange(data));
+      dispatch(changeAuthorizationStatus(AuthorizationStatus.AUTH));
+      return data;
+    })
+    .catch((error) => onError(error));
 };
 
 export {

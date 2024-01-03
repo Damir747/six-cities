@@ -5,10 +5,9 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAuthorizationStatus, getLoginAvatar, getLoginName } from '../../store/login-data/selectors';
 import { fetchLogout, fetchGetLogin } from '../../store/login-data/api-actions';
-import { fetchFavoriteList } from '../../store/favorite-data/api-actions';
 
 const Header = () => {
-  const buttonStyle = { height: '50%', width: '150px', margin: '10px' };
+  const buttonStyle = { height: '50%', width: '80px', margin: '10px' };
   const dispatch = useDispatch();
   dispatch(fetchGetLogin());
   const authorizationStatus = useSelector(getAuthorizationStatus);
@@ -29,7 +28,6 @@ const Header = () => {
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
               </Link>
             </div>
-            <button style={buttonStyle} onClick={() => dispatch(fetchFavoriteList())}>fetchFavoriteList</button>
             <button style={buttonStyle} hidden={authorizationStatus !== AuthorizationStatus.AUTH} onClick={handleLogout}>Logout</button>
             <nav className="header__nav">
               <ul className="header__nav-list">
