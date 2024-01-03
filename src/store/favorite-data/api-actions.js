@@ -4,7 +4,7 @@ import { serverLinks } from '../server-links';
 import { appendNotification } from '../notification-data/actions';
 
 // ? после logout обнуляется список Избранного
-const fetchFavoriteList = () => async (dispatch, _getState, api) => {
+const fetchFavoriteList = () => (dispatch, _getState, api) => {
   function onError(error) {
     console.log('error!', error);
     dispatch(appendNotification({

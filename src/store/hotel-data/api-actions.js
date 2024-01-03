@@ -39,7 +39,7 @@ const fetchHotelList = () => (dispatch, _getState, api) => {
 
 };
 
-const fetchHotel = (id) => async (dispatch, _getState, api) => {
+const fetchHotel = (id) => (dispatch, _getState, api) => {
   function onError(error) {
     console.log('error!', error);
     dispatch(appendNotification({
@@ -84,7 +84,7 @@ const fetchFavorite = (idHotel) => (dispatch, getState, api) => {
 
 };
 
-const fetchNeighbourhood = (id) => async (dispatch, _getState, api) => {
+const fetchNeighbourhood = (id) => (dispatch, _getState, api) => {
   function onError(error) {
     console.log('error!', error);
     dispatch(appendNotification({
