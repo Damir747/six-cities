@@ -1,4 +1,5 @@
 import { BOOKMARKS, LevelFrame } from '../const';
+import { appendNotification } from '../store/notification-data/actions';
 
 /**
  * Capitalize first letter in string
@@ -74,4 +75,14 @@ const roomClassname = (frame) => {
  */
 const roomImageClassname = (frame) => classname(`${frame}__image-wrapper`, 'place-card__image-wrapper');
 
-export { capitalizeFirstLetter, roundRating, numberRating, classname, bookmarkClassname, roomClassname, roomImageClassname };
+function onError(error, dispatch, id) {
+  console.log('error!', error);
+  dispatch(appendNotification({
+    message: error.message,
+    type: 'error',
+    id
+  }));
+  return error;
+}
+
+export { capitalizeFirstLetter, roundRating, numberRating, classname, bookmarkClassname, roomClassname, roomImageClassname, onError };

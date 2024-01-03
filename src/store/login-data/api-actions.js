@@ -23,14 +23,7 @@ const fetchLogin = ({ email, password }) => (dispatch, _getState, api) => {
 
 };
 
-const fetchLogout = () => async (dispatch, _getState, api) => {
-
-  function onSuccess({ data }) {
-    dispatch(changeAuthorizationStatus(AuthorizationStatus.NO_AUTH));
-    dispatch(userChange(data));
-    return data;
-  }
-
+const fetchLogout = () => (dispatch, _getState, api) => {
   function onError(error) {
     console.log('error!', error);
     dispatch(appendNotification({
@@ -41,21 +34,18 @@ const fetchLogout = () => async (dispatch, _getState, api) => {
     return error;
   }
 
-  try {
-    const success = await api.get(serverLinks.LOGOUT);
-    return onSuccess(success);
-  } catch (error) {
-    return onError(error);
-  }
+  return api.get(serverLinks.LOGOUT)
+    .then(({ data }) => dispatch(userChange(data)))
+    .then(() => dispatch(changeAuthorizationStatus(AuthorizationStatus.NO_AUTH)))
+    .catch((error) => onError(error));
 
 };
 
 const fetchGetLogin = () => async (dispatch, _getState, api) => {
-
-  function onSuccess({ data, status }) {
+  function onSuccess({ data }) {
     dispatch(userChange(data));
     dispatch(changeAuthorizationStatus(AuthorizationStatus.AUTH));
-    return status;
+    return data;
   }
 
   function onError(error) {
@@ -68,7 +58,6 @@ const fetchGetLogin = () => async (dispatch, _getState, api) => {
   } catch (error) {
     return onError(error);
   }
-
 };
 
 export {
