@@ -1,37 +1,44 @@
 import MockAdapter from 'axios-mock-adapter';
 import createAPI from '../../services/api';
 import { serverLinks } from '../server-links';
-import { LOGIN_NAME } from './actions-types';
+import { CHANGE_AUTHORIZATION_STATUS, LOGIN_NAME, REDIRECT_TO_ROUTE } from './actions-types';
 import { fetchLogin } from './api-actions';
+import { AppRoute, AuthorizationStatus } from '../../const';
 
 const api = createAPI();
 
 describe(`Async operation works correctly`, () => {
-  it(`Should make correct API call to /login`, () => {
+  it(`Should make correct API login call`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const fakeUser = {
       email: 'damir_shakirov@list.ru',
       password: '1234567'
     };
-    const checkFetchLogin = fetchLogin;
+    const checkFetchLogin = fetchLogin(fakeUser);
     apiMock
-      .onGet(serverLinks.LOGIN)
-      .reply(200, [{}]);
-    const payload = {};
+      .onPost(serverLinks.LOGIN)
+      .reply(200, fakeUser);
+    const fakeAction1 = {
+      type: LOGIN_NAME,
+      payload: fakeUser
+    };
+    const fakeAction2 = {
+      type: CHANGE_AUTHORIZATION_STATUS,
+      payload: AuthorizationStatus.AUTH
+    };
+    const fakeAction3 = {
+      type: REDIRECT_TO_ROUTE,
+      payload: AppRoute.ROOT
+    };
 
-    try {
-      return checkFetchLogin(dispatch, () => { }, api)
-        .then(() => {
-          expect(dispatch).toHaveBeenCalledTimes(1);
-          expect(dispatch).toHaveBeenNthCalledWith(1, {
-            type: LOGIN_NAME,
-            payload
-          });
-        })
-    } catch {
-      return;
-    }
+    return checkFetchLogin(dispatch, () => { }, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(3);
+        expect(dispatch).toHaveBeenNthCalledWith(1, fakeAction1);
+        expect(dispatch).toHaveBeenNthCalledWith(2, fakeAction2);
+        expect(dispatch).toHaveBeenNthCalledWith(3, fakeAction3);
+      });
 
   });
 });

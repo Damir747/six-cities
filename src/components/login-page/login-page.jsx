@@ -1,6 +1,5 @@
 /* eslint-disable indent */
 import React from 'react';
-import PropTypes from 'prop-types';
 import Header from '../header/header';
 import Top from '../top/top';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
@@ -12,7 +11,7 @@ import { fetchLogin } from '../../store/login-data/api-actions';
 // ? чтобы вернуться после авторизации точно на эту же страницу
 // ? но проблема в том, что идёт переход на страницу, а там уже по этому адресу компонент, а компонент запрашивает fetchLogin
 
-const LoginPage = ({ onAfterLoginRedirect }) => {
+const LoginPage = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = (evt) => {
@@ -20,12 +19,7 @@ const LoginPage = ({ onAfterLoginRedirect }) => {
     dispatch(fetchLogin({
       email: evt.target['email'].value,
       password: evt.target['password'].value
-    }))
-      .then((onSuccess) => {
-        onSuccess();
-        onAfterLoginRedirect();
-      })
-      .catch((onError) => onError());
+    }));
   };
 
   return (
@@ -68,7 +62,4 @@ const LoginPage = ({ onAfterLoginRedirect }) => {
   );
 };
 
-LoginPage.propTypes = {
-  onAfterLoginRedirect: PropTypes.func,
-};
 export default LoginPage;

@@ -16,7 +16,7 @@ const fetchCommentsList = (idHotel) => async (dispatch, _getState, api) => {
   }
 
   function onError(error) {
-    console.log('error!');
+    console.log('error!', error);
     dispatch(appendNotification({
       message: error.message,
       type: 'error',
@@ -38,7 +38,6 @@ const fetchCommentsList = (idHotel) => async (dispatch, _getState, api) => {
 const fetchPostComment = (idHotel, commentObj, onAfterSendComment) => async function (dispatch, _getState, api) {
 
   function onSuccess({ data }) {
-    console.log(data);
     dispatch(commentPost(data));
     const commentList = [];
     data.map((el) => {
@@ -60,7 +59,6 @@ const fetchPostComment = (idHotel, commentObj, onAfterSendComment) => async func
   }
 
   try {
-    console.log(commentObj);
     const success = await api.post(`${serverLinks.COMMENTS}/${idHotel}`, commentObj);
     return onSuccess(success);
   } catch (error) {

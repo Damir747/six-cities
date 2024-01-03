@@ -50,9 +50,7 @@ const App = () => {
       <NonPrivateRoute exact
         path={AppRoute.LOGIN}
         render={() => (
-          <LoginPage
-            onAfterLoginRedirect={() => browserHistory.push(AppRoute.ROOT)}
-          />)}
+          <LoginPage />)}
       />
       <PrivateRoute exact
         path={AppRoute.FAVORITES}
