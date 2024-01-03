@@ -20,8 +20,12 @@ const LoginPage = ({ onAfterLoginRedirect }) => {
     dispatch(fetchLogin({
       email: evt.target['email'].value,
       password: evt.target['password'].value
-    },
-      () => onAfterLoginRedirect()));
+    }))
+      .then((onSuccess) => {
+        onSuccess();
+        onAfterLoginRedirect();
+      })
+      .catch((onError) => onError());
   };
 
   return (
