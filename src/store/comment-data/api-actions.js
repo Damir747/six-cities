@@ -5,16 +5,6 @@ import { serverLinks } from '../server-links';
 import { loadComments } from '../hotel-data/actions';
 
 const fetchCommentsList = (idHotel) => async (dispatch, _getState, api) => {
-
-  function onSuccess({ data }) {
-    const commentList = [];
-    data.map((el) => {
-      commentList.push(Object.assign({}, Comment.convertDataToComment(el)));
-    });
-    dispatch(loadComments(commentList));
-    return commentList;
-  }
-
   function onError(error) {
     console.log('error!', error);
     dispatch(appendNotification({
@@ -26,28 +16,20 @@ const fetchCommentsList = (idHotel) => async (dispatch, _getState, api) => {
     return error;
   }
 
-  try {
-    const success = await api.get(`${serverLinks.COMMENTS}/${idHotel}`);
-    return onSuccess(success);
-  } catch (error) {
-    return onError(error);
-  }
+  return api.get(`${serverLinks.COMMENTS}/${idHotel}`)
+    .then(({ data }) => {
+      const commentList = [];
+      data.map((el) => {
+        commentList.push(Object.assign({}, Comment.convertDataToComment(el)));
+      });
+      dispatch(loadComments(commentList));
+      return commentList;
+    })
+    .catch((error) => onError(error));
 
 };
 
 const fetchPostComment = (idHotel, commentObj, onAfterSendComment) => async function (dispatch, _getState, api) {
-
-  function onSuccess({ data }) {
-    dispatch(commentPost(data));
-    const commentList = [];
-    data.map((el) => {
-      commentList.push(Object.assign({}, Comment.convertDataToComment(el)));
-    });
-    dispatch(loadComments(commentList));
-    onAfterSendComment();
-    return commentList;
-  }
-
   function onError(error) {
     console.log('error!', error);
     dispatch(appendNotification({
@@ -58,12 +40,18 @@ const fetchPostComment = (idHotel, commentObj, onAfterSendComment) => async func
     return error;
   }
 
-  try {
-    const success = await api.post(`${serverLinks.COMMENTS}/${idHotel}`, commentObj);
-    return onSuccess(success);
-  } catch (error) {
-    return onError(error);
-  }
+  return api.post(`${serverLinks.COMMENTS}/${idHotel}`, commentObj)
+    .then(({ data }) => {
+      dispatch(commentPost(data));
+      const commentList = [];
+      data.map((el) => {
+        commentList.push(Object.assign({}, Comment.convertDataToComment(el)));
+      });
+      dispatch(loadComments(commentList));
+      onAfterSendComment();
+      return commentList;
+    })
+    .catch((error) => onError(error));
 
 };
 

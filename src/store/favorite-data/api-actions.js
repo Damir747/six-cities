@@ -5,14 +5,6 @@ import { appendNotification } from '../notification-data/actions';
 
 // ? после logout обнуляется список Избранного
 const fetchFavoriteList = () => async (dispatch, _getState, api) => {
-
-  function onSuccess({ data }) {
-    console.log(data);
-    data = data.map((el) => Room.convertDataHotel(el));
-    dispatch(loadFavoriteList(data));
-    return data;
-  }
-
   function onError(error) {
     console.log('error!', error);
     dispatch(appendNotification({
@@ -23,12 +15,14 @@ const fetchFavoriteList = () => async (dispatch, _getState, api) => {
     dispatch(loadFavoriteList([]));
   }
 
-  try {
-    const success = await api.get(serverLinks.FAVORITE);
-    return onSuccess(success);
-  } catch (error) {
-    return onError(error);
-  }
+  return api.get(serverLinks.FAVORITE)
+    .then(({ data }) => {
+      data = data.map((el) => Room.convertDataHotel(el));
+      dispatch(loadFavoriteList(data));
+      return data;
+    })
+    .catch((error) => onError(error));
+
 };
 
 export {

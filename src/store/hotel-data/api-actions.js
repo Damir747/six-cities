@@ -9,23 +9,12 @@ import { changeFavorite } from './actions';
 import { getReverseFavorite } from './selectors';
 import { changeFavoriteList } from '../favorite-data/actions';
 
-const fetchHotelList = () => async (dispatch, _getState, api) => {
+// ? надо продумать ситуацию при отключении интернета. в ошибке соединения ставить dispatch(loadHotelList([])); - удаляет список отелей
+// ? надо занулять init только изначально. для других полей, возможно, и оставить зануление при ошибке загрузки
 
-  function onSuccess({ data }) {
-    data = data.map((el) => Room.convertDataHotel(el));
-    dispatch(loadHotelList(data));
-
-    let cityList = Object.assign({}, cities);
-    data.map((el) => {
-      cityList = Object.assign(cityList, City.convertDataToCity(el.city));
-    });
-    dispatch(loadCityList(cityList));
-    return cityList;
-  }
-
+const fetchHotelList = () => (dispatch, _getState, api) => {
   function onError(error) {
     console.log('error!', error);
-    dispatch(loadHotelList([]));
     dispatch(appendNotification({
       message: error.message,
       type: 'error',
@@ -34,24 +23,23 @@ const fetchHotelList = () => async (dispatch, _getState, api) => {
     return error;
   }
 
-  try {
-    const success = await api.get(serverLinks.HOTELS);
-    return onSuccess(success);
-  } catch (error) {
-    return onError(error);
-  }
+  return api.get(serverLinks.HOTELS)
+    .then(({ data }) => {
+      data = data.map((el) => Room.convertDataHotel(el));
+      dispatch(loadHotelList(data));
+
+      let cityList = Object.assign({}, cities);
+      data.map((el) => {
+        cityList = Object.assign(cityList, City.convertDataToCity(el.city));
+      });
+      dispatch(loadCityList(cityList));
+      return cityList;
+    })
+    .catch((error) => onError(error));
 
 };
 
 const fetchHotel = (id) => async (dispatch, _getState, api) => {
-
-  function onSuccess({ data }) {
-    data = Room.convertDataHotel(data);
-    dispatch(loadHotel(data));
-    dispatch(selectCurrentCity(data.cityName));
-    return data;
-  }
-
   function onError(error) {
     console.log('error!', error);
     dispatch(appendNotification({
@@ -63,24 +51,17 @@ const fetchHotel = (id) => async (dispatch, _getState, api) => {
     return error;
   }
 
-  try {
-    const success = await api.get(`${serverLinks.HOTELS}/${id}`);
-    return onSuccess(success);
-  } catch (error) {
-    return onError(error);
-  }
-
+  return api.get(`${serverLinks.HOTELS}/${id}`)
+    .then(({ data }) => {
+      data = Room.convertDataHotel(data);
+      dispatch(loadHotel(data));
+      dispatch(selectCurrentCity(data.cityName));
+      return data;
+    })
+    .catch((error) => onError(error));
 };
 
-const fetchFavorite = (idHotel) => async (dispatch, getState, api) => {
-
-  function onSuccess({ data }) {
-    dispatch(changeFavorite(data));
-    dispatch(changeFavoriteNeighbourhood(data));
-    dispatch(changeFavoriteList(data));
-    return data;
-  }
-
+const fetchFavorite = (idHotel) => (dispatch, getState, api) => {
   function onError(error) {
     console.log('error!', error);
     dispatch(appendNotification({
@@ -91,24 +72,19 @@ const fetchFavorite = (idHotel) => async (dispatch, getState, api) => {
     return error;
   }
 
-  try {
-    const status = getReverseFavorite(getState(), idHotel);
-    const success = await api.post(`${serverLinks.FAVORITE}/${idHotel}/${status}`);
-    return onSuccess(success);
-  } catch (error) {
-    return onError(error);
-  }
+  const status = getReverseFavorite(getState(), idHotel);
+  return api.post(`${serverLinks.FAVORITE}/${idHotel}/${status}`)
+    .then(({ data }) => {
+      dispatch(changeFavorite(data));
+      dispatch(changeFavoriteNeighbourhood(data));
+      dispatch(changeFavoriteList(data));
+      return data;
+    })
+    .catch((error) => onError(error));
 
 };
 
 const fetchNeighbourhood = (id) => async (dispatch, _getState, api) => {
-
-  function onSuccess({ data }) {
-    data = data.map((el) => Room.convertDataHotel(el));
-    dispatch(loadNeighbourhood(data));
-    return data;
-  }
-
   function onError(error) {
     console.log('error!', error);
     dispatch(appendNotification({
@@ -120,12 +96,13 @@ const fetchNeighbourhood = (id) => async (dispatch, _getState, api) => {
     return error;
   }
 
-  try {
-    const success = await api.get(`${serverLinks.HOTELS}/${id}${serverLinks.NEIGHBOURHOOD}`);
-    return onSuccess(success);
-  } catch (error) {
-    return onError(error);
-  }
+  return api.get(`${serverLinks.HOTELS}/${id}${serverLinks.NEIGHBOURHOOD}`)
+    .then(({ data }) => {
+      data = data.map((el) => Room.convertDataHotel(el));
+      dispatch(loadNeighbourhood(data));
+      return data;
+    })
+    .catch((error) => onError(error));
 
 };
 
