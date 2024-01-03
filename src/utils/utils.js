@@ -75,14 +75,4 @@ const roomClassname = (frame) => {
  */
 const roomImageClassname = (frame) => classname(`${frame}__image-wrapper`, 'place-card__image-wrapper');
 
-function onError(error, dispatch, id) {
-  console.log('error!', error);
-  dispatch(appendNotification({
-    message: error.message,
-    type: 'error',
-    id
-  }));
-  return error;
-}
-
-export { capitalizeFirstLetter, roundRating, numberRating, classname, bookmarkClassname, roomClassname, roomImageClassname, onError };
+export { capitalizeFirstLetter, roundRating, numberRating, classname, bookmarkClassname, roomClassname, roomImageClassname };
