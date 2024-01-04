@@ -19,7 +19,7 @@ const notificationReducer = (state = initialState, action) => {
     case REMOVE_NOTIFICATION: {
       return {
         ...state,
-        notifications: state.notifications.filter((el) => el.id !== action.meta)
+        notifications: state.notifications.filter((el) => el.id !== action.payload)
       };
     }
   }
