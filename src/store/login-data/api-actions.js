@@ -41,16 +41,11 @@ const fetchLogout = () => (dispatch, _getState, api) => {
 
 };
 
-const fetchGetLogin = () => (dispatch, _getState, api) => {
-  function onError(error) {
-    return error;
-  }
-
-  return api.get(serverLinks.LOGIN)
+const fetchGetLogin = () => (dispatch, _getState, api) =>
+  api.get(serverLinks.LOGIN)
     .then(({ data }) => dispatch(userChange(data)))
     .then(() => dispatch(changeAuthorizationStatus(AuthorizationStatus.AUTH)))
-    .catch((error) => onError(error));
-};
+    .catch((error) => error);
 
 export {
   fetchLogin,
