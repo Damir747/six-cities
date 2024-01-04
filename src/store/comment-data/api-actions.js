@@ -18,7 +18,6 @@ const fetchCommentsList = (idHotel) => (dispatch, _getState, api) => {
 
   return api.get(`${serverLinks.COMMENTS}/${idHotel}`)
     .then(({ data }) => {
-      console.log(data);
       const commentList = [];
       data.map((el) => {
         commentList.push(Object.assign({}, Comment.convertDataToComment(el)));
