@@ -32,8 +32,7 @@ const fetchHotelList = () => (dispatch, _getState, api) => {
       data.map((el) => {
         cityList = Object.assign(cityList, City.convertDataToCity(el.city));
       });
-      dispatch(loadCityList(cityList));
-      return cityList;
+      return dispatch(loadCityList(cityList));
     })
     .catch((error) => onError(error));
 
@@ -55,8 +54,7 @@ const fetchHotel = (id) => (dispatch, _getState, api) => {
     .then(({ data }) => {
       data = Room.convertDataHotel(data);
       dispatch(loadHotel(data));
-      dispatch(selectCurrentCity(data.cityName));
-      return data;
+      return dispatch(selectCurrentCity(data.cityName));
     })
     .catch((error) => onError(error));
 };
@@ -76,10 +74,13 @@ const fetchFavorite = (idHotel) => (dispatch, getState, api) => {
   return api.post(`${serverLinks.FAVORITE}/${idHotel}/${status}`)
     .then(({ data }) => {
       dispatch(changeFavorite(data));
-      dispatch(changeFavoriteNeighbourhood(data));
-      dispatch(changeFavoriteList(data));
-      return data;
+      return { data };
     })
+    .then(({ data }) => {
+      dispatch(changeFavoriteNeighbourhood(data));
+      return { data };
+    })
+    .then(({ data }) => dispatch(changeFavoriteList(data)))
     .catch((error) => onError(error));
 
 };
@@ -99,8 +100,7 @@ const fetchNeighbourhood = (id) => (dispatch, _getState, api) => {
   return api.get(`${serverLinks.HOTELS}/${id}${serverLinks.NEIGHBOURHOOD}`)
     .then(({ data }) => {
       data = data.map((el) => Room.convertDataHotel(el));
-      dispatch(loadNeighbourhood(data));
-      return data;
+      return dispatch(loadNeighbourhood(data));
     })
     .catch((error) => onError(error));
 

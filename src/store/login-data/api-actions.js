@@ -47,11 +47,8 @@ const fetchGetLogin = () => (dispatch, _getState, api) => {
   }
 
   return api.get(serverLinks.LOGIN)
-    .then(({ data }) => {
-      dispatch(userChange(data));
-      dispatch(changeAuthorizationStatus(AuthorizationStatus.AUTH));
-      return data;
-    })
+    .then(({ data }) => dispatch(userChange(data)))
+    .then(() => dispatch(changeAuthorizationStatus(AuthorizationStatus.AUTH)))
     .catch((error) => onError(error));
 };
 

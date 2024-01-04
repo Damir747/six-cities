@@ -18,8 +18,7 @@ const fetchFavoriteList = () => (dispatch, _getState, api) => {
   return api.get(serverLinks.FAVORITE)
     .then(({ data }) => {
       data = data.map((el) => Room.convertDataHotel(el));
-      dispatch(loadFavoriteList(data));
-      return data;
+      return dispatch(loadFavoriteList(data));
     })
     .catch((error) => onError(error));
 
