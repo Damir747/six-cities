@@ -1,7 +1,7 @@
 import { commentPost } from "./actions";
 import { COMMENT_POST } from "./actions-types";
 
-describe(`Actions in comments work correctly`, () => {
+describe(`Actions comment-data work correctly`, () => {
   it(`Actions for new 50-letters comment work correctly`, () => {
     const expectedAction = {
       type: COMMENT_POST,

@@ -9,16 +9,6 @@ import configureStore from 'redux-mock-store';
 
 const reducer = rootReducer;
 const mockStore = configureStore({ reducer });
-const mockRedux = () => {
-  const store = {
-    getState: jest.fn(() => ({})),
-    dispatch: jest.fn(),
-  };
-
-  const next = jest.fn();
-  const invoke = (action) => redirect(store)(next)(action);
-  return { store, next, invoke };
-};
 
 it(`Should NotFoundScreen render correctly`, () => {
   const history = createMemoryHistory();

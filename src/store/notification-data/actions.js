@@ -1,13 +1,13 @@
 import { APPEND_NOTIFICATION, REMOVE_NOTIFICATION } from "./actions-types";
 
-const appendNotification = (notifiation) => ({
+const appendNotification = (notification) => ({
   type: APPEND_NOTIFICATION,
-  payload: notifiation,
+  payload: notification,
 });
 
 const removeNotification = (id) => ({
   type: REMOVE_NOTIFICATION,
-  meta: id,
+  payload: id,
 });
 
 export {
