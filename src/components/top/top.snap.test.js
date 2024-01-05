@@ -2,14 +2,13 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { Router } from 'react-router-dom/cjs/react-router-dom.min';
 import { createMemoryHistory } from 'history';
-import NotFoundScreen from './not-found-screen';
+import Top from './top';
 
-// ? из-за useDispatch не работает пока
-it(`Should NotFoundScreen render correctly`, () => {
+it(`Should Top render correctly`, () => {
   const history = createMemoryHistory();
   const { container } = render(
     < Router history={history}>
-      <NotFoundScreen />
+      <Top />
     </ Router>
   );
   expect(container).toMatchSnapshot();
