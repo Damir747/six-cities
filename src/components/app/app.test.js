@@ -10,8 +10,6 @@ import cities from '../../mock/mock-cities';
 import propertyInside from '../../mock/mock-property-inside';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import rootReducer from '../../store/root-reducer';
-import createAPI from '../../services/api';
-import { redirect } from '../../store/middleware/redirect';
 const initialState = {
   HOTEL: {
     hotel: null,
@@ -56,18 +54,8 @@ const initialState = {
   }
 };
 
-const api = createAPI();
 const mockStore = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      thunk: {
-        extraArgument: api,
-      },
-      redirect,
-      immutableCheck: { warnAfter: 128 },
-      serializableCheck: { warnAfter: 128 },
-    })
 });
 describe(`Test routing`, () => {
   jest.spyOn(redux, 'useSelector');
