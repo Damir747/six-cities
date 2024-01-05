@@ -9,7 +9,7 @@ import { fetchLogout, fetchGetLogin } from '../../store/login-data/api-actions';
 const Header = () => {
   const buttonStyle = { height: '50%', width: '80px', margin: '10px' };
   const dispatch = useDispatch();
-  dispatch(fetchGetLogin());
+  // dispatch(fetchGetLogin());
   const authorizationStatus = useSelector(getAuthorizationStatus);
   const loginName = useSelector(getLoginName);
   const loginAvatar = useSelector(getLoginAvatar);

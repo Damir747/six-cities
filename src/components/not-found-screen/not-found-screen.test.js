@@ -7,8 +7,7 @@ import * as redux from 'react-redux';
 import rootReducer from '../../store/root-reducer';
 import configureStore from 'redux-mock-store';
 
-const reducer = rootReducer;
-const mockStore = configureStore({ reducer });
+const mockStore = configureStore({ reducer: rootReducer });
 
 it(`Should NotFoundScreen render correctly`, () => {
   const history = createMemoryHistory();

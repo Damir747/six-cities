@@ -3,8 +3,8 @@ import ReactDom from 'react-dom';
 import { Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
-import createAPI from './services/api';
 import { configureStore } from '@reduxjs/toolkit';
+import createAPI from './services/api';
 import { redirect } from './store/middleware/redirect';
 
 import rootReducer from './store/root-reducer';
