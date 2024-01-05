@@ -6,11 +6,13 @@ import Footer from './footer';
 
 it(`Should Footer render correctly`, () => {
   const history = createMemoryHistory();
-  const { getByTestId } = render(
+  const { getByTestId, getByAltText } = render(
     < Router history={history}>
       <Footer />
     </ Router>
   );
   const footerLogo = getByTestId('footer__logo');
+  const footerLogoAlt = getByAltText('6 cities logo');
   expect(footerLogo).toMatchSnapshot();
+  expect(footerLogoAlt).toMatchSnapshot();
 });
