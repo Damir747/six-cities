@@ -6,7 +6,7 @@ import { getSort } from '../sort-data/selectors';
 import { createSelector } from '@reduxjs/toolkit';
 
 const getHotel = (state) => state[NameSpace.HOTEL].hotel;
-const getRooms = (state) => state[NameSpace.HOTEL].rooms;
+const getRooms = (state) => state[NameSpace.HOTEL].rooms ? state[NameSpace.HOTEL].rooms : [];
 const getRoom = (state, idRoom) => getRooms(state)[idRoom];
 const getBookmark = (state, idRoom) => getRoom(state, idRoom).bookmark;
 

@@ -30,8 +30,6 @@ const App = () => {
 
   useEffect(() => {
     if (!isHotelListLoaded && !isCityListLoaded) {
-      dispatch(initHotelList());
-      dispatch(initCitylList());
       dispatch(fetchHotelList());
     }
   }, [isHotelListLoaded, isCityListLoaded]);

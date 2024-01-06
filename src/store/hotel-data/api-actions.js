@@ -1,7 +1,7 @@
 import cities from '../../mock/mock-cities';
 import { Room, City } from '../adapter';
-import { loadCityList, selectCurrentCity } from '../city-data/actions';
-import { changeFavoriteNeighbourhood, loadHotel, loadHotelList, loadNeighbourhood } from './actions';
+import { initCitylList, loadCityList, selectCurrentCity } from '../city-data/actions';
+import { changeFavoriteNeighbourhood, initHotelList, loadHotel, loadHotelList, loadNeighbourhood } from './actions';
 import { appendNotification } from '../notification-data/actions';
 import { serverLinks } from '../server-links';
 
@@ -11,6 +11,7 @@ import { changeFavoriteList } from '../favorite-data/actions';
 
 // ? надо продумать ситуацию при отключении интернета. в ошибке соединения ставить dispatch(loadHotelList([])); - удаляет список отелей
 // ? надо занулять init только изначально. для других полей, возможно, и оставить зануление при ошибке загрузки
+// ? проблема в том, что state не передается, поэтому берется state по умолчанию и перезиписывается поверх старого, который был получен при наличии соединения
 
 const fetchHotelList = () => (dispatch, _getState, api) => {
   function onError(error) {
@@ -25,6 +26,8 @@ const fetchHotelList = () => (dispatch, _getState, api) => {
 
   return api.get(serverLinks.HOTELS)
     .then(({ data }) => {
+      dispatch(initHotelList());
+      dispatch(initCitylList());
       data = data.map((el) => Room.convertDataHotel(el));
       dispatch(loadHotelList(data));
 

@@ -7,8 +7,15 @@ import * as redux from 'react-redux';
 import userEvent from '@testing-library/user-event';
 import Header from './header';
 import rootReducer from '../../store/root-reducer';
+import { mockRedux } from '../../mock/mock-redux';
+import { redirect } from '../../store/middleware/redirect';
 
-const mockStore = configureStore({ reducer: rootReducer });
+const mockStore = configureStore({
+  reducer: rootReducer, middleware: () => ({
+    thunk: mockRedux,
+    redirect,
+  })
+});
 
 it(`Should Header render correctly`, () => {
   const history = createMemoryHistory();
