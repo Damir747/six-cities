@@ -9,7 +9,6 @@ import App from './app';
 import cities from '../../mock/mock-cities';
 import propertyInside from '../../mock/mock-property-inside';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import rootReducer from '../../store/root-reducer';
 const initialState = {
   HOTEL: {
     hotel: null,
@@ -54,16 +53,17 @@ const initialState = {
   }
 };
 
-const mockStore = configureStore({
-  reducer: rootReducer,
-});
+const mockStore = configureStore({});
+const history = createMemoryHistory();
+const store = mockStore(initialState);
+store.dispatch = () => Promise.resolve();
+
 describe(`Test routing`, () => {
   jest.spyOn(redux, 'useSelector');
   jest.spyOn(redux, 'useDispatch');
   it(`Render App when user navigates to '/' url`, async () => {
-    const history = createMemoryHistory();
     render(
-      <redux.Provider store={mockStore(initialState)}>
+      <redux.Provider store={store}>
         < Router history={history}>
           <App />
         </Router>
@@ -72,10 +72,9 @@ describe(`Test routing`, () => {
     await waitFor(() => expect(screen.getByText(/places to stay/i)).toBeInTheDocument());
   });
   it(`Render App when user navigates to '/login' url`, () => {
-    const history = createMemoryHistory();
     history.push(AppRoute.LOGIN);
     render(
-      <redux.Provider store={mockStore(initialState)}>
+      <redux.Provider store={store}>
         < Router history={history}>
           <App />
         </Router>
