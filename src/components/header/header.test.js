@@ -6,8 +6,6 @@ import configureStore from 'redux-mock-store';
 import * as redux from 'react-redux';
 import userEvent from '@testing-library/user-event';
 import Header from './header';
-import { mockRedux } from '../../mock/mock-redux';
-import { redirect } from '../../store/middleware/redirect';
 import { AuthorizationStatus } from '../../const';
 import cities from '../../mock/mock-cities';
 import propertyInside from '../../mock/mock-property-inside';

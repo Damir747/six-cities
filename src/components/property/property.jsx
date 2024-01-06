@@ -41,6 +41,7 @@ const Property = () => {
   const coordinates = useSelector(getCurrentCityCoordinates);
   const authorizationStatus = useSelector(getAuthorizationStatus);
   const neighbourhood = useSelector(getNeighbourhood);
+
   const dispatch = useDispatch();
 
   const idHotelParam = Number(useParams().id);
