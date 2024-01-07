@@ -1,7 +1,7 @@
 import cities from '../../mock/mock-cities';
 import { Room, City } from '../adapter';
-import { initCitylList, loadCityList, selectCurrentCity } from '../city-data/actions';
-import { changeFavoriteNeighbourhood, initHotelList, loadHotel, loadHotelList, loadNeighbourhood } from './actions';
+import { loadCityList, selectCurrentCity } from '../city-data/actions';
+import { changeFavoriteNeighbourhood, loadHotel, loadHotelList, loadNeighbourhood } from './actions';
 import { appendNotification } from '../notification-data/actions';
 import { serverLinks } from '../server-links';
 
@@ -26,8 +26,6 @@ const fetchHotelList = () => (dispatch, _getState, api) => {
 
   return api.get(serverLinks.HOTELS)
     .then(({ data }) => {
-      dispatch(initHotelList());
-      dispatch(initCitylList());
       data = data.map((el) => Room.convertDataHotel(el));
       dispatch(loadHotelList(data));
 

@@ -1,5 +1,4 @@
 import { BOOKMARKS, LevelFrame } from '../const';
-import { appendNotification } from '../store/notification-data/actions';
 
 /**
  * Capitalize first letter in string

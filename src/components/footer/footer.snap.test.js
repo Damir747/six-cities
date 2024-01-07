@@ -5,12 +5,12 @@ import { createMemoryHistory } from 'history';
 import Footer from './footer';
 
 it(`Should Footer render correctly`, () => {
-	const history = createMemoryHistory();
-	const { container } = render(
-		<Router history={history}>
-			<Footer />
-		</Router>
-	);
+  const history = createMemoryHistory();
+  const { container } = render(
+    <Router history={history}>
+      <Footer />
+    </Router>
+  );
 
-	expect(container).toMatchSnapshot();
+  expect(container).toMatchSnapshot();
 });

@@ -4,7 +4,6 @@ import { Router } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import { createMemoryHistory } from 'history';
 import * as redux from 'react-redux';
-import userEvent from '@testing-library/user-event';
 import App from './app';
 import { AppRoute } from '../../const';
 import { initialMockState } from '../../mock/mock-test';

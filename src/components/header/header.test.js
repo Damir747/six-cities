@@ -6,7 +6,6 @@ import { createMemoryHistory } from 'history';
 import * as redux from 'react-redux';
 import { initialMockState } from '../../mock/mock-test';
 import Header from './header';
-import userEvent from '@testing-library/user-event';
 
 const mockStore = configureStore({});
 const history = createMemoryHistory();

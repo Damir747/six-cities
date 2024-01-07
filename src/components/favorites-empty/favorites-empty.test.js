@@ -13,14 +13,14 @@ const store = mockStore(initialMockState);
 store.dispatch = () => Promise.resolve();
 
 it(`Should FavoritesEmpty render correctly`, () => {
-	jest.spyOn(redux, 'useSelector');
-	jest.spyOn(redux, 'useDispatch');
-	render(
-		<redux.Provider store={store}>
-			< Router history={history}>
-				<FavoritesEmpty />
-			</Router>
-		</redux.Provider>
-	);
-	expect(screen.getByText(/Nothing yet saved/i)).toBeInTheDocument();
+  jest.spyOn(redux, 'useSelector');
+  jest.spyOn(redux, 'useDispatch');
+  render(
+    <redux.Provider store={store}>
+      < Router history={history}>
+        <FavoritesEmpty />
+      </Router>
+    </redux.Provider>
+  );
+  expect(screen.getByText(/Nothing yet saved/i)).toBeInTheDocument();
 });

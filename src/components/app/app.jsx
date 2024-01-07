@@ -16,7 +16,6 @@ import { fetchHotelList } from '../../store/hotel-data/api-actions';
 import PrivateRoute from '../private-route/private-route';
 import FavoritePage from '../favorites-page/favorite-page';
 import { getIsCityListIsLoaded, getIsCityListIsLoading } from '../../store/city-data/selectors';
-import browserHistory from '../../browser-history';
 import NonPrivateRoute from '../private-route/non-private-route';
 import { initHotelList } from '../../store/hotel-data/actions';
 import { initCitylList } from '../../store/city-data/actions';
@@ -30,6 +29,8 @@ const App = () => {
 
   useEffect(() => {
     if (!isHotelListLoaded && !isCityListLoaded) {
+      dispatch(initHotelList());
+      dispatch(initCitylList());
       dispatch(fetchHotelList());
     }
   }, [isHotelListLoaded, isCityListLoaded]);

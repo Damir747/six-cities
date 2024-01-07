@@ -5,11 +5,11 @@ import { createMemoryHistory } from 'history';
 import Top from './top';
 
 it(`Should Top render correctly`, () => {
-	const history = createMemoryHistory();
-	const { container } = render(
-		< Router history={history}>
-			<Top />
-		</ Router>
-	);
-	expect(container).toMatchSnapshot();
+  const history = createMemoryHistory();
+  const { container } = render(
+    < Router history={history}>
+      <Top />
+    </ Router>
+  );
+  expect(container).toMatchSnapshot();
 });
