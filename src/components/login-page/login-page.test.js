@@ -6,57 +6,11 @@ import configureStore from 'redux-mock-store';
 import * as redux from 'react-redux';
 import userEvent from '@testing-library/user-event';
 import LoginPage from './login-page';
-import { AuthorizationStatus } from '../../const';
-import cities from '../../mock/mock-cities';
-import propertyInside from '../../mock/mock-property-inside';
-
-const initialState = {
-  HOTEL: {
-    hotel: null,
-    rooms: [],
-    isHotelListLoading: false,
-    isHotelListLoaded: false,
-    reviews: [],
-    isHotelLoading: true,
-    isHotelLoaded: false,
-    isCommentLoading: true,
-    isCommentLoaded: false,
-    isNeighbourhoodLoading: true,
-    isNeighbourhoodLoaded: false,
-  },
-  CITY: {
-    activeCity: 'Paris',
-    cities,
-    currentCity: '',
-    isCityListLoaded: false,
-    isCityListLoading: false,
-  },
-  FAVORITES: {
-    favorites: [],
-    isFavoriteListLoading: false,
-    isFavoriteListLoaded: false,
-  },
-  COMMENT: {
-    comment: '',
-  },
-  INIT: {
-    propertyInside,
-  },
-  LOGIN: {
-    loginName: '',
-    authorizationStatus: AuthorizationStatus.NO_AUTH,
-  },
-  NOTIFICATION: {
-    notifications: [],
-  },
-  SORT: {
-    sort: 0,
-  }
-};
+import { initialMockState } from '../../mock/mock-test';
 
 const mockStore = configureStore({});
 const history = createMemoryHistory();
-const store = mockStore(initialState);
+const store = mockStore(initialMockState);
 store.dispatch = () => Promise.resolve();
 
 it(`Should LoginPage render correctly`, () => {

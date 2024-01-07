@@ -2,14 +2,15 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { Router } from 'react-router-dom/cjs/react-router-dom.min';
 import { createMemoryHistory } from 'history';
-import Loading from './loading';
+import FavoriteCity from './favorite-city';
 
-it(`Should Loading render correctly`, () => {
+it(`Should FavoriteCity render correctly`, () => {
   const history = createMemoryHistory();
   render(
     < Router history={history}>
-      <Loading />
+      <FavoriteCity />
     </ Router>
   );
-  expect(screen.getByText(/Loading/i)).toMatchSnapshot();
+  expect(screen.getByTestId('footer__logo')).toMatchSnapshot();
+  expect(screen.getByAltText('6 cities logo')).toMatchSnapshot();
 });

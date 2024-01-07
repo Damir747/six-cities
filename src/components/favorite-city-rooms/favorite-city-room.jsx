@@ -10,7 +10,7 @@ const FavoriteCityRoom = ({ room }) => {
 
   return (
     <React.Fragment>
-      <article key={id} className="favorites__card place-card">
+      <article key={id} data-testid={'favorite-city-room-id-' + id} className="favorites__card place-card">
         <div className="favorites__image-wrapper place-card__image-wrapper">
           <Link to={AppRoute.OFFER + id}>
             <img className="place-card__image" src={img} width="150" height="110" alt="Place image" />
@@ -42,7 +42,7 @@ const FavoriteCityRoom = ({ room }) => {
           <p className="place-card__type">{capitalizeFirstLetter(type)}</p>
         </div>
       </article>
-    </React.Fragment>
+    </React.Fragment >
   );
 };
 

@@ -4,24 +4,24 @@ import { Router } from 'react-router-dom/cjs/react-router-dom.min';
 import { createMemoryHistory } from 'history';
 import configureStore from 'redux-mock-store';
 import * as redux from 'react-redux';
-import userEvent from '@testing-library/user-event';
-import Header from './header';
+
 import { initialMockState } from '../../mock/mock-test';
+import FavoritesEmpty from './favorites-empty';
 
 const mockStore = configureStore({});
 const history = createMemoryHistory();
 const store = mockStore(initialMockState);
 store.dispatch = () => Promise.resolve();
 
-it(`Should Header render correctly`, () => {
+it(`Should FavoritesEmpty render correctly`, () => {
   jest.spyOn(redux, 'useSelector');
   jest.spyOn(redux, 'useDispatch');
   render(
     <redux.Provider store={store}>
       < Router history={history}>
-        <Header />
+        <FavoritesEmpty />
       </Router>
     </redux.Provider>
   );
-  expect(screen.getByText(/Logout/i)).toBeInTheDocument();
+  expect(screen.getByText(/Nothing yet saved/i)).toBeInTheDocument();
 });
