@@ -97,7 +97,6 @@ const fetchNeighbourhood = (id) => (dispatch, _getState, api) => {
     dispatch(loadNeighbourhood([]));
     return error;
   }
-
   return api.get(`${serverLinks.HOTELS}/${id}${serverLinks.NEIGHBOURHOOD}`)
     .then(({ data }) => {
       data = data.map((el) => Room.convertDataHotel(el));

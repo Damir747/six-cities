@@ -1,10 +1,11 @@
 import MockAdapter from 'axios-mock-adapter';
 import createAPI from "../../services/api";
-import { HOTEL, HOTEL_LIST } from './actions-types';
+import { FAVORITE, FAVORITE_NEIGHBOURHOOD, HOTEL, HOTEL_LIST, NEIGHBOURHOOD } from './actions-types';
 import { CITY_LIST, CURRENT_CITY } from '../city-data/actions-types';
-import { fetchHotel, fetchHotelList } from './api-actions';
+import { fetchFavorite, fetchHotel, fetchHotelList, fetchNeighbourhood } from './api-actions';
 import { serverLinks } from '../server-links';
 import { initialMockState } from '../../mock/mock-test';
+import { FAVORITE_CHANGE } from '../favorite-data/actions-types';
 
 const api = createAPI();
 
@@ -12,6 +13,7 @@ describe(`Async operation hotel works correctly`, () => {
   it(`Should make correct API fetchHotelList call`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
+
     const fakeHotels = initialMockState.HOTEL.rooms;
     const fakeReceivedHotels = initialMockState.HOTEL.serverRooms;
     const fakeCities = {
@@ -44,6 +46,7 @@ describe(`Async operation hotel works correctly`, () => {
   it(`Should make correct API fetchHotel call`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
+
     const fakeHotel = initialMockState.HOTEL.rooms[0];
     const fakeReceivedHotel = initialMockState.HOTEL.serverRooms[0];
     const fakeCity = fakeHotel.city.name;
@@ -66,6 +69,62 @@ describe(`Async operation hotel works correctly`, () => {
         expect(dispatch).toHaveBeenCalledTimes(2);
         expect(dispatch).toHaveBeenNthCalledWith(1, fakeAction1);
         expect(dispatch).toHaveBeenNthCalledWith(2, fakeAction2);
+      });
+  });
+  it(`Should make correct API fetchFavorite call`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const getState = () => initialMockState;
+
+    const fakeHotel = initialMockState.HOTEL.rooms[0];
+    const checkFavorite = fetchFavorite(1);
+    apiMock
+      .onPost(`${serverLinks.FAVORITE}/1/1`)
+      .reply(200, fakeHotel);
+
+    const fakeAction1 = {
+      type: FAVORITE,
+      payload: fakeHotel,
+    };
+    const fakeAction2 = {
+      type: FAVORITE_NEIGHBOURHOOD,
+      payload: fakeHotel,
+    };
+    const fakeAction3 = {
+      type: FAVORITE_CHANGE,
+      payload: fakeHotel,
+    };
+
+    return checkFavorite(dispatch, getState, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(3);
+        expect(dispatch).toHaveBeenNthCalledWith(1, fakeAction1);
+        expect(dispatch).toHaveBeenNthCalledWith(2, fakeAction2);
+        expect(dispatch).toHaveBeenNthCalledWith(3, fakeAction3);
+      });
+  });
+
+  it(`Should make correct API fetchNeighbourhood call`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+
+    const fakeNeighbourhood = [initialMockState.HOTEL.rooms[0], initialMockState.HOTEL.rooms[0], initialMockState.HOTEL.rooms[0]];
+    const fakeReceivedNeighbourhood = [initialMockState.HOTEL.serverRooms[0], initialMockState.HOTEL.serverRooms[0], initialMockState.HOTEL.serverRooms[0]];
+
+    const checkFetchNeighbourhood = fetchNeighbourhood(1);
+    apiMock
+      .onGet(`${serverLinks.HOTELS}/1${serverLinks.NEIGHBOURHOOD}`)
+      .reply(200, fakeReceivedNeighbourhood);
+
+    const fakeAction1 = {
+      type: NEIGHBOURHOOD,
+      payload: fakeNeighbourhood,
+    };
+
+    return checkFetchNeighbourhood(dispatch, () => { }, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, fakeAction1);
       });
   });
 });
