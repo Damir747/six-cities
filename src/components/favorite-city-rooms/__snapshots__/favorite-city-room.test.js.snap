@@ -1,0 +1,107 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should FavoriteCity render correctly 1`] = `
+<img
+  alt="Place image"
+  class="place-card__image"
+  height="110"
+  src="https://assets.htmlacademy.ru/intensives/javascript-3/hotel/18.jpg"
+  width="150"
+/>
+`;
+
+exports[`Should FavoriteCity render correctly 2`] = `
+<article
+  class="favorites__card place-card"
+  data-testid="favorite-city-room-id-1"
+>
+  <div
+    class="favorites__image-wrapper place-card__image-wrapper"
+  >
+    <a
+      href="/offer/1"
+    >
+      <img
+        alt="Place image"
+        class="place-card__image"
+        height="110"
+        src="https://assets.htmlacademy.ru/intensives/javascript-3/hotel/18.jpg"
+        width="150"
+      />
+    </a>
+  </div>
+  <div
+    class="favorites__card-info place-card__info"
+  >
+    <div
+      class="place-card__price-wrapper"
+    >
+      <div
+        class="place-card__price"
+      >
+        <b
+          class="place-card__price-value"
+        >
+          €
+          939
+        </b>
+        <span
+          class="place-card__price-text"
+        >
+          / 
+          night
+        </span>
+      </div>
+      <button
+        class="place-card__bookmark-button button "
+        type="button"
+      >
+        <svg
+          class="place-card__bookmark-icon"
+          height="19"
+          width="18"
+        >
+          <use
+            xlink:href="#icon-bookmark"
+          />
+        </svg>
+        <span
+          class="visually-hidden"
+        >
+          To bookmarks
+        </span>
+      </button>
+    </div>
+    <div
+      class="place-card__rating rating"
+    >
+      <div
+        class="place-card__stars rating__stars"
+      >
+        <span
+          style="width: 80%;"
+        />
+        <span
+          class="visually-hidden"
+        >
+          Rating
+        </span>
+      </div>
+    </div>
+    <h2
+      class="place-card__name"
+    >
+      <a
+        href="/offer/1"
+      >
+        Peaceful studio in the most wanted area in town. Quiet house Near of everything. Completely renovated. Lovely neighbourhood, lot of trendy shops, restaurants and bars in a walking distance.
+      </a>
+    </h2>
+    <p
+      class="place-card__type"
+    >
+      House
+    </p>
+  </div>
+</article>
+`;

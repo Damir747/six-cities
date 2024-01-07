@@ -3,14 +3,14 @@ import { FAVORITE, FAVORITE_NEIGHBOURHOOD, HOTEL, HOTEL_LIST, HOTEL_INIT, NEIGHB
 import hotelReducer from "./reducer";
 
 describe(`Hotel reducers work correctly`, () => {
-  it(`HOTEL_LIST_INIT reducer works correctly`, () => {
+  it(`Reducer HOTEL_LIST_INIT works correctly`, () => {
     const expectedState = {
       isHotelListLoading: true,
       isHotelListLoaded: false,
     };
     expect(hotelReducer({}, { type: HOTEL_LIST_INIT })).toEqual(expectedState);
   });
-  it(`HOTEL_LIST reducer works correctly`, () => {
+  it(`Reducer HOTEL_LIST works correctly`, () => {
     const rooms = ['sdasdf', 1312452, {}];
     const expectedState = {
       rooms,
@@ -22,7 +22,7 @@ describe(`Hotel reducers work correctly`, () => {
       payload: rooms,
     })).toEqual(expectedState);
   });
-  it(`HOTEL_INIT reducer works correctly`, () => {
+  it(`Reducer HOTEL_INIT works correctly`, () => {
     const expectedState = {
       isHotelLoading: true,
       isHotelLoaded: false,
@@ -33,7 +33,7 @@ describe(`Hotel reducers work correctly`, () => {
     };
     expect(hotelReducer({}, { type: HOTEL_INIT })).toEqual(expectedState);
   });
-  it(`HOTEL reducer works correctly`, () => {
+  it(`Reducer HOTEL works correctly`, () => {
     const hotel = [{}, 3984124, '2312vv3r5yx'];
     const expectedState = {
       hotel,
@@ -45,7 +45,7 @@ describe(`Hotel reducers work correctly`, () => {
       payload: hotel
     })).toEqual(expectedState);
   });
-  it(`REVIEWS_LIST. Get reviews reducer works correctly`, () => {
+  it(`Reducer REVIEWS_LIST. Get reviews reducer works correctly`, () => {
     const reviews = [
       {
         anyField: true,
@@ -65,7 +65,7 @@ describe(`Hotel reducers work correctly`, () => {
       payload: reviews,
     })).toEqual(expectedState);
   });
-  it(`NEIGHBOURHOOD. Get neighbourhood reducer works correctly`, () => {
+  it(`Reducer NEIGHBOURHOOD. Get neighbourhood reducer works correctly`, () => {
     const neighbourhood = ['dadas', 3213123, {}, [4]];
     const expectedState = {
       neighbourhood,
@@ -78,7 +78,7 @@ describe(`Hotel reducers work correctly`, () => {
     })).toEqual(expectedState);
   });
 
-  it(`FAVORITE. Change favorite in 1 of 2 records reducer works correctly`, () => {
+  it(`Reducer FAVORITE. Change favorite in 1 of 2 records reducer works correctly`, () => {
     const action = {
       type: FAVORITE,
       payload: {
@@ -119,7 +119,7 @@ describe(`Hotel reducers work correctly`, () => {
     expect(hotelReducer(state, action)).toEqual(expectedState);
   });
 
-  it(`FAVORITE_NEIGHBOURHOOD. Change favorite in 1 of 2 records reducer works correctly`, () => {
+  it(`Reducer FAVORITE_NEIGHBOURHOOD. Change favorite in 1 of 2 records reducer works correctly`, () => {
     const expectedState = {
       neighbourhood: [{
         anotherField: 'true',

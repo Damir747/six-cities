@@ -1,10 +1,10 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { Router } from 'react-router-dom';
-import { configureStore } from '@reduxjs/toolkit';
+import configureStore from 'redux-mock-store';
 import { createMemoryHistory } from 'history';
-import { initialMockState } from '../../mock/mock-test';
 import * as redux from 'react-redux';
+import { initialMockState } from '../../mock/mock-test';
 import FavoriteCity from './favorite-city';
 
 const mockStore = configureStore({});
@@ -20,7 +20,7 @@ it(`Should FavoriteCity (snapshot) render correctly`, () => {
       <Router history={history}>
         <FavoriteCity
           filteredRooms={initialMockState.FAVORITES.favorites}
-          city={initialMockState.FAVORITES.favorites[0].city} />
+          cityName={initialMockState.FAVORITES.favorites[0].city.name} />
       </Router>
     </redux.Provider>
   );

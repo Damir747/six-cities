@@ -47,7 +47,7 @@ const CityPlaces = () => {
             <div className="cities__right-section">
               <section className="cities__map map">
                 <CityMap
-                  city={activeCity}
+                  cityName={activeCity}
                   coordinates={coordinates}
                   rooms={filteredRooms}
                   idActiveRoom={idActiveRoom}

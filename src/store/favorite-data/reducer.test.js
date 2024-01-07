@@ -2,14 +2,14 @@ import { FAVORITE_CHANGE, FAVORITE_LIST, FAVORITE_LIST_INIT } from "./actions-ty
 import favoriteReducer from "./reducer";
 
 describe(`Favorite reducers work correctly`, () => {
-  it(`FAVORITE_LIST_INIT reducer works correctly`, () => {
+  it(`Reducer FAVORITE_LIST_INIT works correctly`, () => {
     const state = {
       isFavoriteListLoading: true,
       isFavoriteListLoaded: false,
     };
     expect(favoriteReducer({}, { type: FAVORITE_LIST_INIT })).toEqual(state);
   });
-  it(`FAVORITE_LIST reducer works correctly`, () => {
+  it(`Reducer FAVORITE_LIST works correctly`, () => {
     const state = {
       favorites: ['1'],
       isFavoriteListLoading: false,
@@ -17,7 +17,7 @@ describe(`Favorite reducers work correctly`, () => {
     };
     expect(favoriteReducer({}, { type: FAVORITE_LIST, payload: ['1'] })).toEqual(state);
   });
-  it(`FAVORITE_CHANGE. Add to empty Favorites [] reducer works correctly`, () => {
+  it(`Reducer FAVORITE_CHANGE. Add to empty Favorites [] reducer works correctly`, () => {
     const state = {
       favorites: [
         {
@@ -34,7 +34,7 @@ describe(`Favorite reducers work correctly`, () => {
       }
     })).toEqual(state);
   });
-  it(`FAVORITE_CHANGE. Remove from Favorites reducer works correctly`, () => {
+  it(`Reducer FAVORITE_CHANGE. Remove from Favorites reducer works correctly`, () => {
     const state = {
       favorites: []
     };
@@ -52,7 +52,7 @@ describe(`Favorite reducers work correctly`, () => {
     })).toEqual(state);
   });
 
-  it(`FAVORITE_CHANGE. Remove from Favorites 1 of 2 records reducer works correctly`, () => {
+  it(`Reducer FAVORITE_CHANGE. Remove from Favorites 1 of 2 records reducer works correctly`, () => {
     const state = {
       favorites: [{
         is_favorite: true,

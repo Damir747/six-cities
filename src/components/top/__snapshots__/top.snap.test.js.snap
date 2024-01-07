@@ -9,6 +9,7 @@ exports[`Should Top render correctly 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <symbol
+        data-testid="icon-arrow-select"
         id="icon-arrow-select"
         viewBox="0 0 7 4"
       >
@@ -19,6 +20,7 @@ exports[`Should Top render correctly 1`] = `
         />
       </symbol>
       <symbol
+        data-testid="icon-bookmark"
         id="icon-bookmark"
         viewBox="0 0 17 18"
       >
@@ -27,6 +29,7 @@ exports[`Should Top render correctly 1`] = `
         />
       </symbol>
       <symbol
+        data-testid="icon-star"
         id="icon-star"
         viewBox="0 0 13 12"
       >

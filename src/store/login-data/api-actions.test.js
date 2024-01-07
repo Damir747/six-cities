@@ -8,6 +8,7 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 const api = createAPI();
 
 describe(`Async operation login works correctly`, () => {
+  // ? fetchGetLogin ещё
   it(`Should make correct API login call`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();

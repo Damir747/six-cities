@@ -1,16 +1,27 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { Router } from 'react-router-dom';
+import configureStore from 'redux-mock-store';
 import { createMemoryHistory } from 'history';
+import { Provider } from 'react-redux';
+import { initialMockState } from '../../mock/mock-test';
 import FavoriteCity from './favorite-city';
 
+const mockStore = configureStore({});
+const history = createMemoryHistory();
+const store = mockStore(initialMockState);
+store.dispatch = () => Promise.resolve();
+
 it(`Should FavoriteCity render correctly`, () => {
-  const history = createMemoryHistory();
+  const cityName = initialMockState.FAVORITES.favorites[0].city.name;
   render(
-    < Router history={history}>
-      <FavoriteCity />
-    </ Router>
+    <Provider store={store}>
+      < Router history={history}>
+        <FavoriteCity
+          filteredRooms={initialMockState.FAVORITES.favorites}
+          cityName={cityName} />
+      </ Router>
+    </Provider>
   );
-  expect(screen.getByTestId('footer__logo')).toMatchSnapshot();
-  expect(screen.getByAltText('6 cities logo')).toMatchSnapshot();
+  expect(screen.getByTestId(cityName)).toMatchSnapshot();
 });

@@ -7,14 +7,14 @@ import FavoriteCityRooms from '../favorite-city-rooms/favorite-city-rooms';
 import roomsType from '../../types/rooms';
 import { AppRoute } from '../../const';
 
-const FavoriteCity = ({ city, filteredRooms }) => {
+const FavoriteCity = ({ cityName, filteredRooms }) => {
   return (
     <React.Fragment>
-      <li key={city} className="favorites__locations-items">
+      <li key={cityName} data-testid={cityName} className="favorites__locations-items">
         <div className="favorites__locations locations locations--current">
           <div className="locations__item">
             <Link className="locations__item-link" to={AppRoute.ROOT}>
-              <span>{city}</span>
+              <span>{cityName}</span>
             </Link>
           </div>
         </div>
@@ -29,7 +29,7 @@ const FavoriteCity = ({ city, filteredRooms }) => {
 };
 
 FavoriteCity.propTypes = {
-  city: PropTypes.string,
+  cityName: PropTypes.string,
   filteredRooms: roomsType,
 };
 

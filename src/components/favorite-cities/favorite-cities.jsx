@@ -17,7 +17,7 @@ const FavoriteCities = () => {
           return (
             <FavoriteCity
               key={city}
-              city={city}
+              cityName={city}
               filteredRooms={filteredRooms}
             />
           );

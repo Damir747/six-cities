@@ -4,7 +4,7 @@ import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import roomsType from '../../types/rooms';
 
-const CityMap = ({ rooms, idActiveRoom, city, coordinates }) => {
+const CityMap = ({ rooms, idActiveRoom, cityName, coordinates }) => {
   const mapRef = useRef(null);
   const [mapSettings, setMapSettings] = useState(null);
 
@@ -33,7 +33,7 @@ const CityMap = ({ rooms, idActiveRoom, city, coordinates }) => {
   }, [mapRef, setMapSettings]);
 
   useEffect(() => {
-    const filteredRooms = rooms.filter((room) => room.cityName === city);
+    const filteredRooms = rooms.filter((room) => room.cityNameName === cityName);
     const markers = [];
     if (mapSettings) {
       mapSettings.setView(coordinates, coordinates.zoom);
@@ -52,14 +52,14 @@ const CityMap = ({ rooms, idActiveRoom, city, coordinates }) => {
           },
           { icon })
           .addTo(mapSettings)
-          .bindPopup(room.cityName);
+          .bindPopup(room.cityNameName);
         markers.push(marker);
       });
     }
     return () => {
       markers.forEach((marker) => marker.remove());
     };
-  }, [rooms, idActiveRoom, city, mapSettings]);
+  }, [rooms, idActiveRoom, cityName, mapSettings]);
 
   return (
     <div style={{ height: `100%` }} ref={mapRef} ></div >
@@ -69,7 +69,7 @@ const CityMap = ({ rooms, idActiveRoom, city, coordinates }) => {
 CityMap.propTypes = {
   rooms: roomsType,
   idActiveRoom: PropTypes.number,
-  city: PropTypes.string,
+  cityName: PropTypes.string,
   coordinates: PropTypes.object,
 };
 

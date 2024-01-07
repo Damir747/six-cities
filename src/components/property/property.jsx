@@ -175,7 +175,7 @@ const Property = () => {
             </div>
             <section className="property__map map">
               <CityMap
-                city={currentCity}
+                cityName={currentCity}
                 coordinates={coordinates}
                 rooms={neighbourhood}
                 idActiveRoom={idActiveRoom}
