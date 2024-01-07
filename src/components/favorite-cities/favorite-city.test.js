@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { Router } from 'react-router-dom/cjs/react-router-dom.min';
+import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import FavoriteCity from './favorite-city';
 

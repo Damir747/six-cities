@@ -1,9 +1,9 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { Router } from 'react-router-dom/cjs/react-router-dom.min';
+import { Router } from 'react-router-dom';
 import FavoriteCityRoom from './favorite-city-room';
-import { createMemoryHistory } from 'history';
 import configureStore from 'redux-mock-store';
+import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import { initialMockState } from '../../mock/mock-test';
 

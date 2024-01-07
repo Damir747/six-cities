@@ -1,16 +1,18 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { Router } from 'react-router-dom';
-import { createMemoryHistory } from 'history';
-import NotFoundScreen from './not-found-screen';
-import rootReducer from '../../store/root-reducer';
 import configureStore from 'redux-mock-store';
+import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
+import { initialMockState } from '../../mock/mock-test';
+import NotFoundScreen from './not-found-screen';
 
-const mockStore = configureStore({ reducer: rootReducer });
+const mockStore = configureStore({});
+const history = createMemoryHistory();
+const store = mockStore(initialMockState);
+store.dispatch = () => Promise.resolve();
 
 it(`Should NotFoundScreen render correctly`, () => {
-  const history = createMemoryHistory();
 
   jest.mock('react-redux', () => ({
     useSelector: jest.fn(),
@@ -18,7 +20,7 @@ it(`Should NotFoundScreen render correctly`, () => {
   }));
 
   render(
-    <Provider store={mockStore({})}>
+    <Provider store={store}>
       <Router history={history}>
         <NotFoundScreen />
       </Router>

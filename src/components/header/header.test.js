@@ -1,12 +1,12 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { Router } from 'react-router-dom/cjs/react-router-dom.min';
-import { createMemoryHistory } from 'history';
+import { Router } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
+import { createMemoryHistory } from 'history';
 import * as redux from 'react-redux';
-import userEvent from '@testing-library/user-event';
-import Header from './header';
 import { initialMockState } from '../../mock/mock-test';
+import Header from './header';
+import userEvent from '@testing-library/user-event';
 
 const mockStore = configureStore({});
 const history = createMemoryHistory();
