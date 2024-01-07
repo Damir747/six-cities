@@ -4,6 +4,7 @@ import { serverLinks } from '../server-links';
 import { COMMENT_POST } from './actions-types';
 import { fetchCommentsList, fetchPostComment } from './api-actions';
 import { REVIEWS_LIST } from '../hotel-data/actions-types';
+
 const api = createAPI();
 
 describe(`Async Comments operation works correctly`, () => {
