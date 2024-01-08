@@ -20,7 +20,9 @@ const Room = ({ roomElement, onMouseEnter, onMouseLeave, frame }) => {
         key={id}
         className={roomClassname(frame)}
         onMouseEnter={() => onMouseEnter(id)}
-        onMouseLeave={() => onMouseLeave()}>
+        onMouseLeave={() => onMouseLeave()}
+        data-testid={id}
+      >
         {(frame === LevelFrame.CITIES) && level && <div className="place-card__mark">
           <span>{level}</span>
         </div>}
