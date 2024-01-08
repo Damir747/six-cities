@@ -33,7 +33,7 @@ const CityMap = ({ rooms, idActiveRoom, cityName, coordinates }) => {
   }, [mapRef, setMapSettings]);
 
   useEffect(() => {
-    const filteredRooms = rooms.filter((room) => room.cityNameName === cityName);
+    const filteredRooms = rooms.filter((room) => room.cityName === cityName);
     const markers = [];
     if (mapSettings) {
       mapSettings.setView(coordinates, coordinates.zoom);
