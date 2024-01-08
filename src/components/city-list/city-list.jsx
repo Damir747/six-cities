@@ -20,14 +20,14 @@ const CityList = () => {
       <div className="tabs">
         <section className="locations container">
           <ul className="locations__list tabs__list">
-            {Object.keys(cities).map((city) => {
+            {Object.keys(cities).map((cityName) => {
               return (
-                <li key={city} className="locations__item">
+                <li key={cityName} className="locations__item">
                   <a type="button"
                     className={classname('locations__item-link', 'tabs__item',
-                      city === activeCity ? 'tabs__item--active' : '')}
-                    onClick={() => onClick(city)}>
-                    <span>{city}</span>
+                      cityName === activeCity ? 'tabs__item--active' : '')}
+                    onClick={() => onClick(cityName)}>
+                    <span>{cityName}</span>
                   </a>
                 </li>
               );
