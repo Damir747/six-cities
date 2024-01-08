@@ -24,7 +24,7 @@ const CityPlaces = () => {
 
     return (
       <React.Fragment>
-        <div className="cities">
+        <div className="cities" data-testid="city-places">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
