@@ -37,7 +37,7 @@ const NewReview = ({ idHotel }) => {
     <React.Fragment>
       <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
         <label className="reviews__label form__label" htmlFor="review">Your review</label>
-        <div className="reviews__rating-form form__rating">
+        <div className="reviews__rating-form form__rating" data-testid="stars">
           {stars.map((star) => {
             const { value, title } = star;
             const id = `${value}-stars`;
@@ -49,7 +49,8 @@ const NewReview = ({ idHotel }) => {
                   id={id}
                   type="radio"
                   checked={+value === +commentStars}
-                  onChange={handleStars} />
+                  onChange={handleStars}
+                />
                 <label htmlFor={id} className="reviews__rating-label form__rating-label" title={title}>
                   <svg className="form__star-image" width="37" height="33">
                     <use xlinkHref="#icon-star"></use>
@@ -59,13 +60,13 @@ const NewReview = ({ idHotel }) => {
             );
           })}
         </div>
-        <textarea className="reviews__textarea form__textarea"
+        <textarea className="reviews__textarea form__textarea" data-testid="review"
           id="review"
           name="review"
           placeholder="Tell how was your stay, what you like and what can be improved"
           value={commentText}
           onChange={handleCommentText}
-        ></textarea>
+        />
         <div className="reviews__button-wrapper">
           <p className="reviews__help">
             To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">{COMMENT_LENGTH.MIN} characters</b> and no more than <b className="reviews__text-amount">{COMMENT_LENGTH.MAX} characters</b>.
