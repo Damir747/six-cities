@@ -78,6 +78,10 @@ describe(`Async Comments operation works correctly`, () => {
       author: 'user-name@none.ru',
       img: 'fake-url-to-image',
       reviewText: fakeTextComment,
+      user: {
+        name: '',
+        avatar_url: ''
+      }
     }];
     const checkFetchPostComment = fetchPostComment(fakeIdHotel, fakeCommentObj, () => { });
     apiMock

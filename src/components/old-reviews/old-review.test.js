@@ -21,7 +21,7 @@ it(`Should OldReview render correctly`, () => {
           author: 'Vasya',
           img: '',
           reviewText: 'nothing to write',
-          rating: '',
+          rating: 5,
           date: ''
         }} />
       </ Router>
