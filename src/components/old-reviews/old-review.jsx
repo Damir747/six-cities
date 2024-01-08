@@ -22,7 +22,7 @@ const OldReview = ({ review }) => {
               <span className="visually-hidden">Rating</span>
             </div>
           </div>
-          <p className="reviews__text">
+          <p className="reviews__text" data-testid="review-text">
             {reviewText}
           </p>
           <time className="reviews__time" dateTime={new Date(date).toLocaleString(`en-CA`, { dateStyle: `short` })}>

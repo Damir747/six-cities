@@ -62,7 +62,7 @@ const initialMockState = {
     hotel: null,
     rooms: [room],
     serverRooms: [serverRoom],
-    neighbourhood: [serverRoom, serverRoom, serverRoom],
+    neighbourhood: [room],
     isHotelListLoading: false,
     isHotelListLoaded: false,
     reviews: [],

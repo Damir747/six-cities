@@ -43,7 +43,6 @@ const Property = () => {
   const neighbourhood = useSelector(getNeighbourhood);
 
   const dispatch = useDispatch();
-
   const idHotelParam = Number(useParams().id);
 
   const [idActiveRoom, setActiveRoom] = useState(null);
@@ -90,7 +89,7 @@ const Property = () => {
         <Header />
 
         <main className="page__main page__main--property">
-          <section className="property">
+          <section className="property" data-testid="property">
             <div className="property__gallery-container container">
               <div className="property__gallery">
                 {images && images.map((image) => (
@@ -183,7 +182,7 @@ const Property = () => {
             </section>
           </section>
           <div className="container">
-            <section className="near-places places">
+            <section className="near-places places" data-testid="neighbourhood">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
                 {neighbourhood.map((neighbour) => (

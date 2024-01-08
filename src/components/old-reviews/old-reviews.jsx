@@ -9,7 +9,7 @@ const OldReviews = () => {
   return (
     <React.Fragment>
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{countReviews}</span></h2>
-      <ul className="reviews__list">
+      <ul className="reviews__list" data-testid="reviews-list">
         {reviews.map((item) => {
           return (
             <OldReview
