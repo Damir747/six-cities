@@ -7,6 +7,7 @@ import * as redux from 'react-redux';
 import { initialMockState } from '../../mock/mock-test';
 import Property from './property';
 import ReactRouter from 'react-router';
+import { AppRoute } from '../../const';
 
 const mockStore = configureStore({});
 
@@ -14,7 +15,17 @@ it(`Should Property render correctly`, () => {
   const history = createMemoryHistory();
   const store = mockStore(initialMockState);
   store.dispatch = () => Promise.resolve();
+  // history.push(AppRoute.OFFER + '1');
+  // console.log(history.location.pathname);
   jest.spyOn(ReactRouter, 'useParams').mockReturnValue({ id: 1 });
+  // jest.mock('react-router-dom', () => {
+  //   return {
+  //     __esModule: true,
+  //     ...jest.requireActual('react-router-dom'),
+  //     useParams: () => ({ id: 1, anotherField: 'bla-bla-bla' })
+  //   };
+  // });
+
   render(
     <redux.Provider store={store}>
       < Router history={history}>

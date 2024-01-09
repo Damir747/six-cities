@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import { useParams } from 'react-router-dom';
 
 import Top from '../top/top';
 import Header from '../header/header';
@@ -43,8 +43,8 @@ const Property = () => {
   const neighbourhood = useSelector(getNeighbourhood);
 
   const dispatch = useDispatch();
+  console.log(useParams());
   const idHotelParam = Number(useParams().id);
-
   const [idActiveRoom, setActiveRoom] = useState(null);
   const handleMouseEnter = useCallback((item) => {
     setActiveRoom(item);
