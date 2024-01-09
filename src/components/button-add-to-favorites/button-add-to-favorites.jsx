@@ -31,7 +31,7 @@ const ButtonAddToFavorites = ({ id, bookmark, frame }) => {
           height={AddToFavoriteButtonSize[frame].HEIGHT}>
           <use xlinkHref="#icon-bookmark"></use>
         </svg>
-        <span className="visually-hidden">{bookmark}</span>
+        <span className="visually-hidden" data-testid="bookmark">{bookmark}</span>
       </button>
     </React.Fragment>
   );
