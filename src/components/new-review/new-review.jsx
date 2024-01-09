@@ -23,6 +23,7 @@ const NewReview = ({ idHotel }) => {
   const disableSubmit = !((commentText.length >= COMMENT_LENGTH.MIN && commentText.length <= COMMENT_LENGTH.MAX && commentStars >= 1 && commentStars <= 5));
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    setSubmitting(true);
     function onAfterSendComment() {
       setCommentText('');
       setStars(0);
