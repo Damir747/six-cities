@@ -43,7 +43,7 @@ const Property = () => {
   const neighbourhood = useSelector(getNeighbourhood);
 
   const dispatch = useDispatch();
-  console.log(useParams());
+
   const idHotelParam = Number(useParams().id);
   const [idActiveRoom, setActiveRoom] = useState(null);
   const handleMouseEnter = useCallback((item) => {

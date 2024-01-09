@@ -29,7 +29,7 @@ const fetchCommentsList = (idHotel) => (dispatch, _getState, api) => {
 
 };
 
-const fetchPostComment = (idHotel, commentObj, onAfterSendComment) => (dispatch, _getState, api) => {
+const fetchPostComment = (idHotel, commentObj, onAfterSendComment, onSubmittingFinally) => (dispatch, _getState, api) => {
   function onError(error) {
     console.log('error!', error);
     dispatch(appendNotification({
@@ -51,6 +51,7 @@ const fetchPostComment = (idHotel, commentObj, onAfterSendComment) => (dispatch,
       onAfterSendComment();
       return commentList;
     })
+    .finally(() => onSubmittingFinally())
     .catch((error) => onError(error));
 
 };

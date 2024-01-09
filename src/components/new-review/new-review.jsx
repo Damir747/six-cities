@@ -10,6 +10,7 @@ const NewReview = ({ idHotel }) => {
   const dispatch = useDispatch();
   const [commentText, setCommentText] = useState('');
   const [commentStars, setStars] = useState(0);
+  const [submitting, setSubmitting] = useState(false);
 
   const handleCommentText = useCallback((evt) => {
     setCommentText(evt.target.value);
@@ -30,7 +31,8 @@ const NewReview = ({ idHotel }) => {
       'comment': commentText,
       'rating': commentStars,
     },
-      () => onAfterSendComment()));
+      () => onAfterSendComment(),
+      () => setSubmitting(false)));
   };
 
   return (
@@ -50,6 +52,7 @@ const NewReview = ({ idHotel }) => {
                   type="radio"
                   checked={+value === +commentStars}
                   onChange={handleStars}
+                  disabled={submitting}
                 />
                 <label htmlFor={id} className="reviews__rating-label form__rating-label" title={title}>
                   <svg className="form__star-image" width="37" height="33">
@@ -60,7 +63,7 @@ const NewReview = ({ idHotel }) => {
             );
           })}
         </div>
-        <textarea className="reviews__textarea form__textarea" data-testid="review"
+        <textarea className="reviews__textarea form__textarea" disabled={submitting} data-testid="review"
           id="review"
           name="review"
           placeholder="Tell how was your stay, what you like and what can be improved"
@@ -71,7 +74,7 @@ const NewReview = ({ idHotel }) => {
           <p className="reviews__help">
             To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">{COMMENT_LENGTH.MIN} characters</b> and no more than <b className="reviews__text-amount">{COMMENT_LENGTH.MAX} characters</b>.
           </p>
-          <button className="reviews__submit form__submit button" type="submit" disabled={disableSubmit}>Submit</button>
+          <button className="reviews__submit form__submit button" type="submit" disabled={disableSubmit || submitting}>Submit</button>
         </div>
       </form>
     </React.Fragment >
