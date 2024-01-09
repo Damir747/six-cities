@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import CityMap from './city-map';
 
 jest.mock('./city-map', () => {
-  const mockCityMap = () => <>This is mock CityMap</>
+  const mockCityMap = () => <>This is mock CityMap</>;
   mockCityMap.displayName = 'MockCityMap';
   return {
     __esModule: true,
@@ -15,7 +15,7 @@ jest.mock('./city-map', () => {
 
 describe(`Test HOC CityMap`, () => {
   it(`Base component should be correct rendering when use with HOC`, () => {
-    const BaseComponent = () => <H1>with CityMap</H1>;
+    const BaseComponent = () => <h1>with CityMap</h1>;
     const BaseComponentWrapped = CityMap(BaseComponent);
     render(<BaseComponentWrapped />);
 
