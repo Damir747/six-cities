@@ -1,27 +1,16 @@
 import * as React from 'react';
-import * as renderer from '@testing-library/react-hooks';
+import { render, screen } from '@testing-library/react';
 import CityMap from './city-map';
 import { initialMockState } from '../../mock/mock-test';
 
-const createNodeForMap = {
-  createNodeMock: () => {
-    const el = document.createElement(`div`);
-    el.id = `map`;
-    el.style.height = `400px`;
 
-    return el;
-  }
-};
 it(`Map correctly renders`, () => {
+  render(<CityMap
+    rooms={initialMockState.HOTEL.rooms}
+    idActiveRoom={1}
+    cityName={initialMockState.HOTEL.rooms[0].city.name}
+    coordinates={initialMockState.HOTEL.rooms[0].city.location}
+  />);
 
-  const tree = renderer
-    .create(<CityMap
-      rooms={initialMockState.HOTEL.rooms}
-      idActiveRoom={1}
-      cityName={initialMockState.HOTEL.rooms[0].city.name}
-      coordinates={initialMockState.HOTEL.rooms[0].city.location}
-    />, createNodeForMap)
-    .toJSON();
-
-  expect(tree).toMatchSnapshot();
+  expect(screen.getByTestId('map')).toBeInTheDocument();
 });

@@ -5,7 +5,7 @@ import { AuthorizationStatus, BOOKMARKS } from '../const';
 const room = {
   bookmark: BOOKMARKS.TO,
   card: "Peaceful studio in the most wanted area in town. Quiet house Near of everything. Completely renovated. Lovely neighbourhood, lot of trendy shops, restaurants and bars in a walking distance.",
-  city: { name: "Brussels", location: { latitude: 50.846557, longitude: 4.351697, zoom: 13 } },
+  city: { name: "Brussels", location: { latitude: 50.846557, longitude: 4.351697, lat: 50.846557, lng: 4.351697, zoom: 13 } },
   cityName: "Brussels",
   coordinates: { lat: 50.827557, lng: 4.336697, zoom: 16 },
   description: "Peaceful studio in the most wanted area in town. Quiet house Near of everything. Completely renovated. Lovely neighbourhood, lot of trendy shops, restaurants and bars in a walking distance.",
