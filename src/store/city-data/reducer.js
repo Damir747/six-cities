@@ -3,7 +3,7 @@ import cities from '../../mock/mock-cities';
 import { CHANGE_CITY, CITY_LIST, CITY_LIST_INIT, CURRENT_CITY } from './actions-types';
 
 const initialState = {
-  activeCity: 'Paris',
+  activeCity: Object.keys(cities)[0] || 'Paris',
   cities,
   currentCity: '',
   isCityListLoaded: false,

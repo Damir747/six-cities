@@ -10,8 +10,11 @@ import { redirect } from './store/middleware/redirect';
 import rootReducer from './store/root-reducer';
 import App from './components/app/app';
 import browserHistory from './browser-history';
+import { changeAuthorizationStatus } from './store/login-data/actions';
 
-const api = createAPI();
+const api = createAPI(() => {
+  store.dispatch(changeAuthorizationStatus(false));
+});
 
 const store = configureStore({
   reducer: rootReducer,
